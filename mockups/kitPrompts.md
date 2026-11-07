@@ -26,12 +26,12 @@
 | Escenas de historia (Nido 1 + 5 islas × 2) | **11** | 16:9 | **integrado** (cielo de la escena) | `arte/escenas/<isla>-<n>.webp` |
 | Miniaturas de isla (mapa)                   | 6            | 1:1         | **alpha** (recorte)                | `arte/islas/<slug>.webp`                                 |
 | Sello por isla                              | 6            | 1:1         | **alpha** (recorte)                | `arte/sellos/sello-<slug>.webp`                          |
-| Nubi: expresiones                           | 7            | 1:1         | **alpha** (recorte)                | `arte/nubi/nubi-<expresion>.webp`                        |
+| Nubi: expresiones                           | 9 (incluye base y narrando) | 1:1         | **alpha** (recorte)                | `arte/nubi/nubi-<expresion>.webp`                        |
 | Nubi: accesorios                            | 3            | 1:1         | **alpha** (recorte)                | `arte/nubi/acc-<nombre>.webp`                            |
 | Portada (hero) y coronación                | 2            | 4:5         | integrado                                | `arte/hero-portada.webp`, `arte/coronacion.webp`        |
 | PWA + Open Graph                            | 4            | 1:1 / 16:9  | integrado (maskable obligatorio)         | `public/pwa-192.png`, `512`, `maskable`, `og.png` |
 
-**Regla de fondo:** las piezas que se montan sobre tarjetas, sellos o mapa (Nubi, accesorios, sellos y miniaturas de isla) van con **alpha**; las que son una atmósfera completa (28 escenas, hero, coronación, PWA/OG) van con **fondo integrado** — si no, flotan sobre el layout y hay que reconstruir el ambiente en CSS. Nano Banana **no produce transparencia fiable**: para las piezas con alpha se genera sobre **fondo blanco liso**, se recorta con `scripts/process_art_hd.py` (flood-fill + defringe) y se comprime con `scripts/optimize_webp.py`.
+**Regla de fondo:** las piezas que se montan sobre tarjetas, sellos o mapa (Nubi, accesorios, sellos y miniaturas de isla) van con **alpha**; las que son una atmósfera completa (11 escenas, hero, coronación, PWA/OG) van con **fondo integrado** — si no, flotan sobre el layout y hay que reconstruir el ambiente en CSS. Nano Banana **no produce transparencia fiable**: para las piezas con alpha se genera sobre **fondo blanco liso**, se recorta con `scripts/process_art_hd.py` (flood-fill + defringe) y se comprime con `scripts/optimize_webp.py`.
 
 Los 11 nombres: `nido-1`, `reloj-1…2`, `horarios-1…2`, `animo-1…2`, `cerebro-1…2`, `taller-1…2`.
 
@@ -92,7 +92,9 @@ Adjuntar ancla; 1:1; una idea visual central. Motivos del doc 04 §10:
 
 **Niebla genérica** (una sola, para las 9 pendientes): *silueta de isla tapada por niebla clara, contorno redondeado, sin detalle interior*.
 
-## 6. P3 — Escenas de la historia (28)
+## 6. P3 — Escenas de la historia (11 en v0.1)
+
+> Recorte de arte v0.1: de las 5 escenas narrativas por isla se ilustran 2 (actos 1 y 2); Nido ilustra 1 de 3. El resto de los momentos se cuentan con texto y estos prompts quedan como material para v2.
 
 **Plantilla** (adjuntar ancla; si aparece Nubi, adjuntar `nubi-base`; proporción 16:9; sin texto):
 
@@ -109,7 +111,7 @@ referencia. Sin texto, sin números, sin personas reales.
 
 | # | Acto    | [SITUACIÓN]                                                                                                 |
 | - | ------- | ------------------------------------------------------------------------------------------------------------ |
-| 1 | llegada | *nido gigante y acogedor sobre la nube más alta, con Nubi asomada y un pasaporte de viaje abierto*        |
+| 1 | llegada (producida) | *nido gigante y acogedor sobre la nube más alta, con Nubi asomada y un pasaporte de viaje abierto*        |
 | 2 | viaje   | *archipiélago visto desde el nido: 6 islas encendidas y el resto en niebla suave, ruta de nubes punteada* |
 | 3 | promesa | *Nubi entregando un sello dorado en forma de nube a un pasaporte abierto*                                  |
 
@@ -117,8 +119,8 @@ referencia. Sin texto, sin números, sin personas reales.
 
 | # | Acto         | [SITUACIÓN]                                                                                                                |
 | - | ------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| 1 | síntoma     | *habitación-nube a medianoche: ojos abiertos bajo la manta, luna alta, dos relojes pequeños discutiendo en la almohada* |
-| 2 | causa        | *reloj de arena-pubertad que se inclina y su arena cae hacia la noche, con estrellas desplazándose*                      |
+| 1 | síntoma (producida) | *habitación-nube a medianoche: ojos abiertos bajo la manta, luna alta, dos relojes pequeños discutiendo en la almohada* |
+| 2 | causa (producida) | *reloj de arena-pubertad que se inclina y su arena cae hacia la noche, con estrellas desplazándose*                      |
 | 3 | necesidad    | *cama-nube con colcha de estrellas donde brillan entre 8 y 10 estrellitas alineadas*                                      |
 | 4 | sin culpa    | *nube pequeña descansando con dignidad en su almohada, mirada tranquila, sin señal de regaño*                          |
 | 5 | dato honesto | *archipiélago de cuartos-nube vistos de lejos: 7 con ojeras suaves y 3 descansados, sin cifras ni texto*                 |
@@ -127,8 +129,8 @@ referencia. Sin texto, sin números, sin personas reales.
 
 | # | Acto             | [SITUACIÓN]                                                                                                                             |
 | - | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 | síntoma         | *campana escolar al amanecer sonando sobre una cama que aún duerme*                                                                   |
-| 2 | causa            | *dos relojes gemelos en extremos de la isla: uno madrugador con maletín, otro fiestero con gafas de sol, unidos por una cuerda floja* |
+| 1 | síntoma (producida) | *campana escolar al amanecer sonando sobre una cama que aún duerme*                                                                   |
+| 2 | causa (producida) | *dos relojes gemelos en extremos de la isla: uno madrugador con maletín, otro fiestero con gafas de sol, unidos por una cuerda floja* |
 | 3 | recomendación   | *campana del cielo inclinada hacia la mañana, con un sol que sale más tarde, sin texto*                                              |
 | 4 | no depende de ti | *tres nubes reunidas conversando alrededor de una mesa de nube (familia, colegio, orientación), gesto amable*                         |
 | 5 | puente           | *puente de nubes que une la isla Horarios con la isla Ánimo, con una chispa de conexión en el centro*                                |
@@ -137,8 +139,8 @@ referencia. Sin texto, sin números, sin personas reales.
 
 | # | Acto           | [SITUACIÓN]                                                                                            |
 | - | -------------- | ------------------------------------------------------------------------------------------------------- |
-| 1 | síntoma       | *fila de nubes adolescentes con caritas tensas y cansadas, sin números ni gráficos*                 |
-| 2 | lo notan       | *nube joven con mejillas infladas y una nube adulta mirando con ternura, gesto de "te noto distinto"* |
+| 1 | síntoma (producida) | *fila de nubes adolescentes con caritas tensas y cansadas, sin números ni gráficos*                 |
+| 2 | lo notan (producida) | *nube joven con mejillas infladas y una nube adulta mirando con ternura, gesto de "te noto distinto"* |
 | 3 | no es tristeza | *nube con una tormenta mínima sobre la cabeza y un arcoíris tenue detrás, emoción ambigua*        |
 | 4 | freno          | *freno hecho de niebla deteniendo con suavidad a un rayito travieso*                                  |
 | 5 | ganas          | *nube frente a un arco de estrellas que se cruza en el cielo, mirada curiosa y expectante*            |
@@ -147,8 +149,8 @@ referencia. Sin texto, sin números, sin personas reales.
 
 | # | Acto            | [SITUACIÓN]                                                                                                       |
 | - | --------------- | ------------------------------------------------------------------------------------------------------------------ |
-| 1 | marco           | *biblioteca-torre dentro de una cabeza-isla: libros que se guardan solos durante la noche*                       |
-| 2 | una noche corta | *luna con un reloj pequeño de 4 horas junto a una lista de palabras convertida en estrellitas, apenas alterada* |
+| 1 | marco (producida) | *biblioteca-torre dentro de una cabeza-isla: libros que se guardan solos durante la noche*                       |
+| 2 | una noche corta (producida) | *luna con un reloj pequeño de 4 horas junto a una lista de palabras convertida en estrellitas, apenas alterada* |
 | 3 | varias noches   | *estantería de nubes que se desordena poco a poco, libros que se caen de su sitio*                              |
 | 4 | cuatro noches   | *libro intacto después de cuatro lunas alineadas, atmosfera neutra*                                             |
 | 5 | no coinciden    | *dos bibliotecarios-nube comparando libros distintos abiertos, gesto de "depende de lo que mides"*               |
@@ -157,8 +159,8 @@ referencia. Sin texto, sin números, sin personas reales.
 
 | # | Acto            | [SITUACIÓN]                                                                                                |
 | - | --------------- | ----------------------------------------------------------------------------------------------------------- |
-| 1 | propuesta       | *banco de trabajo de nubes con 3 experimentos sencillos alineados (no una receta), pictogramas sin texto* |
-| 2 | hora estable    | *despertador-sol que suena igual en día de colegio y en fin de semana, dos escenas pequeñas*            |
+| 1 | propuesta (producida) | *banco de trabajo de nubes con 3 experimentos sencillos alineados (no una receta), pictogramas sin texto* |
+| 2 | hora estable (producida) | *despertador-sol que suena igual en día de colegio y en fin de semana, dos escenas pequeñas*            |
 | 3 | luz natural     | *ventana de nube con un rayo de sol de mañana entrando sobre una cara tranquila*                         |
 | 4 | pantallas lejos | *cama-nube con el celular descansando al otro lado de la habitación, distancia clara*                    |
 | 5 | respiración    | *Nubi inflándose y desinflándose despacio, con ondas suaves alrededor (sin texto)*                      |
@@ -181,7 +183,7 @@ sobre fondo transparente. Mismo estilo que la referencia. Sin texto.
 
 - **Hero portada** (4:5, adjuntar ancla + `nubi-base`): *Nubi grande flotando frente al archipiélago al amanecer, islas en niebla al fondo, espacio libre arriba para el título (el texto lo pone la interfaz)*.
 - **Coronación** (4:5): *Nubi con gorro de dormir y bufanda de estrellas, rodeado de 6 sellos flotantes y un arcoíris suave; celebración serena, sin fuegos artificiales*.
-- **PWA/OG**: salen de `nubi-base` y del hero; exportar 192/512/maskable (1:1) y OG 1200×630 (16:9). Son las únicas salidas en ráster permitidas (04 §10).
+- **PWA/OG**: salen de `nubi-base` y del hero; exportar 192/512/maskable (1:1) y OG 1200×630 (16:9). Se exportan en PNG porque WebP no cubre bien maskable ni Open Graph en todos los destinos; el resto del arte va en WebP (ADR-014).
 
 ## 9. Post-proceso: de Nano Banana a WebP HD
 
@@ -193,7 +195,7 @@ sobre fondo transparente. Mismo estilo que la referencia. Sin texto.
 
 ## 10. Presupuesto y estado
 
-- Generación: 28 escenas + 6 miniaturas + 6 sellos + 10 Nubi + hero + coronación + descartes ≈ **90-110 imágenes ≈ $3-4** por API a 1K (gratis en la app con límites).
+- Generación: 11 escenas + 6 miniaturas + 6 sellos + 12 Nubi + hero + coronación + descartes ≈ **45-60 imágenes ≈ $2-3** por API a 1K (gratis en la app con límites).
 - El costo de vectorización desaparece: el post-proceso es local con `scripts/process_art_hd.py` y `scripts/optimize_webp.py`.
 - Estado: pendiente aprobar `ancla-estilo.png` y `nubi-base.png`; después generar por islas (una isla por tanda para mantener consistencia).
 
