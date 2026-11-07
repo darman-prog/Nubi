@@ -347,9 +347,9 @@ Objetivo: **WCAG 2.2 AA**. Ninguna pantalla se considera terminada sin cumplir:
 ## 10. Ilustración e iconografía
 
 - **Estilo:** vectorial, formas suaves, degradados sutiles, nubes y estrellas; paleta del §3.1.
-- **Formato:** SVG optimizado (≤ 20 KB por ilustración) para el mapa e íconos; sin imágenes de mapa de bits salvo la imagen de compartir (Open Graph).
-- **Origen y licencias:** propias o con licencia abierta/comercial verificada; si se genera con IA, revisar derechos y dejar registro. **Q-04 respondida (2026-11-05):** generación con Google **Nano Banana 2.1** → **vectorizado a SVG** compatible con este §10; el ráster intermedio no se distribuye; todo recurso registra autor, proceso y licencia en `/licenses` (prompts y pipeline: `kitPrompts.md` en la raíz del repo). **Cada recurso registra autor y licencia en `/licenses`.**
-- **Nombres:** `isla-reloj.svg`, `nubi-curiosa.svg`, `icon-ev-3.svg`.
+- **Formato:** ilustraciones en **WebP HD** (800 px escenas/miniaturas, 1280 px piezas grandes) con canal alfa cuando se montan sobre UI; SVG solo para iconos de interfaz y las siluetas de nube del mapa. Presupuesto: miniatura ≤ 40 KB, escena ≤ 90 KB (800 px) y ≤ 180 KB (1280 px), con carga diferida por isla. *(Antes se exigía SVG ≤ 20 KB: la vectorización degradaba el arte; decisión en `docs/adr/014-arte-webp-hd.md`.)*
+- **Origen y licencias:** propias o con licencia abierta/comercial verificada; si se genera con IA, revisar derechos y dejar registro. **Q-04 respondida (2026-11-05):** generación con Google **Nano Banana 2.1**, recorte y **WebP HD** (ADR-014); el material intermedio no se distribuye; todo recurso registra autor, proceso y licencia en `/licenses` (prompts y pipeline: `mockups/kitPrompts.md`). **Cada recurso registra autor y licencia en `/licenses`.**
+- **Nombres:** `isla-reloj.webp`, `nubi-curiosa.webp`, `escena-reloj-1.webp`, `icon-ev-3.svg`.
 - **Prohibido:** personajes con derechos de terceros, imágenes de personas reales sin autorización, imágenes que muestren pantallas, camas o cuerpos de forma sugestiva.
 
 ### Motivos por isla (MVP)
@@ -367,7 +367,7 @@ Cada isla se distingue por **forma e ícono**, no solo por color.
 
 ### Inventario mínimo de recursos del MVP
 
-Nubi (7 expresiones + 3 accesorios) · 6 islas + versión en niebla · fondo del cielo (claro/oscuro) · 3 íconos de evidencia · 5 rostros de ánimo · íconos de navegación (4) y de ajustes · 4 sellos de tipo + 4 de zona · 12–25 ilustraciones de tarjeta · ícono de la PWA (192, 512 y *maskable*) · imagen para compartir.
+Nubi (9 expresiones + 3 accesorios) · 6 islas + versión en niebla · fondo del cielo (claro/oscuro) · 3 íconos de evidencia · 5 rostros de ánimo · íconos de navegación (4) y de ajustes · 6 sellos de isla · 11 escenas WebP reutilizadas en los momentos de historia · ícono de la PWA (192, 512 y *maskable*) · imagen para compartir.
 
 ---
 

@@ -1,14 +1,14 @@
 # Kit de prompts — Nubi y el Archipiélago del Sueño
 
-*Prompts para generar todo el arte del proyecto con Google Gemini "Nano Banana" (modelo `gemini-nano-banana-2.1`) y vectorizarlo a SVG. Para qué sirve: producir las ~60 piezas del flujo v0.1 (D-16) con estilo, personaje y paleta consistentes. Cuándo leerlo: al generar arte en el paso "Arte vectorizado" del plan.*
+*Prompts para generar todo el arte del proyecto con Google Gemini "Nano Banana" (modelo `gemini-nano-banana-2.1`) y entregarlo en WebP HD. Para qué sirve: producir las ~60 piezas del flujo v0.1 (D-16) con estilo, personaje y paleta consistentes. Cuándo leerlo: al generar arte en el paso "Arte WebP HD" del plan.*
 
-**Alineado al flujo v0.1 (2026-11-06):** pantallas de referencia en `mockups/stitch/flujo/` (01 portada → 10 coronación). El arte de contenido son **28 ilustraciones de escena** (la historia narrada por Nubi, 4-6 escenas por isla), más miniaturas, sellos, Nubi y piezas de portada/coronación. Las islas sin evidencia (Pantalla, Energía, Tormenta, Ambiente, Cuerpo, Luna, Riesgo, Monstruos, Mirador) **no llevan arte**: en el mapa son siluetas de niebla genéricas (PRD D-06 / R-02).
+**Alineado al flujo v0.1 (2026-11-06):** pantallas de referencia en `mockups/stitch/flujo/` (01 portada → 10 coronación). El arte de contenido son **11 ilustraciones de escena** (la historia narrada por Nubi; se reutilizan entre los 4-6 momentos de cada isla), más miniaturas, sellos, Nubi y piezas de portada/coronación. Las islas sin evidencia (Pantalla, Energía, Tormenta, Ambiente, Cuerpo, Luna, Riesgo, Monstruos, Mirador) **no llevan arte**: en el mapa son siluetas de niebla genéricas (PRD D-06 / R-02).
 
 ---
 
 ## 1. Reglas de uso (aplican a todo el kit)
 
-- **Modelo**: `gemini-nano-banana-2.1` (API de Gemini o AI Studio). Resolución **1K**; la salida se vectoriza.
+- **Modelo**: `gemini-nano-banana-2.1` (API de Gemini o AI Studio). Resolución **1K**; la salida final se entrega en **WebP HD** (800/1280 px) con el pipeline de la §9.
 - **Referencias obligatorias**:
   - Toda escena → adjuntar el **ancla de estilo** (`arte/ancla-estilo.png`).
   - Si Nubi aparece → adjuntar **`arte/nubi-base.png`**.
@@ -21,19 +21,19 @@
 
 ## 2. Inventario y nombres
 
-| Grupo                                       | Cantidad     | Proporción | Fondo                                    | Archivo final (SVG)                                       |
+| Grupo                                       | Cantidad     | Proporción | Fondo                                    | Archivo final (WebP)                                       |
 | ------------------------------------------- | ------------ | ----------- | ---------------------------------------- | --------------------------------------------------------- |
-| Escenas de historia (Nido 3 + 5 islas × 5) | **28** | 16:9        | **integrado** (cielo de la escena) | `arte/escenas/<isla>-<n>.svg`                           |
-| Miniaturas de isla (mapa)                   | 6            | 1:1         | **alpha** (recorte)                | `arte/islas/<slug>.svg`                                 |
-| Sello por isla                              | 6            | 1:1         | **alpha** (recorte)                | `arte/sellos/sello-<slug>.svg`                          |
-| Nubi: expresiones                           | 7            | 1:1         | **alpha** (recorte)                | `arte/nubi/nubi-<expresion>.svg`                        |
-| Nubi: accesorios                            | 3            | 1:1         | **alpha** (recorte)                | `arte/nubi/acc-<nombre>.svg`                            |
-| Portada (hero) y coronación                | 2            | 4:5         | integrado                                | `arte/hero-portada.svg`, `arte/coronacion.svg`        |
+| Escenas de historia (Nido 1 + 5 islas × 2) | **11** | 16:9 | **integrado** (cielo de la escena) | `arte/escenas/<isla>-<n>.webp` |
+| Miniaturas de isla (mapa)                   | 6            | 1:1         | **alpha** (recorte)                | `arte/islas/<slug>.webp`                                 |
+| Sello por isla                              | 6            | 1:1         | **alpha** (recorte)                | `arte/sellos/sello-<slug>.webp`                          |
+| Nubi: expresiones                           | 7            | 1:1         | **alpha** (recorte)                | `arte/nubi/nubi-<expresion>.webp`                        |
+| Nubi: accesorios                            | 3            | 1:1         | **alpha** (recorte)                | `arte/nubi/acc-<nombre>.webp`                            |
+| Portada (hero) y coronación                | 2            | 4:5         | integrado                                | `arte/hero-portada.webp`, `arte/coronacion.webp`        |
 | PWA + Open Graph                            | 4            | 1:1 / 16:9  | integrado (maskable obligatorio)         | `public/pwa-192.png`, `512`, `maskable`, `og.png` |
 
-**Regla de fondo:** las piezas que se montan sobre tarjetas, sellos o mapa (Nubi, accesorios, sellos y miniaturas de isla) van con **alpha**; las que son una atmósfera completa (28 escenas, hero, coronación, PWA/OG) van con **fondo integrado** — si no, flotan sobre el layout y hay que reconstruir el ambiente en CSS. Nano Banana **no produce transparencia fiable**: para las piezas con alpha se genera sobre **fondo blanco liso**, se recorta (AI Studio o `rembg`) y luego se vectoriza revisando el halo blanco de 1-2 px.
+**Regla de fondo:** las piezas que se montan sobre tarjetas, sellos o mapa (Nubi, accesorios, sellos y miniaturas de isla) van con **alpha**; las que son una atmósfera completa (28 escenas, hero, coronación, PWA/OG) van con **fondo integrado** — si no, flotan sobre el layout y hay que reconstruir el ambiente en CSS. Nano Banana **no produce transparencia fiable**: para las piezas con alpha se genera sobre **fondo blanco liso**, se recorta con `scripts/process_art_hd.py` (flood-fill + defringe) y se comprime con `scripts/optimize_webp.py`.
 
-Los 28 nombres: `nido-1…3`, `reloj-1…5`, `horarios-1…5`, `animo-1…5`, `cerebro-1…5`, `taller-1…5`.
+Los 11 nombres: `nido-1`, `reloj-1…2`, `horarios-1…2`, `animo-1…2`, `cerebro-1…2`, `taller-1…2`.
 
 ---
 
@@ -183,19 +183,18 @@ sobre fondo transparente. Mismo estilo que la referencia. Sin texto.
 - **Coronación** (4:5): *Nubi con gorro de dormir y bufanda de estrellas, rodeado de 6 sellos flotantes y un arcoíris suave; celebración serena, sin fuegos artificiales*.
 - **PWA/OG**: salen de `nubi-base` y del hero; exportar 192/512/maskable (1:1) y OG 1200×630 (16:9). Son las únicas salidas en ráster permitidas (04 §10).
 
-## 9. Post-proceso: de Nano Banana a SVG
+## 9. Post-proceso: de Nano Banana a WebP HD
 
-1. **Elegir** por tanda (1 de cada 2-3).
-2. **Vectorizar** (Vectorizer.AI o el equivalente que fijes; una sola herramienta para todo el set).
-3. **Optimizar** con SVGO → **≤ 20 KB por archivo**; si una escena no baja, simplificar la composición y regenerar (formas más planas, menos detalles).
-4. **Nombrar** según la tabla §2 y registrar en `licenses/` (proceso, fecha, iteración de prompt).
-5. **Ajustar paleta** al SVG si hace falta para igualar los tokens del doc 04 §3 (editar rellenos, no filtros).
-6. Los originales sin comprimir quedan en `arte/generados/` y **no se distribuyen**.
+1. Elegir por tanda (1 de cada 2-3).
+2. Recortar con `scripts/process_art_hd.py` (flood-fill exterior + defringe; conserva brillos internos).
+3. Optimizar con `scripts/optimize_webp.py` a 800 px (escenas/miniaturas) o 1280 px (hero/coronación), apuntando a ≤ 90 KB y ≤ 180 KB.
+4. Nombrar según §2 y registrar en `licenses/`.
+5. Los originales quedan en `arte/generados/` y no se distribuyen.
 
 ## 10. Presupuesto y estado
 
 - Generación: 28 escenas + 6 miniaturas + 6 sellos + 10 Nubi + hero + coronación + descartes ≈ **90-110 imágenes ≈ $3-4** por API a 1K (gratis en la app con límites).
-- Vectorizado: ~55 recursos × ~$0,10 ≈ **≤ $8**; PWA/OG y sellos pueden salir del mismo set.
+- El costo de vectorización desaparece: el post-proceso es local con `scripts/process_art_hd.py` y `scripts/optimize_webp.py`.
 - Estado: pendiente aprobar `ancla-estilo.png` y `nubi-base.png`; después generar por islas (una isla por tanda para mantener consistencia).
 
 ## 11. Notas
