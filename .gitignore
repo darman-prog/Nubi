@@ -1,0 +1,27 @@
+# dependencias y build
+node_modules/
+dist/
+dist-ssr/
+coverage/
+playwright-report/
+test-results/
+
+# arte en crudo (no se distribuye; solo los SVG optimizados)
+arte/generados/
+
+# entorno y sistema
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# logs y temporales
+*.log
+npm-debug.log*
+
+# arte fuente antiguo (reemplazado por WebP)
+arte/nubiExpresiones/
+
+# artefactos TS
+*.tsbuildinfo
