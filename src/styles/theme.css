@@ -1,0 +1,66 @@
+/* Tema claro ("Amanecer") por defecto (doc 04 §3.1) */
+:root,
+[data-theme='light'] {
+  --bg: #F7F5FF;
+  --surface: #FFFFFF;
+  --text: #1E1B3A;
+  --text-muted: #4B4777;
+  --primary: #5043C9;
+  --primary-text: #FFFFFF;
+  --accent: #FFC15A;
+  --accent-text: #1E1B3A;
+
+  /* Niveles de evidencia con contraste >= 4.5:1 */
+  --ev-3: #0F6B4B;
+  --ev-2: #1B5FA8;
+  --ev-1: #7A3FA0;
+  --error: #B3261E;
+
+  /* Sombras suaves y decorativas para modo claro */
+  --shadow-sm: 0 2px 8px rgba(30, 27, 58, 0.06);
+  --shadow-md: 0 4px 16px rgba(30, 27, 58, 0.10);
+  --card-border: 1px solid rgba(75, 71, 119, 0.15);
+}
+
+/* Tema oscuro ("Noche") automático o forzado con data-theme="dark" */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #121029;
+    --surface: #1C1A40;
+    --text: #EEEBFF;
+    --text-muted: #BDB8EA;
+    --primary: #A99BFF;
+    --primary-text: #121029;
+    --accent: #FFD47A;
+    --accent-text: #121029;
+
+    --ev-3: #6FDDB0;
+    --ev-2: #8CC4FF;
+    --ev-1: #D2A8FF;
+    --error: #FF8A8A;
+
+    --shadow-sm: none;
+    --shadow-md: none;
+    --card-border: 1px solid rgba(189, 184, 234, 0.25);
+  }
+}
+
+[data-theme='dark'] {
+  --bg: #121029;
+  --surface: #1C1A40;
+  --text: #EEEBFF;
+  --text-muted: #BDB8EA;
+  --primary: #A99BFF;
+  --primary-text: #121029;
+  --accent: #FFD47A;
+  --accent-text: #121029;
+
+  --ev-3: #6FDDB0;
+  --ev-2: #8CC4FF;
+  --ev-1: #D2A8FF;
+  --error: #FF8A8A;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --card-border: 1px solid rgba(189, 184, 234, 0.25);
+}
