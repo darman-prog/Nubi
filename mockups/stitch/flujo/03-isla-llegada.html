@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Nubi y el Archipiélago del Sueño - Isla Reloj · Llegada</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#ffffff",
+            "on-secondary-fixed": "#281800",
+            "secondary-fixed-dim": "#f9bc55",
+            "secondary-container": "#ffc15b",
+            "surface-container-highest": "#e4dfff",
+            "on-tertiary": "#ffffff",
+            "surface-container": "#f0ebff",
+            "surface-tint": "#5649cf",
+            "tertiary-container": "#793e9f",
+            "secondary": "#7f5600",
+            "primary-container": "#5043c9",
+            "on-tertiary-fixed-variant": "#652a8b",
+            "on-tertiary-fixed": "#2f004b",
+            "primary-fixed": "#e3dfff",
+            "on-surface-variant": "#474554",
+            "surface-dim": "#dbd5ff",
+            "primary": "#3825b1",
+            "inverse-surface": "#302d4d",
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#f4d9ff",
+            "surface-container-high": "#eae5ff",
+            "on-tertiary-container": "#eac2ff",
+            "primary-fixed-dim": "#c5c0ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#fcf8ff",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#f3eeff",
+            "tertiary-fixed-dim": "#e4b5ff",
+            "on-surface": "#1a1736",
+            "on-primary-fixed": "#140067",
+            "outline-variant": "#c8c4d6",
+            "outline": "#787585",
+            "on-error": "#ffffff",
+            "tertiary": "#5f2485",
+            "surface-container-low": "#f6f1ff",
+            "on-primary-container": "#cfcaff",
+            "on-secondary-fixed-variant": "#604100",
+            "surface": "#fcf8ff",
+            "secondary-fixed": "#ffdeae",
+            "on-primary-fixed-variant": "#3d2db6",
+            "on-secondary-container": "#744f00",
+            "on-background": "#1a1736",
+            "inverse-primary": "#c5c0ff",
+            "surface-variant": "#e4dfff",
+            "background": "#fcf8ff",
+            "on-secondary": "#ffffff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-xl": "2.5rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-lg": "2rem",
+            "space-xs": "0.25rem",
+            "margin-lg": "3rem",
+            "space-lg": "1.5rem",
+            "gutter-md": "1.5rem",
+            "margin-md": "2rem",
+            "space-md": "1rem",
+            "margin": "1.25rem"
+          },
+          fontFamily: {
+            "body-md": ["Nunito Sans"],
+            "body-lg": ["Nunito Sans"],
+            "display-lg-mobile": ["Quicksand"],
+            "headline-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "headline-sm": ["Quicksand"],
+            "label-sm": ["Quicksand"],
+            "label-md": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "display-lg": ["Quicksand"],
+            "fredoka": ["Fredoka", "Quicksand", "sans-serif"]
+          },
+          fontSize: {
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "display-lg-mobile": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "headline-md": ["22px", { lineHeight: "30px", fontWeight: "600" }],
+            "headline-lg": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "headline-sm": ["19px", { lineHeight: "26px", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "18px", fontWeight: "600" }],
+            "label-lg": ["16px", { lineHeight: "22px", fontWeight: "600" }],
+            "display-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }]
+          },
+          boxShadow: {
+            "dream-1": "0 8px 24px -4px rgba(80, 67, 201, 0.08), 0 2px 6px -1px rgba(80, 67, 201, 0.04)",
+            "dream-2": "0 16px 36px -6px rgba(80, 67, 201, 0.14), 0 4px 12px -2px rgba(80, 67, 201, 0.06)",
+            "sheet": "0 -10px 40px -10px rgba(56, 37, 177, 0.15)"
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-1 {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Touch friendly bouncy feel */
+    .pressable {
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+    }
+    .pressable:active {
+      transform: scale(0.97);
+    }
+    /* Custom subtle float animation for Nubi */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(0.6deg); }
+    }
+    .nubi-float {
+      animation: gentleFloat 4.2s ease-in-out infinite;
+    }
+    /* Star twinkle */
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.35; transform: scale(0.9); }
+      50% { opacity: 0.95; transform: scale(1.15); }
+    }
+    .twinkle-star {
+      animation: twinkle 3s ease-in-out infinite;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased overflow-x-hidden selection:bg-surface-container-highest">
+<!-- Mobile Screen Container (360x640 frame ratio centered on desktop previews) -->
+<div class="relative min-h-screen w-full max-w-md mx-auto flex flex-col justify-end overflow-hidden bg-inverse-surface shadow-2xl">
+<!-- ========================================== -->
+<!-- BACKGROUND: MAPA DEL ARCHIPIÉLAGO DESENFOCADO -->
+<!-- ========================================== -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+<!-- Atmospheric Backdrop Image -->
+<img class="absolute inset-0 w-full h-full object-cover object-center filter blur-md scale-105 opacity-60" data-alt="A dreamy celestial archipelago map at twilight seen from above, featuring floating whimsical islands glowing with soft lavender, deep midnight indigo and golden amber lights. Wisps of soft pastel clouds drift between the islands under a quiet starry evening sky. The style is lyrical, clean, soft organic vector illustration with smooth tranquil gradients and comforting bedtime aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2sec9H-dLlOFVPHTV7dRNFzhUm7jJHthLUdVG_MwQ5LK_JaRhvir1EDcbAbT7T8_xmz9r3kLnzZbT2AqYpFQWnsPbZlE94dqru2b6fDWPLC6Hj_AbnMkQBw1DB4DsE0rcPJUWkglwFbSLpGzGj2lw-UL4qX3jwbxag0ZZiS5pZ0HeFg5zVDbN0ry-rVXW9rlVmkn_ZrXRT4QOB4TjxBKJgnrK114RDtatULhBkNNUoEp6nVPQ7TvWgAUdjOy8EdLrJ-QEIetcqIk"/>
+<!-- Deep Twilight Atmospheric Gradient Mesh Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-[#1a1736]/80 via-[#302d4d]/75 to-[#1a1736]/90 mix-blend-multiply"></div>
+<div class="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-primary-container/25 blur-3xl"></div>
+<div class="absolute top-1/3 -right-20 w-72 h-72 rounded-full bg-secondary-container/20 blur-3xl"></div>
+<!-- Distant Archipelago Glimpses behind the modal -->
+<div class="absolute top-12 left-6 flex items-center space-x-2 text-surface-container-high/60">
+<span class="material-symbols-outlined text-sm twinkle-star" data-icon="star">star</span>
+<span class="font-headline-sm text-label-sm text-surface-container-high/80">Archipiélago del Sueño</span>
+</div>
+<div class="absolute top-10 right-6 flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/10 backdrop-blur-md text-surface-bright/70 text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-xs text-secondary-container fill-1" data-icon="bedtime">bedtime</span>
+<span>Modo noche</span>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MODAL PRINCIPAL: ISLA RELOJ · LLEGADA      -->
+<!-- Floating Bottom-Sheet / Responsive Card     -->
+<!-- ========================================== -->
+<div class="relative z-10 w-full bg-surface-container-lowest rounded-t-[32px] pt-3 pb-6 px-5 sm:px-6 shadow-sheet flex flex-col max-h-[813px] overflow-y-auto border-t border-surface-container/60">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center pb-2">
+<div class="w-11 h-1.5 rounded-full bg-outline-variant/40"></div>
+</div>
+<!-- Top Header Row -->
+<header class="flex items-center justify-between gap-2 pt-1 pb-2">
+<!-- Draft chip (Píldora suave) -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>BORRADOR</span>
+</div>
+<!-- Central Title with Clock Icon -->
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-xl fill-1" data-icon="schedule">schedule</span>
+<h1 class="font-fredoka text-headline-sm text-on-surface tracking-tight font-semibold">
+            Isla Reloj
+          </h1>
+</div>
+<!-- Accessible Close Button (>=44x44px hit area) -->
+<button aria-label="Cerrar modal y volver al mapa" class="w-11 h-11 -mr-1 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 pressable focus:outline-none focus:ring-2 focus:ring-primary/20" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="close">close</span>
+</button>
+</header>
+<!-- Subheader: Phase & Progress Stepper -->
+<div class="flex items-center justify-between pt-1 pb-3 px-1 border-b border-surface-container-low">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-semibold">Llegada</span>
+<span class="text-on-surface-variant/50 text-xs">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">1 de 4</span>
+</div>
+<!-- 4 Steps Indicators (Llegada -> Historia -> Retos -> Sello) -->
+<div aria-label="Progreso: Fase 1 de 4" class="flex items-center gap-1.5">
+<!-- Step 1: Active -->
+<div class="flex items-center justify-center">
+<span class="w-6 h-2 rounded-full bg-primary-container transition-all"></span>
+</div>
+<!-- Step 2: Pending -->
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+<!-- Step 3: Pending -->
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+<!-- Step 4: Pending -->
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MODAL BODY                                 -->
+<!-- ========================================== -->
+<div class="flex flex-col items-center pt-3 pb-2 space-y-3.5">
+<!-- Nubi Centerpiece Area -->
+<div class="relative flex flex-col items-center mt-1">
+<!-- Ambient Glow under Nubi -->
+<div class="absolute -top-3 w-32 h-24 rounded-full bg-surface-container-highest/60 blur-xl pointer-events-none"></div>
+<div class="absolute top-2 -right-4 text-secondary-container twinkle-star">
+<span class="material-symbols-outlined text-base fill-1" data-icon="sparkles">arrow_back_ios_new</span>
+</div>
+<!-- Nubi Character Container -->
+<div class="relative w-28 h-24 flex items-center justify-center nubi-float">
+<!-- Nubi Organic Soft Cloud Vector Representation -->
+<svg class="w-full h-full drop-shadow-md" fill="none" viewbox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+<!-- Soft Cloud Body -->
+<g filter="url(#cloudGlow)">
+<path d="M125 92C138.807 92 150 80.8071 150 67C150 53.6429 139.52 42.7236 126.347 42.0468C123.639 24.2831 108.384 10.5 90 10.5C75.2917 10.5 62.6289 19.6896 57.5188 32.7441C54.1685 30.9856 50.3667 30 46.3333 30C32.3421 30 21 41.3421 21 55.3333C21 56.4022 21.0664 57.4552 21.1963 58.4893C14.7334 62.5976 10.5 69.8055 10.5 78C10.5 90.1503 20.3497 100 32.5 100H125C130.523 100 135 95.5228 135 90C135 84.4772 130.523 92 125 92Z" fill="#FFFFFF"></path>
+<path d="M125 92C138.807 92 150 80.8071 150 67C150 53.6429 139.52 42.7236 126.347 42.0468C123.639 24.2831 108.384 10.5 90 10.5C75.2917 10.5 62.6289 19.6896 57.5188 32.7441C54.1685 30.9856 50.3667 30 46.3333 30C32.3421 30 21 41.3421 21 55.3333C21 56.4022 21.0664 57.4552 21.1963 58.4893C14.7334 62.5976 10.5 69.8055 10.5 78C10.5 90.1503 20.3497 100 32.5 100H125C130.523 100 135 95.5228 135 90C135 84.4772 130.523 92 125 92Z" stroke="#E4DFFF" stroke-linejoin="round" stroke-width="2.5"></path>
+</g>
+<!-- Subtle Blush Cheeks -->
+<ellipse cx="64" cy="72" fill="#FFD1D8" fill-opacity="0.8" rx="5.5" ry="3.5"></ellipse>
+<ellipse cx="104" cy="72" fill="#FFD1D8" fill-opacity="0.8" rx="5.5" ry="3.5"></ellipse>
+<!-- Sweet Smiling Eyes (Restful & Friendly) -->
+<path d="M68 62.5C68 60 72 58 75 58C78 58 82 60 82 62.5" stroke="#1A1736" stroke-linecap="round" stroke-width="2.8"></path>
+<path d="M88 62.5C88 60 92 58 95 58C98 58 102 60 102 62.5" stroke="#1A1736" stroke-linecap="round" stroke-width="2.8"></path>
+<!-- Gentle Smile -->
+<path d="M80.5 69C82.5 72.5 86.5 72.5 88.5 69" stroke="#1A1736" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Golden Celestial Star Accent perched comfortably on Nubi's top -->
+<path d="M102 24L103.5 28.5L108 30L103.5 31.5L102 36L100.5 31.5L96 30L100.5 28.5L102 24Z" fill="#FFC15B"></path>
+<circle cx="102" cy="30" fill="#FFFFFF" r="1.5"></circle>
+<defs>
+<filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="115" id="cloudGlow" width="165" x="0" y="0">
+<fedropshadow dx="0" dy="5" flood-color="#5043C9" flood-opacity="0.08" stddeviation="4"></fedropshadow>
+</filter>
+</defs>
+</svg>
+</div>
+<!-- Pill Tag: "• Nubi" -->
+<div class="mt-1 px-3 py-0.5 rounded-full bg-surface-container-high/80 border border-outline-variant/30 flex items-center gap-1.5 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-fredoka text-label-sm font-semibold text-on-surface tracking-wide">Nubi</span>
+</div>
+</div>
+<!-- Comforting Dialogue Bubble from Nubi -->
+<div class="relative w-full bg-surface-container-low rounded-2xl p-4 border border-surface-container-highest/50 shadow-dream-1">
+<!-- Speech Bubble Tip Pointing to Nubi -->
+<div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-surface-container-low border-t border-l border-surface-container-highest/50 rotate-45"></div>
+<div class="relative z-10 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-lg shrink-0 mt-0.5" data-icon="forum">forum</span>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+              «Aquí vive el reloj de tu cuerpo. Vamos a ver por qué te da sueño a la hora que te da.»
+            </p>
+</div>
+</div>
+<!-- "En esta isla" Key Takeaways Compact Card -->
+<section class="w-full bg-surface-container-lowest rounded-2xl p-3.5 sm:p-4 border border-surface-container/80 shadow-dream-1">
+<div class="flex items-center gap-2 mb-2.5 px-0.5">
+<span class="material-symbols-outlined text-secondary-container text-lg fill-1" data-icon="explore">explore</span>
+<h2 class="font-headline-sm text-label-lg font-bold text-on-surface tracking-tight">
+              En esta isla
+            </h2>
+</div>
+<!-- 3 Warm & Clear Takeaways -->
+<ul class="space-y-2.5">
+<!-- Point 1: Biological shift in puberty -->
+<li class="flex items-center gap-3 p-2 rounded-xl bg-surface-container-low/70 hover:bg-surface-container transition-colors">
+<div class="w-9 h-9 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="nest_clock_farsight_analog">nest_clock_farsight_analog</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium leading-tight">
+                Entenderás por qué tu reloj se corre en la pubertad
+              </p>
+</li>
+<!-- Point 2: Interactive Sleep Chain Challenge -->
+<li class="flex items-center gap-3 p-2 rounded-xl bg-surface-container-low/70 hover:bg-surface-container transition-colors">
+<div class="w-9 h-9 rounded-full bg-secondary-container/20 flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-lg" data-icon="hub">hub</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium leading-tight">
+                Jugarás a armar la cadena del sueño
+              </p>
+</li>
+<!-- Point 3: Stamp Reward (Friendly & pressure-free) -->
+<li class="flex items-center gap-3 p-2 rounded-xl bg-surface-container-low/70 hover:bg-surface-container transition-colors">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed/50 flex items-center justify-center shrink-0 text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined text-lg fill-1" data-icon="verified">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium leading-tight">
+                Ganarás el sello de la isla
+              </p>
+</li>
+</ul>
+</section>
+</div>
+<!-- ========================================== -->
+<!-- BOTTOM ACTIONS (Accessible touch >=48px)   -->
+<!-- ========================================== -->
+<footer class="mt-2 pt-2 flex flex-col items-center gap-2">
+<!-- Primary Action Pill Button -->
+<button class="w-full min-h-[48px] px-6 rounded-full bg-primary-container hover:bg-surface-tint text-on-primary font-headline-sm text-label-lg font-semibold flex items-center justify-center gap-2 shadow-dream-2 pressable transition-all" type="button">
+<span>Empezar la historia</span>
+<span class="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary Soft Action: Return to Map -->
+<button class="w-full min-h-[48px] px-4 rounded-full text-primary hover:bg-surface-container-low font-headline-sm text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors pressable" type="button">
+<span class="material-symbols-outlined text-base" data-icon="arrow_back">arrow_back</span>
+<span>Volver al mapa</span>
+</button>
+</footer>
+</div>
+</div>
+</body></html>

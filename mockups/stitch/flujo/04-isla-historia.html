@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Isla Reloj · Historia - Archipiélago</title>
+<!-- Google Fonts: Quicksand (headlines/labels) and Nunito Sans (body) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..700;1,6..12,300..700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#f4d9ff",
+            "outline": "#787585",
+            "surface-container-highest": "#e4dfff",
+            "on-error-container": "#93000a",
+            "surface-tint": "#5649cf",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#140067",
+            "error": "#ba1a1a",
+            "on-surface": "#1a1736",
+            "tertiary-container": "#793e9f",
+            "surface-dim": "#dbd5ff",
+            "on-secondary-fixed": "#281800",
+            "on-tertiary-fixed-variant": "#652a8b",
+            "on-tertiary-container": "#eac2ff",
+            "surface-container": "#f0ebff",
+            "on-primary-fixed-variant": "#3d2db6",
+            "outline-variant": "#c8c4d6",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#302d4d",
+            "tertiary": "#5f2485",
+            "on-tertiary-fixed": "#2f004b",
+            "surface-container-high": "#eae5ff",
+            "secondary": "#7f5600",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#e4b5ff",
+            "secondary-fixed-dim": "#f9bc55",
+            "secondary-container": "#ffc15b",
+            "on-surface-variant": "#474554",
+            "surface-bright": "#fcf8ff",
+            "primary-container": "#5043c9",
+            "on-secondary-container": "#744f00",
+            "inverse-primary": "#c5c0ff",
+            "on-secondary-fixed-variant": "#604100",
+            "inverse-on-surface": "#f3eeff",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#3825b1",
+            "secondary-fixed": "#ffdeae",
+            "surface": "#fcf8ff",
+            "on-primary-container": "#cfcaff",
+            "background": "#fcf8ff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#e3dfff",
+            "on-error": "#ffffff",
+            "surface-variant": "#e4dfff",
+            "primary-fixed-dim": "#c5c0ff",
+            "on-background": "#1a1736",
+            "surface-container-low": "#f6f1ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "gutter-lg": "2rem",
+            "gutter": "1rem",
+            "margin-lg": "3rem",
+            "space-sm": "0.5rem",
+            "margin-md": "2rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "1.25rem",
+            "space-lg": "1.5rem",
+            "gutter-md": "1.5rem"
+          },
+          "fontFamily": {
+            "body-md": ["Nunito Sans"],
+            "display-lg-mobile": ["Quicksand"],
+            "label-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "display-lg": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "body-lg": ["Nunito Sans"],
+            "label-sm": ["Quicksand"],
+            "headline-sm": ["Quicksand"],
+            "headline-md": ["Quicksand"]
+          },
+          "fontSize": {
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-lg": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "headline-sm": ["19px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(80, 67, 201, 0.15);
+      border-radius: 9999px;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#1e1b3a] text-on-surface antialiased h-full flex items-center justify-center p-0 sm:p-4 select-none">
+<!-- Mobile Viewport Canvas Container (360px wide standard mobile framing) -->
+<div class="relative w-full max-w-[390px] h-[884px] max-h-[844px] overflow-hidden bg-background sm:rounded-[32px] sm:shadow-2xl flex flex-col justify-end">
+<!-- BACKGROUND LAYER (The Unfocused Dream Archipelago Map) -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<!-- Simulated Dream Archipelago Map Background with Atmospheric Vignette -->
+<div class="w-full h-full bg-cover bg-center filter blur-md scale-105 opacity-80" data-alt="A tranquil dreamscape fantasy map featuring softly illuminated lavender and golden floating islands drifting in a serene twilight ocean under a velvety purple night sky filled with gentle starlight and pastel nebulae. Soft organic minimalist illustration style for teenagers with soothing ambient glows." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJ4kI4l_iqPzSdwgtnngxQ6chRUP6MRcM_F_XLpA12xZj0Vh4Y_glwC4kC0NPy-TM8gdcV4HFdQPH3FgyJj4ek2u2KLenXJwDS_xOK9aR-elWJaHnoODgOKtMgo4y1Uv51nSA4ARUlhiSyjaangZuKOdfiBYmpNC5v7zQiAvPCF0VUysgmrvHZxqzUNd0dY8hHbxjprtbzImungyjmT7yeG8SEEstFODdhBsheOLkBvExwki4jeTPd03ZERCllpJlao55v4hsQMeI')"></div>
+<!-- Backdrop translúcido (#1E1B3A con 45% de opacidad) para enfoque modal -->
+<div class="absolute inset-0 bg-[#1e1b3a]/45 backdrop-blur-sm"></div>
+</div>
+<!-- MODAL CARD: "Isla Reloj · Historia (escena 2 de 5)" -->
+<!-- Pillowy full/near-full height card container with 24px top radius -->
+<div class="relative z-10 w-full h-[95%] max-h-[780px] bg-surface-container-lowest rounded-t-[24px] shadow-[0_-8px_32px_-4px_rgba(80,67,201,0.18)] flex flex-col overflow-hidden animate-slide-up border-t border-[rgba(80,67,201,0.08)]">
+<!-- Atmospheric Ambient Glow (Lavender gradient accent inside modal header) -->
+<div class="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-surface-container/60 to-transparent pointer-events-none"></div>
+<!-- Drag handle indicator for gentle touch affordance -->
+<div class="w-full flex justify-center pt-2.5 pb-1">
+<div class="w-10 h-1 bg-outline-variant/60 rounded-full"></div>
+</div>
+<!-- CABECERA DEL MODAL -->
+<header class="px-5 pt-1 pb-3 relative z-10 flex-shrink-0">
+<!-- Top bar: Chip Borrador + Título Centrado + Botón Cerrar (min 44x44px hit area) -->
+<div class="flex items-center justify-between min-h-[44px]">
+<!-- Chip sutil "BORRADOR" -->
+<div class="flex items-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm tracking-wider">
+              BORRADOR
+            </span>
+</div>
+<!-- Título centrado con tierno icono de reloj -->
+<div class="flex items-center gap-1.5 px-2">
+<span class="material-symbols-outlined text-[#ffc15b] text-[20px]" data-icon="schedule" data-weight="fill" style="font-variation-settings: 'FILL' 1;">schedule</span>
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">
+              Isla Reloj
+            </h1>
+</div>
+<!-- Botón cerrar accesible ("X") con mínimo 44x44px touch target -->
+<button aria-label="Cerrar historia" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all text-primary" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Indicador de progreso: "Historia · 2 de 5" y 5 dots armónicos -->
+<div class="mt-3 flex items-center justify-between bg-surface-container-low px-3.5 py-2 rounded-full border border-[rgba(80,67,201,0.08)]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[16px]" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">
+              Historia · 2 de 5
+            </span>
+</div>
+<!-- Progress dots (Escena 2 activa en primary-container alargado) -->
+<div aria-label="Progreso: escena 2 de 5" class="flex items-center gap-1.5">
+<!-- Dot 1 -->
+<div class="w-2 h-2 rounded-full bg-surface-dim transition-all"></div>
+<!-- Dot 2 (Activo alargado) -->
+<div class="w-6 h-2 rounded-full bg-primary-container transition-all"></div>
+<!-- Dot 3 -->
+<div class="w-2 h-2 rounded-full bg-surface-dim transition-all"></div>
+<!-- Dot 4 -->
+<div class="w-2 h-2 rounded-full bg-surface-dim transition-all"></div>
+<!-- Dot 5 -->
+<div class="w-2 h-2 rounded-full bg-surface-dim transition-all"></div>
+</div>
+</div>
+</header>
+<!-- CUERPO DE LA ESCENA (Scrollable content area with cozy styling) -->
+<main class="flex-1 overflow-y-auto custom-scroll px-5 pt-1 pb-4 flex flex-col gap-4">
+<!-- Ilustración con curvas suaves y borde suave lavanda -->
+<div class="relative w-full rounded-2xl overflow-hidden bg-surface-container-low border-[1.5px] border-[rgba(80,67,201,0.12)] p-2 shadow-[0_8px_24px_-4px_rgba(80,67,201,0.06)]">
+<div class="relative w-full h-44 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#f0ebff] to-[#fcf8ff]">
+<img alt="Ilustración: dos relojes dentro de una nube discutiendo dulcemente" class="w-full h-full object-cover" data-alt="A warm, whimsical storybook illustration for teenagers featuring a fluffy, smiling white cloud named Nubi floating in twilight skies. Inside the soft cloud, two friendly antique clocks with cozy facial expressions softly converse—one holding a tiny glowing moon pillow and the other a warm gentle lantern. Soft lavender, warm pastel gold and creamy white colors, bedtime dreamscape vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIrezcihzsYfGKsKkLHqSU_9ASNVm2_BLxLbEUygcQn8wwNQrou1_2y0KCInpziFhXRrKUhpSmevSUt6t2F2wbaKKJN6LPK6bZo8XQjt6EigBEoYO1_2FpxGpUU1qb_M1mph_UotJxF5ZsW9ZaDh1euQ3txEBMEYXpRrgfTuid5ZFL2QsCpeXKjC6_RWUT5fA6f_lzTXu3YJ58TEbqPCxd_GzjItW7LiSsdrAewXsWgcUUvXwUhgk-X5Td1tiagvIVjrKkzrnk7RY"/>
+<!-- Etiqueta descriptiva sobre la ilustración según especificación -->
+<div class="absolute bottom-2 inset-x-2 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[rgba(80,67,201,0.1)] text-center">
+<p class="font-body-sm text-[12px] text-on-surface-variant italic leading-tight">
+                [Ilustración: dos relojes dentro de una nube discutiendo dulcemente]
+              </p>
+</div>
+</div>
+</div>
+<!-- Avatar y burbujita simpática de Nubi -->
+<div class="flex items-center gap-2.5 pt-0.5">
+<!-- Nubi avatar badge -->
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shadow-sm border border-[rgba(80,67,201,0.15)] flex-shrink-0">
+<!-- Sweet sleeping cloud face representation -->
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="cloud" data-weight="fill" style="font-variation-settings: 'FILL' 1;">cloud</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-primary font-bold block">
+              Nubi te cuenta
+            </span>
+<span class="font-body-sm text-[12px] text-on-surface-variant block -mt-0.5">
+              Guía del archipiélago
+            </span>
+</div>
+</div>
+<!-- Texto narrativo empático en primera persona -->
+<div class="bg-surface-container-low/70 rounded-2xl p-4 border border-[rgba(80,67,201,0.08)]">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+            «Es medianoche y tienes los ojos abiertos. <span class="font-semibold text-primary">No es tu culpa:</span> dentro de ti hay dos relojes que llevan horas discutiendo. Uno dice <span class="text-primary italic">"duerme"</span>, el otro dice <span class="text-secondary italic font-medium">"todavía no"</span>.»
+          </p>
+</div>
+<!-- Al pie de la escena narrativa: Insignia de Evidencia + Ver Fuente -->
+<div class="flex items-center justify-between gap-2 pt-1 pb-1">
+<!-- Insignia de evidencia científica: "● Bien establecido" (#0F6B4B) -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(15,107,75,0.1)] text-[#0F6B4B]">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-tight">
+              Bien establecido
+            </span>
+</div>
+<!-- Enlace/botón de texto suave: "Ver fuente" con icono de libro -->
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-primary hover:bg-surface-container active:scale-95 transition-all font-label-sm text-label-sm font-medium" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="menu_book">menu_book</span>
+<span>Ver fuente</span>
+</button>
+</div>
+</main>
+<!-- ACCIONES INFERIORES FIJAS (Pill actions and calming microcopy) -->
+<footer class="px-5 pt-3 pb-6 bg-surface-container-lowest border-t border-[rgba(80,67,201,0.06)] flex flex-col gap-2.5 flex-shrink-0">
+<!-- Botón píldora principal full-width: "Continuar →" (#5043C9, min 48px) -->
+<button class="w-full min-h-[48px] px-6 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(80,67,201,0.25)] hover:opacity-95 active:scale-[0.98] transition-all" type="button">
+<span>Continuar</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Botón secundario suave: "Saltar historia" (mínimo 44px hit target) -->
+<button class="w-full min-h-[44px] px-4 rounded-full text-on-surface-variant hover:bg-surface-container-low hover:text-primary active:scale-[0.98] transition-all font-label-md text-label-md flex items-center justify-center" type="button">
+          Saltar historia
+        </button>
+<!-- Microcopia tranquilizadora en gris suave -->
+<p class="text-center font-body-sm text-[12px] text-outline font-normal">
+          Puedes volver a leerla cuando quieras.
+        </p>
+</footer>
+</div>
+</div>
+</body></html>

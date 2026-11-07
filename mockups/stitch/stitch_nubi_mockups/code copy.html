@@ -1,0 +1,781 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa completo del archipiélago · Nubi y el Archipiélago del Sueño</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Nunito:wght@400;500;600;700;800&amp;family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+  <style>
+    .font-heading { font-family: 'Fredoka', cursive, sans-serif; }
+    .font-body { font-family: 'Nunito', sans-serif; }
+    .material-symbols-rounded {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-rounded.outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Estilos de scroll suaves y seguros */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(80, 67, 201, 0.15); border-radius: 9999px; }
+    
+    /* Animación suave para Nubi */
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    .animate-float {
+      animation: floatSoft 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    .animate-glow {
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    /* ====== TARJETAS-NUBE · SVG por isla ======
+       Cada card dibuja su nube con <svg class="cloud-svg"><use href="#cloud-vN">.
+       La forma es la unión de círculos más una base redondeada (<g id="shape-vN">).
+       El contorno se pinta como halo detrás y el relleno encima, así no aparecen
+       líneas internas entre lóbulos. El cuerpo empieza por debajo del título para
+       que ningún trazo cruce el texto.
+       Qué comunica cada estado (siempre acompañado de texto o chip, nunca solo color):
+       nueva = trazo lavanda · siguiente = primario 2px · actual = primario 2.5px ·
+       completada = dorado · en construcción = niebla con trazo punteado.
+       En producción: isla-<slug>.svg del kit (ADR-05). Variables: --fill --stroke
+       --sw (px) --glow --slab --dash. */
+    /* Valores por defecto de la card; cada variante de estado los sobreescribe más abajo. */
+    .cloud { --t: 28px; --b: 12px; --stroke: #CFC6F5; --fill: #FFFFFF; --dash: none; position: relative; isolation: isolate; padding: 14px 20px; margin-block: 12px; transition: transform .25s ease; }
+    .cloud-svg {
+      position: absolute; left: 0; top: calc(var(--t) * -1); width: 100%; height: calc(100% + var(--t) + var(--b));
+      z-index: -1; pointer-events: none;
+      fill: var(--fill, #FFFFFF); stroke: var(--stroke, #E2D9FF); stroke-width: var(--sw, 1.5);
+      filter: drop-shadow(0 10px 16px var(--glow, rgba(80,67,201,.13)));
+    }
+    .cloud-svg use { display: none; }
+    .cloud.v1 .cloud-svg use.v1, .cloud.v2 .cloud-svg use.v2, .cloud.v3 .cloud-svg use.v3 { display: block; }
+    .cloud--sm   { --t: 16px; --b: 8px; padding: 9px 14px; margin-block: 8px; }
+    .cloud--wide { --t: 16px; --b: 8px; padding: 9px 18px; margin-block: 9px; }
+    /* Completada: dorado con más contraste (antes #FFD982, casi invisible sobre blanco). */
+    .cloud--gold { --stroke: #D89A2B; --slab: #F3DCA6; --glow: rgba(216,154,43,.28); }
+    .cloud--nest { --stroke: #DBD5FF; --glow: rgba(80,67,201,.16); }
+    .cloud--now  { --stroke: #5043C9; --sw: 2;    --fill: #FDFCFF; --glow: rgba(80,67,201,.2); }
+    .cloud--here { --stroke: #5043C9; --sw: 2.5; --fill: #FFFFFF;  --glow: rgba(80,67,201,.24); padding: 16px 20px; }
+    /* En construcción = niebla: trazo punteado y relleno apagado. Antes iba con
+       opacidad .72 y textos al 60-70%, que bajaban el contraste por debajo de AA. */
+    .cloud--fog  { --fill: #F7F6FD; --stroke: #A59CD9; --sw: 1.25; --dash: 5px 4px; --glow: rgba(80,67,201,.04); }
+    .cloud--fog > .cloud-svg { opacity: 1; }
+    .cloud--fog p:first-child { color: #1E1B3A; }
+    .cloud--fog p { color: #4B4777; }
+    .cloud--fog .min-w-0 p + p { font-size: 11px; }
+    /* Tarjetas jugables con rol de botón: foco visible por teclado (WCAG 2.4.7). */
+    .cloud[role="button"] { cursor: pointer; }
+    .cloud[role="button"]:focus-visible { outline: 3px solid #5043C9; outline-offset: 6px; }
+    .cloud--play:hover { transform: translateY(-2px); }
+    @media (prefers-reduced-motion: reduce) { .cloud { transition: none; } .cloud--play:hover { transform: none; } }
+.cloud.v1>.cloud-shape{background:radial-gradient(circle at 6.1% calc(var(--u)*1.80),var(--fill) calc(var(--u)*1.26 - .6px),transparent calc(var(--u)*1.26)),radial-gradient(circle at 13.9% calc(var(--u)*1.79),var(--fill) calc(var(--u)*1.20 - .6px),transparent calc(var(--u)*1.20)),radial-gradient(circle at 22.0% calc(var(--u)*1.82),var(--fill) calc(var(--u)*1.35 - .6px),transparent calc(var(--u)*1.35)),radial-gradient(circle at 31.1% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.53 - .6px),transparent calc(var(--u)*1.53)),radial-gradient(circle at 41.2% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.66 - .6px),transparent calc(var(--u)*1.66)),radial-gradient(circle at 51.5% calc(var(--u)*1.85),var(--fill) calc(var(--u)*1.59 - .6px),transparent calc(var(--u)*1.59)),radial-gradient(circle at 61.6% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.60 - .6px),transparent calc(var(--u)*1.60)),radial-gradient(circle at 72.5% calc(var(--u)*1.89),var(--fill) calc(var(--u)*1.83 - .6px),transparent calc(var(--u)*1.83)),radial-gradient(circle at 83.4% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.59 - .6px),transparent calc(var(--u)*1.59)),radial-gradient(circle at 93.1% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.47 - .6px),transparent calc(var(--u)*1.47)),radial-gradient(circle at 4.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 10.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 16.2% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 21.7% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 27.3% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.98 - .6px),transparent calc(var(--u)*0.98)),radial-gradient(circle at 33.1% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.98 - .6px),transparent calc(var(--u)*0.98)),radial-gradient(circle at 38.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 44.4% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 50.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 55.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 61.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 66.7% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.99 - .6px),transparent calc(var(--u)*0.99)),radial-gradient(circle at 72.6% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*1.00 - .6px),transparent calc(var(--u)*1.00)),radial-gradient(circle at 78.2% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 83.8% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.98 - .6px),transparent calc(var(--u)*0.98)),radial-gradient(circle at 89.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 95.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94))}
+.cloud.v2>.cloud-shape{background:radial-gradient(circle at 6.2% calc(var(--u)*1.81),var(--fill) calc(var(--u)*1.29 - .6px),transparent calc(var(--u)*1.29)),radial-gradient(circle at 13.9% calc(var(--u)*1.79),var(--fill) calc(var(--u)*1.21 - .6px),transparent calc(var(--u)*1.21)),radial-gradient(circle at 22.0% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.43 - .6px),transparent calc(var(--u)*1.43)),radial-gradient(circle at 31.1% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.50 - .6px),transparent calc(var(--u)*1.50)),radial-gradient(circle at 40.8% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.63 - .6px),transparent calc(var(--u)*1.63)),radial-gradient(circle at 51.3% calc(var(--u)*1.88),var(--fill) calc(var(--u)*1.74 - .6px),transparent calc(var(--u)*1.74)),radial-gradient(circle at 61.8% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.66 - .6px),transparent calc(var(--u)*1.66)),radial-gradient(circle at 72.2% calc(var(--u)*1.88),var(--fill) calc(var(--u)*1.73 - .6px),transparent calc(var(--u)*1.73)),radial-gradient(circle at 82.7% calc(var(--u)*1.87),var(--fill) calc(var(--u)*1.68 - .6px),transparent calc(var(--u)*1.68)),radial-gradient(circle at 92.8% calc(var(--u)*1.85),var(--fill) calc(var(--u)*1.56 - .6px),transparent calc(var(--u)*1.56)),radial-gradient(circle at 4.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 10.4% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 16.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 21.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 27.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 32.7% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 38.4% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 44.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 49.6% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 55.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 60.7% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.97 - .6px),transparent calc(var(--u)*0.97)),radial-gradient(circle at 66.3% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 72.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 77.8% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.98 - .6px),transparent calc(var(--u)*0.98)),radial-gradient(circle at 83.6% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.98 - .6px),transparent calc(var(--u)*0.98)),radial-gradient(circle at 89.5% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.99 - .6px),transparent calc(var(--u)*0.99)),radial-gradient(circle at 95.2% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92))}
+.cloud.v3>.cloud-shape{background:radial-gradient(circle at 6.4% calc(var(--u)*1.81),var(--fill) calc(var(--u)*1.34 - .6px),transparent calc(var(--u)*1.34)),radial-gradient(circle at 14.5% calc(var(--u)*1.80),var(--fill) calc(var(--u)*1.24 - .6px),transparent calc(var(--u)*1.24)),radial-gradient(circle at 22.9% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.44 - .6px),transparent calc(var(--u)*1.44)),radial-gradient(circle at 31.9% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.43 - .6px),transparent calc(var(--u)*1.43)),radial-gradient(circle at 41.6% calc(var(--u)*1.87),var(--fill) calc(var(--u)*1.66 - .6px),transparent calc(var(--u)*1.66)),radial-gradient(circle at 52.1% calc(var(--u)*1.87),var(--fill) calc(var(--u)*1.70 - .6px),transparent calc(var(--u)*1.70)),radial-gradient(circle at 62.9% calc(var(--u)*1.88),var(--fill) calc(var(--u)*1.76 - .6px),transparent calc(var(--u)*1.76)),radial-gradient(circle at 73.5% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.62 - .6px),transparent calc(var(--u)*1.62)),radial-gradient(circle at 83.4% calc(var(--u)*1.85),var(--fill) calc(var(--u)*1.56 - .6px),transparent calc(var(--u)*1.56)),radial-gradient(circle at 93.0% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.50 - .6px),transparent calc(var(--u)*1.50)),radial-gradient(circle at 4.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 10.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 15.9% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 21.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 27.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 32.6% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 38.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 43.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 49.6% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*1.00 - .6px),transparent calc(var(--u)*1.00)),radial-gradient(circle at 55.4% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 61.2% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*1.00 - .6px),transparent calc(var(--u)*1.00)),radial-gradient(circle at 67.1% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*1.00 - .6px),transparent calc(var(--u)*1.00)),radial-gradient(circle at 72.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 78.2% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 83.7% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 89.3% calc(100% - var(--u)*1.76),var(--fill) calc(var(--u)*0.98 - .6px),transparent calc(var(--u)*0.98)),radial-gradient(circle at 95.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96))}
+.cloud--sm.v1>.cloud-shape{background:radial-gradient(circle at 7.3% calc(var(--u)*1.80),var(--fill) calc(var(--u)*1.25 - .6px),transparent calc(var(--u)*1.25)),radial-gradient(circle at 16.1% calc(var(--u)*1.79),var(--fill) calc(var(--u)*1.20 - .6px),transparent calc(var(--u)*1.20)),radial-gradient(circle at 25.3% calc(var(--u)*1.82),var(--fill) calc(var(--u)*1.37 - .6px),transparent calc(var(--u)*1.37)),radial-gradient(circle at 35.8% calc(var(--u)*1.85),var(--fill) calc(var(--u)*1.54 - .6px),transparent calc(var(--u)*1.54)),radial-gradient(circle at 47.1% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.60 - .6px),transparent calc(var(--u)*1.60)),radial-gradient(circle at 59.0% calc(var(--u)*1.87),var(--fill) calc(var(--u)*1.70 - .6px),transparent calc(var(--u)*1.70)),radial-gradient(circle at 70.4% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.47 - .6px),transparent calc(var(--u)*1.47)),radial-gradient(circle at 81.1% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.50 - .6px),transparent calc(var(--u)*1.50)),radial-gradient(circle at 91.8% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.46 - .6px),transparent calc(var(--u)*1.46)),radial-gradient(circle at 5.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 12.6% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 19.6% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 26.3% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.89 - .6px),transparent calc(var(--u)*0.89)),radial-gradient(circle at 32.9% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.88 - .6px),transparent calc(var(--u)*0.88)),radial-gradient(circle at 39.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 46.2% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 53.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 60.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 67.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 73.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 80.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 87.6% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.89 - .6px),transparent calc(var(--u)*0.89)),radial-gradient(circle at 94.3% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91))}
+.cloud--sm.v2>.cloud-shape{background:radial-gradient(circle at 7.2% calc(var(--u)*1.80),var(--fill) calc(var(--u)*1.24 - .6px),transparent calc(var(--u)*1.24)),radial-gradient(circle at 16.2% calc(var(--u)*1.79),var(--fill) calc(var(--u)*1.20 - .6px),transparent calc(var(--u)*1.20)),radial-gradient(circle at 25.7% calc(var(--u)*1.82),var(--fill) calc(var(--u)*1.39 - .6px),transparent calc(var(--u)*1.39)),radial-gradient(circle at 36.0% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.42 - .6px),transparent calc(var(--u)*1.42)),radial-gradient(circle at 47.1% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.61 - .6px),transparent calc(var(--u)*1.61)),radial-gradient(circle at 59.0% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.64 - .6px),transparent calc(var(--u)*1.64)),radial-gradient(circle at 71.0% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.63 - .6px),transparent calc(var(--u)*1.63)),radial-gradient(circle at 82.3% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.44 - .6px),transparent calc(var(--u)*1.44)),radial-gradient(circle at 92.4% calc(var(--u)*1.81),var(--fill) calc(var(--u)*1.32 - .6px),transparent calc(var(--u)*1.32)),radial-gradient(circle at 5.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 12.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 19.5% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.89 - .6px),transparent calc(var(--u)*0.89)),radial-gradient(circle at 26.3% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 33.1% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.89 - .6px),transparent calc(var(--u)*0.89)),radial-gradient(circle at 39.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 46.5% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.88 - .6px),transparent calc(var(--u)*0.88)),radial-gradient(circle at 53.2% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 59.9% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.89 - .6px),transparent calc(var(--u)*0.89)),radial-gradient(circle at 66.6% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 73.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 80.4% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 87.2% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 94.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95))}
+.cloud--wide.v1>.cloud-shape{background:radial-gradient(circle at 4.9% calc(var(--u)*1.80),var(--fill) calc(var(--u)*1.23 - .6px),transparent calc(var(--u)*1.23)),radial-gradient(circle at 10.7% calc(var(--u)*1.78),var(--fill) calc(var(--u)*1.13 - .6px),transparent calc(var(--u)*1.13)),radial-gradient(circle at 16.4% calc(var(--u)*1.79),var(--fill) calc(var(--u)*1.21 - .6px),transparent calc(var(--u)*1.21)),radial-gradient(circle at 22.8% calc(var(--u)*1.82),var(--fill) calc(var(--u)*1.39 - .6px),transparent calc(var(--u)*1.39)),radial-gradient(circle at 29.4% calc(var(--u)*1.81),var(--fill) calc(var(--u)*1.34 - .6px),transparent calc(var(--u)*1.34)),radial-gradient(circle at 36.4% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.50 - .6px),transparent calc(var(--u)*1.50)),radial-gradient(circle at 44.0% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.64 - .6px),transparent calc(var(--u)*1.64)),radial-gradient(circle at 51.7% calc(var(--u)*1.84),var(--fill) calc(var(--u)*1.49 - .6px),transparent calc(var(--u)*1.49)),radial-gradient(circle at 59.3% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.61 - .6px),transparent calc(var(--u)*1.61)),radial-gradient(circle at 67.1% calc(var(--u)*1.86),var(--fill) calc(var(--u)*1.61 - .6px),transparent calc(var(--u)*1.61)),radial-gradient(circle at 74.5% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.43 - .6px),transparent calc(var(--u)*1.43)),radial-gradient(circle at 81.6% calc(var(--u)*1.83),var(--fill) calc(var(--u)*1.44 - .6px),transparent calc(var(--u)*1.44)),radial-gradient(circle at 88.5% calc(var(--u)*1.82),var(--fill) calc(var(--u)*1.40 - .6px),transparent calc(var(--u)*1.40)),radial-gradient(circle at 95.0% calc(var(--u)*1.80),var(--fill) calc(var(--u)*1.26 - .6px),transparent calc(var(--u)*1.26)),radial-gradient(circle at 3.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 8.5% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 13.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 17.7% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.92 - .6px),transparent calc(var(--u)*0.92)),radial-gradient(circle at 22.3% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 26.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 31.5% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 36.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 40.6% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.88 - .6px),transparent calc(var(--u)*0.88)),radial-gradient(circle at 45.1% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 49.7% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.91 - .6px),transparent calc(var(--u)*0.91)),radial-gradient(circle at 54.2% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.89 - .6px),transparent calc(var(--u)*0.89)),radial-gradient(circle at 58.7% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.94 - .6px),transparent calc(var(--u)*0.94)),radial-gradient(circle at 63.4% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 68.0% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 72.8% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.96 - .6px),transparent calc(var(--u)*0.96)),radial-gradient(circle at 77.5% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.90 - .6px),transparent calc(var(--u)*0.90)),radial-gradient(circle at 82.1% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 86.9% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.95 - .6px),transparent calc(var(--u)*0.95)),radial-gradient(circle at 91.6% calc(100% - var(--u)*1.75),var(--fill) calc(var(--u)*0.93 - .6px),transparent calc(var(--u)*0.93)),radial-gradient(circle at 96.2% calc(100% - var(--u)*1.74),var(--fill) calc(var(--u)*0.88 - .6px),transparent calc(var(--u)*0.88))}
+  </style>
+</head>
+<body class="bg-[#2B2745] font-body text-[#1E1B3A] antialiased flex flex-col items-center justify-start min-h-screen py-4 sm:py-8 px-2 select-none">
+
+  <!-- ============================================================ -->
+  <!-- SILUETAS-NUBE (vector) reutilizables: v1/v2/v3                -->
+  <!-- Adaptación del path Bézier "nube cumulus" del usuario al frame -->
+  <!-- 300x92 (bultos sobre y=44 y bajo y=72; tangentes continuas,    -->
+  <!-- radios de arco = mitad del tramo). El <use> activo lo elige la -->
+  <!-- clase vN del contenedor vía CSS (display).                     -->
+  <!-- ============================================================ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <g id="shape-v1">
+      <rect vector-effect="non-scaling-stroke" x="14" y="26" width="272" height="58" rx="24"/>
+      <circle vector-effect="non-scaling-stroke" cx="150" cy="26" r="22"/>
+      <circle vector-effect="non-scaling-stroke" cx="112" cy="34" r="20"/>
+      <circle vector-effect="non-scaling-stroke" cx="80" cy="32" r="16"/>
+      <circle vector-effect="non-scaling-stroke" cx="188" cy="34" r="20"/>
+      <circle vector-effect="non-scaling-stroke" cx="220" cy="32" r="16"/>
+    </g>
+    <symbol id="cloud-v1" viewBox="0 0 300 100" preserveAspectRatio="none">
+      <rect x="14" y="32" width="272" height="58" rx="24" style="fill:var(--slab,#E2DCF8);stroke:none"/>
+      <use href="#shape-v1" style="fill:none;stroke:var(--stroke,#CFC6F5);stroke-width:calc(var(--sw,1.5) * 2px);stroke-linejoin:round;stroke-dasharray:var(--dash,none)"/>
+      <use href="#shape-v1" style="fill:var(--fill,#FFFFFF);stroke:none"/>
+    </symbol>
+    <g id="shape-v2">
+      <rect vector-effect="non-scaling-stroke" x="14" y="26" width="272" height="58" rx="24"/>
+      <circle vector-effect="non-scaling-stroke" cx="128" cy="28" r="22"/>
+      <circle vector-effect="non-scaling-stroke" cx="92" cy="36" r="18"/>
+      <circle vector-effect="non-scaling-stroke" cx="62" cy="30" r="14"/>
+      <circle vector-effect="non-scaling-stroke" cx="164" cy="34" r="18"/>
+      <circle vector-effect="non-scaling-stroke" cx="196" cy="32" r="16"/>
+      <circle vector-effect="non-scaling-stroke" cx="222" cy="36" r="14"/>
+    </g>
+    <symbol id="cloud-v2" viewBox="0 0 300 100" preserveAspectRatio="none">
+      <rect x="14" y="32" width="272" height="58" rx="24" style="fill:var(--slab,#E2DCF8);stroke:none"/>
+      <use href="#shape-v2" style="fill:none;stroke:var(--stroke,#CFC6F5);stroke-width:calc(var(--sw,1.5) * 2px);stroke-linejoin:round;stroke-dasharray:var(--dash,none)"/>
+      <use href="#shape-v2" style="fill:var(--fill,#FFFFFF);stroke:none"/>
+    </symbol>
+    <g id="shape-v3">
+      <rect vector-effect="non-scaling-stroke" x="14" y="26" width="272" height="58" rx="24"/>
+      <circle vector-effect="non-scaling-stroke" cx="172" cy="28" r="22"/>
+      <circle vector-effect="non-scaling-stroke" cx="208" cy="36" r="18"/>
+      <circle vector-effect="non-scaling-stroke" cx="238" cy="30" r="14"/>
+      <circle vector-effect="non-scaling-stroke" cx="136" cy="34" r="18"/>
+      <circle vector-effect="non-scaling-stroke" cx="104" cy="32" r="16"/>
+      <circle vector-effect="non-scaling-stroke" cx="78" cy="36" r="14"/>
+    </g>
+    <symbol id="cloud-v3" viewBox="0 0 300 100" preserveAspectRatio="none">
+      <rect x="14" y="32" width="272" height="58" rx="24" style="fill:var(--slab,#E2DCF8);stroke:none"/>
+      <use href="#shape-v3" style="fill:none;stroke:var(--stroke,#CFC6F5);stroke-width:calc(var(--sw,1.5) * 2px);stroke-linejoin:round;stroke-dasharray:var(--dash,none)"/>
+      <use href="#shape-v3" style="fill:var(--fill,#FFFFFF);stroke:none"/>
+    </symbol>
+  </defs></svg>
+
+  <!-- ========================================== -->
+  <!-- BARRA DE REVISIÓN / MOCKUP STATE SWITCHER -->
+  <!-- ========================================== -->
+  <div class="w-full max-w-[360px] mb-3 flex items-center justify-between px-3 py-1.5 bg-[#FFFFFF]/90 backdrop-blur-md rounded-full shadow-md text-xs font-semibold text-[#4B4777] z-50">
+    <div class="flex items-center gap-1.5">
+      <span class="material-symbols-rounded text-sm text-[#5043C9]">tune</span>
+      <span class="text-[11px] text-[#4B4777] uppercase tracking-wider font-bold">Modo:</span>
+    </div>
+    <div class="flex bg-[#F0EEFF] p-0.5 rounded-full" id="stateToggleContainer">
+      <button id="btnStateA" onclick="setScreenState('map')" class="px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 bg-[#5043C9] text-white shadow-sm flex items-center gap-1">
+        <span class="">A · Mapa</span>
+      </button>
+      <button id="btnStateB" onclick="setScreenState('passport')" class="px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 text-[#4B4777] hover:text-[#5043C9] flex items-center gap-1">
+        <span class="">B · Pasaporte</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- CONTENEDOR DISPOSITIVO MOBILE (360x640)     -->
+  <!-- ========================================== -->
+  <div class="relative w-[360px] h-[640px] max-h-[640px] bg-gradient-to-b from-[#F2EDFE] via-[#FFF9F2] to-[#F5F2FF] rounded-[28px] shadow-2xl overflow-hidden flex flex-col border-[4px] border-[#FFFFFF]/80">
+
+    <!-- ========================================== -->
+    <!-- BARRA SUPERIOR FIJA                        -->
+    <!-- ========================================== -->
+    <header class="h-14 px-4 flex items-center justify-between bg-[#FFFFFF]/85 backdrop-blur-md border-b border-[#ECE8FB] shrink-0 z-30">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-full bg-[#5043C9]/10 text-[#5043C9] flex items-center justify-center">
+          <span class="material-symbols-rounded text-lg">bedtime</span>
+        </span>
+        <div>
+          <h1 class="font-heading font-bold text-lg text-[#1E1B3A] leading-tight">Archipiélago</h1>
+          <p class="text-[10px] text-[#4B4777] font-medium leading-none">Ruta al ritmo de tu sueño</p>
+        </div>
+      </div>
+
+      <!-- Botón píldora Pasaporte 3 sellos -->
+      <button onclick="setScreenState('passport')" class="min-h-[44px] px-3 py-1.5 rounded-full bg-[#5043C9] hover:bg-[#4335B5] active:scale-95 text-white flex items-center gap-1.5 shadow-sm shadow-[#5043C9]/25 transition-all" aria-label="Abrir pasaporte con 3 sellos">
+        <span class="material-symbols-rounded text-base">auto_stories</span>
+        <span class="font-heading font-semibold text-xs tracking-wide">Pasaporte</span>
+        <span class="bg-[#FFC15A] text-[#1E1B3A] font-extrabold text-[11px] px-1.5 py-0.5 rounded-full ml-0.5">3</span>
+      </button>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENIDO MAPA VERTICAL CON SCROLL (ESTADO A) -->
+    <!-- ========================================== -->
+    <main id="mapScrollArea" class="flex-1 overflow-y-auto overflow-x-hidden relative px-4 pb-20 pt-3">
+      
+      <!-- Fondo ilustrativo: nubes suaves en degradado de amanecer -->
+      <div class="absolute inset-0 pointer-events-none opacity-40 -z-10 overflow-hidden">
+        <div class="absolute top-10 -left-10 w-48 h-48 bg-[#E2D9FF] rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-12 w-56 h-56 bg-[#FFE6C7] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 -left-10 w-52 h-52 bg-[#DCE7FF] rounded-full blur-3xl"></div>
+      </div>
+
+      <!-- Encabezado de mapa con tono sereno -->
+      <div class="text-center mb-4">
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#5043C9]/10 text-[#5043C9] text-[11px] font-bold">
+          <span class="material-symbols-rounded text-xs">explore</span>
+          15 islas para recorrer
+        </span>
+        <p class="text-xs text-[#4B4777] mt-1">Explora hacia arriba · Aprende a tu propio compás</p>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- MAPA ASCENDENTE (De la cima ZONA 4 a la base BASE)  -->
+      <!-- Visualmente las islas están interconectadas          -->
+      <!-- ==================================================== -->
+      <div class="flex flex-col gap-6 relative">
+
+        <!-- LÍNEAS DE RUTA DE NUBES (CONEXIONES SVG PUNTEADAS) -->
+        <svg class="absolute top-0 left-0 w-full h-full pointer-events-none -z-0 opacity-70" xmlns="http://www.w3.org/2000/svg">
+          <!-- Conexión vertical suave punteada entre las islas jugables -->
+          <defs>
+            <linearGradient id="pathGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#FFC15A" stop-opacity="0.8"></stop>
+              <stop offset="50%" stop-color="#5043C9" stop-opacity="0.8"></stop>
+              <stop offset="100%" stop-color="#5043C9" stop-opacity="0.5"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- ============================================ -->
+        <!-- ZONA 4: CUIDAR (CIMA DEL ARCHIPIÉLAGO)       -->
+        <!-- ============================================ -->
+        <section class="flex flex-col gap-2.5 pt-1">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[11px] font-heading font-bold text-[#4B4777] flex items-center gap-1.5 tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#FFC15A]"></span>
+              Zona 4 · Cuidar (Cima)
+            </span>
+            <span class="text-[10px] text-[#4B4777] font-semibold bg-[#FFFFFF]/80 px-2 py-0.5 rounded-full border border-[#ECE8FB]">1 jugable · 2 niebla</span>
+          </div>
+
+          <!-- ISLA TALLER (JUGABLE 6/6 - NUEVA) -->
+          <div role="button" tabindex="0" class="cloud cloud--play v1">
+  <svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use></svg>
+  <div class="relative z-10 flex items-center gap-3">
+    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#ECE7FE] to-[#D5CBFC] flex items-center justify-center shrink-0 relative overflow-hidden text-[#5043C9] shadow-sm">
+      <div class="absolute -right-2 -bottom-2 w-7 h-7 rounded-full bg-[#FFC15A]/30"></div>
+      <span class="material-symbols-rounded text-2xl">auto_fix_high</span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between gap-1">
+        <h3 class="font-heading font-bold text-sm text-[#1E1B3A] truncate">Isla Taller</h3>
+        <span class="inline-flex items-center gap-1 px-4 py-0.5 rounded-full bg-[#5043C9]/10 text-[#5043C9] text-[10px] font-bold shrink-0">
+          <span class="material-symbols-rounded text-xs">auto_awesome</span>
+          Nueva
+        </span>
+      </div>
+      <p class="text-[11px] text-[#4B4777] leading-tight mt-0.5 truncate">Prácticas manuales para despedir el día</p>
+      <div class="mt-1 flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] text-[#1B5FA8] font-bold">
+          <span class="material-symbols-rounded text-[12px]">science</span> Probable
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- NIEBLA: Isla Monstruos & Isla Mirador -->
+          <div class="grid grid-cols-2 gap-x-3 gap-y-2">
+            <div class="cloud cloud--fog cloud--sm v1 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-lg text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Monstruos</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+            <div class="cloud cloud--fog cloud--sm v2 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v2" href="#cloud-v2" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-lg text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Mirador</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONECTOR VISUAL DE RUTA -->
+        <div class="flex justify-center -my-2">
+          <div class="h-5 w-0.5 border-l-2 border-dashed border-[#5043C9]/40"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ZONA 3: EFECTOS                             -->
+        <!-- ============================================ -->
+        <section class="flex flex-col gap-2.5">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[11px] font-heading font-bold text-[#5043C9] flex items-center gap-1.5 tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#5043C9]"></span>
+              Zona 3 · Efectos
+            </span>
+            <span class="text-[10px] text-[#5043C9] font-bold bg-[#ECE7FE] px-2 py-0.5 rounded-full">¡Estás aquí!</span>
+          </div>
+
+          <!-- ISLA CEREBRO (JUGABLE 5/6 - SIGUIENTE EN RUTA) -->
+          <div role="button" tabindex="0" class="cloud cloud--play cloud--now v2">
+  <svg class="cloud-svg" aria-hidden="true"><use class="v2" href="#cloud-v2" width="100%" height="100%"></use></svg>
+  <div class="absolute -top-2.5 right-4 bg-[#5043C9] text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-md z-20">
+    <span class="">Siguiente en tu ruta</span>
+    <span class="material-symbols-rounded text-xs">arrow_upward</span>
+  </div>
+  <div class="relative z-10 flex items-center gap-3 mt-1">
+    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ECE7FE] to-[#D8CEFE] flex items-center justify-center shrink-0 text-[#5043C9] relative overflow-hidden shadow-xs">
+      <span class="material-symbols-rounded text-2xl">neurology</span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between">
+        <h3 class="font-heading font-bold text-sm text-[#1E1B3A] truncate">Isla Cerebro</h3>
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#5043C9]/10 text-[#5043C9] text-[10px] font-bold shrink-0">
+          <span class="material-symbols-rounded text-xs">sparkles</span>
+          Nueva
+        </span>
+      </div>
+      <p class="text-[11px] text-[#4B4777] leading-tight mt-0.5 truncate">Túneles donde se ordenan tus memorias</p>
+      <div class="mt-1 flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] text-[#0F6B4B] font-bold">
+          <span class="material-symbols-rounded text-[12px]">verified</span> Bien establecido
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- CONECTOR DIRECTO HACIA ÁNIMO -->
+          <div class="flex justify-center -my-1">
+            <div class="h-4 w-0.5 border-l-2 border-dashed border-[#5043C9]"></div>
+          </div>
+
+          <!-- ISLA ÁNIMO (JUGABLE 4/6 - VISITADA CON NUBI POSADA "ESTÁS AQUÍ") -->
+          <div role="button" tabindex="0" class="cloud cloud--play cloud--here v3">
+  <svg class="cloud-svg" aria-hidden="true"><use class="v3" href="#cloud-v3" width="100%" height="100%"></use></svg>
+  <!-- Nubi posada sobre el lóbulo de la nube -->
+  <div class="absolute -top-5 -right-1 z-30 flex items-center gap-1.5 animate-float">
+    <div class="relative flex items-center justify-center">
+      <div class="w-9 h-7 bg-white rounded-full shadow-md flex items-center justify-center border border-[#ECE8FB]">
+        <span class="text-sm"><svg class="inline-block align-middle" width="22" height="18" viewBox="0 0 100 80" aria-hidden="true" focusable="false"><path d="M25,60 C12,60 5,48 10,38 C8,22 25,12 38,18 C46,6 64,6 72,18 C85,12 96,26 92,40 C98,50 90,60 75,60 Z" fill="#FFFFFF" stroke="#DBD5FF" stroke-width="3"/><circle cx="40" cy="38" r="3" fill="#1E1B3A"/><circle cx="60" cy="38" r="3" fill="#1E1B3A"/><path d="M44,46 Q50,52 56,46" fill="none" stroke="#1E1B3A" stroke-width="2.5" stroke-linecap="round"/></svg></span>
+      </div>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#FFC15A] rounded-full border border-white"></span>
+    </div>
+    <span class="bg-[#1E1B3A] text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-md">
+      Estás aquí
+    </span>
+  </div>
+  <div class="relative z-10 flex items-center gap-3">
+    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FFF3D6] to-[#FFE7B3] flex items-center justify-center shrink-0 text-[#B87A00] shadow-xs">
+      <span class="material-symbols-rounded text-2xl">sentiment_satisfied</span>
+    </div>
+    <div class="flex-1 min-w-0 pr-8">
+      <div class="flex items-center gap-2">
+        <h3 class="font-heading font-bold text-sm text-[#1E1B3A] truncate">Isla Ánimo</h3>
+        <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-[#ECE7FE] text-[#5043C9] text-[10px] font-bold shrink-0">
+          <span class="material-symbols-rounded text-[12px]">check_circle</span>
+          Visitada
+        </span>
+      </div>
+      <p class="text-[11px] text-[#4B4777] leading-tight mt-0.5">Cómo dialogan tus emociones y tu descanso</p>
+      <div class="mt-1 flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] text-[#0F6B4B] font-bold">
+          <span class="material-symbols-rounded text-[12px]">verified</span> Bien establecido
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- NIEBLA: Isla Cuerpo & Isla Riesgo -->
+          <div class="grid grid-cols-2 gap-x-3 gap-y-2 mt-0.5">
+            <div class="cloud cloud--fog cloud--sm v2 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v2" href="#cloud-v2" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-base text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Cuerpo</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+            <div class="cloud cloud--fog cloud--sm v1 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-base text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Riesgo</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONECTOR VISUAL DE RUTA -->
+        <div class="flex justify-center -my-2">
+          <div class="h-5 w-0.5 border-l-2 border-dashed border-[#FFC15A]"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ZONA 2: CAUSAS                              -->
+        <!-- ============================================ -->
+        <section class="flex flex-col gap-2.5">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[11px] font-heading font-bold text-[#4B4777] flex items-center gap-1.5 tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#FFC15A]"></span>
+              Zona 2 · Causas
+            </span>
+            <span class="text-[10px] text-[#4B4777] font-semibold bg-[#FFFFFF]/80 px-2 py-0.5 rounded-full border border-[#ECE8FB]">1 completada · 4 niebla</span>
+          </div>
+
+          <!-- ISLA HORARIOS (JUGABLE 3/6 - COMPLETADA CON SELLO) -->
+          <div role="button" tabindex="0" class="cloud cloud--play cloud--gold v2">
+  <svg class="cloud-svg" aria-hidden="true"><use class="v2" href="#cloud-v2" width="100%" height="100%"></use></svg>
+  <div class="relative z-10 flex items-center gap-3">
+    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FFF7E8] to-[#FFE8B8] flex items-center justify-center shrink-0 text-[#D98200] shadow-xs">
+      <span class="material-symbols-rounded text-2xl">calendar_month</span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between">
+        <h3 class="font-heading font-bold text-sm text-[#1E1B3A] truncate">Isla Horarios</h3>
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FFF5DB] text-[#9A6200] text-[10px] font-extrabold border border-[#FFD982] shrink-0">
+          <span class="material-symbols-rounded text-xs text-[#FFC15A]">military_tech</span>
+          Completada
+        </span>
+      </div>
+      <p class="text-[11px] text-[#4B4777] leading-tight mt-0.5 truncate">La armonía de tus mañanas y noches</p>
+      <div class="mt-1 flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] text-[#0F6B4B] font-bold">
+          <span class="material-symbols-rounded text-[12px]">verified</span> Bien establecido
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- NIEBLA EN ZONA 2 (4 ISLAS: Pantallas, Energía, Tormenta, Ambiente) -->
+          <div class="grid grid-cols-2 gap-x-3 gap-y-2">
+            <div class="cloud cloud--fog cloud--sm v1 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-base text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Pantallas</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+            <div class="cloud cloud--fog cloud--sm v2 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v2" href="#cloud-v2" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-base text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Energía</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+            <div class="cloud cloud--fog cloud--sm v2 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v2" href="#cloud-v2" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-base text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Tormenta</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+            <div class="cloud cloud--fog cloud--sm v1 flex items-center gap-2 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use></svg>
+              <span class="material-symbols-rounded text-base text-[#4B4777]/50">cloud</span>
+              <div class="min-w-0">
+                <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60 truncate">Isla Ambiente</p>
+                <p class="text-[9px] text-[#4B4777]/70 leading-none mt-0.5">En construcción</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONECTOR VISUAL DE RUTA -->
+        <div class="flex justify-center -my-2">
+          <div class="h-5 w-0.5 border-l-2 border-dashed border-[#FFC15A]"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ZONA 1: ENTENDER                            -->
+        <!-- ============================================ -->
+        <section class="flex flex-col gap-2.5">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[11px] font-heading font-bold text-[#4B4777] flex items-center gap-1.5 tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#FFC15A]"></span>
+              Zona 1 · Entender
+            </span>
+            <span class="text-[10px] text-[#4B4777] font-semibold bg-[#FFFFFF]/80 px-2 py-0.5 rounded-full border border-[#ECE8FB]">1 completada · 1 niebla</span>
+          </div>
+
+          <!-- ISLA RELOJ (JUGABLE 2/6 - COMPLETADA CON SELLO) -->
+          <div role="button" tabindex="0" class="cloud cloud--play cloud--gold v3">
+  <svg class="cloud-svg" aria-hidden="true"><use class="v3" href="#cloud-v3" width="100%" height="100%"></use></svg>
+  <div class="relative z-10 flex items-center gap-3">
+    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FFF7E8] to-[#FFE8B8] flex items-center justify-center shrink-0 text-[#D98200] shadow-xs">
+      <span class="material-symbols-rounded text-2xl">schedule</span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between">
+        <h3 class="font-heading font-bold text-sm text-[#1E1B3A] truncate">Isla Reloj</h3>
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FFF5DB] text-[#9A6200] text-[10px] font-extrabold border border-[#FFD982] shrink-0">
+          <span class="material-symbols-rounded text-xs text-[#FFC15A]">military_tech</span>
+          Completada
+        </span>
+      </div>
+      <p class="text-[11px] text-[#4B4777] leading-tight mt-0.5 truncate">Tu compás circadiano interno y su luz</p>
+      <div class="mt-1 flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] text-[#0F6B4B] font-bold">
+          <span class="material-symbols-rounded text-[12px]">verified</span> Bien establecido
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- NIEBLA: Isla Luna -->
+          <div class="cloud cloud--fog cloud--wide v1 flex items-center gap-2.5 text-[#4B4777]/70"><svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use><use class="v2" href="#cloud-v2" width="100%" height="100%"></use><use class="v3" href="#cloud-v3" width="100%" height="100%"></use></svg>
+            <span class="material-symbols-rounded text-lg text-[#4B4777]/50">cloud</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-heading text-xs font-semibold text-[#1E1B3A]/60">Isla Luna</p>
+              <p class="text-[10px] text-[#4B4777]/70">En construcción. Pronto habrá más.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONECTOR VISUAL DE RUTA -->
+        <div class="flex justify-center -my-2">
+          <div class="h-5 w-0.5 border-l-2 border-dashed border-[#FFC15A]"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- BASE DEL ARCHIPIÉLAGO (INICIO / ISLA NIDO)  -->
+        <!-- ============================================ -->
+        <section class="flex flex-col gap-2 pb-4">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[11px] font-heading font-bold text-[#5043C9] flex items-center gap-1.5 tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#5043C9]"></span>
+              Base del Archipiélago
+            </span>
+            <span class="text-[10px] text-[#0F6B4B] font-extrabold bg-[#E6F4EA] px-2 py-0.5 rounded-full">Punto de partida</span>
+          </div>
+
+          <!-- ISLA NIDO (JUGABLE 1/6 - COMPLETADA CON SELLO DORADO + NUBI POSADA) -->
+          <div role="button" tabindex="0" class="cloud cloud--play cloud--gold v1">
+  <svg class="cloud-svg" aria-hidden="true"><use class="v1" href="#cloud-v1" width="100%" height="100%"></use></svg>
+  <!-- Nubi descansa aquí tag -->
+  <div class="absolute -top-3 left-4 flex items-center gap-1 bg-white border border-[#ECE8FB] shadow-xs px-2 py-0.5 rounded-full text-[10px] font-bold text-[#4B4777] z-20">
+    <span class=""><svg class="inline-block align-middle" width="22" height="18" viewBox="0 0 100 80" aria-hidden="true" focusable="false"><path d="M25,60 C12,60 5,48 10,38 C8,22 25,12 38,18 C46,6 64,6 72,18 C85,12 96,26 92,40 C98,50 90,60 75,60 Z" fill="#FFFFFF" stroke="#DBD5FF" stroke-width="3"/><circle cx="40" cy="38" r="3" fill="#1E1B3A"/><circle cx="60" cy="38" r="3" fill="#1E1B3A"/><path d="M44,46 Q50,52 56,46" fill="none" stroke="#1E1B3A" stroke-width="2.5" stroke-linecap="round"/></svg> Nubi descansa aquí</span>
+  </div>
+  <div class="relative z-10 flex items-center gap-3 mt-1">
+    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FFF7E8] to-[#FFE8B8] flex items-center justify-center shrink-0 text-[#D98200] relative shadow-xs">
+      <span class="material-symbols-rounded text-2xl">bed</span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between">
+        <h3 class="font-heading font-bold text-sm text-[#1E1B3A] truncate">Isla Nido</h3>
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFF5DB] text-[#9A6200] text-[10px] font-extrabold border border-[#FFD982] shrink-0">
+          <span class="material-symbols-rounded text-xs text-[#FFC15A]">military_tech</span>
+          Completada
+        </span>
+      </div>
+      <p class="text-[11px] text-[#4B4777] leading-tight mt-0.5 truncate">El refugio donde Nubi descansa contigo</p>
+      <div class="mt-1 flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] text-[#0F6B4B] font-bold">
+          <span class="material-symbols-rounded text-[12px]">home</span> Tu Nido seguro
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- Pie del mapa sereno -->
+          <div class="text-center py-2 px-3">
+            <p class="text-[11px] text-[#4B4777] font-medium leading-relaxed">
+              Camina a tu propio ritmo · Sin puntajes ni prisas.
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- BARRA INFERIOR FIJA                        -->
+    <!-- ========================================== -->
+    <nav class="h-14 bg-[#FFFFFF]/90 backdrop-blur-md border-t border-[#ECE8FB] flex items-center justify-around px-4 shrink-0 z-30">
+      <!-- Mapa (Activo) -->
+      <button onclick="setScreenState('map')" class="flex flex-col items-center justify-center min-h-[44px] min-w-[60px] text-[#5043C9] group">
+        <span class="material-symbols-rounded text-xl">explore</span>
+        <span class="font-heading text-[10px] font-bold mt-0.5">Mapa</span>
+      </button>
+
+      <!-- Pasaporte -->
+      <button onclick="setScreenState('passport')" class="flex flex-col items-center justify-center min-h-[44px] min-w-[60px] text-[#4B4777] hover:text-[#5043C9] transition-colors group">
+        <div class="relative">
+          <span class="material-symbols-rounded text-xl outlined">auto_stories</span>
+          <span class="absolute -top-1 -right-2 w-2 h-2 rounded-full bg-[#FFC15A]"></span>
+        </div>
+        <span class="font-heading text-[10px] font-bold mt-0.5">Pasaporte</span>
+      </button>
+
+      <!-- Ayuda -->
+      <button class="flex flex-col items-center justify-center min-h-[44px] min-w-[60px] text-[#4B4777] hover:text-[#5043C9] transition-colors group">
+        <span class="material-symbols-rounded text-xl outlined">help_outline</span>
+        <span class="font-heading text-[10px] font-bold mt-0.5">Ayuda</span>
+      </button>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- ESTADO B: MODAL PASAPORTE ABIERTO SOBRE MAPA DESENFOCADO (#1E1B3A/40) -->
+    <!-- ================================================================= -->
+    <div id="passportModalOverlay" class="absolute inset-0 bg-[#1E1B3A]/40 backdrop-blur-[3px] z-40 flex flex-col justify-end transition-opacity duration-300 pointer-events-none opacity-0">
+      
+      <!-- Hoja modal "Pasaporte de Nubi" estilo libreta de viaje (radios 20px arriba) -->
+      <div id="passportSheet" class="w-full bg-[#FFFFFF] rounded-t-[20px] shadow-2xl p-4 flex flex-col max-h-[88%] overflow-y-auto transform translate-y-full transition-transform duration-300 ease-out border-t border-[#ECE8FB]">
+        
+        <!-- Píldora de arrastre decorativa -->
+        <div class="w-10 h-1 bg-[#E0DCF7] rounded-full mx-auto mb-2 shrink-0"></div>
+
+        <!-- Cabecera del modal: Pasaporte + X (44px táctil) -->
+        <div class="flex items-center justify-between pb-3 border-b border-[#F0EEFC] shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-[#5043C9]/10 text-[#5043C9] flex items-center justify-center">
+              <span class="material-symbols-rounded text-base">auto_stories</span>
+            </span>
+            <div>
+              <h2 class="font-heading font-bold text-base text-[#1E1B3A] leading-tight">Pasaporte de Nubi</h2>
+              <p class="text-[10px] text-[#4B4777]">Tu libreta de sellos aprendidos</p>
+            </div>
+          </div>
+          
+          <button onclick="setScreenState('map')" class="w-11 h-11 min-h-[44px] min-w-[44px] rounded-full flex items-center justify-center text-[#4B4777] hover:bg-[#F2EDFE] active:scale-95 transition-all" aria-label="Cerrar pasaporte">
+            <span class="material-symbols-rounded text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- CUADRÍCULA DE 6 CASILLAS DE SELLO TIPO PASAPORTE -->
+        <div class="py-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-heading font-bold text-[#1E1B3A] uppercase tracking-wider">Sellos del Viaje</span>
+            <span class="text-[11px] font-bold text-[#5043C9] bg-[#ECE7FE] px-2 py-0.5 rounded-full">3 de 6 ganados</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            
+            <!-- CASILLA 1: NIDO (SELLO GANADO) -->
+            <div class="bg-[#FFFDF7] border-2 border-[#FFC15A] rounded-[14px] p-2 flex flex-col items-center text-center relative shadow-xs">
+              <div class="w-8 h-8 rounded-full bg-[#FFF4DB] text-[#D98200] flex items-center justify-center mb-1">
+                <span class="material-symbols-rounded text-lg text-[#FFC15A]">military_tech</span>
+              </div>
+              <span class="font-heading font-bold text-xs text-[#1E1B3A] truncate w-full">Isla Nido</span>
+              <span class="text-[9px] font-bold text-[#0F6B4B] bg-[#E6F4EA] px-1.5 py-0.2 rounded-full mt-0.5">Bienvenida</span>
+            </div>
+
+            <!-- CASILLA 2: RELOJ (SELLO GANADO) -->
+            <div class="bg-[#FFFDF7] border-2 border-[#FFC15A] rounded-[14px] p-2 flex flex-col items-center text-center relative shadow-xs">
+              <div class="w-8 h-8 rounded-full bg-[#FFF4DB] text-[#D98200] flex items-center justify-center mb-1">
+                <span class="material-symbols-rounded text-lg text-[#FFC15A]">military_tech</span>
+              </div>
+              <span class="font-heading font-bold text-xs text-[#1E1B3A] truncate w-full">Isla Reloj</span>
+              <span class="text-[9px] font-bold text-[#0F6B4B] bg-[#E6F4EA] px-1.5 py-0.2 rounded-full mt-0.5">Ganado</span>
+            </div>
+
+            <!-- CASILLA 3: HORARIOS (SELLO GANADO) -->
+            <div class="bg-[#FFFDF7] border-2 border-[#FFC15A] rounded-[14px] p-2 flex flex-col items-center text-center relative shadow-xs">
+              <div class="w-8 h-8 rounded-full bg-[#FFF4DB] text-[#D98200] flex items-center justify-center mb-1">
+                <span class="material-symbols-rounded text-lg text-[#FFC15A]">military_tech</span>
+              </div>
+              <span class="font-heading font-bold text-xs text-[#1E1B3A] truncate w-full">Isla Horarios</span>
+              <span class="text-[9px] font-bold text-[#0F6B4B] bg-[#E6F4EA] px-1.5 py-0.2 rounded-full mt-0.5">Ganado</span>
+            </div>
+
+            <!-- CASILLA 4: ÁNIMO (MARCADA "VAS POR AQUÍ" CON NUBI MINI) -->
+            <div class="bg-[#F8F5FF] border-2 border-[#5043C9] rounded-[14px] p-2 flex flex-col items-center text-center relative shadow-sm ring-2 ring-[#5043C9]/15">
+              <!-- Nubi mini posada -->
+              <div class="absolute -top-2 -right-1 bg-white border border-[#DBD5FF] rounded-full px-1 text-[9px] shadow-xs">
+                <svg class="inline-block align-middle" width="22" height="18" viewBox="0 0 100 80" aria-hidden="true" focusable="false"><path d="M25,60 C12,60 5,48 10,38 C8,22 25,12 38,18 C46,6 64,6 72,18 C85,12 96,26 92,40 C98,50 90,60 75,60 Z" fill="#FFFFFF" stroke="#DBD5FF" stroke-width="3"/><circle cx="40" cy="38" r="3" fill="#1E1B3A"/><circle cx="60" cy="38" r="3" fill="#1E1B3A"/><path d="M44,46 Q50,52 56,46" fill="none" stroke="#1E1B3A" stroke-width="2.5" stroke-linecap="round"/></svg>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-[#ECE7FE] text-[#5043C9] flex items-center justify-center mb-1">
+                <span class="material-symbols-rounded text-lg">explore</span>
+              </div>
+              <span class="font-heading font-bold text-xs text-[#1E1B3A] truncate w-full">Isla Ánimo</span>
+              <span class="text-[9px] font-bold text-[#5043C9] bg-[#ECE7FE] px-1.5 py-0.2 rounded-full mt-0.5">Vas por aquí</span>
+            </div>
+
+            <!-- CASILLA 5: CEREBRO (FANTASMA "AÚN NO") -->
+            <div class="bg-[#FAF9FF] border border-dashed border-[#D2CAFC] rounded-[14px] p-2 flex flex-col items-center text-center opacity-70">
+              <div class="w-8 h-8 rounded-full bg-[#F0EEFF] text-[#8C83B8] flex items-center justify-center mb-1">
+                <span class="material-symbols-rounded text-base">lock</span>
+              </div>
+              <span class="font-heading font-bold text-xs text-[#4B4777] truncate w-full">Isla Cerebro</span>
+              <span class="text-[9px] font-semibold text-[#7A3FA0] bg-[#F3ECFB] px-1.5 py-0.2 rounded-full mt-0.5">Aún no</span>
+            </div>
+
+            <!-- CASILLA 6: TALLER (FANTASMA "AÚN NO") -->
+            <div class="bg-[#FAF9FF] border border-dashed border-[#D2CAFC] rounded-[14px] p-2 flex flex-col items-center text-center opacity-70">
+              <div class="w-8 h-8 rounded-full bg-[#F0EEFF] text-[#8C83B8] flex items-center justify-center mb-1">
+                <span class="material-symbols-rounded text-base">lock</span>
+              </div>
+              <span class="font-heading font-bold text-xs text-[#4B4777] truncate w-full">Isla Taller</span>
+              <span class="text-[9px] font-semibold text-[#7A3FA0] bg-[#F3ECFB] px-1.5 py-0.2 rounded-full mt-0.5">Aún no</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RESUMEN SERENO Y PROGRESO HACIA "SABIO DEL SUEÑO" -->
+        <div class="bg-[#F8F6FF] rounded-[14px] p-3 border border-[#E9E4FC] my-1">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-rounded text-lg text-[#5043C9]">school</span>
+            <div>
+              <p class="font-heading font-bold text-xs text-[#1E1B3A]">Camino a Sabio del Sueño</p>
+              <p class="text-[11px] text-[#4B4777] leading-tight">3 de 6 islas completadas · 2 cadenas causa-efecto aprendidas</p>
+            </div>
+          </div>
+
+          <!-- Barra fina de progreso serena (sin % amenazante) -->
+          <div class="mt-2.5">
+            <div class="flex items-center justify-between text-[10px] font-bold mb-1">
+              <span class="text-[#4B4777]">Progreso sereno</span>
+              <span class="text-[#5043C9]">3 de 6 islas</span>
+            </div>
+            <div class="w-full h-2 bg-[#E3DCFE] rounded-full overflow-hidden">
+              <div class="h-full bg-[#5043C9] rounded-full transition-all duration-500" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTA AL PIE SOBRE LOS SELLOS -->
+        <p class="text-[11px] text-[#4B4777] text-center my-2 leading-relaxed px-2 font-medium">
+          Los sellos se ganan aprendiendo y completando cada isla. Sin prisas.
+        </p>
+
+        <!-- BOTONES DE ACCIÓN (PÍLDORA + TEXTO 44px) -->
+        <div class="flex flex-col gap-2 mt-1">
+          <button onclick="setScreenState('map')" class="min-h-[44px] w-full rounded-full bg-[#5043C9] hover:bg-[#4335B5] active:scale-98 text-white font-heading font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm shadow-[#5043C9]/25 transition-all">
+            <span class="material-symbols-rounded text-sm">explore</span>
+            Rever islas en el mapa
+          </button>
+          <button onclick="setScreenState('map')" class="min-h-[44px] w-full rounded-full text-[#4B4777] hover:bg-[#F2EDFE] active:scale-98 font-heading font-semibold text-xs flex items-center justify-center transition-all">
+            Cerrar pasaporte
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SCRIPT INTERACTIVO PARA ALTERNAR ESTADOS   -->
+  <!-- ========================================== -->
+  <script>
+    function setScreenState(state) {
+      const modalOverlay = document.getElementById('passportModalOverlay');
+      const modalSheet = document.getElementById('passportSheet');
+      const btnA = document.getElementById('btnStateA');
+      const btnB = document.getElementById('btnStateB');
+
+      if (state === 'passport') {
+        // Activar modal
+        modalOverlay.classList.remove('pointer-events-none', 'opacity-0');
+        modalOverlay.classList.add('pointer-events-auto', 'opacity-100');
+        modalSheet.classList.remove('translate-y-full');
+        modalSheet.classList.add('translate-y-0');
+
+        // Actualizar switch superior
+        btnB.className = "px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 bg-[#5043C9] text-white shadow-sm flex items-center gap-1";
+        btnA.className = "px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 text-[#4B4777] hover:text-[#5043C9] flex items-center gap-1";
+      } else {
+        // Desactivar modal
+        modalOverlay.classList.remove('pointer-events-auto', 'opacity-100');
+        modalOverlay.classList.add('pointer-events-none', 'opacity-0');
+        modalSheet.classList.remove('translate-y-0');
+        modalSheet.classList.add('translate-y-full');
+
+        // Actualizar switch superior
+        btnA.className = "px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 bg-[#5043C9] text-white shadow-sm flex items-center gap-1";
+        btnB.className = "px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 text-[#4B4777] hover:text-[#5043C9] flex items-center gap-1";
+      }
+    }
+  </script>
+
+
+
+
+
+
+</body></html>

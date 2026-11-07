@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nubi y el Archipiélago del Sueño - Ayuda</title>
+<!-- Google Fonts: Quicksand & Nunito Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..700;1,6..12,300..700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#744f00",
+            "surface": "#fcf8ff",
+            "secondary-container": "#ffc15b",
+            "surface-container-low": "#f6f1ff",
+            "secondary-fixed": "#ffdeae",
+            "tertiary-fixed": "#f4d9ff",
+            "on-primary-container": "#cfcaff",
+            "on-tertiary-container": "#eac2ff",
+            "on-surface-variant": "#474554",
+            "tertiary-fixed-dim": "#e4b5ff",
+            "surface-dim": "#dbd5ff",
+            "on-secondary-fixed-variant": "#604100",
+            "surface-container": "#f0ebff",
+            "on-background": "#1a1736",
+            "secondary-fixed-dim": "#f9bc55",
+            "on-tertiary-fixed-variant": "#652a8b",
+            "primary-fixed-dim": "#c5c0ff",
+            "on-primary-fixed": "#140067",
+            "surface-variant": "#e4dfff",
+            "primary-fixed": "#e3dfff",
+            "outline-variant": "#c8c4d6",
+            "surface-bright": "#fcf8ff",
+            "on-surface": "#1a1736",
+            "background": "#fcf8ff",
+            "on-tertiary-fixed": "#2f004b",
+            "inverse-on-surface": "#f3eeff",
+            "on-error": "#ffffff",
+            "tertiary": "#5f2485",
+            "secondary": "#7f5600",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#eae5ff",
+            "on-tertiary": "#ffffff",
+            "outline": "#787585",
+            "on-secondary": "#ffffff",
+            "inverse-surface": "#302d4d",
+            "surface-tint": "#5649cf",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e4dfff",
+            "inverse-primary": "#c5c0ff",
+            "tertiary-container": "#793e9f",
+            "primary-container": "#5043c9",
+            "on-primary-fixed-variant": "#3d2db6",
+            "primary": "#3825b1",
+            "on-secondary-fixed": "#281800"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "gutter-md": "1.5rem",
+            "gutter": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin-md": "2rem",
+            "margin": "1.25rem",
+            "margin-lg": "3rem",
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "label-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "label-sm": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "body-md": ["Nunito Sans"],
+            "display-lg-mobile": ["Quicksand"],
+            "headline-sm": ["Quicksand"],
+            "display-lg": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "body-lg": ["Nunito Sans"],
+            "headline-md": ["Quicksand"]
+          },
+          "fontSize": {
+            "label-md": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "label-lg": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-sm": ["19px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .soft-island-shadow {
+      box-shadow: 0 8px 24px -4px rgba(80, 67, 201, 0.08), 0 2px 6px -1px rgba(80, 67, 201, 0.04);
+    }
+    .warm-glow {
+      box-shadow: 0 10px 25px -5px rgba(255, 193, 91, 0.35);
+    }
+    .tonal-border {
+      border: 1.5px solid rgba(80, 67, 201, 0.08);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-full flex flex-col items-center antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Atmospheric Soft Gradients -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-surface-container rounded-full blur-3xl opacity-70"></div>
+<div class="absolute top-1/3 -right-20 w-80 h-80 bg-secondary-fixed/30 rounded-full blur-3xl opacity-50"></div>
+<div class="absolute bottom-20 -left-20 w-80 h-80 bg-surface-variant/40 rounded-full blur-3xl opacity-60"></div>
+</div>
+<!-- Shared TopAppBar Container (Mobile Docked Shell) -->
+<header class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 h-16 max-w-5xl mx-auto bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-md shadow-sm dark:shadow-none">
+<a aria-label="Volver" class="flex items-center gap-1.5 min-h-[48px] px-2 rounded-full text-primary dark:text-inverse-primary hover:bg-surface-container transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[22px]">arrow_back</span>
+<span class="font-label-md text-label-md">Volver</span>
+</a>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">bedtime</span>
+<h1 class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary font-bold">Ayuda</h1>
+</div>
+<!-- Gentle Support Badge / Status Indicator -->
+<div class="flex items-center justify-end">
+<div class="flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-full border border-primary/10" title="Espacio seguro y protegido">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-sm text-label-sm text-primary">Cuidado</span>
+</div>
+</div>
+</header>
+<!-- Main Canvas: Mobile Viewport optimized (360px - 480px width) -->
+<main class="relative z-10 w-full max-w-md px-5 pt-20 pb-28 flex flex-col gap-6">
+<!-- Hero Card: Cálido y Reconfortante -->
+<section class="bg-surface-container-lowest rounded-[24px] p-6 soft-island-shadow tonal-border relative overflow-hidden text-center flex flex-col items-center">
+<!-- Glow ambient backdrop inside card -->
+<div class="absolute -top-12 -right-12 w-36 h-36 bg-secondary-fixed/40 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Iconographic Island Illustration: Nubi & Protective Aura -->
+<div class="relative w-20 h-20 mb-4 flex items-center justify-center">
+<div class="absolute inset-0 bg-surface-container rounded-full scale-110"></div>
+<div class="relative flex items-center justify-center w-16 h-16 bg-surface-container-low rounded-full shadow-inner border border-primary/15">
+<span class="material-symbols-outlined text-primary text-[36px]" style="font-variation-settings: 'FILL' 1;">cloud</span>
+<span class="material-symbols-outlined absolute -top-1 -right-1 text-secondary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<span class="material-symbols-outlined absolute -bottom-1 -left-1 text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">hotel_class</span>
+</div>
+</div>
+<!-- Warm Affirmation -->
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2 font-bold leading-tight">
+        No tienes que resolver esto solo.
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px]">
+        Cuidar tu descanso y tus emociones es un camino acompañado. Estamos aquí para orientarte con tranquilidad y paciencia.
+      </p>
+<div class="mt-4 inline-flex items-center gap-2 bg-surface-container-low text-primary px-3.5 py-1.5 rounded-full tonal-border">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+<span class="font-label-sm text-label-sm">Espacio amable • Sin presiones</span>
+</div>
+</section>
+<!-- Section: Señales para hablar con un adulto -->
+<section class="bg-surface-container-lowest rounded-[20px] p-5 soft-island-shadow tonal-border">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Señales para hablar con un adulto</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Si notas estas sensaciones varias semanas:</p>
+</div>
+</div>
+<!-- Signals Bento List -->
+<div class="space-y-2.5">
+<!-- Item 1 -->
+<div class="flex items-start gap-3.5 p-3 rounded-2xl bg-surface-container-low/70 tonal-border transition-all hover:bg-surface-container-low">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed/50 flex-shrink-0 flex items-center justify-center text-on-secondary-container mt-0.5">
+<span class="material-symbols-outlined text-[20px]">sunny</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Mucho sueño durante el día</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Cansancio constante en clases o desconexión habitual a la tarde.</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-start gap-3.5 p-3 rounded-2xl bg-surface-container-low/70 tonal-border transition-all hover:bg-surface-container-low">
+<div class="w-9 h-9 rounded-full bg-primary-fixed flex-shrink-0 flex items-center justify-center text-primary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">air</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Ronquido fuerte o pausas al respirar</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Despertarte con boca muy seca o sensación de ahogo suave en la noche.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-start gap-3.5 p-3 rounded-2xl bg-surface-container-low/70 tonal-border transition-all hover:bg-surface-container-low">
+<div class="w-9 h-9 rounded-full bg-surface-variant flex-shrink-0 flex items-center justify-center text-tertiary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Pesadillas frecuentes</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Sueños que te intranquilizan a menudo o temor al momento de ir a la cama.</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-start gap-3.5 p-3 rounded-2xl bg-surface-container-low/70 tonal-border transition-all hover:bg-surface-container-low">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed flex-shrink-0 flex items-center justify-center text-tertiary-container mt-0.5">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Sentirte triste, irritable o abrumado</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Tus emociones se sienten demasiado pesadas durante muchos días continuos.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Qué puedes hacer -->
+<section class="bg-surface-container-lowest rounded-[20px] p-5 soft-island-shadow tonal-border">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">explore</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Qué puedes hacer</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pasos simples para aliviar la carga:</p>
+</div>
+</div>
+<div class="space-y-3 mb-4">
+<!-- Step 1 -->
+<div class="flex gap-3 items-center p-3 rounded-xl bg-surface-container/50">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-sm text-[13px] flex-shrink-0 font-bold">1</div>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-on-surface block">Hablar con un adulto de confianza</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Puede ser tu mamá, papá, docente u orientación de tu colegio.</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-3 items-center p-3 rounded-xl bg-surface-container/50">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-sm text-[13px] flex-shrink-0 font-bold">2</div>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-on-surface block">Consultar con un profesional de la salud</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pediatra, médico de cabecera o especialista en medicina del sueño.</span>
+</div>
+</div>
+</div>
+<!-- Safe Contact Placeholder Block with Mandatory Verification Badge -->
+<div class="p-4 rounded-2xl bg-surface-container-low border border-primary/15 relative overflow-hidden">
+<div class="flex items-center justify-between gap-2 mb-2">
+<div class="flex items-center gap-1.5 text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-secondary text-[18px]">support_agent</span>
+<span>Líneas y apoyos de orientación</span>
+</div>
+<!-- Evidence / Status Pill -->
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-[11px] font-label-sm">
+<span class="material-symbols-outlined text-[13px]">info</span>
+<span>Pendiente de verificar fuente oficial</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Estamos recopilando los canales telefónicos y de chat gratuitos de tu país para brindarte asistencia directa y confiable.
+        </p>
+<div class="mt-3 inline-flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>Sin números improvisados ni llamadas no verificadas.</span>
+</div>
+</div>
+</section>
+<!-- Section: Ajustes de Comodidad y Privacidad -->
+<section class="bg-surface-container-lowest rounded-[20px] p-5 soft-island-shadow tonal-border">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Ajustes</h3>
+</div>
+<div class="space-y-4">
+<!-- Toggle 1: Reducir animaciones -->
+<div class="flex items-center justify-between gap-4 py-1">
+<div class="flex-1">
+<label class="font-label-lg text-label-lg text-on-surface block cursor-pointer" for="toggle-reduced-motion">
+              Reducir animaciones
+            </label>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">
+              Suaviza las transiciones de las islas para mayor descanso visual.
+            </span>
+</div>
+<button aria-checked="false" class="w-13 h-8 px-1 rounded-full bg-surface-variant flex items-center transition-colors min-h-[44px] min-w-[52px] cursor-pointer" id="btn-toggle-motion" onclick="toggleSwitch(this)" role="switch">
+<span class="w-6 h-6 rounded-full bg-surface-container-lowest shadow-sm transform transition-transform duration-200"></span>
+</button>
+</div>
+<div class="h-px bg-outline-variant/30"></div>
+<!-- Toggle 2: Borrar mi viaje -->
+<div class="flex items-center justify-between gap-4 py-1">
+<div class="flex-1">
+<span class="font-label-lg text-label-lg text-on-surface block">
+              Borrar mi viaje
+            </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">
+              Tu progreso se guarda solo en este celular. Nadie más tiene tus respuestas.
+            </span>
+</div>
+<button class="min-h-[44px] px-3.5 py-2 rounded-full bg-surface-container text-primary hover:bg-surface-container-high transition-all text-label-md font-label-md flex items-center gap-1 active:scale-95" onclick="confirmReset()" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+<span>Reiniciar</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Footer & Ethical Disclaimer -->
+<footer class="text-center space-y-4 pt-2 pb-6">
+<div class="flex items-center justify-center gap-1.5 text-on-surface-variant/80 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Esta app informa y no reemplaza a un profesional de la salud.</span>
+</div>
+<!-- Scientific Sources Link -->
+<a class="inline-flex items-center justify-center gap-1.5 text-primary hover:text-tertiary-container font-label-md text-label-md min-h-[44px] px-4 rounded-full transition-colors bg-surface-container/60 hover:bg-surface-container" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span>Ver fuentes científicas</span>
+</a>
+<!-- Primary Action: Volver al mapa -->
+<div class="pt-2">
+<a class="inline-flex items-center justify-center gap-2 w-full max-w-xs mx-auto h-12 px-6 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span>Volver al mapa</span>
+</a>
+</div>
+</footer>
+</main>
+<!-- Shared BottomNavBar Component (Docked Mobile Shell) -->
+<!-- Executing mandatory JSON: active item = "Ayuda" (index 3) -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center px-4 py-2 max-w-lg mx-auto pb-safe bg-surface-container-lowest/90 dark:bg-inverse-surface/90 backdrop-blur-lg shadow-lg dark:shadow-none">
+<!-- Item 1: Mapa (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant rounded-full px-3 py-1.5 min-h-[48px] hover:bg-surface-container-low transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[22px]">explore</span>
+<span class="text-label-sm font-label-sm">Mapa</span>
+</a>
+<!-- Item 2: Pasaporte (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant rounded-full px-3 py-1.5 min-h-[48px] hover:bg-surface-container-low transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[22px]">auto_stories</span>
+<span class="text-label-sm font-label-sm">Pasaporte</span>
+</a>
+<!-- Item 3: Diario (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant rounded-full px-3 py-1.5 min-h-[48px] hover:bg-surface-container-low transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[22px]">bedtime</span>
+<span class="text-label-sm font-label-sm">Diario</span>
+</a>
+<!-- Item 4: Ayuda (Active Tab) -->
+<a aria-current="page" class="flex flex-col items-center justify-center bg-surface-container dark:bg-primary-container text-primary dark:text-on-primary-container rounded-full px-4 py-1.5 min-h-[48px] transition-all active:scale-[0.98]" href="#">
+<div class="relative flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">help_outline</span>
+<!-- Starlight Indicator Dot -->
+<span class="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-secondary-container"></span>
+</div>
+<span class="text-label-sm font-label-sm font-bold">Ayuda</span>
+</a>
+</nav>
+<!-- Interactive JavaScript for micro-interactions -->
+<script>
+    function toggleSwitch(btn) {
+      const isChecked = btn.getAttribute('aria-checked') === 'true';
+      const thumb = btn.querySelector('span');
+      if (isChecked) {
+        btn.setAttribute('aria-checked', 'false');
+        btn.classList.remove('bg-primary-container');
+        btn.classList.add('bg-surface-variant');
+        thumb.classList.remove('translate-x-5');
+      } else {
+        btn.setAttribute('aria-checked', 'true');
+        btn.classList.remove('bg-surface-variant');
+        btn.classList.add('bg-primary-container');
+        thumb.classList.add('translate-x-5');
+      }
+    }
+
+    function confirmReset() {
+      if (confirm('¿Deseas reiniciar tu progreso en este teléfono? Puedes volver a empezar cuando quieras con total tranquilidad.')) {
+        alert('Tus datos han sido reiniciados con suavidad.');
+      }
+    }
+  </script>
+</body></html>

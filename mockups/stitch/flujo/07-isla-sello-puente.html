@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Isla Reloj · Sello y puente</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a",
+            "surface": "#fcf8ff",
+            "on-background": "#1a1736",
+            "secondary-container": "#ffc15b",
+            "primary-fixed": "#e3dfff",
+            "surface-variant": "#e4dfff",
+            "on-primary-fixed": "#140067",
+            "secondary-fixed-dim": "#f9bc55",
+            "outline-variant": "#c8c4d6",
+            "surface-container-highest": "#e4dfff",
+            "on-tertiary-container": "#eac2ff",
+            "tertiary-container": "#793e9f",
+            "inverse-surface": "#302d4d",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#744f00",
+            "surface-dim": "#dbd5ff",
+            "surface-container": "#f0ebff",
+            "inverse-primary": "#c5c0ff",
+            "secondary": "#7f5600",
+            "on-primary-fixed-variant": "#3d2db6",
+            "surface-container-low": "#f6f1ff",
+            "on-tertiary-fixed-variant": "#652a8b",
+            "tertiary-fixed": "#f4d9ff",
+            "primary-container": "#5043c9",
+            "outline": "#787585",
+            "surface-tint": "#5649cf",
+            "primary": "#3825b1",
+            "on-primary-container": "#cfcaff",
+            "background": "#fcf8ff",
+            "on-secondary": "#ffffff",
+            "on-primary": "#ffffff",
+            "secondary-fixed": "#ffdeae",
+            "on-tertiary-fixed": "#2f004b",
+            "on-surface": "#1a1736",
+            "on-secondary-fixed-variant": "#604100",
+            "tertiary": "#5f2485",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#eae5ff",
+            "inverse-on-surface": "#f3eeff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed-dim": "#c5c0ff",
+            "tertiary-fixed-dim": "#e4b5ff",
+            "on-surface-variant": "#474554",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#281800",
+            "surface-bright": "#fcf8ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xl": "2.5rem",
+            "margin": "1.25rem",
+            "gutter-md": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin-lg": "3rem",
+            "space-lg": "1.5rem",
+            "gutter": "1rem",
+            "space-xs": "0.25rem",
+            "margin-md": "2rem",
+            "gutter-lg": "2rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Quicksand", "sans-serif"],
+            "display-lg-mobile": ["Quicksand", "sans-serif"],
+            "body-sm": ["Nunito Sans", "sans-serif"],
+            "label-lg": ["Quicksand", "sans-serif"],
+            "label-md": ["Quicksand", "sans-serif"],
+            "display-lg": ["Quicksand", "sans-serif"],
+            "body-lg": ["Nunito Sans", "sans-serif"],
+            "label-sm": ["Quicksand", "sans-serif"],
+            "headline-md": ["Quicksand", "sans-serif"],
+            "headline-lg": ["Quicksand", "sans-serif"],
+            "body-md": ["Nunito Sans", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-sm": ["19px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-lg": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "label-md": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .seal-halo {
+      box-shadow: 0 0 36px 8px rgba(255, 193, 91, 0.32), 0 8px 24px -4px rgba(80, 67, 201, 0.12);
+    }
+    .modal-shadow {
+      box-shadow: 0 24px 48px -12px rgba(48, 45, 77, 0.22), 0 8px 24px -4px rgba(80, 67, 201, 0.08);
+    }
+    .island-bg-art {
+      background: radial-gradient(circle at 50% 20%, #ece7ff 0%, #f6f1ff 45%, #e4dfff 100%);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased font-body-md min-h-screen flex justify-center items-end sm:items-center p-0 sm:p-4">
+<!-- Map Background (Underlying Dreamscape Canvas) -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-0 island-bg-art">
+<!-- Atmospheric Nebulae Glows -->
+<div class="absolute top-12 left-1/4 w-80 h-80 rounded-full bg-secondary-fixed-dim/20 blur-3xl"></div>
+<div class="absolute bottom-24 right-10 w-96 h-96 rounded-full bg-primary-fixed/40 blur-3xl"></div>
+<!-- Illustrated Archipelago Floating Nodes (Soft Blur Simulation) -->
+<div class="absolute inset-0 px-6 py-10 flex flex-col justify-between opacity-50 filter blur-[2px]">
+<div class="flex justify-between items-center">
+<div class="w-24 h-16 rounded-full bg-surface-container-high/70 shadow-sm flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-xl">schedule</span>
+<span class="font-label-sm text-label-sm text-primary">Reloj</span>
+</div>
+<div class="w-28 h-20 rounded-full bg-surface-container-lowest/80 shadow-sm flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-xl">mood</span>
+<span class="font-label-sm text-label-sm text-on-surface">Ánimo</span>
+</div>
+</div>
+<div class="flex justify-center">
+<div class="w-32 h-20 rounded-full bg-surface-container-high/60 shadow-sm flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-xl">bedtime</span>
+<span class="font-label-sm text-label-sm text-on-surface">Horarios</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cozy Backdrop Tint Overlay -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-md z-10 transition-opacity"></div>
+<!-- Primary Island Reward Modal Window -->
+<main class="relative z-20 w-full max-w-[420px] bg-surface-container-lowest rounded-t-[32px] sm:rounded-[32px] modal-shadow border border-surface-container/60 max-h-[813px] overflow-y-auto flex flex-col pb-6 pt-3 px-5 sm:px-6">
+<!-- Modal Drag Handle & Accessible Dismiss Button -->
+<div class="flex items-center justify-between w-full pt-1 pb-2">
+<div class="w-10"></div>
+<div aria-hidden="true" class="w-12 h-1.5 rounded-full bg-surface-variant self-center"></div>
+<button aria-label="Cerrar modal" class="w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container transition-transform active:scale-95">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<!-- Section 1: Modal Header & Status Pill -->
+<div class="text-center flex flex-col items-center mt-1">
+<div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-secondary-container/20 text-on-secondary-container">
+<span class="text-sm leading-none select-none">✨</span>
+<span class="font-label-sm text-label-sm tracking-wide">¡Isla explorada por completo!</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mt-3">
+        ¡Isla Reloj superada!
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-[280px]">
+        Tu ritmo natural entendió cómo viaja la luz antes de dormir.
+      </p>
+</div>
+<!-- Section 2: Prominent Golden Seal of Isla Reloj -->
+<div class="flex flex-col items-center justify-center my-6">
+<div class="relative w-36 h-36 flex items-center justify-center">
+<!-- Ambient Golden Outer Glow -->
+<div class="absolute inset-0 rounded-full seal-halo bg-secondary-fixed/50 animate-pulse"></div>
+<!-- Concentric Border Rings -->
+<div class="relative w-32 h-32 rounded-full border-2 border-dashed border-secondary-fixed-dim bg-surface-container-lowest flex items-center justify-center p-2.5">
+<div class="w-full h-full rounded-full border-2 border-secondary-container/40 bg-gradient-to-b from-secondary-fixed to-surface-container-lowest flex flex-col items-center justify-center text-center shadow-inner">
+<!-- Whimsical Sleep Clock Icon -->
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest/90 flex items-center justify-center text-secondary shadow-sm mb-1">
+<span class="material-symbols-outlined text-2xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lightbulb_2</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-secondary-container font-bold leading-tight">
+              Sello · Isla Reloj
+            </span>
+<div class="flex items-center gap-1 text-[10px] text-secondary mt-0.5">
+<span>✦</span>
+<span class="font-label-sm text-[10px]">archipiélago</span>
+<span>✦</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Gentle Psychological Reinforcement -->
+<p class="font-body-md text-body-md text-on-surface text-center font-medium mt-3 px-4">
+        "Lo aprendiste y lo probaste: eso es lo que cuenta."
+      </p>
+</div>
+<!-- Section 3: Causal Bridge Unlocked Card -->
+<section class="bg-surface-container-low rounded-2xl p-4 sm:p-5 border border-primary-fixed/50 text-left mb-6">
+<div class="flex items-center justify-between mb-2.5">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-fixed/60 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">alt_route</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">
+            Se abrió un puente
+          </h2>
+</div>
+<!-- Evidence Indicator Pill (Scientific Badge) -->
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1B5FA8]/10 text-[#1B5FA8] font-label-sm text-label-sm font-semibold">
+<span class="text-xs leading-none">◐</span>
+          Probable
+        </span>
+</div>
+<div class="mt-2 bg-surface-container-lowest/90 rounded-xl p-3 border border-outline-variant/30">
+<p class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5 flex-wrap">
+<span>Reloj</span>
+<span class="material-symbols-outlined text-primary text-base">arrow_forward</span>
+<span>Ánimo:</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+          Dormir tarde cambia tu ánimo del día siguiente según la ciencia del ritmo circadiano.
+        </p>
+</div>
+<!-- Island Visit Link -->
+<a class="mt-3.5 inline-flex items-center justify-between w-full px-3.5 py-2.5 min-h-[48px] rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-all active:scale-[0.98]" href="#isla-animo">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg text-secondary">explore</span>
+          Visitar Isla Ánimo
+        </span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</section>
+<!-- Section 4: Primary Actions & Navigation -->
+<div class="flex flex-col gap-2.5 w-full">
+<!-- Main Continuation Pill Button -->
+<button class="w-full h-12 min-h-[48px] px-6 rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 transition-transform active:scale-[0.98] shadow-sm">
+<span>Siguiente → Isla Horarios</span>
+</button>
+<!-- Soft Secondary Dual Actions -->
+<div class="grid grid-cols-2 gap-2 mt-1">
+<button class="h-11 min-h-[44px] px-3 rounded-full bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md flex items-center justify-center gap-1 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-base">map</span>
+<span>Volver al mapa</span>
+</button>
+<button class="h-11 min-h-[44px] px-3 rounded-full bg-surface-container/60 hover:bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center justify-center gap-1 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-base">auto_stories</span>
+<span>Rever historia</span>
+</button>
+</div>
+</div>
+<!-- Microcopy of Peace & Gentle Rhythm -->
+<footer class="mt-5 text-center">
+<p class="font-body-sm text-label-sm text-outline flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary-fixed-dim" data-weight="fill" style="font-variation-settings: 'FILL' 1;">spa</span>
+        Sin estrellas ni límites de tiempo · Tu camino a tu ritmo
+      </p>
+</footer>
+</main>
+</body></html>
