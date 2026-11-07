@@ -1,0 +1,40 @@
+{
+  "id": "ISL-NIDO",
+  "slug": "nido",
+  "zona": 0,
+  "nombre": "Isla Nido",
+  "subtitulo": "El inicio del recorrido",
+  "disponibilidad": "available",
+  "posicion": { "x": 50, "y": 12 },
+  "ordenSugerido": 0,
+  "llegada": [
+    "¡Hola! Soy Nubi. Vivo en las nubes y me encanta entender por qué dormimos como dormimos.",
+    "Cada isla es un tema. Entra a la que quieras: no hay orden obligatorio. Gana sellos por aprender y por probar cosas.",
+    "Aquí no hay cuentas. Lo que guardes se queda en tu celular. Si algo te preocupa, el botón de ayuda está a un toque."
+  ],
+  "historia": [
+    {
+      "id": "ESC-NIDO-1",
+      "acto": "sintoma",
+      "texto": "Nubi te recibe en una isla flotante y te invita a mirar el archipiélago sin prisa.",
+      "alt": "Nubi saluda sobre una isla flotante",
+      "isHealthClaim": false
+    },
+    {
+      "id": "ESC-NIDO-2",
+      "acto": "causa",
+      "texto": "Cada isla guarda un tema distinto y puedes entrar en el orden que prefieras.",
+      "alt": "Varias islas conectadas por puentes",
+      "isHealthClaim": false
+    },
+    {
+      "id": "ESC-NIDO-3",
+      "acto": "cierre",
+      "texto": "Tus datos se quedan en tu celular y el botón de ayuda está a un toque.",
+      "alt": "Nubi señala un botón de ayuda",
+      "isHealthClaim": false
+    }
+  ],
+  "puentes": [],
+  "fuentes": []
+}

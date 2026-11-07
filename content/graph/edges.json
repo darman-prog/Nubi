@@ -1,0 +1,72 @@
+[
+  {
+    "id": "B-01",
+    "from": "N-RELOJ",
+    "to": "N-DORMIR-TARDE",
+    "status": "published",
+    "level": "E3",
+    "evidenceIds": ["EV-003"],
+    "explanation": "El reloj biológico se retrasa en la pubertad y el sueño llega más tarde.",
+    "honestLabel": "Bien establecido"
+  },
+  {
+    "id": "B-02",
+    "from": "N-DORMIR-TARDE",
+    "to": "N-POCO-SUENO",
+    "status": "published",
+    "level": "E3",
+    "evidenceIds": ["EV-004"],
+    "explanation": "Acostarse más tarde reduce las horas disponibles antes del colegio.",
+    "honestLabel": "Bien establecido"
+  },
+  {
+    "id": "B-03",
+    "from": "N-COLEGIO-TEMPRANO",
+    "to": "N-POCO-SUENO",
+    "status": "published",
+    "level": "E3",
+    "evidenceIds": ["EV-004", "EV-005"],
+    "explanation": "Un inicio temprano de clases se suma al reloj corrido y reduce el sueño.",
+    "honestLabel": "Bien establecido"
+  },
+  {
+    "id": "B-06",
+    "from": "N-POCO-SUENO",
+    "to": "N-IRRITABILIDAD",
+    "status": "published",
+    "level": "E2",
+    "evidenceIds": ["EV-007"],
+    "explanation": "En el estudio, dormir 6,5 horas cinco noches se asoció con más tensión y enojo.",
+    "honestLabel": "Probable"
+  },
+  {
+    "id": "B-07",
+    "from": "N-POCO-SUENO",
+    "to": "N-REGULACION",
+    "status": "published",
+    "level": "E2",
+    "evidenceIds": ["EV-007"],
+    "explanation": "Los participantes y sus padres notaron más dificultad para controlar las reacciones.",
+    "honestLabel": "Probable"
+  },
+  {
+    "id": "B-11",
+    "from": "N-IRRITABILIDAD",
+    "to": "N-CONCENTRACION",
+    "status": "published",
+    "level": "E1",
+    "evidenceIds": ["EV-022"],
+    "explanation": "La irritabilidad sostenida puede dificultar la concentración; es una hipótesis integrada.",
+    "honestLabel": "Aún se investiga (hipótesis integrada)"
+  },
+  {
+    "id": "B-12",
+    "from": "N-CONCENTRACION",
+    "to": "N-RETENCION",
+    "status": "published",
+    "level": "E1",
+    "evidenceIds": ["EV-022"],
+    "explanation": "La concentración y el estudio sostenido se relacionan con retener mejor; falta medición directa.",
+    "honestLabel": "Aún se investiga (hipótesis integrada)"
+  }
+]

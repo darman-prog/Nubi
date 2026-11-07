@@ -1,0 +1,10 @@
+{
+  "id": "ISL-HORARIOS",
+  "slug": "horarios",
+  "zona": 2,
+  "nombre": "Isla Horarios",
+  "subtitulo": "El colegio y tus horas",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 25, "y": 72 },
+  "ordenSugerido": 2
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ISL-CEREBRO",
+  "slug": "cerebro",
+  "zona": 3,
+  "nombre": "Isla Cerebro",
+  "subtitulo": "Memoria y estudio",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 75, "y": 72 },
+  "ordenSugerido": 4
+}

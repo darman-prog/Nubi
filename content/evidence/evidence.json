@@ -1,0 +1,152 @@
+[
+  {
+    "id": "EV-001",
+    "claimTechnical": "Para la población de 13 a 18 años se recomienda dormir entre 8 y 10 horas por noche.",
+    "claimTeen": "Para tu edad, de 13 a 18 años, se recomienda dormir entre 8 y 10 horas. Es una recomendación de la Academia Americana de Medicina del Sueño.",
+    "source": {
+      "citation": "Watson NF, et al. Recommended amount of sleep for pediatric populations: a consensus statement of the American Academy of Sleep Medicine. J Clin Sleep Med. 2016;12(6):785-786.",
+      "url": "https://doi.org/10.5664/jcsm.5866",
+      "sourceType": "posicion-oficial"
+    },
+    "population": "Adolescentes de 13 a 18 años",
+    "design": "Declaración de consenso de una sociedad científica",
+    "finding": "Recomienda entre 8 y 10 horas de sueño por noche para la población de 13 a 18 años.",
+    "limitations": "Es una recomendación de consenso, no un ensayo clínico.",
+    "level": "E3",
+    "geography": "n/d",
+    "usedIn": ["ISL-RELOJ"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-002",
+    "claimTechnical": "En EE. UU., el 68,4 % de estudiantes de bachillerato reportó dormir 7 horas o menos en noches de colegio.",
+    "claimTeen": "En EE. UU., 68,4 % de los estudiantes de bachillerato duerme 7 horas o menos en las noches de colegio. El dato es de los CDC y no describe a Colombia.",
+    "source": {
+      "citation": "Centers for Disease Control and Prevention (CDC), citado en Watson et al. (2016). Youth Risk Behavior Surveillance System.",
+      "url": "https://www.cdc.gov/sleep/data-research/facts-stats/index.html",
+      "sourceType": "dato-vigilancia"
+    },
+    "population": "Estudiantes de bachillerato de EE. UU.",
+    "design": "Encuesta de vigilancia escolar (YRBS)",
+    "finding": "68,4 % reportó dormir 7 horas o menos en las noches de colegio.",
+    "limitations": "Dato autoinformado y limitado a EE. UU.; no se generaliza a Colombia.",
+    "level": "E3",
+    "geography": "EE.UU.",
+    "usedIn": ["ISL-RELOJ"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-003",
+    "claimTechnical": "En la pubertad se retrasa la fase circadiana: cambian la secreción de melatonina y la sensibilidad a la luz.",
+    "claimTeen": "En la pubertad tu reloj biológico se corre y el sueño llega más tarde. Cambian la melatonina y la sensibilidad a la luz; no es falta de voluntad.",
+    "source": {
+      "citation": "Carskadon MA, Acebo C, Jenni OG. Regulation of adolescent sleep: implications for behavior. Ann N Y Acad Sci. 2004;1021:276-291.",
+      "url": "https://doi.org/10.1196/annals.1308.032",
+      "sourceType": "revision"
+    },
+    "population": "Adolescentes (revisión de estudios)",
+    "design": "Revisión narrativa sobre regulación del sueño adolescente",
+    "finding": "Describe un retraso de fase circadiano asociado a la pubertad.",
+    "limitations": "Revisión narrativa; no permite estimar un tamaño de efecto único.",
+    "level": "E3",
+    "geography": "n/d",
+    "usedIn": ["ISL-RELOJ", "B-01"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-004",
+    "claimTechnical": "El sueño insuficiente en la adolescencia combina el retraso circadiano con demandas escolares, tareas y pantallas; indicar acostarse temprano no compensa el desfase.",
+    "claimTeen": "Muchos adolescentes duermen poco y a una hora que no encaja con su reloj. Tareas, redes y horario del colegio se suman; por eso pedir acuéstate temprano no alcanza.",
+    "source": {
+      "citation": "Carskadon MA, Acebo C, Jenni OG. Regulation of adolescent sleep: implications for behavior. Ann N Y Acad Sci. 2004;1021:276-291.",
+      "url": "https://doi.org/10.1196/annals.1308.032",
+      "sourceType": "revision"
+    },
+    "population": "Adolescentes (revisión de estudios)",
+    "design": "Revisión narrativa sobre sueño y contexto escolar",
+    "finding": "El sueño corto combina factores biológicos y sociales.",
+    "limitations": "La conclusión sobre acostarse temprano es una interpretación de las bases.",
+    "level": "E3",
+    "geography": "n/d",
+    "usedIn": ["ISL-RELOJ", "ISL-HORARIOS", "B-02", "B-03"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-005",
+    "claimTechnical": "La AASM recomienda que las escuelas medias y secundarias empiecen a las 8:30 a. m. o más tarde.",
+    "claimTeen": "La Academia Americana de Medicina del Sueño recomienda que los colegios de secundaria empiecen a las 8:30 a. m. o más tarde.",
+    "source": {
+      "citation": "Watson NF, et al. Delaying middle school and high school start times promotes student health and performance: an American Academy of Sleep Medicine position statement. J Clin Sleep Med. 2017;13(4):623-625.",
+      "url": "https://doi.org/10.5664/jcsm.6558",
+      "sourceType": "posicion-oficial"
+    },
+    "population": "Estudiantes de escuela media y secundaria",
+    "design": "Declaración de posición de una sociedad científica",
+    "finding": "Recomienda que las clases empiecen a las 8:30 a. m. o más tarde.",
+    "limitations": "Recomendación de política, no un ensayo clínico.",
+    "level": "E3",
+    "geography": "EE.UU.",
+    "usedIn": ["ISL-HORARIOS", "B-03"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-007",
+    "claimTechnical": "Cinco noches con 6,5 horas en cama, frente a 10 horas, aumentaron tensión, enojo, cansancio e irritabilidad en adolescentes.",
+    "claimTeen": "En un estudio con 50 adolescentes de 14 a 17 años, cinco noches con 6,5 horas en cama los dejaron más tensos, enojados y cansados. Ellos y sus padres notaron más irritabilidad.",
+    "source": {
+      "citation": "Baum KT, et al. Sleep restriction worsens mood and emotion regulation in adolescents. J Child Psychol Psychiatry. 2014;55(2):180-190.",
+      "url": "https://doi.org/10.1111/jcpp.12125",
+      "sourceType": "estudio"
+    },
+    "population": "50 adolescentes de 14 a 17 años",
+    "design": "Estudio experimental en casa: cinco noches de 6,5 horas frente a 10 horas",
+    "finding": "Más tensión, enojo, cansancio e irritabilidad reportados por los participantes y sus padres.",
+    "limitations": "Muestra pequeña y condiciones controladas; no prueba efectos a largo plazo.",
+    "level": "E2",
+    "geography": "EE.UU.",
+    "usedIn": ["ISL-ANIMO", "B-06", "B-07"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-021a",
+    "claimTechnical": "Mantener una hora de despertar estable, incluidos los fines de semana, se propone como pauta para regular el sueño.",
+    "claimTeen": "Mantener una hora de despertar parecida, también el fin de semana, es una idea para probar y observar cómo se regula tu sueño.",
+    "source": {
+      "citation": "Formación Psicoterapia (2026). Pautas de higiene del sueño.",
+      "sourceType": "fuente-clinica"
+    },
+    "population": "Adolescentes (divulgación clínica)",
+    "design": "Blog clínico de divulgación",
+    "finding": "Propone mantener una hora de despertar estable.",
+    "limitations": "Fuente de divulgación; falta fuente primaria.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-HORARIOS"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-022",
+    "claimTechnical": "Interpretación integrada: dormir poco se asocia con más irritabilidad, menos concentración, estudio menos constante y peor retención; no es un resultado probado en una sola investigación.",
+    "claimTeen": "Una lectura posible une varios estudios: dormir poco se asocia con más irritabilidad, cuesta concentrarse, estudias con menos constancia y retienes peor. Es una hipótesis integrada, no un resultado probado.",
+    "source": {
+      "citation": "Síntesis de Baum et al. (2014), Logan et al. (2018) y Cousins et al. (2019).",
+      "sourceType": "revision"
+    },
+    "population": "Adolescentes (síntesis de estudios)",
+    "design": "Interpretación integrada de varios estudios",
+    "finding": "Propone una cadena entre poco sueño, irritabilidad, concentración, constancia y retención.",
+    "limitations": "No se probó en un solo estudio; cada eslabón tiene evidencia distinta.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["C-03", "B-11", "B-12"],
+    "restricted": false,
+    "status": "draft"
+  }
+]

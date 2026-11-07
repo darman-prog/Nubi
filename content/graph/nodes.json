@@ -1,0 +1,47 @@
+[
+  {
+    "id": "N-RELOJ",
+    "label": "El reloj biológico se corre en la pubertad",
+    "islandId": "ISL-RELOJ"
+  },
+  {
+    "id": "N-DORMIR-TARDE",
+    "label": "Te da sueño más tarde",
+    "islandId": "ISL-RELOJ"
+  },
+  {
+    "id": "N-POCO-SUENO",
+    "label": "Duermes menos horas de las que necesitas",
+    "islandId": "ISL-HORARIOS"
+  },
+  {
+    "id": "N-COLEGIO-TEMPRANO",
+    "label": "El colegio empieza temprano",
+    "islandId": "ISL-HORARIOS"
+  },
+  {
+    "id": "N-IRRITABILIDAD",
+    "label": "Más tensión, enojo e irritabilidad",
+    "islandId": "ISL-ANIMO"
+  },
+  {
+    "id": "N-REGULACION",
+    "label": "Cuesta más controlar las reacciones",
+    "islandId": "ISL-ANIMO"
+  },
+  {
+    "id": "N-CONCENTRACION",
+    "label": "Cuesta más concentrarse",
+    "islandId": "ISL-CEREBRO"
+  },
+  {
+    "id": "N-RETENCION",
+    "label": "Recuerdas peor a largo plazo lo que estudiaste",
+    "islandId": "ISL-CEREBRO"
+  },
+  {
+    "id": "N-ESTUDIO-INCONSTANTE",
+    "label": "Estudias con menos constancia",
+    "islandId": "ISL-CEREBRO"
+  }
+]

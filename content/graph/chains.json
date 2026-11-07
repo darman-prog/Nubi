@@ -1,0 +1,21 @@
+[
+  {
+    "id": "C-01",
+    "title": "Del reloj al ánimo",
+    "mode": "guided",
+    "start": "N-RELOJ",
+    "end": "N-IRRITABILIDAD",
+    "solution": ["N-RELOJ", "N-DORMIR-TARDE", "N-POCO-SUENO", "N-IRRITABILIDAD"],
+    "distractors": ["N-COLEGIO-TEMPRANO"]
+  },
+  {
+    "id": "C-03",
+    "title": "La cadena del estudio",
+    "mode": "guided",
+    "start": "N-POCO-SUENO",
+    "end": "N-RETENCION",
+    "solution": ["N-POCO-SUENO", "N-IRRITABILIDAD", "N-CONCENTRACION", "N-RETENCION"],
+    "distractors": ["N-ESTUDIO-INCONSTANTE"],
+    "isIntegratedHypothesis": true
+  }
+]

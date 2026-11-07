@@ -1,0 +1,10 @@
+{
+  "id": "ISL-ANIMO",
+  "slug": "animo",
+  "zona": 3,
+  "nombre": "Isla Ánimo",
+  "subtitulo": "Emociones y descanso",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 50, "y": 82 },
+  "ordenSugerido": 3
+}
