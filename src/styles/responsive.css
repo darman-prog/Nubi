@@ -1,0 +1,17 @@
+/* ADR-016: una sola columna. Los anchos cambian por breakpoint, no la composición. */
+:root {
+  --app-max: 480px;
+  --bottom-nav-height: 64px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --app-max: 560px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --app-max: 640px;
+  }
+}

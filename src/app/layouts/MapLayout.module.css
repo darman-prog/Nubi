@@ -1,6 +1,8 @@
 .layout {
-  position: relative;
+  width: min(100%, var(--app-max));
   min-height: 100dvh;
+  margin: 0 auto;
+  padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
 }
 
 .map {

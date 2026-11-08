@@ -1,6 +1,7 @@
 @import './tokens.css';
 @import './theme.css';
 @import './fonts.css';
+@import './responsive.css';
 
 /* Reset moderno y box-sizing universal */
 *,
