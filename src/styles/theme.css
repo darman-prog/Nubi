@@ -30,34 +30,7 @@
   --overlay: rgba(30, 27, 58, 0.35);
 }
 
-/* Tema oscuro ("Noche") automático o forzado con data-theme="dark" */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --bg: #121029;
-    --surface: #1C1A40;
-    --text: #EEEBFF;
-    --text-muted: #BDB8EA;
-    --primary: #A99BFF;
-    --primary-text: #121029;
-    --accent: #FFD47A;
-    --accent-text: #121029;
-
-    --ev-3: #6FDDB0;
-    --ev-2: #8CC4FF;
-    --ev-1: #D2A8FF;
-    --error: #FF8A8A;
-
-    --shadow-sm: none;
-    --shadow-md: none;
-    --card-border: 1px solid rgba(189, 184, 234, 0.25);
-
-    --cloud-front: #F1F6FD;
-    --cloud-back: #9DB6D8;
-    --cloud-glow: rgba(0, 0, 0, 0.5);
-    --overlay: rgba(0, 0, 0, 0.55);
-  }
-}
-
+/* Tema oscuro ("Noche") solo manual; v0.1 arranca en claro como el flujo-arte. */
 [data-theme='dark'] {
   --bg: #121029;
   --surface: #1C1A40;

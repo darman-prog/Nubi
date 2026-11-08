@@ -66,7 +66,8 @@ export const fechaLocal = (date = new Date()): string => {
 };
 
 export const DEFAULT_SETTINGS: Settings = {
-  theme: 'system',
+  // v0.1 sigue el flujo-arte, que es claro; el tema oscuro queda para v0.2.
+  theme: 'light',
   reduceMotion: 'system',
   textScale: 1,
   sound: false,
