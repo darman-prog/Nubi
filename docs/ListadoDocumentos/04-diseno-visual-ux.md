@@ -135,6 +135,7 @@ Portada
     ├── Isla (llegada → historia → retos → sello)
     │   └── Armador de cadenas
     ├── Pasaporte
+    ├── Diario
     └── Ayuda
         └── Ajustes
             ├── Fuentes
@@ -143,11 +144,11 @@ Portada
             └── Acerca de
 ```
 
-El **Diario** queda para v1.0. La estructura y el presupuesto de deuda de la SPA viven en [`../adr/015-arquitectura-frontend-react.md`](../adr/015-arquitectura-frontend-react.md).
+El **Diario** vuelve a la v0.1 con entrada mínima y una columna; la lectura semanal queda para v0.2. La composición responsive y el contrato de hojas están en [`../adr/016-responsive-paridad-movil.md`](../adr/016-responsive-paridad-movil.md).
 
 ### 4.2 Barra inferior (móvil)
 
-Tres destinos: **Mapa · Pasaporte · Ayuda**. **Ajustes** vive dentro de Ayuda. La barra aparece en el mapa y en el pasaporte; la isla, la ayuda y la coronación usan pantalla inmersiva con botón de volver.
+Cuatro destinos: **Mapa · Pasaporte · Diario · Ayuda**. **Ajustes** vive dentro de Ayuda. La barra es la misma en móvil y desktop; en desktop la columna se centra a 640 px. La isla, el pasaporte y la niebla son hojas modales en ambos; la coronación no muestra barra.
 
 ### 4.3 Mapa del archipiélago
 
@@ -163,7 +164,7 @@ Tres destinos: **Mapa · Pasaporte · Ayuda**. **Ajustes** vive dentro de Ayuda.
 
 ## 5. Inventario de pantallas
 
-> **Alcance v0.1:** Portada, Mapa, Isla (`llegada`, `historia`, `retos`, `sello`), Hoja de fuente, Pasaporte, Ayuda, Ajustes, Exportar/importar, Borrar datos, Acerca de, Coronación y No encontrada. Las filas de onboarding y Diario se conservan como referencia para v1.0.
+> **Alcance v0.1:** Portada, Mapa, Isla (`llegada`, `historia`, `retos`, `sello`), Hoja de fuente, Pasaporte, Diario (entrada), Ayuda, Ajustes, Exportar/importar, Borrar datos, Acerca de, Coronación y No encontrada. La lectura semanal del Diario y el onboarding quedan para v0.2/v1.0.
 
 | ID   | Pantalla                     | Propósito                                                | Estados a diseñar                             |
 | ---- | ---------------------------- | --------------------------------------------------------- | ---------------------------------------------- |
@@ -178,8 +179,8 @@ Tres destinos: **Mapa · Pasaporte · Ayuda**. **Ajustes** vive dentro de Ayuda.
 | S-09 | **Armador de cadenas** | `MEC-01`                                                | Vacío, parcial, correcto, incorrecto, resumen |
 | S-10 | Isla · Reto                 | Aceptar el reto                                           | Aceptado / "ahora no"                          |
 | S-11 | Pasaporte                    | Sellos y zonas                                            | Vacío, con progreso                           |
-| S-12 | **Diario · Entrada**  | Registro matutino                                         | Nuevo, editando, ya registrado hoy             |
-| S-13 | Diario · Semana             | Lectura de la semana (v0.2)                               | < 5 entradas, con datos                        |
+| S-12 | **Diario · Entrada (v0.1)** | Registro matutino en ≤ 30 s                              | Nuevo, editando, ya registrado hoy             |
+| S-13 | Diario · Semana (v0.2)      | Lectura de la semana con aviso neutral                   | < 5 entradas, con datos                        |
 | S-14 | Fuentes                      | Todas las referencias                                     | Lista por isla                                 |
 | S-15 | **Ayuda**              | Hablar con un adulto                                      | Con y sin línea verificada                    |
 | S-16 | Ajustes                      | Tema, movimiento, texto, sonido, datos                    | —                                             |
@@ -275,7 +276,7 @@ Tres destinos: **Mapa · Pasaporte · Ayuda**. **Ajustes** vive dentro de Ayuda.
 | `MoodPicker`                | 5 rostros con texto                                                       | Sin selección, seleccionado                        |
 | `TimePicker`                | Selector de hora grande y táctil                                         | Con valor por defecto                               |
 | `Button`                    | Primario, secundario, texto                                               | Normal, foco, presionado, deshabilitado             |
-| `BottomNav`                 | 3 destinos: Mapa, Pasaporte, Ayuda                                        | Activo, foco                                        |
+| `BottomNav`                 | 4 destinos: Mapa, Pasaporte, Diario, Ayuda                                | Activo, foco                                        |
 | `Toast` / `Banner`        | Mensajes breves                                                           | Info, error técnico                                |
 | `ConfirmDialog`             | Confirmaciones                                                            | Borrar datos, importar                              |
 | `ToggleChoice`              | Sí / Más o menos / No                                                   | —                                                  |
@@ -376,14 +377,19 @@ Nubi (9 expresiones + 3 accesorios) · 6 islas + versión en niebla · fondo del
 
 ## 11. Diseño adaptable
 
-| Ancho                        | Comportamiento                                                                                      |
-| ---------------------------- | --------------------------------------------------------------------------------------------------- |
-| **360–480 px** (base) | Una columna; barra inferior; mapa vertical                                                          |
-| **481–1024 px**       | Contenido centrado (máx. 560 px); mapa más amplio; mismo patrón                                  |
-| **≥ 1025 px**         | Contenido centrado (máx. 720 px) sobre cielo a pantalla completa; navegación inferior se mantiene |
+La composición es la misma en móvil y desktop: una sola columna, barra inferior de 4 destinos y hojas modales. El escritorio solo cambia el ancho de la columna y el fondo.
 
-- Funciona en vertical y horizontal.
-- Para uso en clase (proyector), el ajuste de tamaño de texto al 150 % mantiene el diseño.
+| Ancho | Columna | Navegación y hojas |
+|---|---|---|
+| **320–767 px** | 100 %, máx. 480 | Barra inferior 4; hoja inferior; 100dvh si la altura es corta |
+| **768–1023 px** | 560 centrada | Barra inferior 4; hoja inferior máx. 560 |
+| **≥ 1024 px** | 640 centrada sobre cielo | Barra inferior 4 dentro de la columna; hoja inferior máx. 640, centrada |
+
+- **320 px:** ancho de reflujo WCAG al 400 %; el logo de portada usa `min(340px, 100%)` y no hay scroll horizontal.
+- **844×390 (horizontal):** la hoja pasa a 100dvh y la barra se oculta/inertiza mientras está abierta; no se convierte en panel lateral.
+- **150 % de texto:** la columna sigue siendo una sola; no hay columnas que colapsar.
+- Hojas: `dialog` modal en ambos, foco atrapado, `Esc` y foco de vuelta al disparador. El mapa queda inerte mientras están abiertas.
+- DOM: `nav → main → dialog`; el skip link salta al contenido.
 
 ---
 

@@ -4,7 +4,7 @@
 
 ---
 
-> **Nota de adaptación (2026-11-08).** El framework es **React** (Vite + TypeScript estricto): ver [`../adr/013-framework-react.md`](../adr/013-framework-react.md) y la decisión D-15 en `01-PRD.md` §13. La estructura de carpetas, las capas, el presupuesto de deuda y el chequeo de límites vigentes están en [`../adr/015-arquitectura-frontend-react.md`](../adr/015-arquitectura-frontend-react.md); este documento se alinea con ese ADR. El alcance v0.1 no incluye Diario ni onboarding.
+> **Nota de adaptación (2026-11-08).** El framework es **React** (Vite + TypeScript estricto): ver [`../adr/013-framework-react.md`](../adr/013-framework-react.md) y la decisión D-15 en `01-PRD.md` §13. La estructura de carpetas, las capas, el presupuesto de deuda y el chequeo de límites están en [`../adr/015-arquitectura-frontend-react.md`](../adr/015-arquitectura-frontend-react.md). Las rutas, la navegación de 4 destinos y el responsive de paridad están en [`../adr/016-responsive-paridad-movil.md`](../adr/016-responsive-paridad-movil.md). El alcance v0.1 incluye Diario mínimo; onboarding queda para v1.0.
 
 ---
 
@@ -38,6 +38,7 @@ flowchart TB
     MAP[map]
     ISL[island]
     PAS[passport]
+    DIA[diary]
     HLP[help + ajustes]
     COR[coronation]
   end
@@ -45,6 +46,7 @@ flowchart TB
     GRA[graph]
     PRO[progress y sellos]
     EVD[evidence]
+    DRY[diary y sleep-math]
   end
   subgraph DAT[Datos]
     CON[ContentRepository · lee /content]
@@ -87,9 +89,10 @@ nubi/
 │  ├─ domain/                    # TypeScript puro, sin React ni DOM
 │  │  ├─ graph/                  # validación de cadenas, caminos alternativos
 │  │  ├─ progress/               # sellos derivados
-│  │  └─ evidence/               # niveles y compuertas
+│  │  ├─ evidence/               # niveles y compuertas
+│  │  └─ diary/                  # sleep-math y lectura semanal (v0.2)
 │  ├─ features/                  # una carpeta por pantalla
-│  │  ├─ home/  map/  island/  passport/  help/  coronation/
+│  │  ├─ home/  map/  island/  passport/  diary/  help/  coronation/
 │  ├─ shared/
 │  │  ├─ ui/                     # primitivas de doc. 04 §6
 │  │  ├─ state/                  # contexto React + useUserState
@@ -414,13 +417,18 @@ El texto nunca incluye puntajes numéricos de ánimo ni colores de alarma. Los u
 |---|---|
 | `/` | Portada |
 | `/mapa` | Mapa + barra inferior |
-| `/pasaporte` | Pasaporte (hoja sobre el mapa) |
-| `/isla/:slug` | Isla disponible o isla en niebla (hoja sobre el mapa); las etapas `llegada → historia → retos → sello` son estado interno |
-| `/ayuda` | Ayuda + ajustes |
+| `/pasaporte` | Pasaporte (hoja modal sobre el mapa) |
+| `/diario` | Diario (página de una columna; entrada v0.1, semana v0.2) |
+| `/isla/:slug/:etapa` | Isla (`llegada`, `historia`, `retos`, `sello`) en hoja modal; la etapa vive en la URL |
+| `/isla/:slug` | Redirige a `llegada` o abre niebla si es `coming_soon` |
+| `/ayuda` | Ayuda + ajustes (página con barra inferior) |
 | `/coronacion` | Coronación (solo con 6/6 sellos; si faltan, redirige a `/pasaporte`) |
 | `*` | Pantalla "no encontrada" con volver al mapa |
 
-- **Overlays:** mapa, pasaporte, isla y niebla comparten `MapLayout`; el mapa queda montado y se marca `inert`/`aria-hidden` cuando hay una hoja abierta. Ayuda y coronación usan `ImmersiveLayout`.
+- **Composición:** una sola columna centrada (480/560/640). Barra inferior de 4 destinos en móvil y desktop; sin riel ni panel lateral.
+- **Hojas:** mapa, pasaporte, isla y niebla comparten `MapLayout`; el mapa queda montado y se marca `inert`/`aria-hidden` mientras la hoja modal está abierta. La hoja es `dialog` modal en ambos.
+- **Páginas:** Diario y Ayuda usan `PageLayout` (barra + main); Coronación usa `ImmersiveLayout` (sin barra).
+- **DOM:** `nav → main → dialog`; el skip link salta al main.
 - Carga diferida (*lazy loading*) por *feature*.
 - El alojamiento debe **reescribir todas las rutas a `index.html`** (SPA).
 - Enlaces con ancla (`#nombre`) solo para secciones simples; sin datos sensibles en la URL.
@@ -583,6 +591,7 @@ Aceptación:
 - **Dominio puro:** funciones sin efectos secundarios; las pruebas viven junto al archivo (`*.spec.ts`).
 - Nombres: componentes en `PascalCase.tsx`; hooks en `use*.ts`; servicios, dominio y utilidades en `kebab-case.ts`; estilos de feature en `*.module.css`; pruebas en `*.spec.ts(x)`.
 - **CSS Modules + tokens:** sin Tailwind; sin estilos inline salvo variables dinámicas (posición, variante).
+- **Responsive de paridad:** una columna de 480/560/640; sin layouts exclusivos de desktop; hojas modales en ambos (ADR-016).
 - **Fronteras:** `npm run check:boundaries` valida capas, límites de líneas, contextos y ciclos (ADR-015).
 - **Ningún texto visible en componentes**: el contenido viene de `ContentRepository`; las etiquetas de UI son la excepción.
 - Fechas y horas como texto local (§5); no usar zonas horarias.

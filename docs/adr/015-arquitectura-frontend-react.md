@@ -1,6 +1,6 @@
 # ADR 015: Arquitectura frontend React y presupuesto de deuda
 
-**Fecha:** 2026-11-08 · **Estado:** Confirmada · **Complementa a:** ADR-013 (framework React)
+**Fecha:** 2026-11-08 · **Estado:** Confirmada · **Complementa a:** ADR-013 (framework React) · **Actualizada por:** ADR-016 (rutas, navegación, paneles y responsive)
 
 ## Contexto
 
