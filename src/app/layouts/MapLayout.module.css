@@ -1,0 +1,8 @@
+.layout {
+  position: relative;
+  min-height: 100dvh;
+}
+
+.map {
+  min-height: 100dvh;
+}

@@ -1,0 +1,57 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  overflow: hidden;
+}
+
+.cloud {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 72vw;
+  will-change: transform;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.back {
+  width: 80vw;
+}
+
+.front {
+  filter: drop-shadow(0 0 28px var(--cloud-glow));
+}
+
+.cloud svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.right svg {
+  transform: scaleX(-1);
+}
+
+.back svg {
+  transform: scaleY(-1);
+}
+
+.back.right svg {
+  transform: scale(-1, -1);
+}
+
+.front svg {
+  fill: var(--cloud-front);
+}
+
+.back svg {
+  fill: var(--cloud-back);
+}

@@ -1,0 +1,18 @@
+.back {
+  position: fixed;
+  inset-inline: 0;
+  bottom: var(--space-6);
+  text-align: center;
+}
+
+.back a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--min-touch-target);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--primary-text);
+  font-weight: 700;
+  text-decoration: none;
+}

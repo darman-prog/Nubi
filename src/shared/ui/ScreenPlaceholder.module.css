@@ -1,0 +1,23 @@
+.screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  text-align: center;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  color: var(--primary);
+}
+
+.note {
+  max-width: 42ch;
+  color: var(--text-muted);
+  font-size: var(--text-base);
+}

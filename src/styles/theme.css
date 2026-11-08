@@ -20,6 +20,11 @@
   --shadow-sm: 0 2px 8px rgba(30, 27, 58, 0.06);
   --shadow-md: 0 4px 16px rgba(30, 27, 58, 0.10);
   --card-border: 1px solid rgba(75, 71, 119, 0.15);
+
+  /* Transición de nubes (ADR-015) */
+  --cloud-front: #FFFFFF;
+  --cloud-back: #CFE0F5;
+  --cloud-glow: rgba(30, 58, 95, 0.28);
 }
 
 /* Tema oscuro ("Noche") automático o forzado con data-theme="dark" */
@@ -42,6 +47,10 @@
     --shadow-sm: none;
     --shadow-md: none;
     --card-border: 1px solid rgba(189, 184, 234, 0.25);
+
+    --cloud-front: #F1F6FD;
+    --cloud-back: #9DB6D8;
+    --cloud-glow: rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -63,4 +72,8 @@
   --shadow-sm: none;
   --shadow-md: none;
   --card-border: 1px solid rgba(189, 184, 234, 0.25);
+
+  --cloud-front: #F1F6FD;
+  --cloud-back: #9DB6D8;
+  --cloud-glow: rgba(0, 0, 0, 0.5);
 }
