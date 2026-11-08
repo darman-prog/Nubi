@@ -13,8 +13,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "check:boundaries:self-test": "node scripts/check-boundaries.mjs --self-test",
+    "check": "npm run check:boundaries && npm run check:boundaries:self-test && npm run typecheck && npm run lint && npm run test",
     "validate:content": "vitest run content/schema/validate.spec.ts",
-    "prebuild": "npm run validate:content"
+    "prebuild": "npm run validate:content && npm run check:boundaries"
   },
   "dependencies": {
     "react": "^18.3.1",
