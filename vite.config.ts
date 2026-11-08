@@ -17,6 +17,7 @@ export default defineConfig({
   },
   build: {
     target: 'es2022',
-    sourcemap: true,
+    // Los mapas de producción no se publican: no hay error tracking que los consuma.
+    sourcemap: false,
   },
 });
