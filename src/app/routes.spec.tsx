@@ -2,24 +2,31 @@ import { Suspense } from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
+import { StorageService } from '@/core/storage';
+import { UserStateStore } from '@/core/user-state-store';
+import { UserStateProvider } from '@/shared/state/UserStateContext';
 import { AppNav } from './AppNav';
 import { AppRoutes } from './routes';
 
 const routerFuture = { v7_startTransition: true, v7_relativeSplatPath: true } as const;
 
-const renderRoute = (path: string) =>
-  render(
+const renderRoute = (path: string) => {
+  const store = new UserStateStore(new StorageService(null, 0));
+  return render(
     <MemoryRouter initialEntries={[path]} future={routerFuture}>
-      <Suspense fallback={<p role="status">Cargando…</p>}>
-        <AppRoutes />
-      </Suspense>
+      <UserStateProvider store={store}>
+        <Suspense fallback={<p role="status">Cargando…</p>}>
+          <AppRoutes />
+        </Suspense>
+      </UserStateProvider>
     </MemoryRouter>,
   );
+};
 
 describe('AppRoutes', () => {
   it('renderiza el mapa en /mapa', async () => {
     const { container } = renderRoute('/mapa');
-    expect(await screen.findByRole('heading', { name: 'Mapa' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Archipiélago' })).toBeInTheDocument();
 
     const nav = container.querySelector('nav');
     const main = container.querySelector('main');
