@@ -53,7 +53,7 @@ describe('AppRoutes', () => {
 
   it('renderiza el Diario como página con barra', async () => {
     renderRoute('/diario');
-    expect(await screen.findByRole('heading', { name: 'Diario' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: '¿Cómo amaneciste?' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Diario' })).toHaveAttribute('aria-current', 'page');
   });
 

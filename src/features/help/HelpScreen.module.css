@@ -1,0 +1,185 @@
+.page {
+  width: min(100%, 640px);
+  min-height: calc(100dvh - var(--bottom-nav-height));
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-8);
+  background: linear-gradient(to bottom, #f7f5ff, #fff9f2 55%, #f5f2ff);
+}
+
+.header {
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.kicker {
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--text);
+  font-size: var(--text-2xl);
+}
+
+.subtitle {
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding: var(--space-4);
+  border: var(--card-border);
+  border-radius: var(--radius-sheet);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.card h2 {
+  color: var(--text);
+  font-size: var(--text-lg);
+}
+
+.card h3 {
+  margin-top: var(--space-2);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.card p,
+.card li {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.card ul {
+  padding-left: var(--space-4);
+}
+
+.small {
+  font-size: 12px;
+}
+
+.disclaimer {
+  padding: var(--space-2);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  font-weight: 700;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.field select {
+  min-height: var(--min-touch-target);
+  padding: 0 var(--space-2);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.action,
+.danger {
+  min-height: var(--min-touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.action input {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.danger {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.error {
+  color: var(--error);
+  font-size: 12px;
+}
+
+.message {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.source {
+  padding: var(--space-2);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+}
+
+.source summary {
+  min-height: var(--min-touch-target);
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.source p {
+  margin-top: var(--space-1);
+  font-size: 11px;
+}

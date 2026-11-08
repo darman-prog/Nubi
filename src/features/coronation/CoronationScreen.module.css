@@ -1,0 +1,59 @@
+.page {
+  width: min(100%, var(--app-max));
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-8);
+  background: linear-gradient(to bottom, #f7f5ff, #fff9f2 55%, #f5f2ff);
+  text-align: center;
+}
+
+.art {
+  width: min(100%, 420px);
+  max-height: 42dvh;
+  object-fit: contain;
+  border-radius: var(--radius-sheet);
+}
+
+.nubi {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  margin-top: -24px;
+}
+
+.kicker {
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--text);
+  font-size: var(--text-3xl);
+  line-height: 1.1;
+}
+
+.text {
+  max-width: 42ch;
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.count {
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.cta {
+  width: min(100%, 340px);
+  margin-top: var(--space-2);
+}
