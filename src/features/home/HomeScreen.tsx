@@ -1,9 +1,9 @@
+import type { CSSProperties } from 'react';
 import { artUrl } from '@/core/content/assets';
 import { content } from '@/core/content/content-repository';
 import { deriveStamps } from '@/domain/progress/derive-stamps';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
-import { Button } from '@/shared/ui/Button';
 import { cx } from '@/shared/lib/cx';
 import styles from './HomeScreen.module.css';
 
@@ -13,16 +13,14 @@ export default function HomeScreen(): React.JSX.Element {
   const seals = deriveStamps(state.progress, content.islands);
   const explored = seals.filter((seal) => seal.earned).length;
   const total = seals.length;
+  // El mockup usa la imagen como fondo; la variable evita un <img> que compita con el logo.
+  const heroStyle = {
+    '--hero-art': `url("${artUrl('arte/hero-portada.webp')}")`,
+  } as CSSProperties;
 
   return (
-    <main id="main-content" className={styles.page}>
-      <section className={styles.hero} aria-label="Archipiélago del Sueño">
-        <img
-          className={styles.heroImage}
-          src={artUrl('arte/hero-portada.webp')}
-          alt=""
-          decoding="async"
-        />
+    <main id="main-content" className={styles.page} data-theme="light">
+      <section className={styles.hero} style={heroStyle} aria-label="Archipiélago del Sueño">
         <div className={styles.heroCenter}>
           <div className={styles.logo}>
             <svg
@@ -31,9 +29,26 @@ export default function HomeScreen(): React.JSX.Element {
               preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
             >
+              <defs>
+                <linearGradient id="cloud-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#FFFFFF" />
+                  <stop offset="0.65" stopColor="#FFFFFF" />
+                  <stop offset="1" stopColor="#E3ECF8" />
+                </linearGradient>
+                <filter id="cloud-shadow" x="-10%" y="-20%" width="120%" height="150%">
+                  <feDropShadow
+                    dx="0"
+                    dy="4"
+                    stdDeviation="4"
+                    floodColor="#1E3A5F"
+                    floodOpacity="0.18"
+                  />
+                </filter>
+              </defs>
               <path
                 transform="translate(0 -4)"
-                fill="currentColor"
+                fill="url(#cloud-fill)"
+                filter="url(#cloud-shadow)"
                 d="M38 94 H262
                   A20 20 0 0 0 262 54
                   A26 26 0 0 0 214 36
@@ -56,10 +71,10 @@ export default function HomeScreen(): React.JSX.Element {
           Un viaje para entender tu sueño: aprende, juega y gana tu sello en cada isla.
         </p>
 
-        <Button className={styles.cta} onClick={() => go('/mapa')}>
+        <button type="button" className={styles.cta} onClick={() => go('/mapa')}>
           Comenzar viaje
           <span aria-hidden="true">→</span>
-        </Button>
+        </button>
 
         {explored > 0 ? (
           <button
