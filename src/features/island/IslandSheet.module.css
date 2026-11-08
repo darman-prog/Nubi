@@ -1,0 +1,323 @@
+.stageNav {
+  display: flex;
+  gap: 6px;
+  padding-bottom: var(--space-4);
+}
+
+.stageDot {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.stageDotActive {
+  background: var(--primary);
+}
+
+.stageLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.islandHero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  background: var(--bg);
+}
+
+.nubiRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.nubi {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.speech {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--text-base);
+}
+
+.speech p + p {
+  margin-top: var(--space-2);
+}
+
+.cta {
+  width: 100%;
+}
+
+.sceneImage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  background: var(--bg);
+}
+
+.sceneAct {
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sceneText {
+  color: var(--text);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.source {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sourceButton {
+  min-height: var(--min-touch-target);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sourceLevel {
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.sourceBody {
+  padding: var(--space-3);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  font-size: 12px;
+}
+
+.sourceClaim {
+  font-weight: 700;
+}
+
+.sourceList {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.sourceList div {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: var(--space-2);
+}
+
+.sourceList dt {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.sourceList dd {
+  margin: 0;
+}
+
+.sceneNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.dotActive {
+  background: var(--primary);
+}
+
+.textButton {
+  min-height: var(--min-touch-target);
+  align-self: flex-start;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.questionText {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.option {
+  min-height: 48px;
+  padding: var(--space-3);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  text-align: left;
+}
+
+.optionSelected {
+  border-color: var(--primary);
+  background: var(--bg);
+}
+
+.feedback {
+  padding: var(--space-3);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  font-size: 13px;
+}
+
+.chainBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--card-border);
+}
+
+.chain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.chainTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.chainPath {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+
+.chainPath li {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: var(--primary-text);
+  font-size: 11px;
+}
+
+.chainHelp {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.chainPieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.piece {
+  min-height: var(--min-touch-target);
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  text-align: left;
+}
+
+.chainError {
+  color: var(--error);
+  font-size: 12px;
+}
+
+.seal {
+  width: 180px;
+  height: 180px;
+  align-self: center;
+  object-fit: contain;
+}
+
+.sealTitle {
+  color: var(--text);
+  font-size: var(--text-2xl);
+  text-align: center;
+}
+
+.sealText {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  text-align: center;
+}
+
+.fogImage {
+  width: 160px;
+  height: 160px;
+  align-self: center;
+  object-fit: contain;
+}
+
+.fogBadge {
+  align-self: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
