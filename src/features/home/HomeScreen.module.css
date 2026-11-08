@@ -4,7 +4,8 @@
   --portada-soft: #F0EDFF;
   --portada-dot: #E5E0FA;
 
-  width: min(100%, var(--app-max));
+  /* El mockup móvil mide 390; el ancho no se estira a 480. */
+  width: min(100%, 390px);
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -222,4 +223,23 @@
 
 .footerButton:hover {
   background: var(--portada-soft);
+}
+
+@media (min-width: 768px) {
+  .page {
+    width: min(100%, 560px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    width: min(100%, 640px);
+  }
+}
+
+/* En pantallas más bajas que el mockup, sube el arte para no cortar a Nubi. */
+@media (max-height: 760px) {
+  .hero {
+    background-position: center 55%;
+  }
 }
