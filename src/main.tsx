@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './app/App';
 import { StorageService } from './core/storage';
 import { SettingsService } from './core/settings';
 import './styles/main.css';

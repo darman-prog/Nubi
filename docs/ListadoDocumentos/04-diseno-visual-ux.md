@@ -101,7 +101,7 @@ La insignia siempre muestra ícono **y** texto. Al tocarla abre una hoja que exp
 | Cuerpo   | **Nunito**                                             | Pesos 400, 600 y 700          |
 | Respaldo | `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` | Obligatorio como *fallback* |
 
-- **Autoalojadas** (archivos `woff2` dentro del proyecto) para **no hacer peticiones a terceros** (privacidad de menores). Subconjunto latino y latino extendido (incluye á, é, í, ó, ú, ñ, ü, ¿, ¡). Presupuesto: ≤ 60 KB en total.
+- **Autoalojadas** (archivos `woff2` dentro del proyecto) para **no hacer peticiones a terceros** (privacidad de menores). Subconjunto latino (incluye á, é, í, ó, ú, ñ, ü, ¿, ¡). Presupuesto: ≤ 70 KB en total (fuentes variables: un archivo por familia con todos los pesos).
 - Ambas se distribuyen con licencia abierta (SIL OFL); **verificar la licencia en el repositorio de cada fuente al descargarlas** y registrarla en `/licenses`.
 - `font-display: swap`.
 
