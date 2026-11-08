@@ -1,0 +1,12 @@
+{
+  "id": "ISL-PANTALLA",
+  "slug": "pantalla",
+  "zona": 2,
+  "nombre": "Isla Pantalla",
+  "subtitulo": "Pantallas y descanso",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 25, "y": 58 },
+  "ordenSugerido": 7,
+  "puentes": [],
+  "fuentes": []
+}

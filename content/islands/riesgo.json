@@ -1,0 +1,12 @@
+{
+  "id": "ISL-RIESGO",
+  "slug": "riesgo",
+  "zona": 3,
+  "nombre": "Isla Riesgo",
+  "subtitulo": "Decisiones y seguridad",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 75, "y": 76 },
+  "ordenSugerido": 12,
+  "puentes": [],
+  "fuentes": []
+}

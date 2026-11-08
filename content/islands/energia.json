@@ -1,0 +1,12 @@
+{
+  "id": "ISL-ENERGIA",
+  "slug": "energia",
+  "zona": 2,
+  "nombre": "Isla Energía",
+  "subtitulo": "Cafeína y energía",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 75, "y": 58 },
+  "ordenSugerido": 8,
+  "puentes": [],
+  "fuentes": []
+}

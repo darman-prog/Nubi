@@ -1,0 +1,12 @@
+{
+  "id": "ISL-LUNA",
+  "slug": "luna",
+  "zona": 1,
+  "nombre": "Isla Luna",
+  "subtitulo": "Las fases del sueño",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 25, "y": 30 },
+  "ordenSugerido": 6,
+  "puentes": [],
+  "fuentes": []
+}

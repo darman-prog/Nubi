@@ -1,0 +1,12 @@
+{
+  "id": "ISL-TALLER",
+  "slug": "taller",
+  "zona": 4,
+  "nombre": "Isla Taller",
+  "subtitulo": "Prácticas para despedir el día",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 75, "y": 94 },
+  "ordenSugerido": 5,
+  "puentes": [],
+  "fuentes": []
+}

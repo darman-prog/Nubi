@@ -1,0 +1,12 @@
+{
+  "id": "ISL-AMBIENTE",
+  "slug": "ambiente",
+  "zona": 2,
+  "nombre": "Isla Ambiente",
+  "subtitulo": "Luz, ruido y cama",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 75, "y": 66 },
+  "ordenSugerido": 10,
+  "puentes": [],
+  "fuentes": []
+}

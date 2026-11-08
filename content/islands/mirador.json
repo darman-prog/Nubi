@@ -1,0 +1,12 @@
+{
+  "id": "ISL-MIRADOR",
+  "slug": "mirador",
+  "zona": 4,
+  "nombre": "Isla Mirador",
+  "subtitulo": "Tu mirada al final",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 50, "y": 94 },
+  "ordenSugerido": 14,
+  "puentes": [],
+  "fuentes": []
+}

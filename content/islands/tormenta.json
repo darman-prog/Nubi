@@ -1,0 +1,12 @@
+{
+  "id": "ISL-TORMENTA",
+  "slug": "tormenta",
+  "zona": 2,
+  "nombre": "Isla Tormenta",
+  "subtitulo": "Estrés y descanso",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 25, "y": 66 },
+  "ordenSugerido": 9,
+  "puentes": [],
+  "fuentes": []
+}

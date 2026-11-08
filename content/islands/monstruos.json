@@ -1,0 +1,12 @@
+{
+  "id": "ISL-MONSTRUOS",
+  "slug": "monstruos",
+  "zona": 3,
+  "nombre": "Isla Monstruos",
+  "subtitulo": "Cuando el sueño se rompe",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 50, "y": 84 },
+  "ordenSugerido": 13,
+  "puentes": [],
+  "fuentes": []
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ISL-CUERPO",
+  "slug": "cuerpo",
+  "zona": 3,
+  "nombre": "Isla Cuerpo",
+  "subtitulo": "Defensas y crecimiento",
+  "disponibilidad": "coming_soon",
+  "posicion": { "x": 25, "y": 76 },
+  "ordenSugerido": 11,
+  "puentes": [],
+  "fuentes": []
+}
