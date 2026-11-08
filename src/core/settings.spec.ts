@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { SettingsService } from './settings';
 import { StorageService } from './storage';
 import type { StorageLike } from './storage';
+import { UserStateStore } from './user-state-store';
 import { DEFAULT_SETTINGS } from './user-state';
 
 // Almacenamiento falso mínimo para comprobar la persistencia de ajustes.
@@ -39,7 +40,7 @@ beforeEach(() => {
 
 describe('SettingsService', () => {
   it('carga los ajustes por defecto', () => {
-    const settings = new SettingsService(new StorageService(null, 0));
+    const settings = new SettingsService(new UserStateStore(new StorageService(null, 0)));
 
     expect(settings.load()).toEqual(DEFAULT_SETTINGS);
   });
@@ -47,7 +48,8 @@ describe('SettingsService', () => {
   it('update persiste y aplica atributos en <html>', () => {
     const storage = new FakeStorage();
     const storageService = new StorageService(storage, 300);
-    const settings = new SettingsService(storageService);
+    const store = new UserStateStore(storageService);
+    const settings = new SettingsService(store);
 
     settings.update({ theme: 'dark', reduceMotion: 'on', textScale: 1.25, sound: true });
     storageService.flush();
@@ -58,8 +60,9 @@ describe('SettingsService', () => {
     expect(root.getAttribute('data-text-scale')).toBe('1.25');
     expect(root.getAttribute('data-sound')).toBe('on');
 
-    // Un servicio nuevo debe leer los ajustes ya guardados en el almacenamiento.
-    expect(new SettingsService(new StorageService(storage, 0)).load()).toEqual({
+    // Un store nuevo debe leer los ajustes ya guardados en el almacenamiento.
+    const reloaded = new UserStateStore(new StorageService(storage, 0));
+    expect(new SettingsService(reloaded).load()).toEqual({
       theme: 'dark',
       reduceMotion: 'on',
       textScale: 1.25,
@@ -70,7 +73,8 @@ describe('SettingsService', () => {
   it('system elimina los atributos para dejar actuar al sistema', () => {
     const storage = new FakeStorage();
     const storageService = new StorageService(storage, 300);
-    const settings = new SettingsService(storageService);
+    const store = new UserStateStore(storageService);
+    const settings = new SettingsService(store);
 
     settings.update({ theme: 'dark', reduceMotion: 'on', textScale: 1.5 });
     storageService.flush();

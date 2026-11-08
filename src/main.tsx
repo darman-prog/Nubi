@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './app/App';
 import { StorageService } from './core/storage';
 import { SettingsService } from './core/settings';
+import { UserStateStore } from './core/user-state-store';
+import { UserStateProvider } from './shared/state/UserStateContext';
 import './styles/main.css';
 
 // Aplicamos los ajustes guardados antes de renderizar para evitar parpadeos de tema.
 const storage = new StorageService();
-new SettingsService(storage).init();
+const store = new UserStateStore(storage);
+new SettingsService(store).init();
 
 // Montamos la aplicación de forma segura verificando la existencia del nodo contenedor
 const rootElement = document.getElementById('root');
@@ -17,6 +20,8 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <App />
+    <UserStateProvider store={store}>
+      <App />
+    </UserStateProvider>
   </React.StrictMode>
 );

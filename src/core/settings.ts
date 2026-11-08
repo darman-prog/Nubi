@@ -1,19 +1,20 @@
-import { StorageService } from './storage';
-import { createInitialState } from './user-state';
+import type { UserStateStore } from './user-state-store';
 import type { Settings } from './user-state';
 
-/** Ajustes persistidos dentro de UserStateV1 y aplicados como atributos de <html>. */
+/** Persiste los ajustes a través del store y los aplica como atributos de <html>. */
 export class SettingsService {
-  constructor(private readonly storage: StorageService) {}
+  constructor(private readonly store: UserStateStore) {}
 
   load(): Settings {
-    return this.storage.load()?.settings ?? createInitialState().settings;
+    return this.store.getState().settings;
   }
 
   update(patch: Partial<Settings>): Settings {
-    const state = this.storage.load() ?? createInitialState();
-    const settings: Settings = { ...state.settings, ...patch };
-    this.storage.save({ ...state, settings });
+    let settings = this.store.getState().settings;
+    this.store.update((state) => {
+      settings = { ...state.settings, ...patch };
+      return { ...state, settings };
+    });
     this.apply(settings);
     return settings;
   }
