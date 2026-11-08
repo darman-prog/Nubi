@@ -25,6 +25,9 @@
   --cloud-front: #FFFFFF;
   --cloud-back: #CFE0F5;
   --cloud-glow: rgba(30, 58, 95, 0.28);
+
+  /* Velo de las hojas modales (ADR-016) */
+  --overlay: rgba(30, 27, 58, 0.35);
 }
 
 /* Tema oscuro ("Noche") automático o forzado con data-theme="dark" */
@@ -51,6 +54,7 @@
     --cloud-front: #F1F6FD;
     --cloud-back: #9DB6D8;
     --cloud-glow: rgba(0, 0, 0, 0.5);
+    --overlay: rgba(0, 0, 0, 0.55);
   }
 }
 
@@ -76,4 +80,5 @@
   --cloud-front: #F1F6FD;
   --cloud-back: #9DB6D8;
   --cloud-glow: rgba(0, 0, 0, 0.5);
+  --overlay: rgba(0, 0, 0, 0.55);
 }

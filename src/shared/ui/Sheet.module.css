@@ -1,0 +1,73 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  background: var(--overlay);
+  cursor: pointer;
+}
+
+.sheet {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--app-max));
+  max-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.sheet:focus {
+  outline: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: var(--card-border);
+  background: var(--surface);
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+.close {
+  min-width: var(--min-touch-target);
+  min-height: var(--min-touch-target);
+  border-radius: 50%;
+  color: var(--text-muted);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.body {
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5) var(--space-6);
+}
+
+@media (orientation: landscape) and (max-height: 560px) {
+  .sheet {
+    max-height: 100dvh;
+    height: 100dvh;
+    border-radius: 0;
+  }
+}

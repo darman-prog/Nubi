@@ -1,11 +1,22 @@
-import { useParams } from 'react-router-dom';
-import { ScreenPlaceholder } from '@/shared/ui/ScreenPlaceholder';
+import { useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { content } from '@/core/content/content-repository';
+import { Sheet } from '@/shared/ui/Sheet';
 
 export default function IslandSheet(): React.JSX.Element {
   const { slug, etapa } = useParams();
-  const note = etapa
-    ? `Etapa: ${etapa}. Aquí vivirán la llegada, la historia, los retos y el sello.`
-    : 'Aquí vivirán la llegada, la historia, los retos y el sello.';
+  const navigate = useNavigate();
+  const close = useCallback(() => navigate('/mapa'), [navigate]);
+  const island = slug ? content.islandBySlug(slug) : undefined;
 
-  return <ScreenPlaceholder title={slug ? `Isla ${slug}` : 'Isla'} note={note} />;
+  const note =
+    island?.disponibilidad === 'coming_soon'
+      ? 'En construcción. Pronto habrá más.'
+      : 'Aquí vivirán la llegada, la historia, los retos y el sello.';
+
+  return (
+    <Sheet title={island?.nombre ?? 'Isla'} onClose={close}>
+      <p>{etapa ? `Etapa: ${etapa}. ` : ''}{note}</p>
+    </Sheet>
+  );
 }

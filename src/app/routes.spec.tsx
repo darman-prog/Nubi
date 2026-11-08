@@ -33,9 +33,15 @@ describe('AppRoutes', () => {
     expect(await screen.findByRole('heading', { name: 'Pasaporte' })).toBeInTheDocument();
   });
 
-  it('abre la hoja de una isla por etapa', async () => {
-    renderRoute('/isla/reloj/retos');
+  it('abre la hoja de una isla por etapa después del main', async () => {
+    const { container } = renderRoute('/isla/reloj/retos');
     expect(await screen.findByRole('heading', { name: /isla reloj/i })).toBeInTheDocument();
+
+    const nav = container.querySelector('nav')!;
+    const main = container.querySelector('main')!;
+    const dialog = screen.getByRole('dialog');
+    expect(nav.compareDocumentPosition(main) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(main.compareDocumentPosition(dialog) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('renderiza el Diario como página con barra', async () => {
