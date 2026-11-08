@@ -24,8 +24,6 @@ describe('MapScreen', () => {
     expect(screen.getAllByRole('link')).toHaveLength(15);
     expect(screen.getByText('Isla Reloj')).toBeInTheDocument();
     expect(screen.getByText('Isla Mirador')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /abrir pasaporte con 0 sellos/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /pasaporte 0/i })).toBeInTheDocument();
   });
 });

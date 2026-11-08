@@ -39,7 +39,11 @@ export function StoryStage({ island, onFinish }: StoryStageProps): React.JSX.Ele
       <SourceBlock islandId={island.id} evidenceId={scene.evidenceId} />
 
       <div className={styles.sceneNav}>
-        <div className={styles.dots} aria-label={`Escena ${index + 1} de ${scenes.length}`}>
+        <div
+          className={styles.dots}
+          role="group"
+          aria-label={`Escena ${index + 1} de ${scenes.length}`}
+        >
           {scenes.map((item, itemIndex) => (
             <span
               key={item.id}

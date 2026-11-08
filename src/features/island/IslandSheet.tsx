@@ -74,7 +74,11 @@ export default function IslandSheet(): React.JSX.Element {
 
   return (
     <Sheet title={island.nombre} onClose={close}>
-      <div className={styles.stageNav} aria-label={`Etapa ${STAGES.indexOf(stage) + 1} de 4`}>
+      <div
+        className={styles.stageNav}
+        role="group"
+        aria-label={`Etapa ${STAGES.indexOf(stage) + 1} de 4`}
+      >
         {STAGES.map((item) => (
           <span
             key={item}

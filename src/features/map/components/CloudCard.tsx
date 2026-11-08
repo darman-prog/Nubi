@@ -39,7 +39,6 @@ export function CloudCard({
     <Link
       to={to}
       className={cx(styles.card, styles[state], compact && styles.compact)}
-      aria-label={`${island.nombre}. ${island.subtitulo}. ${LABELS[state]}`}
       data-current={state === 'current' ? 'true' : undefined}
       onClick={(event) => {
         event.preventDefault();
