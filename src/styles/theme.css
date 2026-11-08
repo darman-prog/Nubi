@@ -20,6 +20,7 @@
   --shadow-sm: 0 2px 8px rgba(30, 27, 58, 0.06);
   --shadow-md: 0 4px 16px rgba(30, 27, 58, 0.10);
   --card-border: 1px solid rgba(75, 71, 119, 0.15);
+  --border-color: rgba(75, 71, 119, 0.15);
 
   /* Transición de nubes (ADR-015) */
   --cloud-front: #FFFFFF;
@@ -27,7 +28,7 @@
   --cloud-glow: rgba(30, 58, 95, 0.28);
 
   /* Velo de las hojas modales (ADR-016) */
-  --overlay: rgba(30, 27, 58, 0.35);
+  --overlay: rgba(30, 27, 58, 0.45);
 }
 
 /* Tema oscuro ("Noche") solo manual; v0.1 arranca en claro como el flujo-arte. */
@@ -49,6 +50,7 @@
   --shadow-sm: none;
   --shadow-md: none;
   --card-border: 1px solid rgba(189, 184, 234, 0.25);
+  --border-color: rgba(189, 184, 234, 0.25);
 
   --cloud-front: #F1F6FD;
   --cloud-back: #9DB6D8;

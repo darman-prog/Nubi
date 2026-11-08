@@ -35,9 +35,9 @@ export function Sheet({ title, onClose, children }: SheetProps): React.JSX.Eleme
         tabIndex={-1}
       >
         <header className={styles.header}>
-          <h2 id={titleId} className={styles.title}>
+          <h1 id={titleId} className={styles.title}>
             {title}
-          </h2>
+          </h1>
           <button type="button" className={styles.close} onClick={close} aria-label="Cerrar">
             <span aria-hidden="true">×</span>
           </button>

@@ -61,7 +61,7 @@
 .field input {
   min-height: var(--min-touch-target);
   padding: 0 var(--space-2);
-  border: 1.5px solid var(--card-border);
+  border: 1.5px solid var(--border-color);
   border-radius: var(--radius-card);
   background: var(--bg);
   color: var(--text);
@@ -94,7 +94,7 @@
   justify-content: center;
   gap: 2px;
   padding: 4px 2px;
-  border: 1.5px solid var(--card-border);
+  border: 1.5px solid var(--border-color);
   border-radius: var(--radius-card);
   background: var(--surface);
   color: var(--text-muted);
