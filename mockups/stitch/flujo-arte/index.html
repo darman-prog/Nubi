@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flujo con arte real · Nubi</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #F7F5FF;
+    color: #1E1B3A;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.4;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 20px 64px; }
+  header h1 { margin: 0 0 6px; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.02em; }
+  header p { margin: 0 0 20px; color: #4B4777; max-width: 70ch; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .links a {
+    display: inline-block;
+    padding: 10px 14px;
+    border: 1px solid #DCD4F7;
+    border-radius: 999px;
+    background: #fff;
+    color: #5043C9;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  .links a:hover { border-color: #5043C9; }
+  .links a:focus-visible { outline: 3px solid #5043C9; outline-offset: 2px; }
+  section { margin-top: 40px; }
+  h2 { margin: 0 0 14px; font-size: 1.25rem; letter-spacing: -0.01em; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #ECE8FB;
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .card img {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    height: 150px;
+    margin: 0 auto;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 12px;
+  }
+  .card span {
+    display: block;
+    margin-top: 8px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: #4B4777;
+    overflow-wrap: anywhere;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Flujo con arte real</h1>
+    <p>Copias de revisión visual de las 7 pantallas del flujo, con las ilustraciones locales de <code>arte/</code>. Los mockups originales de <code>flujo/</code> no se modificaron.</p>
+    <nav class="links" aria-label="Pantallas del flujo">
+      <a href="01-portada.html">01 · Portada</a>
+      <a href="02-mapa-pasaporte.html">02 · Mapa y pasaporte</a>
+      <a href="03-isla-llegada.html">03 · Isla: llegada</a>
+      <a href="04-isla-historia.html">04 · Isla: historia</a>
+      <a href="07-isla-sello-puente.html">07 · Isla: sello y puente</a>
+      <a href="09-isla-niebla.html">09 · Isla: niebla</a>
+      <a href="10-coronacion.html">10 · Coronación</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Islas</h2>
+    <div class="grid">
+      <div class="card"><img src="../../../arte/islas/nido.webp" alt="Isla Nido" loading="lazy"><span>nido.webp</span></div>
+      <div class="card"><img src="../../../arte/islas/reloj.webp" alt="Isla Reloj" loading="lazy"><span>reloj.webp</span></div>
+      <div class="card"><img src="../../../arte/islas/horarios.webp" alt="Isla Horarios" loading="lazy"><span>horarios.webp</span></div>
+      <div class="card"><img src="../../../arte/islas/animo.webp" alt="Isla Ánimo" loading="lazy"><span>animo.webp</span></div>
+      <div class="card"><img src="../../../arte/islas/cerebro.webp" alt="Isla Cerebro" loading="lazy"><span>cerebro.webp</span></div>
+      <div class="card"><img src="../../../arte/islas/taller.webp" alt="Isla Taller" loading="lazy"><span>taller.webp</span></div>
+      <div class="card"><img src="../../../arte/islas/isla-niebla.webp" alt="Isla en construcción" loading="lazy"><span>isla-niebla.webp</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Escenas</h2>
+    <div class="grid">
+      <div class="card"><img src="../../../arte/escenas/nido-1.webp" alt="Escena de Isla Nido" loading="lazy"><span>nido-1.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/reloj-1.webp" alt="Escena de Isla Reloj 1" loading="lazy"><span>reloj-1.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/reloj-2.webp" alt="Escena de Isla Reloj 2" loading="lazy"><span>reloj-2.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/horarios-1.webp" alt="Escena de Isla Horarios 1" loading="lazy"><span>horarios-1.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/horarios-2.webp" alt="Escena de Isla Horarios 2" loading="lazy"><span>horarios-2.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/animo-1.webp" alt="Escena de Isla Ánimo 1" loading="lazy"><span>animo-1.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/animo-2.webp" alt="Escena de Isla Ánimo 2" loading="lazy"><span>animo-2.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/cerebro-1.webp" alt="Escena de Isla Cerebro 1" loading="lazy"><span>cerebro-1.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/cerebro-2.webp" alt="Escena de Isla Cerebro 2" loading="lazy"><span>cerebro-2.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/taller-1.webp" alt="Escena de Isla Taller 1" loading="lazy"><span>taller-1.webp</span></div>
+      <div class="card"><img src="../../../arte/escenas/taller-2.webp" alt="Escena de Isla Taller 2" loading="lazy"><span>taller-2.webp</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sellos</h2>
+    <div class="grid">
+      <div class="card"><img src="../../../arte/sellos/sello-nido.webp" alt="Sello de Isla Nido" loading="lazy"><span>sello-nido.webp</span></div>
+      <div class="card"><img src="../../../arte/sellos/sello-reloj.webp" alt="Sello de Isla Reloj" loading="lazy"><span>sello-reloj.webp</span></div>
+      <div class="card"><img src="../../../arte/sellos/sello-horarios.webp" alt="Sello de Isla Horarios" loading="lazy"><span>sello-horarios.webp</span></div>
+      <div class="card"><img src="../../../arte/sellos/sello-animo.webp" alt="Sello de Isla Ánimo" loading="lazy"><span>sello-animo.webp</span></div>
+      <div class="card"><img src="../../../arte/sellos/sello-cerebro.webp" alt="Sello de Isla Cerebro" loading="lazy"><span>sello-cerebro.webp</span></div>
+      <div class="card"><img src="../../../arte/sellos/sello-taller.webp" alt="Sello de Isla Taller" loading="lazy"><span>sello-taller.webp</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Nubi</h2>
+    <div class="grid">
+      <div class="card"><img src="../../../arte/nubi/nubi-base.webp" alt="Nubi base" loading="lazy"><span>nubi-base.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-neutral.webp" alt="Nubi neutral" loading="lazy"><span>nubi-neutral.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-feliz.webp" alt="Nubi feliz" loading="lazy"><span>nubi-feliz.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-curiosa.webp" alt="Nubi curiosa" loading="lazy"><span>nubi-curiosa.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-pensando.webp" alt="Nubi pensando" loading="lazy"><span>nubi-pensando.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-celebrando.webp" alt="Nubi celebrando" loading="lazy"><span>nubi-celebrando.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-soñolienta.webp" alt="Nubi soñolienta" loading="lazy"><span>nubi-soñolienta.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-narrando.webp" alt="Nubi narrando" loading="lazy"><span>nubi-narrando.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/nubi-apoyando.webp" alt="Nubi apoyando" loading="lazy"><span>nubi-apoyando.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/acc-gorro-dormir.webp" alt="Accesorio: gorro de dormir" loading="lazy"><span>acc-gorro-dormir.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/acc-bufanda-estrellas.webp" alt="Accesorio: bufanda de estrellas" loading="lazy"><span>acc-bufanda-estrellas.webp</span></div>
+      <div class="card"><img src="../../../arte/nubi/acc-lentes-luna.webp" alt="Accesorio: lentes de luna" loading="lazy"><span>acc-lentes-luna.webp</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Portada/Coronación</h2>
+    <div class="grid">
+      <div class="card"><img src="../../../arte/hero-portada.webp" alt="Portada del archipiélago" loading="lazy"><span>hero-portada.webp</span></div>
+      <div class="card"><img src="../../../arte/coronacion.webp" alt="Nubi coronada como Sabio del Sueño" loading="lazy"><span>coronacion.webp</span></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flujo con transición de nubes · Nubi</title>
+  <style>
+    :root {
+      --cloud-front: #FFFFFF;
+      --cloud-back: #CFE0F5;
+      --cloud-glow: rgba(30, 58, 95, .28);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: #2B2745;
+      font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+      color: #EEEBFF;
+    }
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .bar h1 { font-size: 15px; font-weight: 700; margin: 0; }
+    select {
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid #6B5FA8;
+      background: #1C1A40;
+      color: #EEEBFF;
+      font: inherit;
+      font-size: 14px;
+    }
+    select:focus-visible { outline: 3px solid #A99BFF; outline-offset: 2px; }
+    .stage {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      max-height: calc(100vh - 110px);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .45);
+      background: #F7F5FF;
+    }
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ===== CloudTransition (copiado del archivo de referencia) ===== */
+    .cloud-wipe { position: fixed; inset: 0; z-index: 9999; display: none; overflow: hidden; }
+    .cloud { position: absolute; top: 0; height: 100%; width: 72vw; will-change: transform; }
+    .cloud.left { left: 0; }
+    .cloud.right { right: 0; }
+    .cloud.back { width: 80vw; }
+    .cloud.front { filter: drop-shadow(0 0 28px var(--cloud-glow)); }
+    .cloud svg { display: block; width: 100%; height: 100%; }
+    .cloud.right svg { transform: scaleX(-1); }
+    .cloud.back svg { transform: scaleY(-1); }
+    .cloud.back.right svg { transform: scale(-1, -1); }
+    .cloud.front svg { fill: var(--cloud-front); }
+    .cloud.back svg { fill: var(--cloud-back); }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <h1>Flujo con transición</h1>
+    <label for="pantalla" style="font-size:13px">Pantalla</label>
+    <select id="pantalla" aria-label="Elegir pantalla del flujo"></select>
+  </div>
+
+  <main class="stage">
+    <iframe id="marco" title="Pantalla del flujo" src="01-portada.html"></iframe>
+  </main>
+
+  <script>
+    /* ===== CloudTransition (idéntico al archivo de referencia) ===== */
+    const CloudTransition = (() => {
+      const PATH = "M0 0H440A62 62 0 0 1 440 120A76 76 0 0 1 440 260A56 56 0 0 1 440 360A80 80 0 0 1 440 500A66 66 0 0 1 440 620A58 58 0 0 1 440 720A48 48 0 0 1 440 800H0Z";
+      const SPEC = [
+        { side: -1, layer: "back",  inDelay: 0,   outDelay: 150 },
+        { side:  1, layer: "back",  inDelay: 0,   outDelay: 150 },
+        { side: -1, layer: "front", inDelay: 150, outDelay: 0 },
+        { side:  1, layer: "front", inDelay: 150, outDelay: 0 },
+      ];
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      let root = null, layers = [], busy = false;
+
+      function mount() {
+        if (root) return;
+        root = document.createElement("div");
+        root.className = "cloud-wipe";
+        root.setAttribute("aria-hidden", "true");
+        layers = SPEC.map(s => {
+          const el = document.createElement("div");
+          el.className = `cloud ${s.side < 0 ? "left" : "right"} ${s.layer}`;
+          el.innerHTML = `<svg viewBox="0 0 600 800" preserveAspectRatio="none"><path d="${PATH}"/></svg>`;
+          root.appendChild(el);
+          return { ...s, el };
+        });
+        document.body.appendChild(root);
+      }
+
+      const slide = (l, enter, ms) => l.el.animate(
+        [{ transform: `translateX(${l.side * 100}%)` }, { transform: "translateX(0)" }],
+        { duration: ms, delay: enter ? l.inDelay : l.outDelay, easing: "cubic-bezier(.7,0,.3,1)",
+          fill: "both", direction: enter ? "normal" : "reverse" }
+      ).finished;
+
+      async function go(changeView, { ms = 850, hold = 180 } = {}) {
+        if (busy) return;
+        busy = true;
+        try {
+          if (reduce.matches) { await changeView(); return; }
+          mount();
+          root.style.display = "block";
+          await Promise.all(layers.map(l => slide(l, true, ms)));
+          await changeView();
+          await sleep(hold);
+          await Promise.all(layers.map(l => slide(l, false, ms)));
+          layers.forEach(l => l.el.getAnimations().forEach(a => a.cancel()));
+          root.style.display = "none";
+        } finally { busy = false; }
+      }
+      return { go };
+    })();
+
+    /* ===== Navegador del flujo ===== */
+    const PANTALLAS = [
+      ["01-portada.html", "01 · Portada"],
+      ["02-mapa-pasaporte.html", "02 · Mapa y pasaporte"],
+      ["03-isla-llegada.html", "03 · Isla: llegada"],
+      ["04-isla-historia.html", "04 · Isla: historia"],
+      ["05-hoja-fuente.html", "05 · Hoja de fuente"],
+      ["06-isla-retos.html", "06 · Isla: retos"],
+      ["07-isla-sello-puente.html", "07 · Sello y puente"],
+      ["08-ayuda.html", "08 · Ayuda"],
+      ["09-isla-niebla.html", "09 · Isla en niebla"],
+      ["10-coronacion.html", "10 · Coronación"],
+    ];
+    const select = document.getElementById("pantalla");
+    const marco = document.getElementById("marco");
+
+    PANTALLAS.forEach(([src, label]) => {
+      const option = document.createElement("option");
+      option.value = src;
+      option.textContent = label;
+      select.appendChild(option);
+    });
+
+    const cargar = (src) => new Promise((resolve) => {
+      const timeout = setTimeout(resolve, 1500);
+      marco.addEventListener("load", () => { clearTimeout(timeout); resolve(); }, { once: true });
+      marco.src = src;
+    });
+
+    select.addEventListener("change", async () => {
+      const src = select.value;
+      await CloudTransition.go(async () => { await cargar(src); });
+    });
+  </script>
+</body>
+</html>

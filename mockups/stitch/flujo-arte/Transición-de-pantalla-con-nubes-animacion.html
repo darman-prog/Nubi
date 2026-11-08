@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Transición de nubes</title>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --cloud-front: #FFFFFF;
+    --cloud-back: #CFE0F5;
+    --cloud-glow: rgba(30, 58, 95, .28);
+    --nav-bg: rgba(255, 255, 255, .8);
+    --nav-ink: #1B2A41;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cloud-front: #F1F6FD;
+      --cloud-back: #9DB6D8;
+      --cloud-glow: rgba(0, 0, 0, .5);
+      --nav-bg: rgba(20, 26, 46, .85);
+      --nav-ink: #E8EEF9;
+    }
+  }
+  :root[data-theme="dark"] {
+    --cloud-front: #F1F6FD; --cloud-back: #9DB6D8; --cloud-glow: rgba(0,0,0,.5);
+    --nav-bg: rgba(20, 26, 46, .85); --nav-ink: #E8EEF9;
+  }
+  html, body { height: 100%; margin: 0; }
+  body { font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; background: #8EC9F5; overflow: hidden; }
+
+  /* Vistas */
+  .view { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 24px 24px 96px; text-align: center; }
+  .view.is-active { display: flex; }
+  .view h1 { font-size: clamp(2.4rem, 8vw, 5rem); margin: 0 0 .4rem; letter-spacing: -.02em; }
+  .view p { margin: 0; max-width: 34ch; font-size: 1.1rem; line-height: 1.5; }
+  #v1 { background: linear-gradient(180deg, #FFD9B0, #F4A3A0); color: #4A1F2A; }
+  #v2 { background: linear-gradient(180deg, #7DBFF2, #E6F4FF); color: #12324F; }
+  #v3 { background: linear-gradient(180deg, #1B2547, #3F4486); color: #EEF0FF; }
+
+  nav { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: var(--nav-bg); backdrop-filter: blur(8px); z-index: 5; }
+  nav button { font: inherit; font-weight: 600; color: var(--nav-ink); background: transparent; border: 0; padding: 10px 18px; border-radius: 999px; cursor: pointer; }
+  nav button[aria-current="true"] { background: var(--nav-ink); color: var(--nav-bg); }
+  nav button:focus-visible { outline: 3px solid #4A8BE8; outline-offset: 2px; }
+
+  /* Telón de nubes */
+  .cloud-wipe { position: fixed; inset: 0; z-index: 9999; display: none; overflow: hidden; }
+  .cloud { position: absolute; top: 0; height: 100%; width: 72vw; will-change: transform; }
+  .cloud.left { left: 0; }
+  .cloud.right { right: 0; }
+  .cloud.back { width: 80vw; }
+  .cloud.front { filter: drop-shadow(0 0 28px var(--cloud-glow)); }
+  .cloud svg { display: block; width: 100%; height: 100%; }
+  .cloud.right svg { transform: scaleX(-1); }
+  .cloud.back svg { transform: scaleY(-1); }
+  .cloud.back.right svg { transform: scale(-1, -1); }
+  .cloud.front svg { fill: var(--cloud-front); }
+  .cloud.back svg { fill: var(--cloud-back); }
+</style>
+</head>
+<body>
+
+<section class="view is-active" id="v1"><h1>Amanecer</h1><p>Primera vista. Elige otra abajo y las nubes cambian la pantalla.</p></section>
+<section class="view" id="v2"><h1>Mediodía</h1><p>Las nubes se cierran, la vista cambia detrás y luego se abren.</p></section>
+<section class="view" id="v3"><h1>Noche</h1><p>El cambio ocurre cuando la pantalla está totalmente cubierta.</p></section>
+
+<nav aria-label="Vistas">
+  <button data-view="v1" aria-current="true">Amanecer</button>
+  <button data-view="v2">Mediodía</button>
+  <button data-view="v3">Noche</button>
+</nav>
+
+<script>
+/* ===== CloudTransition: copia este bloque a tu proyecto ===== */
+const CloudTransition = (() => {
+  // Borde con lóbulos de distinto tamaño; el resto del rectángulo cubre la pantalla
+  const PATH = "M0 0H440A62 62 0 0 1 440 120A76 76 0 0 1 440 260A56 56 0 0 1 440 360A80 80 0 0 1 440 500A66 66 0 0 1 440 620A58 58 0 0 1 440 720A48 48 0 0 1 440 800H0Z";
+  const SPEC = [ // side: -1 izquierda, 1 derecha
+    { side: -1, layer: "back",  inDelay: 0,   outDelay: 150 },
+    { side:  1, layer: "back",  inDelay: 0,   outDelay: 150 },
+    { side: -1, layer: "front", inDelay: 150, outDelay: 0 },
+    { side:  1, layer: "front", inDelay: 150, outDelay: 0 },
+  ];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let root = null, layers = [], busy = false;
+
+  function mount() {
+    if (root) return;
+    root = document.createElement("div");
+    root.className = "cloud-wipe";
+    root.setAttribute("aria-hidden", "true");
+    layers = SPEC.map(s => {
+      const el = document.createElement("div");
+      el.className = `cloud ${s.side < 0 ? "left" : "right"} ${s.layer}`;
+      el.innerHTML = `<svg viewBox="0 0 600 800" preserveAspectRatio="none"><path d="${PATH}"/></svg>`;
+      root.appendChild(el);
+      return { ...s, el };
+    });
+    document.body.appendChild(root);
+  }
+
+  const slide = (l, enter, ms) => l.el.animate(
+    [{ transform: `translateX(${l.side * 100}%)` }, { transform: "translateX(0)" }],
+    { duration: ms, delay: enter ? l.inDelay : l.outDelay, easing: "cubic-bezier(.7,0,.3,1)",
+      fill: "both", direction: enter ? "normal" : "reverse" }
+  ).finished;
+
+  async function go(changeView, { ms = 850, hold = 180 } = {}) {
+    if (busy) return;
+    busy = true;
+    try {
+      if (reduce.matches) { await changeView(); return; }
+      mount();
+      root.style.display = "block";
+      await Promise.all(layers.map(l => slide(l, true, ms)));   // 1. se cierran
+      await changeView();                                       // 2. cambia la vista
+      await sleep(hold);
+      await Promise.all(layers.map(l => slide(l, false, ms)));  // 3. se abren
+      layers.forEach(l => l.el.getAnimations().forEach(a => a.cancel()));
+      root.style.display = "none";
+    } finally { busy = false; }
+  }
+  return { go };
+})();
+
+/* ===== Demo ===== */
+const views = document.querySelectorAll(".view");
+const buttons = document.querySelectorAll("nav button");
+let current = "v1";
+
+buttons.forEach(btn => btn.addEventListener("click", () => {
+  const target = btn.dataset.view;
+  if (target === current) return;
+  CloudTransition.go(() => {
+    views.forEach(v => v.classList.toggle("is-active", v.id === target));
+    buttons.forEach(b => b.setAttribute("aria-current", String(b === btn)));
+    current = target;
+  });
+}));
+</script>
+</body>
+</html>
