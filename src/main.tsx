@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { StorageService } from './core/storage';
+import { SettingsService } from './core/settings';
 import './styles/main.css';
+
+// Aplicamos los ajustes guardados antes de renderizar para evitar parpadeos de tema.
+const storage = new StorageService();
+new SettingsService(storage).init();
 
 // Montamos la aplicación de forma segura verificando la existencia del nodo contenedor
 const rootElement = document.getElementById('root');
