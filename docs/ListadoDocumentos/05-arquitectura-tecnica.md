@@ -4,7 +4,7 @@
 
 ---
 
-> **Nota de adaptación (2026-11-05, corregida).** El framework es **React** (Vite + TypeScript estricto): ver [`../adr/013-framework-react.md`](../adr/013-framework-react.md) y la decisión D-15 en `01-PRD.md` §13 (Q-04 de imagen también respondida). Las menciones Angular-específicas del ADR original (ADR-04, ADR-05, ADR-12, §2, §5, §8, §9, §12, §13 y RT-02/RT-03) ya fueron adaptadas al stack React en este documento; la arquitectura lógica, los contratos, modelos de datos y tareas (T-00…T-16) se conservan sin cambios.
+> **Nota de adaptación (2026-11-08).** El framework es **React** (Vite + TypeScript estricto): ver [`../adr/013-framework-react.md`](../adr/013-framework-react.md) y la decisión D-15 en `01-PRD.md` §13. La estructura de carpetas, las capas, el presupuesto de deuda y el chequeo de límites vigentes están en [`../adr/015-arquitectura-frontend-react.md`](../adr/015-arquitectura-frontend-react.md); este documento se alinea con ese ADR. El alcance v0.1 no incluye Diario ni onboarding.
 
 ---
 
@@ -32,24 +32,25 @@
 
 ```mermaid
 flowchart TB
+  APP[app · composición y rutas]
   subgraph UI[Capa de interfaz · features]
+    HOM[home]
     MAP[map]
     ISL[island]
-    CHN[chain-builder]
-    DIA[diary]
     PAS[passport]
-    OTH[help · sources · settings · onboarding]
+    HLP[help + ajustes]
+    COR[coronation]
   end
   subgraph DOM[Dominio · TypeScript puro]
     GRA[graph]
-    PRO[progress y stamps]
-    SLP[diary y sleep-math]
+    PRO[progress y sellos]
     EVD[evidence]
   end
   subgraph DAT[Datos]
     CON[ContentRepository · lee /content]
     STO[StorageService · localStorage]
   end
+  APP --> UI
   UI --> DOM
   UI --> DAT
   DOM --> DAT
@@ -68,33 +69,42 @@ flowchart TB
 
 ```
 nubi/
-├─ docs/                         # este paquete (00–05)
+├─ docs/                         # paquete documental + ADR
 ├─ content/
 │  ├─ schema/                    # esquemas (zod) y tipos exportados
 │  ├─ evidence/evidence.json     # fichas EV-xxx (doc. 02)
 │  ├─ graph/{nodes,edges,chains}.json
-│  ├─ islands/{nido,reloj,horarios,animo,cerebro,taller}.json
-│  ├─ games/{myth-or-reality,quizzes,detective,experiments}.json
-│  └─ ui/{nubi-dialogs,microcopy,help}.json
-├─ src/                            # SPA (React + Vite)
-│  ├─ core/                      # storage, settings, theme, nubi-dialog, a11y, content-repository
-│  ├─ domain/
+│  └─ islands/{nido,reloj,horarios,animo,cerebro,taller}.json
+├─ src/                          # SPA (React + Vite)
+│  ├─ app/                       # composición raíz, rutas, layouts, transición
+│  ├─ core/                      # aplicación + infraestructura del navegador
+│  │  ├─ content/                # loader, repositorio y resolución de arte
+│  │  ├─ storage.ts
+│  │  ├─ settings.ts
+│  │  ├─ user-state.ts
+│  │  ├─ user-state-store.ts
+│  │  └─ progress-service.ts
+│  ├─ domain/                    # TypeScript puro, sin React ni DOM
 │  │  ├─ graph/                  # validación de cadenas, caminos alternativos
-│  │  ├─ progress/               # etapas, sellos derivados
-│  │  ├─ diary/                  # sleep-math, insights
-│  │  └─ evidence/               # niveles, compuertas por entorno
-│  ├─ features/
-│  │  ├─ onboarding/  map/  island/  chain-builder/
-│  │  ├─ mechanics/              # myth-or-reality, quiz, week-simulator, detective, routine, breathing
-│  │  ├─ diary/  passport/  help/  sources/  settings/  about/
-│  ├─ shared/ui/                 # componentes de doc. 04 §6
-│  ├─ App.tsx                    # raíz de la SPA
-│  └─ app.routes.tsx             # rutas de §7 (lazy por feature)
-├─ src/styles/                   # tokens (doc. 04 §3), temas, tipografías
-├─ public/                       # íconos PWA, fuentes autoalojadas, manifest
+│  │  ├─ progress/               # sellos derivados
+│  │  └─ evidence/               # niveles y compuertas
+│  ├─ features/                  # una carpeta por pantalla
+│  │  ├─ home/  map/  island/  passport/  help/  coronation/
+│  ├─ shared/
+│  │  ├─ ui/                     # primitivas de doc. 04 §6
+│  │  ├─ state/                  # contexto React + useUserState
+│  │  ├─ hooks/                  # foco, movimiento reducido
+│  │  └─ lib/                    # utilidades sin dominio
+│  ├─ styles/                    # tokens, temas, fuentes y base
+│  ├─ test/                      # setup y fixtures
+│  ├─ main.tsx
+│  └─ vite-env.d.ts
+├─ public/                       # íconos PWA, manifest y recursos estáticos
 ├─ licenses/                     # autores y licencias de recursos
-├─ scripts/validate-content.ts   # RF-23
-├─ e2e/                          # Playwright
+├─ scripts/
+│  ├─ validate-content.ts        # RF-23
+│  └─ check-boundaries.mjs       # presupuesto de deuda (ADR-015)
+├─ e2e/                          # Playwright (feature 007)
 └─ .github/workflows/ci.yml
 ```
 
@@ -123,12 +133,12 @@ nubi/
 
 ## 4. Modelo de datos de contenido
 
-Tipos de referencia (los esquemas `zod` en `content/schema` son la fuente de verdad; los tipos se infieren de ellos).
+Tipos de referencia (actualizado al modelo v0.1; los esquemas `zod` en `content/schema` son la fuente de verdad y los tipos se infieren de ellos).
 
 ```ts
 type EvidenceLevel = 'E1' | 'E2' | 'E3';
 type ReviewStatus = 'draft' | 'source_verified' | 'professional_reviewed';
-type Stage = 'llegada' | 'explora' | 'juega' | 'conecta' | 'reto';
+type Stage = 'llegada' | 'historia' | 'retos' | 'sello';
 
 interface EvidenceRecord {
   id: string;                       // 'EV-003'
@@ -149,29 +159,44 @@ interface EvidenceRecord {
   verifiedOn?: string;              // 'YYYY-MM-DD'
 }
 
-interface Card {
-  id: string;
-  title: string;
-  body: string;                     // ≤ 45 palabras
-  illustration?: string;
+interface Escena {
+  id: string;                       // 'ESC-RELOJ-1'
+  acto: 'sintoma' | 'causa' | 'efecto' | 'cierre';
+  texto: string;                    // ≤ 45 palabras
+  alt: string;
   isHealthClaim: boolean;           // si true => evidenceId obligatorio
   evidenceId?: string;
-  simplifiedExplanation?: boolean;  // muestra la etiqueta "explicación simplificada"
+  ilustracion?: string;             // 'arte/escenas/reloj-1.webp'
 }
 
-interface Island {
+interface Opcion { id: string; texto: string; correcta: boolean; }
+
+interface Pregunta {
+  id: string;                       // 'PR-1'
+  enunciado: string;
+  opciones: Opcion[];               // 2–4; exactamente una correcta
+  explicacion: string;
+  isHealthClaim: boolean;
+  evidenceId?: string;
+}
+
+interface Reto { chainId: string; titulo: string; huecos: 1 | 2 | 3; }
+
+interface Isla {
   id: string;                       // 'ISL-RELOJ'
   slug: string;                     // 'reloj'
-  zone: 0 | 1 | 2 | 3 | 4;          // 0 = Nido
-  title: string;
-  availability: 'available' | 'coming_soon';
-  mapPosition: { x: number; y: number };   // 0–100, relativas a la franja de la zona
-  suggestedOrder?: number;
-  arrival: string[];                // frases de Nubi
-  cards: Card[];                    // 3–5
-  mechanics: string[];              // ['MEC-02', 'MEC-03']
-  challenge: { id: string; text: string; evidenceId?: string };
-  bridges: string[];                // ids de puentes relacionados
+  zona: 0 | 1 | 2 | 3 | 4;          // 0 = Nido
+  nombre: string;
+  subtitulo: string;
+  disponibilidad: 'available' | 'coming_soon';
+  posicion: { x: number; y: number }; // 0–100; y se dibuja desde abajo
+  ordenSugerido?: number;
+  llegada?: string[];               // 2–3 frases de Nubi, ≤ 140 caracteres
+  historia?: Escena[];              // 3–6 escenas si está disponible
+  pregunta?: Pregunta;
+  reto?: Reto;
+  puentes: string[];                // ids de puentes publicados
+  fuentes: string[];                // ids de fichas
 }
 
 interface GraphNode { id: string; label: string; islandId: string; }
@@ -193,48 +218,51 @@ interface Chain {
   distractors: string[];            // nodos reales del grafo que no encajan en ese orden
   isIntegratedHypothesis?: boolean; // C-03
 }
-interface MythItem {
-  id: string;                       // 'MR-02'
-  statement: string;
-  answer: 'mito' | 'realidad' | 'depende';
-  explanation: string;
-  evidenceIds: string[];
-}
 ```
 
 **Ejemplo (recortado)**
 
 ```json
 {
-  "id": "ISL-RELOJ", "slug": "reloj", "zone": 1, "title": "Isla Reloj",
-  "availability": "available", "mapPosition": { "x": 50, "y": 60 }, "suggestedOrder": 1,
-  "arrival": ["Aquí vive el reloj de tu cuerpo.", "Vamos a ver por qué te da sueño a la hora que te da."],
-  "cards": [
-    { "id": "CARD-RELOJ-03", "title": "En la pubertad, el reloj se corre",
-      "body": "Cambian la fase del reloj, la melatonina y la sensibilidad a la luz. Por eso muchos adolescentes sienten sueño más tarde.",
-      "isHealthClaim": true, "evidenceId": "EV-003" }
+  "id": "ISL-RELOJ", "slug": "reloj", "zona": 1, "nombre": "Isla Reloj",
+  "subtitulo": "Tu reloj interno", "disponibilidad": "available",
+  "posicion": { "x": 50, "y": 60 }, "ordenSugerido": 1,
+  "llegada": ["Aquí vive el reloj de tu cuerpo.", "Vamos a ver por qué te da sueño a la hora que te da."],
+  "historia": [
+    { "id": "ESC-RELOJ-2", "acto": "causa",
+      "texto": "En la pubertad tu reloj biológico se corre: la fase del sueño se retrasa y te da sueño más tarde.",
+      "alt": "Un reloj inclinado sobre una nube",
+      "isHealthClaim": true, "evidenceId": "EV-003",
+      "ilustracion": "arte/escenas/reloj-2.webp" }
   ],
-  "mechanics": ["MEC-02", "MEC-03"],
-  "challenge": { "id": "RT-RELOJ", "text": "Esta noche, anota a qué hora te da sueño de verdad." },
-  "bridges": ["B-01", "B-02"]
+  "pregunta": { "id": "PR-1", "enunciado": "¿Por qué muchos adolescentes sienten sueño más tarde?",
+    "opciones": [{ "id": "a", "texto": "Porque su reloj biológico se corre", "correcta": true },
+                 { "id": "b", "texto": "Porque necesitan dormir menos", "correcta": false }],
+    "explicacion": "En la pubertad cambian la fase del reloj y la melatonina.",
+    "isHealthClaim": true, "evidenceId": "EV-003" },
+  "reto": { "chainId": "C-01", "titulo": "Arma la cadena del reloj al ánimo", "huecos": 1 },
+  "puentes": ["B-01", "B-02"], "fuentes": ["EV-001", "EV-003"]
 }
 ```
 
 **Reglas que valida `validate-content` (RF-23)**
-1. Todo `Card` con `isHealthClaim: true` tiene `evidenceId` existente y no restringido.
+1. Toda `Escena` o `Pregunta` con `isHealthClaim: true` tiene `evidenceId` existente y no restringido.
 2. Toda arista `published` tiene `level` y al menos un `evidenceIds` existente; su `level` no es más alto que el de su ficha más débil.
-3. Las aristas `pending` no se referencian desde cadenas, islas ni juegos.
+3. Las aristas `pending` no se referencian desde cadenas ni islas.
 4. Cada `Chain.solution` es un camino válido en el grafo y `start`/`end` coinciden con sus extremos; los `distractors` existen.
-5. Ningún texto visible supera los límites (≤ 45 palabras en tarjetas, ≤ 140 caracteres en burbujas de Nubi).
+5. Ningún texto visible supera los límites (≤ 45 palabras en escenas y fichas, ≤ 140 caracteres en burbujas de Nubi).
 6. El estado de cada ficha usada cumple la compuerta del entorno.
 7. No hay IDs duplicados ni referencias rotas.
 8. Los textos no contienen las palabras prohibidas de `02` §1 (lista configurable, con revisión manual de excepciones).
+9. Cada `Pregunta` tiene exactamente una opción correcta y 2–4 opciones.
+10. Cada `Reto.chainId` existe en `chains.json`.
+11. Una isla `available` con `zona > 0` tiene al menos 3 escenas, pregunta y reto; una `coming_soon` puede omitirlos.
 
 ---
 
 ## 5. Estado del usuario (en el dispositivo)
 
-Clave de almacenamiento: `nubi:v1`. **Es lo único que se guarda del usuario.** Sin identificadores, sin datos personales.
+Clave de almacenamiento: `nubi:v1`. **Es lo único que se guarda del usuario.** Sin identificadores, sin datos personales. `Stage` es el tipo de §4: `llegada | historia | retos | sello`.
 
 ```ts
 interface UserStateV1 {
@@ -351,20 +379,15 @@ export const isPlausible = (min: number) => min >= 60 && min <= 16 * 60;  // si 
 
 ### 6.3 Sellos derivados (`domain/progress`)
 
-`deriveStamps(state, content)` devuelve la lista de sellos ganados. Reglas (de `03` §4):
+`deriveStamps(state, content)` devuelve la lista de sellos ganados. Reglas v0.1:
 
 | Sello | Regla |
 |---|---|
-| Bienvenida | `onboardingDone` |
-| Isla `X` | Etapas `llegada`, `explora`, `juega` y `conecta` en `true` |
-| Reto `X` | Existe `challenges` con esa isla |
-| Puente `C-xx` | Existe `chains` con ese `chainId` |
-| Curiosidad I / II | Total de `sourcesOpened` únicos ≥ 3 / ≥ 8 |
-| Diario I / II | Entradas de diario ≥ 3 / ≥ 7 |
-| Experimento | Un experimento con ≥ 3 entradas de diario con `experimentTried` definido dentro de sus 7 días |
-| Zona `Z` | Todos los sellos de isla de esa zona |
+| Isla `X` (incluye Nido) | `progress.islands[X].stages.sello === true` |
+| Pasaporte | Los 6 sellos de isla (Nido, Reloj, Horarios, Ánimo, Cerebro, Taller) |
+| Coronación | Pasaporte completo; habilita `/coronacion` |
 
-Los accesorios de Nubi se derivan de los sellos de zona. **No se premia ningún valor de horas dormidas.**
+Reglas de v0.2 (no implementar todavía): Reto, Puente, Curiosidad I/II, Diario I/II, Experimento y Zona. Los accesorios de Nubi se derivan de los sellos de zona. **No se premia ningún valor de horas dormidas.**
 
 ### 6.4 Lectura de la semana (`domain/diary/insights`, v0.2)
 
@@ -389,18 +412,15 @@ El texto nunca incluye puntajes numéricos de ánimo ni colores de alarma. Los u
 
 | Ruta | Pantalla |
 |---|---|
-| `/` | Redirige a `/mapa` (o a `/bienvenida` si no hay onboarding) |
-| `/bienvenida` | S-01/S-02 |
-| `/mapa` | S-03 |
-| `/isla/:slug/:stage` | S-04…S-10 (`llegada`, `explora`, `juega`, `conecta`, `reto`) |
-| `/isla/:slug/cadena/:chainId` | S-09 |
-| `/pasaporte` | S-11 |
-| `/diario` · `/diario/semana` | S-12 · S-13 |
-| `/ayuda` | S-15 |
-| `/ajustes` · `/ajustes/fuentes` · `/ajustes/datos` | S-16 · S-14 · S-17/S-18 |
-| `/acerca` | S-19 |
-| `**` | Pantalla "no encontrada" con volver al mapa |
+| `/` | Portada |
+| `/mapa` | Mapa + barra inferior |
+| `/pasaporte` | Pasaporte (hoja sobre el mapa) |
+| `/isla/:slug` | Isla disponible o isla en niebla (hoja sobre el mapa); las etapas `llegada → historia → retos → sello` son estado interno |
+| `/ayuda` | Ayuda + ajustes |
+| `/coronacion` | Coronación (solo con 6/6 sellos; si faltan, redirige a `/pasaporte`) |
+| `*` | Pantalla "no encontrada" con volver al mapa |
 
+- **Overlays:** mapa, pasaporte, isla y niebla comparten `MapLayout`; el mapa queda montado y se marca `inert`/`aria-hidden` cuando hay una hoja abierta. Ayuda y coronación usan `ImmersiveLayout`.
 - Carga diferida (*lazy loading*) por *feature*.
 - El alojamiento debe **reescribir todas las rutas a `index.html`** (SPA).
 - Enlaces con ancla (`#nombre`) solo para secciones simples; sin datos sensibles en la URL.
@@ -559,10 +579,12 @@ Aceptación:
 ## 13. Convenciones de código
 
 - **TypeScript estricto;** prohibido `any`; tipos inferidos de los esquemas.
-- React: componentes funcionales pequeños; el estado persistido del usuario vive **fuera de los componentes** (`StorageService` + librería de estado mínima); JSX sin lógica de negocio ni textos de contenido.
+- React: componentes funcionales pequeños; el estado persistido del usuario vive **fuera de los componentes** (`UserStateStore` + contexto mínimo); JSX sin lógica de negocio ni textos de contenido.
 - **Dominio puro:** funciones sin efectos secundarios; las pruebas viven junto al archivo (`*.spec.ts`).
-- Archivos en `kebab-case`; sufijos `.component.ts`, `.service.ts`, `.spec.ts`.
-- **Ningún texto visible en componentes**: todo viene de `/content` (RNF-10).
+- Nombres: componentes en `PascalCase.tsx`; hooks en `use*.ts`; servicios, dominio y utilidades en `kebab-case.ts`; estilos de feature en `*.module.css`; pruebas en `*.spec.ts(x)`.
+- **CSS Modules + tokens:** sin Tailwind; sin estilos inline salvo variables dinámicas (posición, variante).
+- **Fronteras:** `npm run check:boundaries` valida capas, límites de líneas, contextos y ciclos (ADR-015).
+- **Ningún texto visible en componentes**: el contenido viene de `ContentRepository`; las etiquetas de UI son la excepción.
 - Fechas y horas como texto local (§5); no usar zonas horarias.
 - Accesibilidad: usar elementos semánticos antes que `div` con roles; etiquetas en todo control.
 - Commits en formato **Conventional Commits** (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).

@@ -130,37 +130,40 @@ Interlineado 1,5 en cuerpo y 1,2 en títulos. Longitud de línea ≤ 60 caracter
 ### 4.1 Mapa del sitio
 
 ```
-Onboarding (primera vez)
+Portada
 └── Mapa (inicio)
-    ├── Isla (etapas 1–5)
+    ├── Isla (llegada → historia → retos → sello)
     │   └── Armador de cadenas
     ├── Pasaporte
-    ├── Diario
-    │   └── Lectura de la semana (v0.2)
-    ├── Ayuda
-    └── Ajustes
-        ├── Fuentes
-        ├── Exportar / importar
-        ├── Borrar mis datos
-        └── Acerca de
+    └── Ayuda
+        └── Ajustes
+            ├── Fuentes
+            ├── Exportar / importar
+            ├── Borrar mis datos
+            └── Acerca de
 ```
+
+El **Diario** queda para v1.0. La estructura y el presupuesto de deuda de la SPA viven en [`../adr/015-arquitectura-frontend-react.md`](../adr/015-arquitectura-frontend-react.md).
 
 ### 4.2 Barra inferior (móvil)
 
-Cuatro destinos: **Mapa · Pasaporte · Diario · Ayuda**. **Ajustes** es un ícono en la barra superior. **Ayuda** está siempre visible.
+Tres destinos: **Mapa · Pasaporte · Ayuda**. **Ajustes** vive dentro de Ayuda. La barra aparece en el mapa y en el pasaporte; la isla, la ayuda y la coronación usan pantalla inmersiva con botón de volver.
 
 ### 4.3 Mapa del archipiélago
 
 - **Disposición vertical:** se asciende desde la **Isla Nido** (abajo) hacia el **Mirador** (arriba); las zonas son franjas de altura: Zona 1 Entender, Zona 2 Causas, Zona 3 Efectos, Zona 4 Cuidar.
 - Las islas se posicionan según un archivo de datos (`/content`), no en el código de la interfaz.
 - **Ruta sugerida:** línea punteada de nubes.
-- **Estados de isla:** nueva (brillo suave), visitada (✓ pequeño) y completada (sello). Las **no disponibles** muestran niebla y el texto "En construcción".
-- **Al tocar:** Nubi vuela a la isla (≤ 800 ms) y se abre la etapa Llegada. Con "reducir animaciones", se hace un desvanecimiento.
+- **Estados de isla:** nueva (brillo suave), actual/siguiente (trazo primario), completada (sello dorado) y en niebla (trazo punteado, sin navegación de isla). Las **no disponibles** muestran niebla y el texto "En construcción".
+- **Al tocar:** una transición de nubes cubre el cambio de vista y se abre la hoja de la isla en la etapa **Llegada**. Con "reducir animaciones", el cambio es directo.
+- **Etapas de la isla:** `llegada → historia → retos → sello`; el armador de cadenas vive dentro de `retos`.
 - **Para lector de pantalla y teclado:** el mapa se expone como una **lista ordenada de islas** (nombre, zona, estado).
 
 ---
 
 ## 5. Inventario de pantallas
+
+> **Alcance v0.1:** Portada, Mapa, Isla (`llegada`, `historia`, `retos`, `sello`), Hoja de fuente, Pasaporte, Ayuda, Ajustes, Exportar/importar, Borrar datos, Acerca de, Coronación y No encontrada. Las filas de onboarding y Diario se conservan como referencia para v1.0.
 
 | ID   | Pantalla                     | Propósito                                                | Estados a diseñar                             |
 | ---- | ---------------------------- | --------------------------------------------------------- | ---------------------------------------------- |
@@ -205,7 +208,7 @@ Cuatro destinos: **Mapa · Pasaporte · Diario · Ayuda**. **Ajustes** es un íc
 │  · · · ·                      │
 │        ☁ Isla Nido  (Nubi)    │
 ├───────────────────────────────┤
-│ Mapa │ Pasaporte │ Diario │ ? │
+│ Mapa │ Pasaporte │ Ayuda │
 └───────────────────────────────┘
 ```
 
@@ -272,7 +275,7 @@ Cuatro destinos: **Mapa · Pasaporte · Diario · Ayuda**. **Ajustes** es un íc
 | `MoodPicker`                | 5 rostros con texto                                                       | Sin selección, seleccionado                        |
 | `TimePicker`                | Selector de hora grande y táctil                                         | Con valor por defecto                               |
 | `Button`                    | Primario, secundario, texto                                               | Normal, foco, presionado, deshabilitado             |
-| `BottomNav`                 | 4 destinos                                                                | Activo, foco                                        |
+| `BottomNav`                 | 3 destinos: Mapa, Pasaporte, Ayuda                                        | Activo, foco                                        |
 | `Toast` / `Banner`        | Mensajes breves                                                           | Info, error técnico                                |
 | `ConfirmDialog`             | Confirmaciones                                                            | Borrar datos, importar                              |
 | `ToggleChoice`              | Sí / Más o menos / No                                                   | —                                                  |
