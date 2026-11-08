@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import styles from './AppNav.module.css';
 
 const iconProps = {
@@ -61,6 +62,8 @@ const ITEMS = [
 
 /** Barra inferior única en móvil y desktop; 4 destinos, sin elementos de escritorio. */
 export function AppNav(): React.JSX.Element {
+  const go = useTransitionNavigate();
+
   return (
     <nav className={styles.nav} aria-label="Navegación principal">
       {ITEMS.map(({ to, label, Icon }) => (
@@ -69,6 +72,11 @@ export function AppNav(): React.JSX.Element {
           to={to}
           end={to === '/mapa'}
           className={({ isActive }) => `${styles.link}${isActive ? ` ${styles.active}` : ''}`}
+          onClick={(event) => {
+            // El enlace conserva href y abre en otra pestaña con el menú contextual.
+            event.preventDefault();
+            go(to);
+          }}
         >
           <Icon />
           <span>{label}</span>

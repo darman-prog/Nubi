@@ -16,7 +16,7 @@ const bySuggestedOrder = (a: Isla, b: Isla): number =>
   (a.ordenSugerido ?? Number.MAX_SAFE_INTEGER) - (b.ordenSugerido ?? Number.MAX_SAFE_INTEGER);
 
 /** Sellos de las islas jugables, en el orden de la ruta sugerida. */
-export const deriveStamps = (progress: ProgressSnapshot, islands: Isla[]): IslandSeal[] =>
+export const deriveStamps = (progress: ProgressSnapshot, islands: readonly Isla[]): IslandSeal[] =>
   islands
     .filter((island) => island.disponibilidad === 'available')
     .sort(bySuggestedOrder)
@@ -25,14 +25,16 @@ export const deriveStamps = (progress: ProgressSnapshot, islands: Isla[]): Islan
       earned: progress.islands[island.id]?.stages.sello === true,
     }));
 
-export const sealCount = (progress: ProgressSnapshot, islands: Isla[]): number =>
+export const sealCount = (progress: ProgressSnapshot, islands: readonly Isla[]): number =>
   deriveStamps(progress, islands).filter((seal) => seal.earned).length;
 
-export const hasPassport = (progress: ProgressSnapshot, islands: Isla[]): boolean => {
+export const hasPassport = (progress: ProgressSnapshot, islands: readonly Isla[]): boolean => {
   const seals = deriveStamps(progress, islands);
   return seals.length >= PASSPORT_SEALS && seals.every((seal) => seal.earned);
 };
 
 /** Primera isla disponible sin sello; undefined si el pasaporte está completo. */
-export const nextIsland = (progress: ProgressSnapshot, islands: Isla[]): Isla | undefined =>
-  deriveStamps(progress, islands).find((seal) => !seal.earned)?.island;
+export const nextIsland = (
+  progress: ProgressSnapshot,
+  islands: readonly Isla[],
+): Isla | undefined => deriveStamps(progress, islands).find((seal) => !seal.earned)?.island;
