@@ -10,3 +10,4 @@ Registro de features y seguimiento del ciclo de vida en el proyecto Nubi.
 | 004 | Servicios Núcleo y Persistencia Local (T-03) | cerrada | 2026-11-07 | 2026-11-07 | [`004-servicios-nucleo-t03.md`](./004-servicios-nucleo-t03.md) |
 | 005 | Contenido de las 6 islas jugables y stubs de niebla | pendiente | 2026-11-08 | — | — |
 | 006 | UI completa, responsive de paridad y Diario | en-curso | 2026-11-08 | — | [`006-ui-completa.md`](./006-ui-completa.md) |
+| 007 | Despliegue en Vercel (staging) | en-curso | 2026-11-08 | — | [`007-despliegue-vercel.md`](./007-despliegue-vercel.md) |

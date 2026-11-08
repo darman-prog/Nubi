@@ -16,7 +16,7 @@ Sustituir los placeholders por el flujo real con arte y contenido, sin crear un 
 | Hojas modales de pasaporte, isla y niebla en ambos | Lectura semanal del Diario (v0.2) |
 | `/isla/:slug/:etapa` con atrás, enlace directo y resize | Onboarding (v1.0) |
 | Diario mínimo: entrada, edición de hoy y últimas 7 noches | Sellos de Diario y texto libre |
-| Matriz Playwright + axe 320/390/844×390/1024/1440 | PWA, deploy y Lighthouse (feature 007) |
+| Matriz Playwright + axe 320/390/844×390/1024/1440 | PWA y Lighthouse (features posteriores) |
 ## Criterios de aceptación
 | N.º | Criterio verificable | Comando | Evidencia |
 |---|---|---|---|
