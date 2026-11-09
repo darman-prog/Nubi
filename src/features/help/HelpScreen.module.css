@@ -2,7 +2,7 @@
   width: min(100%, 640px);
   min-height: calc(100dvh - var(--bottom-nav-height));
   margin: 0 auto;
-  padding: var(--space-5) var(--space-4) var(--space-8);
+  padding: var(--space-6) var(--space-4) var(--space-8);
   background: linear-gradient(to bottom, #f7f5ff, #fff9f2 55%, #f5f2ff);
 }
 
@@ -13,7 +13,7 @@
 
 .kicker {
   color: var(--primary);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -27,7 +27,7 @@
 .subtitle {
   margin-top: var(--space-1);
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: var(--text-xs);
 }
 
 .card {
@@ -44,19 +44,19 @@
 
 .card h2 {
   color: var(--text);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
 }
 
 .card h3 {
   margin-top: var(--space-2);
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-lg);
 }
 
 .card p,
 .card li {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: var(--text-base);
   line-height: 1.5;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .small {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .disclaimer {
@@ -80,7 +80,7 @@
   flex-direction: column;
   gap: 4px;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
@@ -91,7 +91,7 @@
   border-radius: var(--radius-card);
   background: var(--bg);
   color: var(--text);
-  font-size: 14px;
+  font-size: var(--text-xs);
 }
 
 .check {
@@ -99,7 +99,7 @@
   align-items: center;
   gap: var(--space-2);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .check input {
@@ -126,7 +126,7 @@
   border-radius: var(--radius-pill);
   background: var(--surface);
   color: var(--primary);
-  font-size: 13px;
+  font-size: var(--text-xs);
   font-weight: 700;
   text-align: center;
   cursor: pointer;
@@ -137,7 +137,7 @@
   width: 100%;
   margin-top: var(--space-1);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .danger {
@@ -147,12 +147,12 @@
 
 .error {
   color: var(--error);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .message {
   color: var(--primary);
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
@@ -174,12 +174,12 @@
   display: flex;
   align-items: center;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 700;
   cursor: pointer;
 }
 
 .source p {
   margin-top: var(--space-1);
-  font-size: 11px;
+  font-size: var(--text-base);
 }

@@ -42,7 +42,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   border-bottom: var(--card-border);
   background: var(--surface);
 }
@@ -62,7 +62,7 @@
 
 .body {
   overflow-y: auto;
-  padding: var(--space-4) var(--space-5) var(--space-6);
+  padding: var(--space-4) var(--space-4) var(--space-6);
 }
 
 @media (orientation: landscape) and (max-height: 560px) {
