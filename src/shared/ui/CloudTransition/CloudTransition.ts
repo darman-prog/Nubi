@@ -51,6 +51,7 @@ class CloudTransition {
     const root = document.createElement('div');
     root.className = styles.root;
     root.setAttribute('aria-hidden', 'true');
+    root.dataset.cloudTransition = 'true';
 
     this.layers = LAYERS.map((spec) => {
       const el = document.createElement('div');

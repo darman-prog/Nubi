@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { content } from '@/core/content/content-repository';
 import { markChainSolved, markStage } from '@/core/progress-service';
 import { STAGES } from '@/core/user-state';
@@ -24,13 +24,13 @@ const STAGE_LABEL: Record<Stage, string> = {
 
 export default function IslandSheet(): React.JSX.Element {
   const { slug, etapa } = useParams();
-  const navigate = useNavigate();
   const go = useTransitionNavigate();
   const store = useUserStateStore();
   const state = useUserState();
   const island = slug ? content.islandBySlug(slug) : undefined;
   const stage: Stage = STAGES.includes(etapa as Stage) ? (etapa as Stage) : 'llegada';
-  const close = useCallback(() => navigate('/mapa'), [navigate]);
+  // Cerrar una isla vuelve al mapa con el mismo telón que el resto de rutas.
+  const close = useCallback(() => go('/mapa'), [go]);
 
   useEffect(() => {
     if (island && stage === 'llegada' && island.disponibilidad === 'available') {
@@ -111,7 +111,7 @@ export default function IslandSheet(): React.JSX.Element {
               : undefined
           }
           onMap={() => go('/mapa')}
-          onPassport={() => go('/pasaporte')}
+          onPassport={() => go('/pasaporte', { cloud: false })}
         />
       ) : null}
     </Sheet>

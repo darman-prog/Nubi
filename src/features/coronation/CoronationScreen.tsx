@@ -28,11 +28,11 @@ export default function CoronationScreen(): React.JSX.Element {
         {earned} de {slots.length} sellos
       </p>
       {complete ? (
-        <Button className={styles.cta} onClick={() => go('/pasaporte')}>
+        <Button className={styles.cta} onClick={() => go('/pasaporte', { cloud: false })}>
           Ver mi pasaporte
         </Button>
       ) : (
-        <Button className={styles.cta} onClick={() => go('/pasaporte')}>
+        <Button className={styles.cta} onClick={() => go('/pasaporte', { cloud: false })}>
           Ir al pasaporte
         </Button>
       )}

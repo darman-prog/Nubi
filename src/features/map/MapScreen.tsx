@@ -50,7 +50,11 @@ export default function MapScreen(): React.JSX.Element {
             <p className={styles.subtitle}>Ruta al ritmo de tu sueño</p>
           </div>
         </div>
-        <button type="button" className={styles.passport} onClick={() => go('/pasaporte')}>
+        <button
+          type="button"
+          className={styles.passport}
+          onClick={() => go('/pasaporte', { cloud: false })}
+        >
           <span>Pasaporte</span>
           <span className={styles.count}>{sealCount}</span>
         </button>

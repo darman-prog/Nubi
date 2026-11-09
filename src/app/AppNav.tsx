@@ -75,7 +75,8 @@ export function AppNav(): React.JSX.Element {
           onClick={(event) => {
             // El enlace conserva href y abre en otra pestaña con el menú contextual.
             event.preventDefault();
-            go(to);
+            // El pasaporte es una hoja que sube sola; el resto navega con nubes.
+            go(to, { cloud: to !== '/pasaporte' });
           }}
         >
           <Icon />
