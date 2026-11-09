@@ -147,10 +147,12 @@
   margin-block: 6px;
 }
 
+/* La niebla necesita más alto y aire arriba para no pisar las ondas de la nube. */
 .compact .content {
-  min-height: 58px;
+  min-height: 88px;
+  align-items: flex-end;
   gap: 8px;
-  padding: 8px 12px;
+  padding: var(--space-6) var(--space-3) var(--space-3);
 }
 
 .compact .avatar {
@@ -165,7 +167,7 @@
 
 .compact .chip {
   margin-top: 2px;
-  padding: 0 6px;
+  padding: 2px 8px;
   font-size: var(--text-xs);
 }
 
