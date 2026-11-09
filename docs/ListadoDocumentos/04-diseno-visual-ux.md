@@ -371,7 +371,7 @@ Cada isla se distingue por **forma e ícono**, no solo por color.
 
 ### Inventario mínimo de recursos del MVP
 
-Nubi (9 expresiones + 3 accesorios) · 6 islas + versión en niebla · fondo del cielo (claro/oscuro) · 3 íconos de evidencia · 5 rostros de ánimo · íconos de navegación (4) y de ajustes · 6 sellos de isla · 11 escenas WebP reutilizadas en los momentos de historia · ícono de la PWA (192, 512 y *maskable*) · imagen para compartir.
+Nubi (9 expresiones + 3 accesorios) · 6 islas + versión en niebla · fondo del cielo (claro/oscuro) · 3 íconos de evidencia · 5 rostros de ánimo · íconos de navegación (4) y de ajustes · 6 sellos de isla · 28 escenas WebP dedicadas para cada momento de la historia (ADR-018) · ícono de la PWA (192, 512 y *maskable*) · imagen para compartir.
 
 ---
 

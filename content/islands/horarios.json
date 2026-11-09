@@ -6,5 +6,72 @@
   "subtitulo": "El colegio y tus horas",
   "disponibilidad": "coming_soon",
   "posicion": { "x": 25, "y": 72 },
-  "ordenSugerido": 2
+  "ordenSugerido": 2,
+  "llegada": [
+    "Aquí exploramos cómo los horarios del colegio se combinan con tu reloj biológico.",
+    "Vamos a ver por qué levantarse temprano cuesta tanto y qué partes no dependen de ti."
+  ],
+  "historia": [
+    {
+      "id": "ESC-HORARIOS-1",
+      "acto": "sintoma",
+      "texto": "Al amanecer suena la campana del colegio mientras tu cuerpo todavía pide descansar.",
+      "alt": "Campana escolar sonando sobre una cama de nubes",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/horarios-1.webp"
+    },
+    {
+      "id": "ESC-HORARIOS-2",
+      "acto": "causa",
+      "texto": "Un reloj se inclina hacia la noche y otro hacia la madrugada: el desfase entre semana y fin de semana genera tensión.",
+      "alt": "Dos relojes gemelos conectados por una cuerda en la isla",
+      "isHealthClaim": true,
+      "evidenceId": "EV-004",
+      "ilustracion": "arte/escenas/horarios-2.webp"
+    },
+    {
+      "id": "ESC-HORARIOS-3",
+      "acto": "causa",
+      "texto": "Las sociedades de medicina del sueño recomiendan que las clases inicien a las 8:30 a. m. o más tarde para cuidar el descanso.",
+      "alt": "Campana dorada en calma con el sol despertando más tarde",
+      "isHealthClaim": true,
+      "evidenceId": "EV-005",
+      "ilustracion": "arte/escenas/horarios-3.webp"
+    },
+    {
+      "id": "ESC-HORARIOS-4",
+      "acto": "efecto",
+      "texto": "Muchos horarios no dependen de ti: conversar con tu familia y colegio sobre tareas concentradas en la noche ayuda a buscar soluciones.",
+      "alt": "Nubes dialogando amablemente alrededor de una mesa",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/horarios-4.webp"
+    },
+    {
+      "id": "ESC-HORARIOS-5",
+      "acto": "cierre",
+      "texto": "Conectar tus horarios con tu descanso es el primer paso para entender cómo te sientes cada mañana.",
+      "alt": "Puente de nubes con chispa dorada conectando con la siguiente isla",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/horarios-5.webp"
+    }
+  ],
+  "pregunta": {
+    "id": "PR-2",
+    "enunciado": "¿A qué hora recomiendan las sociedades de medicina del sueño iniciar las clases en secundaria?",
+    "opciones": [
+      { "id": "OP-2A", "texto": "A las 7:00 a. m. para aprovechar el día", "correcta": false },
+      { "id": "OP-2B", "texto": "A las 8:30 a. m. o más tarde para proteger el reloj biológico", "correcta": true },
+      { "id": "OP-2C", "texto": "A las 12:00 del mediodía", "correcta": false }
+    ],
+    "explicacion": "La Academia Americana de Medicina del Sueño recomienda iniciar a las 8:30 a. m. o más tarde para sincronizar con el retraso de fase en adolescentes.",
+    "isHealthClaim": true,
+    "evidenceId": "EV-005"
+  },
+  "reto": {
+    "chainId": "C-01",
+    "titulo": "Del reloj al ánimo",
+    "huecos": 2
+  },
+  "puentes": ["B-02"],
+  "fuentes": ["EV-004", "EV-005"]
 }

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import type { Isla } from '../../../../content/schema';
+import type { EvidenceLevel, Isla } from '../../../../content/schema';
+import { content } from '@/core/content/content-repository';
+import { weakestLevel } from '@/domain/evidence/levels';
 import { cx } from '@/shared/lib/cx';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import styles from './CloudCard.module.css';
@@ -16,13 +18,26 @@ interface CloudCardProps {
   compact?: boolean;
 }
 
-const LABELS: Record<CardState, string> = {
-  new: 'Nueva',
-  current: 'Siguiente en tu ruta',
-  completed: 'Completada',
-  soon: 'Pronto',
-  fog: 'En construcción',
-};
+interface EvidenceBadgeInfo {
+  label: string;
+  icon: string;
+  styleKey: 'E3' | 'E2' | 'E1' | 'nido';
+}
+
+// Resuelve la etiqueta científica o pedagógica del mockup 02
+function getEvidenceBadge(island: Isla): EvidenceBadgeInfo | null {
+  if (island.slug === 'nido') {
+    return { label: 'Tu Nido seguro', icon: '🌿', styleKey: 'nido' };
+  }
+  const levels = island.fuentes
+    .map((id) => content.evidenceById(id)?.level)
+    .filter((lvl): lvl is EvidenceLevel => Boolean(lvl));
+  const level = weakestLevel(levels);
+  if (!level) return null;
+  if (level === 'E3') return { label: 'Bien establecido', icon: '✓', styleKey: 'E3' };
+  if (level === 'E2') return { label: 'Probable', icon: '🔬', styleKey: 'E2' };
+  return { label: 'Emergente', icon: '💡', styleKey: 'E1' };
+}
 
 export function CloudCard({
   island,
@@ -34,6 +49,7 @@ export function CloudCard({
   compact = false,
 }: CloudCardProps): React.JSX.Element {
   const go = useTransitionNavigate();
+  const evidence = !compact ? getEvidenceBadge(island) : null;
 
   return (
     <Link
@@ -45,22 +61,47 @@ export function CloudCard({
         go(to);
       }}
     >
+      {/* Silueta de nube de mockups/stitch/flujo-arte/02-mapa-pasaporte.html */}
       <svg className={styles.cloudSvg} aria-hidden="true" focusable="false">
         <use href={`#cloud-v${variant}`} width="100%" height="100%" />
       </svg>
 
-      {state === 'current' ? <span className={styles.pill}>Siguiente</span> : null}
+      {/* Píldora de ubicación actual flotando sobre el lóbulo superior (02-mapa-pasaporte.html) */}
+      {state === 'current' && !compact ? (
+        <span className={styles.pill}>
+          <span>Siguiente en tu ruta</span>
+          <span aria-hidden="true">↑</span>
+        </span>
+      ) : null}
 
       <div className={styles.content}>
         <span className={styles.avatar} aria-hidden="true">
           <img src={image} alt="" />
         </span>
+
         <span className={styles.text}>
-          <span className={styles.title}>{island.nombre}</span>
-          <span className={styles.subtitle}>{island.subtitulo}</span>
-          <span className={styles.chip}>{LABELS[state]}</span>
+          <span className={styles.titleRow}>
+            <span className={styles.title}>{island.nombre}</span>
+          </span>
+          <span className={styles.subtitle}>
+            {compact ? 'En construcción' : island.subtitulo}
+          </span>
+          {evidence ? (
+            <span className={cx(styles.evidenceBadge, styles[evidence.styleKey])}>
+              <span aria-hidden="true">{evidence.icon}</span>
+              <span>{evidence.label}</span>
+            </span>
+          ) : null}
         </span>
-        {sealSrc ? <img className={styles.seal} src={sealSrc} alt="" aria-hidden="true" /> : null}
+
+        {/* Indicador de sello conseguido o avance interactivo */}
+        {sealSrc ? (
+          <img className={styles.seal} src={sealSrc} alt="Sello ganado" />
+        ) : !compact && state === 'current' ? (
+          <span className={styles.arrow} aria-hidden="true">
+            →
+          </span>
+        ) : null}
       </div>
     </Link>
   );

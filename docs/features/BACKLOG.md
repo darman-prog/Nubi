@@ -11,3 +11,4 @@ Registro de features y seguimiento del ciclo de vida en el proyecto Nubi.
 | 005 | Contenido de las 6 islas jugables y stubs de niebla | pendiente | 2026-11-08 | — | — |
 | 006 | UI completa, responsive de paridad y Diario | en-curso | 2026-11-08 | — | [`006-ui-completa.md`](./006-ui-completa.md) |
 | 007 | Despliegue en Vercel (staging) | en-curso | 2026-11-08 | — | [`007-despliegue-vercel.md`](./007-despliegue-vercel.md) |
+| 008 | Escenas Narrativas Completas del Archipiélago | en-curso | 2026-11-08 | — | [`008-escenas-narrativas-completas.md`](./008-escenas-narrativas-completas.md) |

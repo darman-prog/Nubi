@@ -18,21 +18,24 @@
       "acto": "sintoma",
       "texto": "Nubi te recibe en una isla flotante y te invita a mirar el archipiélago sin prisa.",
       "alt": "Nubi saluda sobre una isla flotante",
-      "isHealthClaim": false
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/nido-1.webp"
     },
     {
       "id": "ESC-NIDO-2",
       "acto": "causa",
       "texto": "Cada isla guarda un tema distinto y puedes entrar en el orden que prefieras.",
       "alt": "Varias islas conectadas por puentes",
-      "isHealthClaim": false
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/nido-2.webp"
     },
     {
       "id": "ESC-NIDO-3",
       "acto": "cierre",
       "texto": "Tus datos se quedan en tu celular y el botón de ayuda está a un toque.",
       "alt": "Nubi señala un botón de ayuda",
-      "isHealthClaim": false
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/nido-3.webp"
     }
   ],
   "puentes": [],

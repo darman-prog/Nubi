@@ -6,6 +6,7 @@ import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
 import { CloudCard } from './components/CloudCard';
 import { CloudSilhouettes } from './components/CloudSilhouettes';
+import { StarrySky } from './components/StarrySky';
 import styles from './MapScreen.module.css';
 
 const ZONES = [
@@ -37,6 +38,8 @@ export default function MapScreen(): React.JSX.Element {
   return (
     <div ref={screenRef} className={styles.screen}>
       <CloudSilhouettes />
+      {/* Atmósfera de amanecer con cielo estrellado titilante */}
+      <StarrySky />
 
       <header className={styles.header}>
         <div className={styles.brand}>
@@ -55,68 +58,73 @@ export default function MapScreen(): React.JSX.Element {
           className={styles.passport}
           onClick={() => go('/pasaporte', { cloud: false })}
         >
+          <span className={styles.passportIcon} aria-hidden="true">
+            📖
+          </span>
           <span>Pasaporte</span>
           <span className={styles.count}>{sealCount}</span>
         </button>
       </header>
 
       <div className={styles.intro}>
-        <span className={styles.introChip}>Explora hacia arriba</span>
-        <p>Aprende a tu propio compás</p>
+        <span className={styles.introChip}>
+          <span aria-hidden="true">✦</span>
+          <span>{content.islands.length} islas para recorrer</span>
+        </span>
+        <p>Explora hacia arriba · Aprende a tu propio compás</p>
       </div>
 
-      {ZONES.map(({ zone, label, note }) => {
-        const islands = content.islands
-          .filter((island) => island.zona === zone)
-          .sort((a, b) => (a.ordenSugerido ?? 99) - (b.ordenSugerido ?? 99));
-        if (islands.length === 0) return null;
+      <div className={styles.zonesWrapper}>
+        {ZONES.map(({ zone, label, note }, zoneIndex) => {
+          const islands = content.islands
+            .filter((island) => island.zona === zone)
+            .sort((a, b) => (a.ordenSugerido ?? 99) - (b.ordenSugerido ?? 99));
+          if (islands.length === 0) return null;
 
-        const full = islands.filter((island) => {
-          const seal = seals.find((item) => item.island.id === island.id)?.earned;
-          return seal || island.id === next?.id || isPlanned(island);
-        });
-        const fog = islands.filter((island) => !full.includes(island));
-        const playable = islands.filter(isPlanned).length;
+          const full = islands.filter((island) => {
+            const seal = seals.find((item) => item.island.id === island.id)?.earned;
+            return seal || island.id === next?.id || isPlanned(island);
+          });
+          const fog = islands.filter((island) => !full.includes(island));
+          const playable = islands.filter(isPlanned).length;
+          const isHere = islands.some((island) => island.id === next?.id);
 
-        return (
-          <section key={zone} className={styles.zone} aria-label={`Zona ${label}`}>
-            <div className={styles.zoneHeader}>
-              <span className={styles.zoneLabel}>
-                <span className={styles.zoneDot} aria-hidden="true" />
-                {label}
-              </span>
-              <span className={styles.zoneCount}>
-                {playable} jugable{playable === 1 ? '' : 's'}
-                {fog.length > 0 ? ` · ${fog.length} en niebla` : ''}
-              </span>
-            </div>
-            <p className={styles.zoneNote}>{note}</p>
+          return (
+            <div key={zone} className={styles.zoneGroup}>
+              <section className={styles.zone} aria-label={`Zona ${label}`}>
+                <div className={styles.zoneHeader}>
+                  <span className={styles.zoneLabel}>
+                    <span
+                      className={`${styles.zoneDot} ${zone === 4 ? styles.dotGold : isHere ? styles.dotActive : ''}`}
+                      aria-hidden="true"
+                    />
+                    Zona {zone} · {label} {zone === 4 ? '(Cima)' : ''}
+                  </span>
+                  {isHere ? (
+                    <span className={styles.herePill}>¡Estás aquí!</span>
+                  ) : (
+                    <span className={styles.zoneCount}>
+                      {playable} jugable{playable === 1 ? '' : 's'}
+                      {fog.length > 0 ? ` · ${fog.length} en niebla` : ''}
+                    </span>
+                  )}
+                </div>
+                <p className={styles.zoneNote}>{note}</p>
 
-            <div className={styles.list}>
+                <div className={styles.list}>
               {full.map((island, index) => {
                 const seal = seals.find((item) => item.island.id === island.id)?.earned ?? false;
                 const current = island.id === next?.id;
-                const cardState = seal
-                  ? 'completed'
-                  : current
-                    ? 'current'
-                    : island.disponibilidad === 'available'
-                      ? 'new'
-                      : 'soon';
+                const cardState = seal ? 'completed' : current ? 'current' : island.disponibilidad === 'available' ? 'new' : 'soon';
+                const cardTo = island.disponibilidad === 'available' ? `/isla/${island.slug}/llegada` : `/isla/${island.slug}`;
                 return (
                   <CloudCard
                     key={island.id}
                     island={island}
                     state={cardState}
-                    to={
-                      island.disponibilidad === 'available'
-                        ? `/isla/${island.slug}/llegada`
-                        : `/isla/${island.slug}`
-                    }
+                    to={cardTo}
                     image={artUrl(`arte/islas/${island.slug}.webp`)}
-                    sealSrc={
-                      seal ? artUrl(`arte/sellos/sello-${island.slug}.webp`) : undefined
-                    }
+                    sealSrc={seal ? artUrl(`arte/sellos/sello-${island.slug}.webp`) : undefined}
                     variant={((index + zone) % 3 + 1) as 1 | 2 | 3}
                   />
                 );
@@ -139,8 +147,18 @@ export default function MapScreen(): React.JSX.Element {
               </div>
             ) : null}
           </section>
-        );
-      })}
-    </div>
+
+          {/* Conector de ruta punteado entre zonas con nodo celestial */}
+          {zoneIndex < ZONES.length - 1 ? (
+            <div className={styles.routeConnector} aria-hidden="true">
+              <span className={styles.routeLine} />
+              <span className={styles.routeNode} />
+            </div>
+          ) : null}
+        </div>
+      );
+    })}
+  </div>
+</div>
   );
 }

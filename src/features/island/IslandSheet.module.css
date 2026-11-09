@@ -31,11 +31,51 @@
   gap: var(--space-3);
 }
 
+.stageHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phasePill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #ece7fe;
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.calmBadge,
+.stepBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Contenedor heroico en la llegada: relación 4:3 para lucir la isla completa sin recortes agresivos */
+.heroWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 14px 32px rgba(80, 67, 201, 0.16), 0 0 24px rgba(255, 193, 91, 0.22);
+}
+
 .islandHero {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  max-height: 250px;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: var(--radius-card);
+  border-radius: 24px;
+  border: 3px solid #ffffff;
   background: var(--bg);
 }
 
@@ -46,18 +86,22 @@
 }
 
 .nubi {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   flex: 0 0 auto;
   object-fit: contain;
 }
 
 .speech {
+  position: relative;
+  flex: 1;
   padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-card);
-  background: var(--bg);
+  border: 1px solid #e2d9ff;
+  border-radius: 18px;
+  background: #ffffff;
   color: var(--text);
   font-size: var(--text-base);
+  box-shadow: 0 4px 14px rgba(80, 67, 201, 0.06);
 }
 
 .speech p + p {
@@ -68,12 +112,26 @@
   width: 100%;
 }
 
+.sceneCard {
+  border: 1px solid #ece8fb;
+  border-radius: 20px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(80, 67, 201, 0.06);
+}
+
 .sceneImage {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
-  border-radius: var(--radius-card);
   background: var(--bg);
+}
+
+.sceneBody {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .sceneAct {
@@ -87,13 +145,13 @@
 .sceneText {
   color: var(--text);
   font-size: var(--text-base);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .source {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  margin-top: var(--space-1);
 }
 
 .sourceButton {
@@ -102,52 +160,220 @@
   align-items: center;
   gap: var(--space-2);
   align-self: flex-start;
-  padding: 0 var(--space-3);
+  padding: 4px 12px;
+  border: 1px solid rgba(80, 67, 201, 0.15);
   border-radius: var(--radius-pill);
-  background: var(--bg);
+  background: rgba(80, 67, 201, 0.06);
   color: var(--primary);
   font-size: var(--text-xs);
   font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sourceButton:hover {
+  background: rgba(80, 67, 201, 0.12);
 }
 
 .sourceLevel {
-  padding: 1px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
   border-radius: var(--radius-pill);
-  background: var(--surface);
-  color: var(--text-muted);
-  font-size: var(--text-xs);
+  font-size: 11px;
+  font-weight: 700;
 }
 
-.sourceBody {
-  padding: var(--space-3);
-  border-radius: var(--radius-card);
+.level_E3 {
+  background: #e6f4ea;
+  color: #0f6b4b;
+}
+
+.level_E2 {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+.level_E1 {
+  background: #fef7e0;
+  color: #b06000;
+}
+
+/* Modal de Hoja de Fuente (05-hoja-fuente.html) */
+.sourceModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.sourceModalScrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 27, 58, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.sourceModalSheet {
+  position: relative;
+  z-index: 101;
+  width: min(100%, 480px);
+  margin: 0 auto;
+  max-height: 85dvh;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5) var(--space-6);
+  border-radius: 24px 24px 0 0;
+  background: #ffffff;
+  box-shadow: 0 -12px 40px rgba(20, 15, 50, 0.35);
+}
+
+.dragHandle {
+  width: 44px;
+  height: 5px;
+  margin: 0 auto var(--space-3);
+  border-radius: 999px;
+  background: #e0dcf5;
+}
+
+.sourceSheetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid #f0eefc;
+}
+
+.sourceHeaderTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.sourceHeaderIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(80, 67, 201, 0.1);
+  font-size: 20px;
+}
+
+.sourceSheetTitle {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sourceSheetSub {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.sourceCloseBtn {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sourceCloseBtn:hover {
   background: var(--bg);
-  font-size: var(--text-xs);
 }
 
-.sourceClaim {
-  font-weight: 700;
-}
-
-.sourceList {
-  display: grid;
+.sourcePods {
+  display: flex;
+  flex-direction: column;
   gap: var(--space-2);
-  margin-top: var(--space-2);
+  margin: var(--space-3) 0;
 }
 
-.sourceList div {
-  display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: var(--space-2);
+.sourcePod {
+  padding: var(--space-3);
+  border: 1px solid #ece8fb;
+  border-radius: 14px;
+  background: #f7f5ff;
 }
 
-.sourceList dt {
+.podTag {
+  display: block;
+  margin-bottom: 2px;
   color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.podCitation {
+  color: var(--text);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.podText {
+  color: var(--text);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+}
+
+.sourceDoneBtn {
+  min-height: 48px;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(80, 67, 201, 0.25);
+  margin-bottom: var(--space-3);
+}
+
+.sourceFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding-top: var(--space-2);
+  border-top: 1px solid #f0eefc;
+}
+
+.evidenceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
   font-weight: 700;
 }
 
-.sourceList dd {
-  margin: 0;
+.badgeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.sourceDisclaimer {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: center;
 }
 
 .sceneNav {
@@ -155,11 +381,12 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+  margin-top: var(--space-2);
 }
 
 .dots {
   display: flex;
-  gap: 4px;
+  gap: 6px;
 }
 
 .dot {
@@ -171,6 +398,7 @@
 
 .dotActive {
   background: var(--primary);
+  transform: scale(1.2);
 }
 
 .textButton {
@@ -178,20 +406,58 @@
   align-self: flex-start;
   color: var(--text-muted);
   font-size: var(--text-xs);
+  font-weight: 600;
   text-decoration: underline;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Retos y Selector de Pestañas (06-isla-retos.html) */
+.tabSwitcher {
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: #f0ebff;
+  margin-bottom: var(--space-2);
+}
+
+.tabBtn {
+  flex: 1;
+  min-height: 42px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtnActive {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(80, 67, 201, 0.25);
 }
 
 .question {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .questionText {
   color: var(--text);
   font-family: var(--font-heading);
   font-size: var(--text-lg);
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.questionHelp {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-1);
 }
 
 .options {
@@ -201,35 +467,82 @@
 }
 
 .option {
-  min-height: 48px;
-  padding: var(--space-3);
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--radius-card);
-  background: var(--surface);
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid #e0dcf5;
+  border-radius: 16px;
+  background: #ffffff;
   color: var(--text);
   font-size: var(--text-xs);
+  font-weight: 600;
   text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(80, 67, 201, 0.04);
+  transition: all 0.15s ease;
+}
+
+.optionText {
+  flex: 1;
+}
+
+.optionRadio {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-left: var(--space-2);
+  border: 2px solid #c8c4d6;
+  border-radius: 50%;
+  transition: all 0.15s ease;
 }
 
 .optionSelected {
-  border-color: var(--primary);
-  background: var(--bg);
+  border: 3px solid var(--primary);
+  background: #f3f0ff;
+  color: var(--primary);
 }
 
-.feedback {
+.optionSelected .optionRadio {
+  border-color: var(--primary);
+  background: var(--primary);
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.feedbackCard {
+  display: flex;
+  gap: var(--space-2);
   padding: var(--space-3);
-  border-radius: var(--radius-card);
-  background: var(--bg);
-  font-size: var(--text-base);
+  border-radius: 14px;
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.feedbackCorrect {
+  border: 1px solid #b7e4c7;
+  background: #eefbee;
+  color: #1b4332;
+}
+
+.feedbackTryAgain {
+  border: 1px solid #ffd8a8;
+  background: #fff9db;
+  color: #744210;
+}
+
+.feedbackIcon {
+  font-size: 18px;
+}
+
+.feedbackText {
+  flex: 1;
 }
 
 .chainBlock {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  margin-top: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--border-color);
 }
 
 .chain {
@@ -241,27 +554,75 @@
 .chainTitle {
   font-family: var(--font-heading);
   font-size: var(--text-lg);
-  font-weight: 600;
-}
-
-.chainPath {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  list-style: none;
-}
-
-.chainPath li {
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: var(--primary);
-  color: var(--primary-text);
-  font-size: var(--text-xs);
+  font-weight: 700;
 }
 
 .chainHelp {
   color: var(--text-muted);
   font-size: var(--text-xs);
+}
+
+.chainPath {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chainNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.chainArrow {
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.nodeCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3);
+  border: 1.5px solid #cfc6f5;
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--text);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(80, 67, 201, 0.08);
+}
+
+.nodeIndex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.piecesContainer {
+  margin-top: var(--space-2);
+}
+
+.piecesTitle {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .chainPieces {
@@ -272,30 +633,67 @@
 
 .piece {
   min-height: var(--min-touch-target);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: var(--space-2) var(--space-3);
-  border: 1.5px solid var(--border-color);
+  border: 1.5px solid #dcd6f7;
   border-radius: var(--radius-pill);
-  background: var(--surface);
+  background: #ffffff;
   color: var(--text);
   font-size: var(--text-xs);
-  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(80, 67, 201, 0.06);
+  transition: all 0.15s ease;
+}
+
+.piece:hover {
+  border-color: var(--primary);
+  background: #f7f5ff;
+}
+
+.piecePlus {
+  color: var(--primary);
+  font-weight: 800;
 }
 
 .chainError {
-  color: var(--error);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 10px;
+  background: #ffe3e3;
+  color: #c92a2a;
   font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+/* Sello y Puente Desbloqueado (07-isla-sello-puente.html) */
+.celebrationHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 .seal {
-  width: 180px;
-  height: 180px;
-  align-self: center;
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(255, 193, 90, 0.4));
+}
+
+.nubiCelebration {
+  width: 72px;
+  height: 72px;
+  margin-top: -24px;
   object-fit: contain;
 }
 
 .sealTitle {
   color: var(--text);
+  font-family: var(--font-heading);
   font-size: var(--text-2xl);
+  font-weight: 700;
   text-align: center;
 }
 
@@ -303,21 +701,168 @@
   color: var(--text-muted);
   font-size: var(--text-base);
   text-align: center;
+  line-height: 1.5;
+}
+
+.bridgeCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid #d5cbfe;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f7f4ff 0%, #fff9f0 100%);
+  box-shadow: 0 6px 18px rgba(80, 67, 201, 0.08);
+  margin-bottom: var(--space-2);
+}
+
+.bridgeBadge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #e6f4ea;
+  color: #0f6b4b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bridgeInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bridgeThumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bridgeText {
+  flex: 1;
+}
+
+.bridgeTitle {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.bridgeSub {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Isla en Niebla (09-isla-niebla.html) - Presentación heroica sin cajas punteadas rígidas */
+.fogHeroWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-2) 0;
+}
+
+.fogGlow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 231, 254, 0.9) 0%, rgba(255, 235, 210, 0.5) 50%, transparent 70%);
+  filter: blur(14px);
+  pointer-events: none;
 }
 
 .fogImage {
-  width: 160px;
-  height: 160px;
-  align-self: center;
-  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  width: min(100%, 240px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 28px;
+  border: 3px solid #ffffff;
+  box-shadow: 0 16px 36px -6px rgba(80, 67, 201, 0.2), 0 0 24px rgba(255, 193, 91, 0.25);
+  animation: floatHero 4s ease-in-out infinite;
+}
+
+@keyframes floatHero {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fogImage {
+    animation: none;
+  }
+}
+
+.fogDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
 }
 
 .fogBadge {
-  align-self: center;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 14px;
   border-radius: var(--radius-pill);
-  background: var(--bg);
+  background: #ece7fe;
   color: var(--primary);
-  font-size: var(--text-xs);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.fogTitle {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
   font-weight: 700;
+  line-height: 1.15;
+}
+
+.fogSubtitle {
+  color: var(--primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.fogInfoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid #e4dfff;
+  border-radius: 18px;
+  background: #f7f5ff;
+}
+
+.fogInfoIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.fogDescription {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  margin: 0;
 }

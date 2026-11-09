@@ -33,25 +33,28 @@
       "id": "ESC-RELOJ-3",
       "acto": "causa",
       "texto": "Para tu edad, de 13 a 18 años, se recomiendan entre 8 y 10 horas de sueño por noche.",
-      "alt": "Nubi descansa junto a un reloj de arena",
+      "alt": "Cama-nube con estrellas descansando alineadas",
       "isHealthClaim": true,
-      "evidenceId": "EV-001"
+      "evidenceId": "EV-001",
+      "ilustracion": "arte/escenas/reloj-3.webp"
     },
     {
       "id": "ESC-RELOJ-4",
       "acto": "efecto",
       "texto": "En EE. UU., 68,4 % de los estudiantes de bachillerato duerme 7 horas o menos en las noches de colegio.",
-      "alt": "Mapa de EE. UU. con estudiantes somnolientos",
+      "alt": "Casitas-nube en la noche con luces tenues de descanso",
       "isHealthClaim": true,
-      "evidenceId": "EV-002"
+      "evidenceId": "EV-002",
+      "ilustracion": "arte/escenas/reloj-4.webp"
     },
     {
       "id": "ESC-RELOJ-5",
       "acto": "cierre",
       "texto": "No es pereza: tu reloj cambia y el horario también influye. Observa a qué hora te da sueño de verdad.",
-      "alt": "Nubi observa un reloj con curiosidad",
+      "alt": "Nubecita descansando en calma junto al reloj de luna",
       "isHealthClaim": true,
-      "evidenceId": "EV-004"
+      "evidenceId": "EV-004",
+      "ilustracion": "arte/escenas/reloj-5.webp"
     }
   ],
   "pregunta": {

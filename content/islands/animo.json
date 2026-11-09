@@ -6,5 +6,72 @@
   "subtitulo": "Emociones y descanso",
   "disponibilidad": "coming_soon",
   "posicion": { "x": 50, "y": 82 },
-  "ordenSugerido": 3
+  "ordenSugerido": 3,
+  "llegada": [
+    "Dormir poco puede cambiar cómo te sientes al día siguiente.",
+    "Vamos a ver por qué la irritabilidad o el cansancio no son necesariamente cuestión de carácter."
+  ],
+  "historia": [
+    {
+      "id": "ESC-ANIMO-1",
+      "acto": "sintoma",
+      "texto": "En un estudio con 50 adolescentes, cinco noches seguidas con 6,5 horas de sueño aumentaron la tensión, el enojo y el cansancio.",
+      "alt": "Fila de nubes adolescentes con gestos de cansancio y tensión",
+      "isHealthClaim": true,
+      "evidenceId": "EV-007",
+      "ilustracion": "arte/escenas/animo-1.webp"
+    },
+    {
+      "id": "ESC-ANIMO-2",
+      "acto": "causa",
+      "texto": "Tanto los propios adolescentes como sus padres notaron mayor irritabilidad y más dificultad para regular las reacciones emocionales.",
+      "alt": "Nube joven con gesto tenso observada con cariño por una nube mayor",
+      "isHealthClaim": true,
+      "evidenceId": "EV-007",
+      "ilustracion": "arte/escenas/animo-2.webp"
+    },
+    {
+      "id": "ESC-ANIMO-3",
+      "acto": "causa",
+      "texto": "El malestar por dormir poco no suele verse como tristeza: en la adolescencia aparece como irritabilidad o poca paciencia.",
+      "alt": "Pequeña nube pensativa con nube de tormenta minúscula y arcoíris tenue",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/animo-3.webp"
+    },
+    {
+      "id": "ESC-ANIMO-4",
+      "acto": "efecto",
+      "texto": "Durante la adolescencia, los circuitos cerebrales que ayudan a frenar las reacciones inmediatas todavía se están afinando; con poco sueño, ese freno responde más despacio.",
+      "alt": "Arco de niebla suave acolchada moderando un rayito de luz dorada",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/animo-4.webp"
+    },
+    {
+      "id": "ESC-ANIMO-5",
+      "acto": "cierre",
+      "texto": "Revisar cómo estás durmiendo antes de juzgar tu carácter te ayuda a entender tus emociones con calma y sin culpas.",
+      "alt": "Nubi contemplando un arco de estrellas doradas hacia la siguiente isla",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/animo-5.webp"
+    }
+  ],
+  "pregunta": {
+    "id": "PR-3",
+    "enunciado": "En el estudio científico con adolescentes restringidos a 6,5 horas de sueño, ¿qué cambios se observaron?",
+    "opciones": [
+      { "id": "OP-3A", "texto": "Aumento significativo en tensión, irritabilidad y fatiga", "correcta": true },
+      { "id": "OP-3B", "texto": "Ningún cambio en su estado de ánimo", "correcta": false },
+      { "id": "OP-3C", "texto": "Mayor energía para estudiar", "correcta": false }
+    ],
+    "explicacion": "El estudio con 50 adolescentes demostró que tras 5 noches durmiendo 6,5 horas aumentaron el enojo, la tensión y la fatiga.",
+    "isHealthClaim": true,
+    "evidenceId": "EV-007"
+  },
+  "reto": {
+    "chainId": "C-01",
+    "titulo": "Del reloj al ánimo",
+    "huecos": 2
+  },
+  "puentes": ["B-06", "B-07"],
+  "fuentes": ["EV-007"]
 }

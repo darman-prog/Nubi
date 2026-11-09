@@ -29,14 +29,25 @@ export function StoryStage({ island, onFinish }: StoryStageProps): React.JSX.Ele
 
   return (
     <div className={styles.stage}>
-      <img
-        className={styles.sceneImage}
-        src={artUrl(scene.ilustracion ?? `arte/islas/${island.slug}.webp`)}
-        alt={scene.alt}
-      />
-      <p className={styles.sceneAct}>{scene.acto}</p>
-      <p className={styles.sceneText}>{scene.texto}</p>
-      <SourceBlock islandId={island.id} evidenceId={scene.evidenceId} />
+      <div className={styles.stageHeaderRow}>
+        <span className={styles.phasePill}>Fase 2 · Historia</span>
+        <span className={styles.stepBadge}>
+          Paso {index + 1} de {scenes.length}
+        </span>
+      </div>
+
+      <div className={styles.sceneCard}>
+        <img
+          className={styles.sceneImage}
+          src={artUrl(scene.ilustracion ?? `arte/islas/${island.slug}.webp`)}
+          alt={scene.alt}
+        />
+        <div className={styles.sceneBody}>
+          <p className={styles.sceneAct}>{scene.acto}</p>
+          <p className={styles.sceneText}>{scene.texto}</p>
+          <SourceBlock islandId={island.id} evidenceId={scene.evidenceId} />
+        </div>
+      </div>
 
       <div className={styles.sceneNav}>
         <div
@@ -56,13 +67,13 @@ export function StoryStage({ island, onFinish }: StoryStageProps): React.JSX.Ele
           variant="secondary"
           onClick={() => (isLast ? onFinish() : setIndex((value) => Math.min(value + 1, scenes.length - 1)))}
         >
-          {isLast ? (island.reto ? 'Ir a los retos' : 'Reclamar sello') : 'Siguiente'}
+          {isLast ? (island.reto ? 'Ir a los retos →' : 'Reclamar sello →') : 'Siguiente escena'}
         </Button>
       </div>
 
       {index > 0 ? (
         <button type="button" className={styles.textButton} onClick={() => setIndex((value) => value - 1)}>
-          Volver a la escena anterior
+          ← Volver a la escena anterior
         </button>
       ) : null}
     </div>

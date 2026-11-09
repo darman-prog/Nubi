@@ -1,50 +1,21 @@
 import { useState } from 'react';
-import type { ChangeEvent } from 'react';
 import { content } from '@/core/content/content-repository';
-import { SettingsService } from '@/core/settings';
-import { useUserState, useUserStateStore } from '@/shared/state/UserStateContext';
+import { useUserStateStore } from '@/shared/state/UserStateContext';
 import styles from './HelpScreen.module.css';
 
 const SIGNS = [
-  'Mucho sueño durante el día',
-  'Ronquido fuerte',
-  'Pesadillas frecuentes',
-  'Sentirte mal de forma intensa o por muchos días',
+  { icon: '☀️', title: 'Mucho sueño durante el día', subtitle: 'Cansancio constante en clases o desconexión habitual a la tarde.', bgClass: styles.signSun },
+  { icon: '🌬️', title: 'Ronquido fuerte o pausas al respirar', subtitle: 'Despertarte con boca muy seca o sensación de ahogo suave en la noche.', bgClass: styles.signAir },
+  { icon: '🛡️', title: 'Pesadillas frecuentes', subtitle: 'Sueños que te intranquilizan a menudo o temor al momento de ir a la cama.', bgClass: styles.signShield },
+  { icon: '💜', title: 'Sentirte triste, irritable o abrumado', subtitle: 'Tus emociones se sienten demasiado pesadas durante muchos días continuos.', bgClass: styles.signHeart },
 ];
 
 export default function HelpScreen(): React.JSX.Element {
-  const state = useUserState();
   const store = useUserStateStore();
-  const settingsService = new SettingsService(store);
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
   const [confirmClear, setConfirmClear] = useState(false);
+  const [message, setMessage] = useState('');
 
-  const exportData = (): void => {
-    const blob = new Blob([store.exportJson()], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'nubi-progreso.json';
-    link.click();
-    URL.revokeObjectURL(url);
-    setMessage('Archivo exportado.');
-  };
-
-  const importData = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    const result = store.importJson(await file.text());
-    if (result.ok && result.state) {
-      store.replace(result.state);
-      setMessage('Progreso importado.');
-      setError('');
-    } else {
-      setError(result.error ?? 'No pudimos leer ese archivo.');
-    }
-    event.target.value = '';
-  };
-
+  // Borrado seguro del progreso del usuario con confirmación de dos pasos.
   const clearData = (): void => {
     if (!confirmClear) {
       setConfirmClear(true);
@@ -52,7 +23,7 @@ export default function HelpScreen(): React.JSX.Element {
     }
     store.reset();
     setConfirmClear(false);
-    setMessage('Datos borrados de este dispositivo.');
+    setMessage('Tu viaje ha sido reiniciado en este celular.');
   };
 
   return (
@@ -60,121 +31,101 @@ export default function HelpScreen(): React.JSX.Element {
       <header className={styles.header}>
         <p className={styles.kicker}>Un espacio seguro</p>
         <h1 className={styles.title}>Ayuda</h1>
-        <p className={styles.subtitle}>No tienes que resolver esto solo.</p>
+        <p className={styles.subtitle}>Cuidado y orientación serena</p>
       </header>
-      <section className={styles.card} aria-labelledby="adulto">
-        <h2 id="adulto">Hablar con un adulto</h2>
-        <p>
-          Si algo te preocupa de tu sueño o de cómo te sientes, busca a una persona de confianza.
-          No es exagerar: es cuidarte.
+
+      {/* Hero Card cálido y reconfortante (08-ayuda.html) */}
+      <section className={styles.heroCard} aria-labelledby="hero-title">
+        <div className={styles.heroAura} aria-hidden="true">☁️</div>
+        <h2 id="hero-title" className={styles.heroTitle}>No tienes que resolver esto solo.</h2>
+        <p className={styles.heroText}>
+          Cuidar tu descanso y tus emociones es un camino acompañado. Estamos aquí para orientarte con tranquilidad y paciencia.
         </p>
-        <h3>Señales para consultar</h3>
-        <ul>
+        <span className={styles.heroPill}>Espacio amable · Sin presiones</span>
+      </section>
+
+      {/* Grid Bento de Señales para hablar con un adulto */}
+      <section className={styles.card} aria-labelledby="senales-title">
+        <h2 id="senales-title">Señales para hablar con un adulto</h2>
+        <p className={styles.small}>Si notas estas sensaciones durante varias semanas continuas:</p>
+
+        <div className={styles.bentoList}>
           {SIGNS.map((sign) => (
-            <li key={sign}>{sign}</li>
+            <div key={sign.title} className={styles.bentoItem}>
+              <div className={`${styles.bentoIcon} ${sign.bgClass}`} aria-hidden="true">{sign.icon}</div>
+              <div className={styles.bentoText}>
+                <h3 className={styles.bentoTitle}>{sign.title}</h3>
+                <p className={styles.bentoSub}>{sign.subtitle}</p>
+              </div>
+            </div>
           ))}
-        </ul>
-        <p>
-          Habla con tu familia, un docente, orientación escolar o un profesional de la salud. Si
-          necesitas ayuda urgente, busca a un adulto o a un servicio de emergencia de tu país.
-        </p>
-        <p className={styles.disclaimer}>
-          Esta app informa y no reemplaza a un profesional de la salud.
-        </p>
-      </section>
-
-      <section className={styles.card} aria-labelledby="ajustes">
-        <h2 id="ajustes">Ajustes de comodidad</h2>
-        <p className={styles.small}>Tema claro, como el flujo del archipiélago.</p>
-        <label className={styles.field}>
-          <span>Reducir movimiento</span>
-          <select
-            value={state.settings.reduceMotion}
-            onChange={(event) =>
-              settingsService.update({
-                reduceMotion: event.target.value as typeof state.settings.reduceMotion,
-              })
-            }
-          >
-            <option value="system">Seguir al sistema</option>
-            <option value="on">Reducir siempre</option>
-            <option value="off">Permitir animaciones</option>
-          </select>
-        </label>
-        <label className={styles.field}>
-          <span>Tamaño del texto</span>
-          <select
-            value={state.settings.textScale}
-            onChange={(event) =>
-              settingsService.update({
-                textScale: Number(event.target.value) as typeof state.settings.textScale,
-              })
-            }
-          >
-            <option value="1">Normal</option>
-            <option value="1.25">Grande</option>
-            <option value="1.5">Muy grande</option>
-          </select>
-        </label>
-        <label className={styles.check}>
-          <input
-            type="checkbox"
-            checked={state.settings.sound}
-            onChange={(event) => settingsService.update({ sound: event.target.checked })}
-          />
-          Sonido (próximamente)
-        </label>
-      </section>
-
-      <section className={styles.card} aria-labelledby="datos">
-        <h2 id="datos">Tus datos</h2>
-        <p className={styles.small}>
-          Todo se queda en este dispositivo. Puedes exportarlo, importarlo o borrarlo.
-        </p>
-        <div className={styles.actions}>
-          <button type="button" className={styles.action} onClick={exportData}>
-            Exportar progreso
-          </button>
-          <label className={styles.action}>
-            Importar progreso
-            <input type="file" accept="application/json" onChange={importData} />
-          </label>
-          <button type="button" className={styles.danger} onClick={clearData}>
-            {confirmClear ? '¿Seguro? Borrar todo' : 'Borrar mis datos'}
-          </button>
         </div>
-        {error ? <p className={styles.error} role="alert">{error}</p> : null}
+      </section>
+
+      {/* Qué puedes hacer */}
+      <section className={styles.card} aria-labelledby="que-hacer-title">
+        <h2 id="que-hacer-title">Qué puedes hacer</h2>
+        <p className={styles.small}>Pasos sencillos para aliviar la carga:</p>
+
+        <div className={styles.stepsList}>
+          <div className={styles.stepItem}>
+            <span className={styles.stepNumber}>1</span>
+            <div>
+              <p className={styles.stepTitle}>Hablar con un adulto de confianza</p>
+              <p className={styles.stepSub}>Puede ser tu mamá, papá, docente u orientación escolar de tu colegio.</p>
+            </div>
+          </div>
+
+          <div className={styles.stepItem}>
+            <span className={styles.stepNumber}>2</span>
+            <div>
+              <p className={styles.stepTitle}>Consultar con un profesional de la salud</p>
+              <p className={styles.stepSub}>Pediatra, médico de cabecera o especialista en medicina del sueño.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Privacidad: Solo "Borrar mi viaje", sin ajustes (instrucción explícita del usuario) */}
+      <section className={styles.card} aria-labelledby="datos-title">
+        <h2 id="datos-title">Borrar mi viaje</h2>
+        <p className={styles.small}>Tu progreso se guarda solo en este celular. Nadie más tiene tus respuestas.</p>
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={confirmClear ? styles.dangerConfirm : styles.action}
+            onClick={clearData}
+          >
+            {confirmClear ? '¿Seguro? Toca para borrar todo' : 'Borrar mi viaje'}
+          </button>
+          {confirmClear ? (
+            <button type="button" className={styles.cancelBtn} onClick={() => setConfirmClear(false)}>
+              Cancelar
+            </button>
+          ) : null}
+        </div>
         {message ? <p className={styles.message} role="status">{message}</p> : null}
       </section>
 
-      <section className={styles.card} aria-labelledby="fuentes">
-        <h2 id="fuentes">Fuentes y evidencia</h2>
+      {/* Fuentes y evidencia científica */}
+      <section className={styles.card} aria-labelledby="fuentes-title">
+        <h2 id="fuentes-title">Fuentes y evidencia</h2>
         <p className={styles.small}>Cada afirmación de salud se apoya en una ficha revisable.</p>
         <div className={styles.sources}>
           {content.evidence
             .filter((item) => !item.restricted)
             .map((item) => (
               <details key={item.id} className={styles.source}>
-                <summary>
-                  {item.id} · {item.claimTeen}
-                </summary>
+                <summary>{item.id} · {item.claimTeen}</summary>
                 <p>{item.source.citation}</p>
-                <p>
-                  {item.population} · {item.design} · Nivel {item.level}
-                </p>
+                <p>{item.population} · {item.design} · Nivel {item.level}</p>
                 <p>{item.limitations}</p>
               </details>
             ))}
         </div>
       </section>
 
-      <section className={styles.card} aria-labelledby="acerca">
-        <h2 id="acerca">Acerca de</h2>
-        <p>
-          Nubi y el Archipiélago del Sueño es un recorrido para entender tu descanso. No hay
-          cuentas, no hay servidores y no se recogen datos personales.
-        </p>
-      </section>
+      <p className={styles.disclaimer}>Esta app informa y no reemplaza a un profesional de la salud.</p>
     </div>
   );
 }

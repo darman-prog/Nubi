@@ -1,7 +1,9 @@
 .screen {
+  position: relative;
   min-height: 100dvh;
   padding: 0 var(--space-4) calc(var(--bottom-nav-height) + var(--space-6));
-  background: linear-gradient(to bottom, #f2edfe 0%, #fbf4ed 55%, #f5f2ff 100%);
+  background: linear-gradient(to bottom, #f2edfe 0%, #fbf4ed 50%, #f5f2ff 100%);
+  overflow-x: hidden;
 }
 
 .header {
@@ -12,10 +14,12 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-3) 0;
+  padding: 10px 16px;
+  margin: 0 calc(var(--space-4) * -1);
   border-bottom: 1px solid #ece8fb;
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 2px 10px rgba(80, 67, 201, 0.04);
 }
 
 .brand {
@@ -26,74 +30,98 @@
 }
 
 .moon {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(80, 67, 201, 0.1);
+  background: linear-gradient(135deg, #f0ebff, #e2d9ff);
   color: var(--primary);
+  box-shadow: 0 2px 8px rgba(80, 67, 201, 0.12);
 }
 
 .title {
+  font-family: var(--font-heading);
   font-size: var(--text-lg);
-  line-height: 1.1;
+  font-weight: 700;
+  line-height: 1.15;
   color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  line-height: 1.1;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
   color: var(--text-muted);
 }
 
 .passport {
-  min-height: var(--min-touch-target);
-  display: flex;
+  min-height: 42px;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 0 var(--space-2);
+  gap: 6px;
+  padding: 4px 12px 4px 10px;
+  border: 0;
   border-radius: 999px;
   background: var(--primary);
-  color: var(--primary-text);
+  color: #ffffff;
   font-family: var(--font-heading);
   font-size: var(--text-xs);
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(80, 67, 201, 0.25);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(80, 67, 201, 0.28);
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.passport:hover {
+  background: #4335b5;
+}
+
+.passport:active {
+  transform: scale(0.96);
+}
+
+.passportIcon {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
 
 .count {
-  padding: 1px 5px;
+  padding: 1px 7px;
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-text);
-  font-size: var(--text-xs);
-  font-weight: 800;
+  background: #ffc15a;
+  color: #1e1b3a;
+  font-size: 11px;
+  font-weight: 900;
 }
 
 .intro {
-  padding: var(--space-4) 0 var(--space-2);
+  padding: 18px 0 10px;
   text-align: center;
 }
 
 .introChip {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
+  gap: 6px;
+  padding: 3px 12px;
   border-radius: 999px;
-  background: rgba(80, 67, 201, 0.1);
+  background: rgba(80, 67, 201, 0.08);
   color: var(--primary);
-  font-size: var(--text-xs);
+  font-size: 11px;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .intro p {
-  margin-top: 4px;
+  margin-top: 6px;
   color: var(--text-muted);
-  font-size: var(--text-xs);
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .zone {
@@ -126,7 +154,84 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--text-muted);
+}
+
+.dotGold {
+  background: #ffc15a;
+}
+
+.dotActive {
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(80, 67, 201, 0.2);
+}
+
+.herePill {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #ece7fe;
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(80, 67, 201, 0.2);
+  animation: softPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(80, 67, 201, 0.15);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 14px rgba(80, 67, 201, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .herePill {
+    animation: none;
+  }
+}
+
+.zonesWrapper {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 360px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.zoneGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.routeConnector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  margin: var(--space-1) 0;
+}
+
+.routeLine {
+  width: 2px;
+  height: 100%;
+  border-left: 2px dashed rgba(80, 67, 201, 0.35);
+}
+
+.routeNode {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffc15a;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 6px rgba(255, 193, 90, 0.5);
 }
 
 .zoneCount {
@@ -153,14 +258,13 @@
 
 .fogGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 4px 12px;
-  margin-top: 4px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin-top: 6px;
 }
 
-/* Con texto legible, dos tarjetas de niebla solo caben desde 560 px. */
-@media (min-width: 560px) {
+@media (max-width: 320px) {
   .fogGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 }

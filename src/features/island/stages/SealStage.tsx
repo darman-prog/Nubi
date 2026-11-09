@@ -24,9 +24,16 @@ export function SealStage({
 }: SealStageProps): React.JSX.Element {
   return (
     <div className={styles.stage}>
-      <img className={styles.seal} src={artUrl(`arte/sellos/sello-${island.slug}.webp`)} alt="" />
-      <img className={styles.nubi} src={artUrl('arte/nubi/nubi-celebrando.webp')} alt="" />
-      <p className={styles.sceneAct}>{claimed ? 'Sello conseguido' : 'Tu sello'}</p>
+      <div className={styles.stageHeaderRow}>
+        <span className={styles.phasePill}>Fase 4 · Conquista</span>
+      </div>
+
+      <div className={styles.celebrationHero}>
+        <img className={styles.seal} src={artUrl(`arte/sellos/sello-${island.slug}.webp`)} alt="" />
+        <img className={styles.nubiCelebration} src={artUrl('arte/nubi/nubi-celebrando.webp')} alt="" />
+      </div>
+
+      <p className={styles.sceneAct}>{claimed ? '¡Sello conseguido!' : 'Tu sello'}</p>
       <h2 className={styles.sealTitle}>{island.nombre}</h2>
       <p className={styles.sealText}>
         {claimed
@@ -36,17 +43,33 @@ export function SealStage({
 
       {!claimed ? (
         <Button className={styles.cta} onClick={onClaim}>
-          Reclamar sello
+          Reclamar sello 🏅
         </Button>
       ) : (
         <>
+          {/* Tarjeta de Puente Desbloqueado (07-isla-sello-puente.html) */}
           {next && onNext ? (
-            <Button className={styles.cta} onClick={onNext}>
-              Siguiente: {next.nombre}
-            </Button>
+            <div className={styles.bridgeCard}>
+              <span className={styles.bridgeBadge}>Puente desbloqueado</span>
+              <div className={styles.bridgeInfo}>
+                <img
+                  src={artUrl(`arte/islas/${next.slug}.webp`)}
+                  alt=""
+                  className={styles.bridgeThumb}
+                />
+                <div className={styles.bridgeText}>
+                  <p className={styles.bridgeTitle}>Camino a {next.nombre}</p>
+                  <p className={styles.bridgeSub}>{next.subtitulo}</p>
+                </div>
+              </div>
+              <Button className={styles.cta} onClick={onNext}>
+                Cruzar a {next.nombre} →
+              </Button>
+            </div>
           ) : null}
+
           <Button variant="secondary" onClick={onPassport}>
-            Ver pasaporte
+            Ver en mi pasaporte
           </Button>
           <Button variant="ghost" onClick={onMap}>
             Volver al mapa

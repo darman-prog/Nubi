@@ -4,7 +4,7 @@
 
 ## Contexto
 
-El doc 04 §10 exigía SVG ≤ 20 KB por ilustración. Al aplicar esa regla con vectorizado automático, el arte generado con Nano Banana perdía los brillos internos, los degradados suaves y el defringe del recorte; además, las escenas panorámicas superaban el presupuesto incluso tras simplificar. En paralelo, el alcance de arte se recortó a 11 escenas para no inflar el proyecto (feature 001). Los navegadores objetivo (Chrome Android y Safari iOS, últimas 2 versiones) soportan WebP con canal alfa.
+El doc 04 §10 exigía SVG ≤ 20 KB por ilustración. Al aplicar esa regla con vectorizado automático, el arte generado con Nano Banana perdía los brillos internos, los degradados suaves y el defringe del recorte; además, las escenas panorámicas superaban el presupuesto incluso tras simplificar. En paralelo, el alcance de arte se recortó temporalmente a 11 escenas para no inflar el proyecto en la feature 001 (*actualizado y ampliado a 28 escenas completas mediante `docs/adr/018-escenas-narrativas-completas.md`*). Los navegadores objetivo (Chrome Android y Safari iOS, últimas 2 versiones) soportan WebP con canal alfa.
 
 ## Decisión
 

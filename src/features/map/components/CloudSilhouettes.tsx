@@ -1,4 +1,4 @@
-/** Siluetas de nube del mockup 02; los ids se usan desde CloudCard. */
+/** Siluetas de nube idénticas a mockups/stitch/flujo-arte/02-mapa-pasaporte.html */
 export function CloudSilhouettes(): React.JSX.Element {
   return (
     <svg width={0} height={0} style={{ position: 'absolute' }} aria-hidden="true" focusable="false">

@@ -2,7 +2,7 @@
 
 *Prompts para generar todo el arte del proyecto con Google Gemini "Nano Banana" (modelo `gemini-nano-banana-2.1`) y entregarlo en WebP HD. Para qué sirve: producir las ~60 piezas del flujo v0.1 (D-16) con estilo, personaje y paleta consistentes. Cuándo leerlo: al generar arte en el paso "Arte WebP HD" del plan.*
 
-**Alineado al flujo v0.1 (2026-11-06):** pantallas de referencia en `mockups/stitch/flujo/` (01 portada → 10 coronación). El arte de contenido son **11 ilustraciones de escena** (la historia narrada por Nubi; se reutilizan entre los 4-6 momentos de cada isla), más miniaturas, sellos, Nubi y piezas de portada/coronación. Las islas sin evidencia (Pantalla, Energía, Tormenta, Ambiente, Cuerpo, Luna, Riesgo, Monstruos, Mirador) **no llevan arte**: en el mapa son siluetas de niebla genéricas (PRD D-06 / R-02).
+**Alineado al flujo v0.1 y ADR-018:** pantallas de referencia en `mockups/stitch/flujo-arte/` (01 portada → 10 coronación). El arte de contenido son **28 ilustraciones de escena** (la historia narrada por Nubi con una pieza dedicada por momento: 3 en Isla Nido y 5 en cada una de las 5 islas jugables), más miniaturas, sellos, Nubi y piezas de portada/coronación. Las islas sin evidencia (Pantalla, Energía, Tormenta, Ambiente, Cuerpo, Luna, Riesgo, Monstruos, Mirador) **no llevan arte**: en el mapa son siluetas de niebla genéricas (PRD D-06 / R-02).
 
 ---
 
@@ -23,7 +23,7 @@
 
 | Grupo                                       | Cantidad     | Proporción | Fondo                                    | Archivo final (WebP)                                       |
 | ------------------------------------------- | ------------ | ----------- | ---------------------------------------- | --------------------------------------------------------- |
-| Escenas de historia (Nido 1 + 5 islas × 2) | **11** | 16:9 | **integrado** (cielo de la escena) | `arte/escenas/<isla>-<n>.webp` |
+| Escenas de historia (Nido 3 + 5 islas × 5) | **28** | 16:9 | **integrado** (cielo de la escena) | `arte/escenas/<isla>-<n>.webp` |
 | Miniaturas de isla (mapa)                   | 6            | 1:1         | **alpha** (recorte)                | `arte/islas/<slug>.webp`                                 |
 | Sello por isla                              | 6            | 1:1         | **alpha** (recorte)                | `arte/sellos/sello-<slug>.webp`                          |
 | Nubi: expresiones                           | 9 (incluye base y narrando) | 1:1         | **alpha** (recorte)                | `arte/nubi/nubi-<expresion>.webp`                        |
@@ -31,9 +31,9 @@
 | Portada (hero) y coronación                | 2            | 4:5         | integrado                                | `arte/hero-portada.webp`, `arte/coronacion.webp`        |
 | PWA + Open Graph                            | 4            | 1:1 / 16:9  | integrado (maskable obligatorio)         | `public/pwa-192.png`, `512`, `maskable`, `og.png` |
 
-**Regla de fondo:** las piezas que se montan sobre tarjetas, sellos o mapa (Nubi, accesorios, sellos y miniaturas de isla) van con **alpha**; las que son una atmósfera completa (11 escenas, hero, coronación, PWA/OG) van con **fondo integrado** — si no, flotan sobre el layout y hay que reconstruir el ambiente en CSS. Nano Banana **no produce transparencia fiable**: para las piezas con alpha se genera sobre **fondo blanco liso**, se recorta con `scripts/process_art_hd.py` (flood-fill + defringe) y se comprime con `scripts/optimize_webp.py`.
+**Regla de fondo:** las piezas que se montan sobre tarjetas, sellos o mapa (Nubi, accesorios, sellos y miniaturas de isla) van con **alpha**; las que son una atmósfera completa (28 escenas, hero, coronación, PWA/OG) van con **fondo integrado** — si no, flotan sobre el layout y hay que reconstruir el ambiente en CSS. Nano Banana **no produce transparencia fiable**: para las piezas con alpha se genera sobre **fondo blanco liso**, se recorta con `scripts/process_art_hd.py` (flood-fill + defringe) y se comprime con `scripts/optimize_webp.py`.
 
-Los 11 nombres: `nido-1`, `reloj-1…2`, `horarios-1…2`, `animo-1…2`, `cerebro-1…2`, `taller-1…2`.
+Los 28 nombres: `nido-1…3`, `reloj-1…5`, `horarios-1…5`, `animo-1…5`, `cerebro-1…5`, `taller-1…5`.
 
 ---
 
@@ -92,9 +92,9 @@ Adjuntar ancla; 1:1; una idea visual central. Motivos del doc 04 §10:
 
 **Niebla genérica** (una sola, para las 9 pendientes): *silueta de isla tapada por niebla clara, contorno redondeado, sin detalle interior*.
 
-## 6. P3 — Escenas de la historia (11 en v0.1)
+## 6. P3 — Escenas de la historia (28 escenas completas · ADR-018)
 
-> Recorte de arte v0.1: de las 5 escenas narrativas por isla se ilustran 2 (actos 1 y 2); Nido ilustra 1 de 3. El resto de los momentos se cuentan con texto y estos prompts quedan como material para v2.
+> Regla de cobertura completa: Se levanta el recorte previo de 11 escenas. Cada momento de la historia cuenta con su propia ilustración narrativa (3 en Isla Nido + 5 en cada una de las 5 islas jugables). Las 11 escenas ya producidas se conservan y se habilitan los 17 prompts restantes para completar el archipiélago.
 
 **Plantilla** (adjuntar ancla; si aparece Nubi, adjuntar `nubi-base`; proporción 16:9; sin texto):
 
@@ -195,7 +195,7 @@ sobre fondo transparente. Mismo estilo que la referencia. Sin texto.
 
 ## 10. Presupuesto y estado
 
-- Generación: 11 escenas + 6 miniaturas + 6 sellos + 12 Nubi + hero + coronación + descartes ≈ **45-60 imágenes ≈ $2-3** por API a 1K (gratis en la app con límites).
+- Generación: 28 escenas + 6 miniaturas + 6 sellos + 12 Nubi + hero + coronación + descartes ≈ **65-80 imágenes ≈ $3-4** por API a 1K (gratis en la app con límites).
 - El costo de vectorización desaparece: el post-proceso es local con `scripts/process_art_hd.py` y `scripts/optimize_webp.py`.
 - Estado: pendiente aprobar `ancla-estilo.png` y `nubi-base.png`; después generar por islas (una isla por tanda para mantener consistencia).
 
