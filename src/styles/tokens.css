@@ -32,3 +32,22 @@
   --transition-fast: 150ms ease-out;
   --transition-normal: 250ms ease-out;
 }
+
+/* Escalado tipográfico accesible controlado desde Ajustes (doc 04 §3.3) */
+[data-text-scale='1.25'] {
+  --text-xs: 17.5px;
+  --text-base: 21.25px;
+  --text-lg: 25px;
+  --text-xl: 30px;
+  --text-2xl: 37.5px;
+  --text-3xl: 47.5px;
+}
+
+[data-text-scale='1.5'] {
+  --text-xs: 21px;
+  --text-base: 25.5px;
+  --text-lg: 30px;
+  --text-xl: 36px;
+  --text-2xl: 45px;
+  --text-3xl: 57px;
+}

@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { content } from '@/core/content/content-repository';
-import { useUserStateStore } from '@/shared/state/UserStateContext';
+import { DataBackupSection } from './components/DataBackupSection';
+import { SettingsSection } from './components/SettingsSection';
 import styles from './HelpScreen.module.css';
 
 const SIGNS = [
@@ -11,30 +11,14 @@ const SIGNS = [
 ];
 
 export default function HelpScreen(): React.JSX.Element {
-  const store = useUserStateStore();
-  const [confirmClear, setConfirmClear] = useState(false);
-  const [message, setMessage] = useState('');
-
-  // Borrado seguro del progreso del usuario con confirmación de dos pasos.
-  const clearData = (): void => {
-    if (!confirmClear) {
-      setConfirmClear(true);
-      return;
-    }
-    store.reset();
-    setConfirmClear(false);
-    setMessage('Tu viaje ha sido reiniciado en este celular.');
-  };
-
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <p className={styles.kicker}>Un espacio seguro</p>
         <h1 className={styles.title}>Ayuda</h1>
-        <p className={styles.subtitle}>Cuidado y orientación serena</p>
+        <p className={styles.subtitle}>Cuidado, fuentes y control de tus datos</p>
       </header>
 
-      {/* Hero Card cálido y reconfortante (08-ayuda.html) */}
       <section className={styles.heroCard} aria-labelledby="hero-title">
         <div className={styles.heroAura} aria-hidden="true">☁️</div>
         <h2 id="hero-title" className={styles.heroTitle}>No tienes que resolver esto solo.</h2>
@@ -44,7 +28,6 @@ export default function HelpScreen(): React.JSX.Element {
         <span className={styles.heroPill}>Espacio amable · Sin presiones</span>
       </section>
 
-      {/* Grid Bento de Señales para hablar con un adulto */}
       <section className={styles.card} aria-labelledby="senales-title">
         <h2 id="senales-title">Señales para hablar con un adulto</h2>
         <p className={styles.small}>Si notas estas sensaciones durante varias semanas continuas:</p>
@@ -62,7 +45,6 @@ export default function HelpScreen(): React.JSX.Element {
         </div>
       </section>
 
-      {/* Qué puedes hacer */}
       <section className={styles.card} aria-labelledby="que-hacer-title">
         <h2 id="que-hacer-title">Qué puedes hacer</h2>
         <p className={styles.small}>Pasos sencillos para aliviar la carga:</p>
@@ -86,28 +68,9 @@ export default function HelpScreen(): React.JSX.Element {
         </div>
       </section>
 
-      {/* Privacidad: Solo "Borrar mi viaje", sin ajustes (instrucción explícita del usuario) */}
-      <section className={styles.card} aria-labelledby="datos-title">
-        <h2 id="datos-title">Borrar mi viaje</h2>
-        <p className={styles.small}>Tu progreso se guarda solo en este celular. Nadie más tiene tus respuestas.</p>
-        <div className={styles.actions}>
-          <button
-            type="button"
-            className={confirmClear ? styles.dangerConfirm : styles.action}
-            onClick={clearData}
-          >
-            {confirmClear ? '¿Seguro? Toca para borrar todo' : 'Borrar mi viaje'}
-          </button>
-          {confirmClear ? (
-            <button type="button" className={styles.cancelBtn} onClick={() => setConfirmClear(false)}>
-              Cancelar
-            </button>
-          ) : null}
-        </div>
-        {message ? <p className={styles.message} role="status">{message}</p> : null}
-      </section>
+      <SettingsSection />
+      <DataBackupSection />
 
-      {/* Fuentes y evidencia científica */}
       <section className={styles.card} aria-labelledby="fuentes-title">
         <h2 id="fuentes-title">Fuentes y evidencia</h2>
         <p className={styles.small}>Cada afirmación de salud se apoya en una ficha revisable.</p>
@@ -123,6 +86,14 @@ export default function HelpScreen(): React.JSX.Element {
               </details>
             ))}
         </div>
+      </section>
+
+      <section className={styles.card} aria-labelledby="acerca-title">
+        <h2 id="acerca-title">Acerca de Nubi</h2>
+        <p className={styles.small}>
+          Nubi y el Archipiélago del Sueño (v0.1) es una guía educativa interactiva sin cuentas ni analíticas.
+          Todo lo que respondes se queda en este dispositivo.
+        </p>
       </section>
 
       <p className={styles.disclaimer}>Esta app informa y no reemplaza a un profesional de la salud.</p>

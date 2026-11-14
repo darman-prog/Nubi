@@ -17,6 +17,12 @@ const MOODS = [
   { value: 5, label: 'Muy bien', face: '😊' },
 ] as const;
 
+const TRIED_OPTIONS: Array<{ value: NonNullable<DiaryEntry['experimentTried']>; label: string }> = [
+  { value: 'yes', label: 'Sí' },
+  { value: 'some', label: 'Más o menos' },
+  { value: 'no', label: 'No' },
+];
+
 export default function DiaryScreen(): React.JSX.Element {
   const state = useUserState();
   const store = useUserStateStore();
@@ -26,9 +32,15 @@ export default function DiaryScreen(): React.JSX.Element {
   const [wake, setWake] = useState(existing?.wake ?? '07:00');
   const [mood, setMood] = useState<DiaryEntry['mood']>(existing?.mood ?? 3);
   const [screens, setScreens] = useState(existing?.screensInBed ?? false);
+  const [tried, setTried] = useState<DiaryEntry['experimentTried']>(existing?.experimentTried);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
+  // Mostramos la pregunta de seguimiento solo cuando ya exploró o aceptó algún reto/experimento.
+  const hasActiveChallenge =
+    state.challenges.length > 0 ||
+    state.experiments.length > 0 ||
+    Object.values(state.progress.islands).some((island) => island.stages.sello);
   const minutes = sleepMinutes(bedtime, wake);
   const warning = minutes !== null && !isPlausible(minutes);
   const recent = state.diary.slice(0, 7);
@@ -45,6 +57,7 @@ export default function DiaryScreen(): React.JSX.Element {
       wake,
       mood,
       screensInBed: screens,
+      ...(tried ? { experimentTried: tried } : {}),
     };
     store.update((current) => ({
       ...current,
@@ -96,6 +109,25 @@ export default function DiaryScreen(): React.JSX.Element {
           <input type="checkbox" checked={screens} onChange={(event) => setScreens(event.target.checked)} />
           Usé pantallas en la cama
         </label>
+
+        {hasActiveChallenge ? (
+          <fieldset className={styles.moods}>
+            <legend>¿Probaste tu reto o experimento?</legend>
+            <div className={styles.triedGrid}>
+              {TRIED_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  className={`${styles.triedBtn} ${tried === opt.value ? styles.triedBtnActive : ''}`}
+                  aria-pressed={tried === opt.value}
+                  onClick={() => setTried((current) => (current === opt.value ? undefined : opt.value))}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        ) : null}
 
         {minutes !== null ? (
           <p className={styles.duration}>
