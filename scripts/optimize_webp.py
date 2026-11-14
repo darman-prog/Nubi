@@ -20,11 +20,12 @@ def convert_to_webp(
     max_dim: int = 800,
     quality: int = 88,
     is_transparent: bool = False,
-    white_threshold: int = 242
+    white_threshold: int = 242,
+    max_kb: int | None = None,
 ) -> None:
     """
     Convierte una imagen a WebP de alta fidelidad, redimensionando con filtro Lanczos
-    y aplicando máscara de transparencia alfa para fondos blancos si se requiere.
+    y ajustando la calidad si supera el presupuesto máximo en KB.
     """
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -50,7 +51,12 @@ def convert_to_webp(
             rgba.save(output_path, "WEBP", quality=quality, method=6)
         else:
             rgb = img.convert("RGB")
-            rgb.save(output_path, "WEBP", quality=quality, method=6)
+            current_quality = quality
+            rgb.save(output_path, "WEBP", quality=current_quality, method=6)
+            # Reducimos calidad gradualmente cuando la escena excede el presupuesto en KB
+            while max_kb is not None and (output_path.stat().st_size / 1024) > max_kb and current_quality > 60:
+                current_quality -= 4
+                rgb.save(output_path, "WEBP", quality=current_quality, method=6)
 
     size_kb = output_path.stat().st_size / 1024
     print(f"[WebP {size_kb:.1f} KB] {output_path.name}")
@@ -96,25 +102,43 @@ def process_all_webp():
 
     print("\n=== Procesando Escenas Narrativas y Macro a WebP ===")
     escenas_items = [
-        # Escenas 16:9 con fondo integrado (800px para máxima definición en móvil)
+        # Escenas 16:9 con fondo integrado (800px, presupuesto <= 90 KB según ADR-018)
         (GENERADOS_DIR / "nido-1.jpg", "escenas/nido-1.webp", 800, False),
+        (GENERADOS_DIR / "nido-2.jpg", "escenas/nido-2.webp", 800, False),
+        (GENERADOS_DIR / "nido-3.jpg", "escenas/nido-3.webp", 800, False),
         (GENERADOS_DIR / "reloj-1.jpg", "escenas/reloj-1.webp", 800, False),
         (GENERADOS_DIR / "reloj-2.jpg", "escenas/reloj-2.webp", 800, False),
+        (GENERADOS_DIR / "reloj-3.jpg", "escenas/reloj-3.webp", 800, False),
+        (GENERADOS_DIR / "reloj-4.jpg", "escenas/reloj-4.webp", 800, False),
+        (GENERADOS_DIR / "reloj-5.jpg", "escenas/reloj-5.webp", 800, False),
         (GENERADOS_DIR / "horarios-1.jpg", "escenas/horarios-1.webp", 800, False),
         (GENERADOS_DIR / "horarios-2.jpg", "escenas/horarios-2.webp", 800, False),
+        (GENERADOS_DIR / "horarios-3.jpg", "escenas/horarios-3.webp", 800, False),
+        (GENERADOS_DIR / "horarios-4.jpg", "escenas/horarios-4.webp", 800, False),
+        (GENERADOS_DIR / "horarios-5.jpg", "escenas/horarios-5.webp", 800, False),
         (GENERADOS_DIR / "animo-1.jpg", "escenas/animo-1.webp", 800, False),
         (GENERADOS_DIR / "animo-2.jpg", "escenas/animo-2.webp", 800, False),
+        (GENERADOS_DIR / "animo-3.jpg", "escenas/animo-3.webp", 800, False),
+        (GENERADOS_DIR / "animo-4.jpg", "escenas/animo-4.webp", 800, False),
+        (GENERADOS_DIR / "animo-5.jpg", "escenas/animo-5.webp", 800, False),
         (GENERADOS_DIR / "cerebro-1.jpg", "escenas/cerebro-1.webp", 800, False),
         (GENERADOS_DIR / "cerebro-2.jpg", "escenas/cerebro-2.webp", 800, False),
+        (GENERADOS_DIR / "cerebro-3.jpg", "escenas/cerebro-3.webp", 800, False),
+        (GENERADOS_DIR / "cerebro-4.jpg", "escenas/cerebro-4.webp", 800, False),
+        (GENERADOS_DIR / "cerebro-5.jpg", "escenas/cerebro-5.webp", 800, False),
         (GENERADOS_DIR / "taller-1.jpg", "escenas/taller-1.webp", 800, False),
         (GENERADOS_DIR / "taller-2.jpg", "escenas/taller-2.webp", 800, False),
+        (GENERADOS_DIR / "taller-3.jpg", "escenas/taller-3.webp", 800, False),
+        (GENERADOS_DIR / "taller-4.jpg", "escenas/taller-4.webp", 800, False),
+        (GENERADOS_DIR / "taller-5.jpg", "escenas/taller-5.webp", 800, False),
         # Piezas Macro
         (GENERADOS_DIR / "hero-portada.jpg", "hero-portada.webp", 800, False),
         (GENERADOS_DIR / "coronacion.jpg", "coronacion.webp", 800, False),
     ]
     for src, dst_rel, dim, trans in escenas_items:
         if src.exists():
-            convert_to_webp(src, ARTE_DIR / dst_rel, max_dim=dim, is_transparent=trans)
+            budget = 90 if dst_rel.startswith("escenas/") else 180
+            convert_to_webp(src, ARTE_DIR / dst_rel, max_dim=dim, is_transparent=trans, max_kb=budget)
 
 
 if __name__ == "__main__":

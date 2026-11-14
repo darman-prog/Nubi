@@ -18,9 +18,8 @@ export function ArrivalStage({ island, onNext }: ArrivalStageProps): React.JSX.E
         <span className={styles.phasePill}>Fase 1 · Llegada</span>
       </div>
 
-      {/* Heroica ilustración de la isla al llegar, con resplandor suave */}
+      {/* Ilustración de llegada de la isla sin velo superpuesto */}
       <div className={styles.heroWrapper}>
-        <div className={styles.fogGlow} aria-hidden="true" />
         <img className={styles.islandHero} src={artUrl(`arte/islas/${island.slug}.webp`)} alt={island.nombre} />
       </div>
 

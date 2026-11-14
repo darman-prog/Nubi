@@ -70,6 +70,9 @@
 }
 
 .islandHero {
+  /* Mantiene la ilustración por encima de capas decorativas del contenedor */
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-height: 250px;
   aspect-ratio: 4 / 3;
