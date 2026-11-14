@@ -40,7 +40,7 @@ describe('HomeScreen', () => {
     renderHome(store);
 
     expect(
-      screen.getByRole('button', { name: /seguir donde quedaste: 1 de 2 islas exploradas/i }),
+      screen.getByRole('button', { name: /seguir donde quedaste: 1 de 6 islas exploradas/i }),
     ).toBeInTheDocument();
   });
 });

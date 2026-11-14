@@ -9,6 +9,15 @@
     "distractors": ["N-COLEGIO-TEMPRANO"]
   },
   {
+    "id": "C-02",
+    "title": "Colegio temprano y ánimo",
+    "mode": "guided",
+    "start": "N-COLEGIO-TEMPRANO",
+    "end": "N-REGULACION",
+    "solution": ["N-COLEGIO-TEMPRANO", "N-POCO-SUENO", "N-REGULACION"],
+    "distractors": ["N-DORMIR-TARDE"]
+  },
+  {
     "id": "C-03",
     "title": "La cadena del estudio",
     "mode": "guided",
@@ -17,5 +26,14 @@
     "solution": ["N-POCO-SUENO", "N-IRRITABILIDAD", "N-CONCENTRACION", "N-RETENCION"],
     "distractors": ["N-ESTUDIO-INCONSTANTE"],
     "isIntegratedHypothesis": true
+  },
+  {
+    "id": "C-04",
+    "title": "Del fin de semana a la recompensa",
+    "mode": "guided",
+    "start": "N-HORARIO-CAMBIANTE",
+    "end": "N-RECOMPENSA",
+    "solution": ["N-HORARIO-CAMBIANTE", "N-RECOMPENSA"],
+    "distractors": ["N-COLEGIO-TEMPRANO"]
   }
 ]

@@ -4,7 +4,76 @@
   "zona": 3,
   "nombre": "Isla Cerebro",
   "subtitulo": "Memoria y estudio",
-  "disponibilidad": "coming_soon",
+  "disponibilidad": "available",
   "posicion": { "x": 75, "y": 72 },
-  "ordenSugerido": 4
+  "ordenSugerido": 4,
+  "llegada": [
+    "Dormir y recordar están conectados, pero la ciencia muestra matices importantes.",
+    "Aquí vas a ver por qué dos estudios distintos pueden dar resultados diferentes."
+  ],
+  "historia": [
+    {
+      "id": "ESC-CEREBRO-1",
+      "acto": "sintoma",
+      "texto": "Tu memoria tiene tres momentos: aprender algo nuevo, guardarlo mientras duermes y recordarlo después. Dormir poco puede interferir en ese proceso.",
+      "alt": "Biblioteca de nubes con libros flotando y guardándose de noche",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/cerebro-1.webp"
+    },
+    {
+      "id": "ESC-CEREBRO-2",
+      "acto": "causa",
+      "texto": "En un estudio con 22 adolescentes, una sola noche de 4 horas no cambió de forma clara el recuerdo de una lista de palabras.",
+      "alt": "Luna con un reloj pequeño de cuatro horas junto a estrellitas",
+      "isHealthClaim": true,
+      "evidenceId": "EV-011",
+      "ilustracion": "arte/escenas/cerebro-2.webp"
+    },
+    {
+      "id": "ESC-CEREBRO-3",
+      "acto": "efecto",
+      "texto": "En cambio, tras varias noches seguidas de poco sueño, los adolescentes retuvieron peor el material de clase al evaluarlos días después.",
+      "alt": "Estantería de nubes desordenándose con libros que se deslizan",
+      "isHealthClaim": true,
+      "evidenceId": "EV-013",
+      "ilustracion": "arte/escenas/cerebro-3.webp"
+    },
+    {
+      "id": "ESC-CEREBRO-4",
+      "acto": "efecto",
+      "texto": "En otro estudio con 88 adolescentes durante cuatro noches de entre 5 y 9 horas en cama, tampoco se vieron diferencias en memoria.",
+      "alt": "Libro intacto bajo cuatro lunas alineadas en cielo sereno",
+      "isHealthClaim": true,
+      "evidenceId": "EV-012",
+      "ilustracion": "arte/escenas/cerebro-4.webp"
+    },
+    {
+      "id": "ESC-CEREBRO-5",
+      "acto": "cierre",
+      "texto": "¿Por qué no coinciden? Parece depender de cuántas noches duermes poco y qué estudias. Igual, trasnochar no es gratis: recuerda cómo afecta tu ánimo.",
+      "alt": "Dos bibliotecarios nube comparando libros abiertos distintos",
+      "isHealthClaim": true,
+      "evidenceId": "EV-024",
+      "ilustracion": "arte/escenas/cerebro-5.webp"
+    }
+  ],
+  "pregunta": {
+    "id": "PR-4",
+    "enunciado": "Si un amigo te dice que una noche corta borra todo lo que estudiaste, ¿qué responde la evidencia?",
+    "opciones": [
+      { "id": "OP-4A", "texto": "Siempre borra toda la memoria de inmediato", "correcta": false },
+      { "id": "OP-4B", "texto": "Depende: una noche corta no mostró cambio en palabras, pero varias noches seguidas sí afectaron material de clase", "correcta": true },
+      { "id": "OP-4C", "texto": "Dormir poco mejora los resultados escolares", "correcta": false }
+    ],
+    "explicacion": "Los resultados en memoria son mixtos: cambian según cuántas noches se duerme poco y el tipo de aprendizaje evaluado.",
+    "isHealthClaim": true,
+    "evidenceId": "EV-024"
+  },
+  "reto": {
+    "chainId": "C-03",
+    "titulo": "La cadena del estudio (hipótesis integrada)",
+    "huecos": 2
+  },
+  "puentes": ["B-11", "B-12"],
+  "fuentes": ["EV-011", "EV-012", "EV-013", "EV-024", "EV-022"]
 }

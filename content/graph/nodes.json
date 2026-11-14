@@ -20,6 +20,11 @@
     "islandId": "ISL-HORARIOS"
   },
   {
+    "id": "N-HORARIO-CAMBIANTE",
+    "label": "El horario cambia mucho entre semana y fin de semana",
+    "islandId": "ISL-HORARIOS"
+  },
+  {
     "id": "N-IRRITABILIDAD",
     "label": "Más tensión, enojo e irritabilidad",
     "islandId": "ISL-ANIMO"
@@ -27,6 +32,11 @@
   {
     "id": "N-REGULACION",
     "label": "Cuesta más controlar las reacciones",
+    "islandId": "ISL-ANIMO"
+  },
+  {
+    "id": "N-RECOMPENSA",
+    "label": "Cambia cómo responde el cerebro a las recompensas",
     "islandId": "ISL-ANIMO"
   },
   {

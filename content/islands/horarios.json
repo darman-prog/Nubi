@@ -4,7 +4,7 @@
   "zona": 2,
   "nombre": "Isla Horarios",
   "subtitulo": "El colegio y tus horas",
-  "disponibilidad": "coming_soon",
+  "disponibilidad": "available",
   "posicion": { "x": 25, "y": 72 },
   "ordenSugerido": 2,
   "llegada": [
@@ -68,9 +68,9 @@
     "evidenceId": "EV-005"
   },
   "reto": {
-    "chainId": "C-01",
-    "titulo": "Del reloj al ánimo",
-    "huecos": 2
+    "chainId": "C-02",
+    "titulo": "Colegio temprano y ánimo",
+    "huecos": 1
   },
   "puentes": ["B-02"],
   "fuentes": ["EV-004", "EV-005"]

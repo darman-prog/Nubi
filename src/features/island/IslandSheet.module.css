@@ -58,24 +58,26 @@
   color: var(--text-muted);
 }
 
-/* Contenedor heroico en la llegada: relación 4:3 para lucir la isla completa sin recortes agresivos */
+/* Contenedor cuadrado centrado para mostrar la isla completa 1:1 sin recortes */
 .heroWrapper {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: min(100%, 260px);
+  margin: 0 auto;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 14px 32px rgba(80, 67, 201, 0.16), 0 0 24px rgba(255, 193, 91, 0.22);
 }
 
 .islandHero {
-  /* Mantiene la ilustración por encima de capas decorativas del contenedor */
+  /* Mantiene la ilustración completa 1:1 sin recortes y por encima de capas decorativas */
   position: relative;
   z-index: 1;
   width: 100%;
-  max-height: 250px;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 24px;
   border: 3px solid #ffffff;

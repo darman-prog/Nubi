@@ -4,7 +4,7 @@
   "zona": 3,
   "nombre": "Isla Ánimo",
   "subtitulo": "Emociones y descanso",
-  "disponibilidad": "coming_soon",
+  "disponibilidad": "available",
   "posicion": { "x": 50, "y": 82 },
   "ordenSugerido": 3,
   "llegada": [

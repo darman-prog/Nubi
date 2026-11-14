@@ -148,5 +148,185 @@
     "usedIn": ["C-03", "B-11", "B-12"],
     "restricted": false,
     "status": "draft"
+  },
+  {
+    "id": "EV-006",
+    "claimTechnical": "La variabilidad entre horarios de sueño de semana y fin de semana se asocia con cambios en la respuesta cerebral a la recompensa.",
+    "claimTeen": "Cuando tu horario de dormir cambia mucho entre semana y fin de semana, se ha visto asociación con cambios en cómo el cerebro responde a las recompensas.",
+    "source": {
+      "citation": "Hasler BP, et al. Weekend-weekday shift in sleep timing and neural reward response in healthy adolescents. Biol Psychol. 2012;91(3):334-340.",
+      "sourceType": "estudio"
+    },
+    "population": "Adolescentes sanos",
+    "design": "Estudio observacional con neuroimagen",
+    "finding": "El desfase entre semana y fin de semana se asoció con menor respuesta en regiones de recompensa.",
+    "limitations": "Estudio observacional; no prueba causalidad directa ni define un umbral exacto.",
+    "level": "E1",
+    "geography": "EE.UU.",
+    "usedIn": ["ISL-HORARIOS", "B-05"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-009",
+    "claimTechnical": "Tras dormir menos, algunos participantes reportaron mayor dificultad para regular emociones negativas sin cambios claros en la actividad cerebral medida.",
+    "claimTeen": "Tras dormir menos, algunas personas dijeron que les costaba más manejar emociones negativas, aunque no se vieron cambios claros en la actividad cerebral medida.",
+    "source": {
+      "citation": "Tamm S, et al. Sleep restriction and emotional regulation across age groups. Neuroimage. 2019.",
+      "sourceType": "estudio"
+    },
+    "population": "Grupo joven y grupo adulto",
+    "design": "Estudio experimental con resonancia magnética",
+    "finding": "Mayor dificultad percibida para regular emociones tras restricción de sueño.",
+    "limitations": "No incluye solo adolescentes; resultados mixtos entre reporte y neuroimagen.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-ANIMO", "B-07"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-011",
+    "claimTechnical": "Una sola noche de 4 horas en cama no cambió significativamente el recuerdo de una lista de palabras en 22 adolescentes.",
+    "claimTeen": "En un estudio con 22 adolescentes de 14 a 16 años, una noche de 4 horas no cambió de forma clara el recuerdo de una lista de palabras.",
+    "source": {
+      "citation": "Kopasz M, et al. Nooying effect of partial sleep deprivation on declarative memory in adolescents. Sleep Med. 2010.",
+      "sourceType": "estudio"
+    },
+    "population": "22 adolescentes de 14 a 16 años",
+    "design": "Estudio experimental de laboratorio (1 noche de 4 horas en cama)",
+    "finding": "Sin diferencia significativa en el recuerdo de lista de palabras tras una noche corta.",
+    "limitations": "Muestra pequeña, una sola noche y tarea de laboratorio.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-CEREBRO", "B-10"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-012",
+    "claimTechnical": "Cuatro noches entre 5 y 9 horas en cama no mostraron diferencias en la consolidación de memoria en 88 adolescentes sanos.",
+    "claimTeen": "En otro estudio con 88 adolescentes y entre 5 y 9 horas en cama por cuatro noches, no se vieron diferencias en memoria ni a las 4 semanas.",
+    "source": {
+      "citation": "Voderholzer U, et al. Impact of sleep restriction on declarative memory consolidation in adolescents. Sleep. 2011;34(6):741-748.",
+      "sourceType": "estudio"
+    },
+    "population": "88 adolescentes sanos",
+    "design": "Estudio experimental de 4 noches (5 a 9 horas en cama)",
+    "finding": "Sin diferencias significativas en consolidación de memoria declarativa.",
+    "limitations": "Condiciones de laboratorio y duración acotada a 4 noches.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-CEREBRO", "B-10"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-013",
+    "claimTechnical": "Varias noches de restricción de sueño redujeron la retención de material escolar evaluado días después en adolescentes.",
+    "claimTeen": "En otro estudio, tras varias noches de poco sueño los adolescentes retuvieron peor el material de clase cuando se les evaluó días después.",
+    "source": {
+      "citation": "Cousins JN, et al. Multi-night sleep restriction impairs long-term retention of factual knowledge in adolescents. J Sleep Res. 2019.",
+      "sourceType": "estudio"
+    },
+    "population": "Adolescentes en edad escolar",
+    "design": "Estudio experimental con control de 9 horas y evaluación a 3 días",
+    "finding": "Menor retención de contenido tipo clase tras varias noches de sueño corto.",
+    "limitations": "Requiere réplica con muestras más amplias y contextos escolares variados.",
+    "level": "E2",
+    "geography": "n/d",
+    "usedIn": ["ISL-CEREBRO", "B-10"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-014",
+    "claimTechnical": "En jóvenes de 11 a 13 años, dormir menos y más tarde se asoció con menor activación del núcleo caudado al anticipar recompensa.",
+    "claimTeen": "En jóvenes de 11 a 13 años, dormir menos y más tarde se asoció con menor activación de una zona del cerebro que anticipa la recompensa.",
+    "source": {
+      "citation": "Holm SM, et al. Reward-related brain function and sleep in pre/early adolescents. J Adolesc Health. 2009;45(4):326-334.",
+      "sourceType": "estudio"
+    },
+    "population": "58 jóvenes de 11 a 13 años",
+    "design": "Actigrafía en casa más resonancia magnética funcional",
+    "finding": "Asociación entre sueño más corto/tardío y menor respuesta cerebral de anticipación.",
+    "limitations": "Estudio observacional en rango de edad inicial (11 a 13 años).",
+    "level": "E1",
+    "geography": "EE.UU.",
+    "usedIn": ["ISL-ANIMO", "B-08"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-021b",
+    "claimTechnical": "Exponerse a luz natural en la mañana y alejar dispositivos luminosos cerca de la hora de dormir se proponen como pautas de higiene del sueño.",
+    "claimTeen": "Buscar luz natural en la mañana y dejar las pantallas lejos de la cama son ideas prácticas para probar cómo responde tu descanso.",
+    "source": {
+      "citation": "Watson NF, et al. (2017) y Formación Psicoterapia (2026). Pautas de higiene del sueño.",
+      "sourceType": "fuente-clinica"
+    },
+    "population": "Adolescentes (orientación práctica)",
+    "design": "Orientación de higiene del sueño",
+    "finding": "Propone luz matutina y distancia de dispositivos antes de dormir.",
+    "limitations": "Requiere verificación en fuente primaria para mecanismos específicos.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-TALLER"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-021c",
+    "claimTechnical": "Bajar la estimulación antes de dormir con respiración lenta puede ayudar a reducir la activación fisiológica.",
+    "claimTeen": "Un rato tranquilo antes de dormir, con respiración lenta y sin pantallas, puede ayudarte a bajar el ritmo del día.",
+    "source": {
+      "citation": "Formación Psicoterapia (2026). Pautas de higiene del sueño y relajación.",
+      "sourceType": "fuente-clinica"
+    },
+    "population": "Adolescentes (divulgación clínica)",
+    "design": "Orientación clínica práctica",
+    "finding": "Propone actividades de baja estimulación y respiración pausada antes de acostarse.",
+    "limitations": "Fuente de divulgación; no es ensayo clínico en adolescentes.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-TALLER"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-023",
+    "claimTechnical": "La somnolencia diurna persistente, el ronquido fuerte o las pesadillas frecuentes justifican consultar con un adulto o profesional.",
+    "claimTeen": "Conviene hablar con un adulto o profesional si tienes mucho sueño en el día, roncas fuerte o tienes pesadillas frecuentes.",
+    "source": {
+      "citation": "Recomendaciones clínicas de tamizaje y derivación en sueño adolescente.",
+      "sourceType": "fuente-clinica"
+    },
+    "population": "Adolescentes",
+    "design": "Orientación clínica de cuidado",
+    "finding": "Señales de alerta suave para buscar acompañamiento adulto o profesional.",
+    "limitations": "Orientación general; no constituye diagnóstico ni protocolo médico.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-TALLER"],
+    "restricted": false,
+    "status": "draft"
+  },
+  {
+    "id": "EV-024",
+    "claimTechnical": "Síntesis de estudios en memoria: los resultados difieren según número de noches restringidas, tipo de tarea y edad.",
+    "claimTeen": "En memoria los estudios no coinciden: parece depender de cuántas noches duermes poco y de qué tipo de material estás aprendiendo.",
+    "source": {
+      "citation": "Síntesis de Kopasz et al. (2010), Voderholzer et al. (2011) y Cousins et al. (2019).",
+      "sourceType": "revision"
+    },
+    "population": "Adolescentes (síntesis de tres estudios)",
+    "design": "Síntesis comparativa de estudios experimentales",
+    "finding": "Propone una hipótesis plausible para explicar resultados mixtos en memoria.",
+    "limitations": "Hipótesis integradora; ningún estudio único probó esa comparación directa.",
+    "level": "E1",
+    "geography": "n/d",
+    "usedIn": ["ISL-CEREBRO", "B-10"],
+    "restricted": false,
+    "status": "draft"
   }
 ]

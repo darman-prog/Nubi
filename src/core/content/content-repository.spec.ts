@@ -21,8 +21,15 @@ describe('ContentRepository', () => {
   it('filtra las islas disponibles y respeta el orden sugerido', () => {
     const disponibles = content.availableIslands();
 
-    expect(disponibles.map((island) => island.id)).toEqual(['ISL-NIDO', 'ISL-RELOJ']);
-    expect(content.islandBySlug('horarios')?.disponibilidad).toBe('coming_soon');
+    expect(disponibles.map((island) => island.id)).toEqual([
+      'ISL-NIDO',
+      'ISL-RELOJ',
+      'ISL-HORARIOS',
+      'ISL-ANIMO',
+      'ISL-CEREBRO',
+      'ISL-TALLER',
+    ]);
+    expect(content.islandBySlug('pantalla')?.disponibilidad).toBe('coming_soon');
   });
 
   it('crea un repositorio a partir de datos ya validados', () => {

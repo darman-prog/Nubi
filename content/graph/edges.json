@@ -30,6 +30,16 @@
     "honestLabel": "Bien establecido"
   },
   {
+    "id": "B-05",
+    "from": "N-HORARIO-CAMBIANTE",
+    "to": "N-RECOMPENSA",
+    "status": "published",
+    "level": "E1",
+    "evidenceIds": ["EV-006"],
+    "explanation": "Cambiar mucho los horarios entre semana y fin de semana se asocia con cambios en respuesta a recompensas.",
+    "honestLabel": "Aún se investiga"
+  },
+  {
     "id": "B-06",
     "from": "N-POCO-SUENO",
     "to": "N-IRRITABILIDAD",
@@ -48,6 +58,26 @@
     "evidenceIds": ["EV-007"],
     "explanation": "Los participantes y sus padres notaron más dificultad para controlar las reacciones.",
     "honestLabel": "Probable"
+  },
+  {
+    "id": "B-08",
+    "from": "N-POCO-SUENO",
+    "to": "N-RECOMPENSA",
+    "status": "published",
+    "level": "E1",
+    "evidenceIds": ["EV-014"],
+    "explanation": "Dormir menos y más tarde se asoció con menor activación al anticipar recompensas.",
+    "honestLabel": "Aún se investiga"
+  },
+  {
+    "id": "B-10",
+    "from": "N-POCO-SUENO",
+    "to": "N-RETENCION",
+    "status": "published",
+    "level": "E1",
+    "evidenceIds": ["EV-011", "EV-012", "EV-013", "EV-024"],
+    "explanation": "Los resultados en memoria son mixtos y parecen depender de cuántas noches se duerme poco.",
+    "honestLabel": "Aún se investiga: depende de cuántas noches"
   },
   {
     "id": "B-11",

@@ -4,9 +4,76 @@
   "zona": 4,
   "nombre": "Isla Taller",
   "subtitulo": "Prácticas para despedir el día",
-  "disponibilidad": "coming_soon",
+  "disponibilidad": "available",
   "posicion": { "x": 75, "y": 94 },
   "ordenSugerido": 5,
-  "puentes": [],
-  "fuentes": []
+  "llegada": [
+    "Estas son ideas pequeñas para probar durante una semana, no una receta obligatoria.",
+    "Si algo no te funciona, es normal: puedes observar qué te sirve en tu propio ritmo."
+  ],
+  "historia": [
+    {
+      "id": "ESC-TALLER-1",
+      "acto": "sintoma",
+      "texto": "En este taller eliges experimentos sencillos para probar cómo responde tu cuerpo. No hay puntaje ni obligación de cumplirlos todos.",
+      "alt": "Banco de trabajo de nubes con tres experimentos sencillos",
+      "isHealthClaim": false,
+      "ilustracion": "arte/escenas/taller-1.webp"
+    },
+    {
+      "id": "ESC-TALLER-2",
+      "acto": "causa",
+      "texto": "Mantener una hora de despertar parecida entre semana y fin de semana se propone como pauta para ayudar a regular tu reloj.",
+      "alt": "Despertador sol sonando a hora similar en dos escenas pequeñas",
+      "isHealthClaim": true,
+      "evidenceId": "EV-021a",
+      "ilustracion": "arte/escenas/taller-2.webp"
+    },
+    {
+      "id": "ESC-TALLER-3",
+      "acto": "causa",
+      "texto": "Buscar luz natural en la mañana y dejar las pantallas lejos de la cama son ideas prácticas para observar si descansas mejor.",
+      "alt": "Ventana de nube con rayo de sol matutino sobre una nube tranquila",
+      "isHealthClaim": true,
+      "evidenceId": "EV-021b",
+      "ilustracion": "arte/escenas/taller-3.webp"
+    },
+    {
+      "id": "ESC-TALLER-4",
+      "acto": "efecto",
+      "texto": "Dejar el celular al otro lado de la habitación reduce distracciones y facilita un cierre tranquilo antes de acostarte.",
+      "alt": "Cama de nubes con el celular descansando al otro extremo de la habitación",
+      "isHealthClaim": true,
+      "evidenceId": "EV-021b",
+      "ilustracion": "arte/escenas/taller-4.webp"
+    },
+    {
+      "id": "ESC-TALLER-5",
+      "acto": "cierre",
+      "texto": "Un rato de baja estimulación con respiración pausada puede ayudarte a bajar el ritmo. Si el cansancio sigue intenso, habla con un adulto o profesional.",
+      "alt": "Nubi respirando despacio con ondas suaves alrededor",
+      "isHealthClaim": true,
+      "evidenceId": "EV-021c",
+      "ilustracion": "arte/escenas/taller-5.webp"
+    }
+  ],
+  "pregunta": {
+    "id": "PR-5",
+    "enunciado": "Al probar un cambio en tu rutina de sueño, ¿cuál es la mejor forma de evaluarlo?",
+    "opciones": [
+      { "id": "OP-5A", "texto": "Probar una idea pequeña varios días y observar cómo te sientes sin regañarte", "correcta": true },
+      { "id": "OP-5B", "texto": "Cambiar todo de golpe y exigirte dormir exacto desde la primera noche", "correcta": false },
+      { "id": "OP-5C", "texto": "Tomar suplementos por tu cuenta sin consultar", "correcta": false }
+    ],
+    "explicacion": "Los cambios sostenibles nacen de experimentar poco a poco; cualquier medicamento o suplemento conviene hablarlo con un médico.",
+    "isHealthClaim": true,
+    "evidenceId": "EV-021c"
+  },
+  "reto": {
+    "chainId": "C-04",
+    "titulo": "Del fin de semana a la recompensa",
+    "huecos": 1
+  },
+  "puentes": ["B-05"],
+  "fuentes": ["EV-021a", "EV-021b", "EV-021c", "EV-001", "EV-023"]
 }
