@@ -6,6 +6,7 @@ import { PageLayout } from './layouts/PageLayout';
 import { NotFoundScreen } from './NotFoundScreen';
 
 const HomeScreen = lazy(() => import('@/features/home/HomeScreen'));
+const OnboardingScreen = lazy(() => import('@/features/onboarding/OnboardingScreen'));
 const PassportSheet = lazy(() => import('@/features/passport/PassportSheet'));
 const IslandSheet = lazy(() => import('@/features/island/IslandSheet'));
 const DiaryScreen = lazy(() => import('@/features/diary/DiaryScreen'));
@@ -31,6 +32,7 @@ export function AppRoutes(): React.JSX.Element {
       </Route>
 
       <Route element={<ImmersiveLayout />}>
+        <Route path="/bienvenida" element={<OnboardingScreen />} />
         <Route path="/coronacion" element={<CoronationScreen />} />
       </Route>
 

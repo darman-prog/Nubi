@@ -71,7 +71,11 @@ export default function HomeScreen(): React.JSX.Element {
           Un viaje para entender tu sueño: aprende, juega y gana tu sello en cada isla.
         </p>
 
-        <button type="button" className={styles.cta} onClick={() => go('/mapa')}>
+        <button
+          type="button"
+          className={styles.cta}
+          onClick={() => go(state.progress.onboardingDone ? '/mapa' : '/bienvenida')}
+        >
           Comenzar viaje
           <span aria-hidden="true">→</span>
         </button>
