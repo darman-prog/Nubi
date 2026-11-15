@@ -18,7 +18,6 @@ export default function CoronationScreen(): React.JSX.Element {
     <div className={styles.page}>
       <img className={styles.art} src={artUrl('arte/coronacion.webp')} alt="" />
       <img className={styles.nubi} src={artUrl('arte/nubi/nubi-celebrando.webp')} alt="" />
-      <p className={styles.kicker}>{complete ? 'Pasaporte completo' : 'Tu coronación te espera'}</p>
       <h1 className={styles.title}>Sabio del Sueño</h1>
       <p className={styles.text}>
         {complete

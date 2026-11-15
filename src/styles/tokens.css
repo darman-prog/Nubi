@@ -31,9 +31,14 @@
   /* Área táctil mínima accesible para controles móviles (WCAG 2.2 AA) */
   --min-touch-target: 44px;
 
-  /* Tiempos de microinteracción ágil (100-150ms ease-out) */
-  --transition-fast: 150ms ease-out;
-  --transition-normal: 250ms ease-out;
+  /* Tiempos de movimiento y transición canónicos (doc 04 §7) */
+  --dur-fast: 120ms;
+  --dur: 240ms;
+  --dur-slow: 400ms;
+  --dur-flight: 800ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: var(--dur-fast) var(--ease-out);
+  --transition-normal: var(--dur) var(--ease-out);
 }
 
 /* Escalado tipográfico accesible calibrado para 320px-640px sin desbordes (doc 04 §3.3) */

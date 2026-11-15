@@ -71,7 +71,6 @@ export default function DiaryScreen(): React.JSX.Element {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.kicker}>Diario de sueño</p>
         <h1 className={styles.title}>¿Cómo amaneciste?</h1>
         <p className={styles.subtitle}>Toma menos de 30 segundos. No hay respuestas malas.</p>
       </header>

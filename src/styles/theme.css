@@ -6,7 +6,7 @@
   --surface-2: #F7F5FF;
   --surface-warm: #FFFDF7;
   --surface-sunken: #F0EBFF;
-  --surface-glass: rgba(255, 255, 255, 0.88);
+  --surface-glass: rgba(255, 255, 255, 0.94);
   --page-gradient: linear-gradient(to bottom, #F7F5FF, #FFF9F2 55%, #F5F2FF);
   --map-gradient: linear-gradient(to bottom, #F2EDFE 0%, #FBF4ED 50%, #F5F2FF 100%);
   --bridge-gradient: linear-gradient(135deg, #F7F4FF 0%, #FFF9F0 100%);
@@ -78,7 +78,7 @@
   --surface-2: #24214F;
   --surface-warm: #262145;
   --surface-sunken: #2A255A;
-  --surface-glass: rgba(28, 26, 64, 0.88);
+  --surface-glass: rgba(28, 26, 64, 0.94);
   --page-gradient: linear-gradient(to bottom, #121029, #181538 55%, #121029);
   --map-gradient: linear-gradient(to bottom, #121029 0%, #19163A 50%, #121029 100%);
   --bridge-gradient: linear-gradient(135deg, #24214F 0%, #2B2448 100%);
