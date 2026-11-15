@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { cx } from '@/shared/lib/cx';
-import { Icon, type IconName } from './icons/Icon';
+import { Icon, type IconName } from '../icons/Icon';
 import styles from './Toast.module.css';
 
 export type ToastTone = 'success' | 'info' | 'error';

@@ -5,8 +5,9 @@ import type { UserStateV1 } from '@/core/user-state';
 import { useUserState, useUserStateStore } from '@/shared/state/UserStateContext';
 import { upsertDiaryEntry } from '@/domain/diary/diary-entry';
 import { formatMinutes, isPlausible, sleepMinutes } from '@/domain/diary/sleep-math';
-import { Toast } from '@/shared/ui/Toast';
+import { Toast } from '@/shared/ui/feedback/Toast';
 import { Icon } from '@/shared/ui/icons/Icon';
+import { ExperimentSummary } from './components/ExperimentSummary';
 import styles from './DiaryScreen.module.css';
 
 type DiaryEntry = UserStateV1['diary'][number];
@@ -150,6 +151,8 @@ export default function DiaryScreen(): React.JSX.Element {
           Saltar hoy
         </button>
       </form>
+
+      <ExperimentSummary experiments={state.experiments} diary={state.diary} />
 
       <section className={styles.recent} aria-label="Últimas noches">
         <h2>Últimas noches</h2>

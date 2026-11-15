@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { AtmosphericSky } from '@/shared/ui/atmosphere/AtmosphericSky';
 import { AppNav } from '../AppNav';
 import styles from './PageLayout.module.css';
 
@@ -6,6 +7,7 @@ import styles from './PageLayout.module.css';
 export function PageLayout(): React.JSX.Element {
   return (
     <div className={styles.layout}>
+      <AtmosphericSky variant="page" />
       <AppNav />
       <main id="main-content" className={styles.main}>
         <Outlet />

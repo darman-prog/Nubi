@@ -16,3 +16,7 @@ export const formatMinutes = (minutes: number): string => {
   const rest = minutes % 60;
   return `${hours} h ${rest} min`;
 };
+
+/** Diferencia absoluta en minutos entre días escolares y fin de semana. */
+export const weekdayWeekendDiffMinutes = (weekMinutes: number, weekendMinutes: number): number =>
+  Math.abs(weekendMinutes - weekMinutes);

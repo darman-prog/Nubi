@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { formatMinutes, isPlausible, sleepMinutes } from './sleep-math';
+import {
+  formatMinutes,
+  isPlausible,
+  sleepMinutes,
+  weekdayWeekendDiffMinutes,
+} from './sleep-math';
 
 describe('sleepMinutes', () => {
   it('calcula noches que cruzan medianoche', () => {
@@ -16,7 +21,8 @@ describe('sleepMinutes', () => {
     expect(isPlausible(sleepMinutes('08:00', '08:30') ?? 0)).toBe(false);
   });
 
-  it('formatea horas y minutos', () => {
+  it('formatea horas y minutos y calcula diferencia semanal', () => {
     expect(formatMinutes(390)).toBe('6 h 30 min');
+    expect(weekdayWeekendDiffMinutes(390, 540)).toBe(150);
   });
 });

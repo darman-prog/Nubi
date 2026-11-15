@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { cloudTransition } from '@/shared/ui/CloudTransition';
+import { cloudTransition } from '@/shared/ui/overlays/CloudTransition';
 
 interface TransitionNavigateOptions {
   /** Las hojas que se deslizan solas (pasaporte) no necesitan el telón de nubes. */

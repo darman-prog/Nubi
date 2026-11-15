@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ScreenPlaceholder } from '@/shared/ui/ScreenPlaceholder';
+import { ScreenPlaceholder } from '@/shared/ui/feedback/ScreenPlaceholder';
 import styles from './NotFoundScreen.module.css';
 
 export function NotFoundScreen(): React.JSX.Element {

@@ -67,6 +67,22 @@
     "isHealthClaim": true,
     "evidenceId": "EV-005"
   },
+  "mitosRealidad": [
+    {
+      "id": "MR-04",
+      "afirmacion": "Los colegios empiezan temprano porque es la mejor hora para la biología adolescente.",
+      "veredicto": "mito",
+      "explicacion": "La Academia Americana de Medicina del Sueño recomienda que secundaria inicie a las 8:30 a. m. o más tarde para respetar el reloj biológico juvenil.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-005"
+    }
+  ],
+  "simuladorSemana": {
+    "titulo": "Arma tu semana: compara colegio y fin de semana",
+    "bandaMinHoras": 8,
+    "bandaMaxHoras": 10,
+    "evidenceId": "EV-001"
+  },
   "reto": {
     "chainId": "C-02",
     "titulo": "Colegio temprano y ánimo",

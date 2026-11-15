@@ -3,7 +3,7 @@
   min-height: calc(100dvh - var(--bottom-nav-height));
   margin: 0 auto;
   padding: var(--space-4) var(--space-4) calc(var(--bottom-nav-height) + var(--space-6));
-  background: var(--page-gradient);
+  background: transparent;
 }
 
 .header {
@@ -23,20 +23,20 @@
   font-size: var(--text-xs);
 }
 
-/* Hero Card cálido (08-ayuda.html) */
+/* Hero Card centrado con aire amplio en los cuatro lados */
 .heroCard {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: var(--space-5) var(--space-4);
-  margin-bottom: var(--space-4);
-  border: 1.5px solid rgba(80, 67, 201, 0.1);
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-6);
+  margin-bottom: var(--space-5);
+  border: 1px solid var(--primary-border-subtle);
   border-radius: 24px;
   background: var(--surface);
-  box-shadow: 0 10px 25px -5px rgba(255, 193, 91, 0.2);
-  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .heroAura {
@@ -47,9 +47,8 @@
   height: 56px;
   border-radius: 50%;
   background: var(--surface-sunken);
-  font-size: var(--text-2xl);
-  margin-bottom: var(--space-2);
-  box-shadow: 0 4px 12px rgba(80, 67, 201, 0.12);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .heroTitle {
@@ -61,23 +60,29 @@
 }
 
 .heroText {
-  margin-top: var(--space-2);
   color: var(--text-muted);
-  font-size: var(--text-xs);
-  line-height: 1.5;
-  max-width: 320px;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  max-width: 38ch;
 }
 
 .heroPill {
   display: inline-flex;
   align-items: center;
-  margin-top: var(--space-3);
-  padding: 3px 12px;
+  margin-top: var(--space-1);
+  padding: 5px 14px;
   border-radius: 999px;
   background: var(--surface-sunken);
   color: var(--primary);
   font-size: var(--text-2xs);
   font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 420px) {
+  .heroCard {
+    padding: var(--space-6) var(--space-5);
+  }
 }
 
 .card {

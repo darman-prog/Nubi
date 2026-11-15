@@ -20,7 +20,8 @@
   position: relative;
   isolation: isolate;
   display: block;
-  margin-block: 16px;
+  /* 28px superior compensa --t (26px) + animación (-2px) sin invadir encabezados ni tarjetas previas */
+  margin: 28px 0 16px;
   color: var(--text);
   text-decoration: none;
   transition: transform 0.2s ease;

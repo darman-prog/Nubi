@@ -69,6 +69,67 @@
     "isHealthClaim": true,
     "evidenceId": "EV-024"
   },
+  "mitosRealidad": [
+    {
+      "id": "MR-02",
+      "afirmacion": "Una noche corta borra todo lo que estudiaste.",
+      "veredicto": "depende",
+      "explicacion": "En un estudio con 22 adolescentes, una noche de 4 h no alteró el recuerdo de palabras; tras varias noches cortas, otro estudio vio peor retención de material de clase.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-024"
+    }
+  ],
+  "detectiveEstudios": {
+    "titulo": "Detective de estudios: ¿por qué no coinciden?",
+    "estudios": [
+      {
+        "id": "EST-A",
+        "nombre": "Estudio A (Kopasz et al., 2010)",
+        "participantes": "22 adolescentes (14-16 años)",
+        "duracion": "1 noche con 4 horas en cama",
+        "queMidieron": "Lista de palabras en laboratorio",
+        "huboEfecto": false,
+        "evidenceId": "EV-011"
+      },
+      {
+        "id": "EST-B",
+        "nombre": "Estudio B (Voderholzer et al., 2011)",
+        "participantes": "88 adolescentes (14-16 años)",
+        "duracion": "4 noches entre 5 y 9 horas",
+        "queMidieron": "Tareas de memoria declarativa y procedimental",
+        "huboEfecto": false,
+        "evidenceId": "EV-012"
+      },
+      {
+        "id": "EST-C",
+        "nombre": "Estudio C (Cousins et al., 2019)",
+        "participantes": "59 adolescentes (15-18 años)",
+        "duracion": "5 noches con 5 h frente a 9 h",
+        "queMidieron": "Contenido factual tipo clase evaluado días después",
+        "huboEfecto": true,
+        "evidenceId": "EV-013"
+      }
+    ],
+    "variablesDiferencia": [
+      {
+        "id": "VAR-COLOR",
+        "texto": "El color de las paredes del laboratorio",
+        "esClave": false
+      },
+      {
+        "id": "VAR-DISENO",
+        "texto": "Cuántas noches restringieron el sueño, qué material midieron y el momento de evaluación",
+        "esClave": true
+      },
+      {
+        "id": "VAR-MES",
+        "texto": "El mes del año en que se recogieron los datos",
+        "esClave": false
+      }
+    ],
+    "hipotesisPlausible": "Es una hipótesis plausible (no probada en un solo estudio): la memoria parece más sensible tras varias noches cortas y con material escolar complejo. Eso no significa que trasnochar salga gratis: el ánimo se resiente antes.",
+    "evidenceId": "EV-024"
+  },
   "reto": {
     "chainId": "C-03",
     "titulo": "La cadena del estudio (hipótesis integrada)",

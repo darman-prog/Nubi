@@ -36,6 +36,78 @@ export const RetoSchema = z.object({
 });
 export type Reto = z.infer<typeof RetoSchema>;
 
+export const MitoItemSchema = z.object({
+  id: z.string().regex(/^MR-\d{2}$/),
+  afirmacion: z.string().min(1),
+  veredicto: z.enum(['mito', 'realidad', 'depende']),
+  explicacion: z.string().min(1),
+  isHealthClaim: z.boolean(),
+  evidenceId: z.string().optional(),
+});
+export type MitoItem = z.infer<typeof MitoItemSchema>;
+
+export const SimuladorSemanaSchema = z.object({
+  titulo: z.string().min(1),
+  bandaMinHoras: z.number().min(4).max(12),
+  bandaMaxHoras: z.number().min(4).max(12),
+  evidenceId: z.string(),
+});
+export type SimuladorSemana = z.infer<typeof SimuladorSemanaSchema>;
+
+export const DetectiveEstudiosSchema = z.object({
+  titulo: z.string().min(1),
+  estudios: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        nombre: z.string().min(1),
+        participantes: z.string().min(1),
+        duracion: z.string().min(1),
+        queMidieron: z.string().min(1),
+        huboEfecto: z.boolean(),
+        evidenceId: z.string(),
+      }),
+    )
+    .min(3)
+    .max(4),
+  variablesDiferencia: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        texto: z.string().min(1),
+        esClave: z.boolean(),
+      }),
+    )
+    .min(2)
+    .max(4),
+  hipotesisPlausible: z.string().min(1),
+  evidenceId: z.string(),
+});
+export type DetectiveEstudios = z.infer<typeof DetectiveEstudiosSchema>;
+
+export const ExperimentoTallerSchema = z.object({
+  id: z.string().min(1),
+  titulo: z.string().min(1),
+  detalle: z.string().min(1),
+  evidenceId: z.string(),
+});
+
+export const ExperimentosSchema = z.object({
+  maxSeleccion: z.number().int().min(1).max(3),
+  opciones: z.array(ExperimentoTallerSchema).min(3).max(6),
+});
+export type Experimentos = z.infer<typeof ExperimentosSchema>;
+
+export const RespiracionSchema = z.object({
+  titulo: z.string().min(1),
+  duracionesMin: z.array(z.number().int().min(1).max(5)).min(1).max(3),
+  inhalaSeg: z.number().int().min(2).max(8),
+  sostieneSeg: z.number().int().min(0).max(6),
+  exhalaSeg: z.number().int().min(2).max(10),
+  evidenceId: z.string(),
+});
+export type Respiracion = z.infer<typeof RespiracionSchema>;
+
 export const IslaSchema = z.object({
   id: z.string().regex(/^ISL-[A-Z]+$/),
   slug: z.string().regex(/^[a-z-]+$/),
@@ -48,6 +120,12 @@ export const IslaSchema = z.object({
   llegada: z.array(z.string().min(1)).min(2).max(3).optional(),
   historia: z.array(EscenaSchema).min(3).max(6).optional(),
   pregunta: PreguntaSchema.optional(),
+  miniQuiz: z.array(PreguntaSchema).min(2).max(5).optional(),
+  mitosRealidad: z.array(MitoItemSchema).min(1).max(5).optional(),
+  simuladorSemana: SimuladorSemanaSchema.optional(),
+  detectiveEstudios: DetectiveEstudiosSchema.optional(),
+  experimentos: ExperimentosSchema.optional(),
+  respiracion: RespiracionSchema.optional(),
   reto: RetoSchema.optional(),
   puentes: z.array(z.string().regex(/^B-\d{2}$/)).default([]),
   fuentes: z.array(z.string()).default([]),

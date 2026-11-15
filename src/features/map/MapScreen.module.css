@@ -2,7 +2,6 @@
   position: relative;
   min-height: 100dvh;
   padding: 0 var(--space-4) calc(var(--bottom-nav-height) + var(--space-6));
-  background: var(--map-gradient);
   overflow-x: hidden;
 }
 
@@ -114,6 +113,8 @@
 }
 
 .intro {
+  position: relative;
+  z-index: 1;
   padding: 18px 0 10px;
   text-align: center;
 }
@@ -228,7 +229,9 @@
   white-space: nowrap;
 }
 
+/* Margen inferior extra para que los lóbulos superiores de CloudCard (--t: 26px + 2px) no tapen la nota */
 .zoneNote {
+  margin-bottom: 10px;
   padding: 2px 4px 0;
   color: var(--text-muted);
   font-size: var(--text-xs);

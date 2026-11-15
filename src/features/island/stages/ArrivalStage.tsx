@@ -1,6 +1,6 @@
 import { artUrl } from '@/core/content/assets';
 import type { Isla } from '../../../../content/schema';
-import { Button } from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/controls/Button';
 import styles from '../IslandSheet.module.css';
 
 interface ArrivalStageProps {

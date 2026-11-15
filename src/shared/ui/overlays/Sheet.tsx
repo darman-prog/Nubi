@@ -1,7 +1,7 @@
 import { useCallback, useId, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { useFocusTrap } from '@/shared/hooks/useFocusTrap';
-import { Icon } from './icons/Icon';
+import { Icon } from '../icons/Icon';
 import styles from './Sheet.module.css';
 
 interface SheetProps {
