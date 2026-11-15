@@ -11,13 +11,19 @@ import styles from './Mechanics.module.css';
 interface RoutineBuilderProps {
   islandId: string;
   config: Experimentos;
+  continueLabel?: string;
   onDone?: () => void;
 }
 
 const EXPERIMENT_ID = 'EXP-TALLER';
 
 /** MEC-06 · Selección de hasta 3 hábitos de prueba por 7 días, conectados al Diario. */
-export function RoutineBuilder({ islandId, config, onDone }: RoutineBuilderProps): React.JSX.Element {
+export function RoutineBuilder({
+  islandId,
+  config,
+  continueLabel = 'Siguiente actividad →',
+  onDone,
+}: RoutineBuilderProps): React.JSX.Element {
   const state = useUserState();
   const store = useUserStateStore();
   const saved = state.experiments.find((item) => item.id === EXPERIMENT_ID);
@@ -93,7 +99,7 @@ export function RoutineBuilder({ islandId, config, onDone }: RoutineBuilderProps
 
       {selected.length > 0 && onDone ? (
         <Button className={islandStyles.cta} onClick={onDone}>
-          Siguiente actividad →
+          {continueLabel}
         </Button>
       ) : null}
     </div>

@@ -9,6 +9,7 @@ import styles from './Mechanics.module.css';
 interface BreathingExerciseProps {
   islandId: string;
   config: Respiracion;
+  continueLabel?: string;
   onDone?: () => void;
 }
 
@@ -35,6 +36,7 @@ const playSoftTone = (): void => {
 export function BreathingExercise({
   islandId,
   config,
+  continueLabel = 'Siguiente actividad →',
   onDone,
 }: BreathingExerciseProps): React.JSX.Element {
   const [minutes, setMinutes] = useState<number>(config.duracionesMin[0] ?? 1);
@@ -63,12 +65,12 @@ export function BreathingExercise({
   const phase = !running
     ? finished
       ? 'Práctica completa'
-      : 'Listo cuando tú quieras'
+      : 'Cuando quieras'
     : pos < config.inhalaSeg
-      ? `Inhala suave (${config.inhalaSeg} s)`
+      ? `Inhala suavemente (${config.inhalaSeg} s)`
       : pos < config.inhalaSeg + config.sostieneSeg
-        ? `Sostiene (${config.sostieneSeg} s)`
-        : `Exhala lento (${config.exhalaSeg} s)`;
+        ? `Sostén (${config.sostieneSeg} s)`
+        : `Exhala lentamente (${config.exhalaSeg} s)`;
 
   const orbClass = !running
     ? ''
@@ -167,7 +169,7 @@ export function BreathingExercise({
 
       {onDone ? (
         <Button className={islandStyles.cta} onClick={onDone}>
-          Siguiente actividad →
+          {continueLabel}
         </Button>
       ) : null}
     </div>

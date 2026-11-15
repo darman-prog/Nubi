@@ -76,4 +76,16 @@ describe('HelpScreen', () => {
     fireEvent(window, new Event('offline'));
     expect(screen.getByText(/sin conexión/i)).toBeInTheDocument();
   });
+
+  it('muestra el copy actualizado de orientación, fuentes revisables y sin etiquetas de nivel', () => {
+    const store = new UserStateStore(new StorageService(null, 0));
+    renderHelp(store);
+
+    expect(screen.getByText(/médico general/i)).toBeInTheDocument();
+    expect(screen.getByText(/medicamentos o suplementos/i)).toBeInTheDocument();
+    expect(screen.getByText(/fuente revisable/i)).toBeInTheDocument();
+    expect(screen.getByText(/sin cuentas ni análisis de uso/i)).toBeInTheDocument();
+    expect(screen.queryByText(/nivel e[123]/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/ficha revisable/i)).not.toBeInTheDocument();
+  });
 });

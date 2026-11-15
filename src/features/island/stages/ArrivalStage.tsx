@@ -10,7 +10,7 @@ interface ArrivalStageProps {
 
 export function ArrivalStage({ island, onNext }: ArrivalStageProps): React.JSX.Element {
   // Frases de bienvenida de Nubi al llegar a la isla.
-  const phrases = island.llegada ?? ['Bienvenido a esta isla.'];
+  const phrases = island.llegada ?? ['Te damos la bienvenida a esta isla.'];
 
   return (
     <div className={styles.stage}>

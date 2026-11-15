@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { artUrl } from '@/core/content/assets';
-import type { Isla } from '../../../../content/schema';
+import type { Escena, Isla } from '../../../../content/schema';
 import { Button } from '@/shared/ui/controls/Button';
 import { SourceBlock } from '../components/SourceBlock';
 import styles from '../IslandSheet.module.css';
+
+// Mapa de etiquetas legibles para no exponer el identificador técnico del acto en la interfaz.
+const ACT_LABEL: Record<Escena['acto'], string> = {
+  sintoma: 'Síntoma',
+  causa: 'Causa',
+  efecto: 'Efecto',
+  cierre: 'Cierre',
+};
 
 interface StoryStageProps {
   island: Isla;
@@ -43,8 +51,12 @@ export function StoryStage({ island, onFinish }: StoryStageProps): React.JSX.Ele
           alt={scene.alt}
         />
         <div className={styles.sceneBody}>
-          <p className={styles.sceneAct}>{scene.acto}</p>
+          <p className={styles.sceneAct}>{ACT_LABEL[scene.acto]}</p>
           <p className={styles.sceneText}>{scene.texto}</p>
+          {/* Las escenas marcadas como analogía o modelo conceptual muestran su carácter simplificado. */}
+          {scene.isSimplified ? (
+            <span className={styles.calmBadge}>Explicación simplificada</span>
+          ) : null}
           <SourceBlock islandId={island.id} evidenceId={scene.evidenceId} />
         </div>
       </div>

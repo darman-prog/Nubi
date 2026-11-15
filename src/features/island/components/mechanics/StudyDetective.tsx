@@ -9,11 +9,17 @@ import styles from './Mechanics.module.css';
 interface StudyDetectiveProps {
   islandId: string;
   config: DetectiveEstudios;
+  continueLabel?: string;
   onDone?: () => void;
 }
 
 /** MEC-05 · Detective de estudios para comprender evidencia mixta sin absolutos. */
-export function StudyDetective({ islandId, config, onDone }: StudyDetectiveProps): React.JSX.Element {
+export function StudyDetective({
+  islandId,
+  config,
+  continueLabel = 'Siguiente actividad →',
+  onDone,
+}: StudyDetectiveProps): React.JSX.Element {
   const [guesses, setGuesses] = useState<Record<string, boolean>>({});
   const [selectedVar, setSelectedVar] = useState<string | null>(null);
 
@@ -26,7 +32,7 @@ export function StudyDetective({ islandId, config, onDone }: StudyDetectiveProps
       <div className={styles.promptCard}>
         <h3 className={styles.promptTitle}>{config.titulo}</h3>
         <p className={styles.helper}>
-          1. Mira los tres estudios reales y clasifica en cuál se vio efecto en memoria.
+          1. Mira los tres estudios reales e indica en cuál se vio efecto en memoria.
         </p>
       </div>
 
@@ -55,12 +61,21 @@ export function StudyDetective({ islandId, config, onDone }: StudyDetectiveProps
                 </button>
               ))}
             </div>
+            {/* Tarjeta de retroalimentación visual al clasificar cada estudio */}
             {picked !== undefined ? (
-              <p className={styles.helper}>
-                {matches
-                  ? 'Correcto según este estudio.'
-                  : `En este estudio ${study.huboEfecto ? 'sí se vio diferencia' : 'no hubo diferencia clara'}.`}
-              </p>
+              <div
+                className={`${islandStyles.feedbackCard} ${matches ? islandStyles.feedbackCorrect : islandStyles.feedbackTryAgain}`}
+                role="status"
+              >
+                <span className={islandStyles.feedbackIcon} aria-hidden="true">
+                  <Icon name={matches ? 'check' : 'sprout'} size={16} />
+                </span>
+                <p className={islandStyles.feedbackText}>
+                  {matches
+                    ? `¡Buen ojo! En este estudio ${study.huboEfecto ? 'sí se vio diferencia' : 'no hubo diferencia clara'}.`
+                    : `Mirémoslo con calma: en este estudio ${study.huboEfecto ? 'sí se vio diferencia' : 'no hubo diferencia clara'}.`}
+                </p>
+              </div>
             ) : null}
           </div>
         );
@@ -104,7 +119,7 @@ export function StudyDetective({ islandId, config, onDone }: StudyDetectiveProps
 
       {keyFound && onDone ? (
         <Button className={islandStyles.cta} onClick={onDone}>
-          Siguiente actividad →
+          {continueLabel}
         </Button>
       ) : null}
     </div>

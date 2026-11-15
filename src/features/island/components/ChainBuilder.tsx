@@ -1,20 +1,16 @@
 import { useMemo, useState } from 'react';
 import { content } from '@/core/content/content-repository';
-import {
-  describeWeakestLevel,
-  findMatchingPath,
-  getChainHint,
-} from '@/domain/graph/chain-hints';
+import { findMatchingPath, getChainHint } from '@/domain/graph/chain-hints';
 import { findPaths } from '@/domain/graph/find-paths';
 import { validateChain } from '@/domain/graph/validate-chain';
 import { Button } from '@/shared/ui/controls/Button';
-import { EvidenceBadge } from '@/shared/ui/feedback/EvidenceBadge';
 import { Icon } from '@/shared/ui/icons/Icon';
 import type { Chain } from '../../../../content/schema';
 import styles from '../IslandSheet.module.css';
 
 interface ChainBuilderProps {
   chain: Chain;
+  continueLabel?: string;
   onSolved: () => void;
 }
 
@@ -32,7 +28,11 @@ const candidateRank = (nodeId: string, chainId: string, step: number): number =>
 };
 
 /** Armador de cadenas causales con validación por grafo, múltiples caminos y 3 niveles de pistas. */
-export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.Element {
+export function ChainBuilder({
+  chain,
+  continueLabel,
+  onSolved,
+}: ChainBuilderProps): React.JSX.Element {
   const [path, setPath] = useState<string[]>([chain.start]);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [hintLevel, setHintLevel] = useState<0 | 1 | 2 | 3>(0);
@@ -112,7 +112,6 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
               {index > 0 ? (
                 <span className={styles.chainArrow}>
                   <span aria-hidden="true">↓</span>
-                  {link?.level ? <EvidenceBadge level={link.level} compact /> : null}
                   {edge ? <span className={styles.edgeReason}>{edge.explanation}</span> : null}
                 </span>
               ) : null}
@@ -167,10 +166,14 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
         <div className={styles.chainSolved} role="status">
           <p className={styles.chainSolvedTitle}>¡Cadena completa!</p>
           <p className={styles.chainHelp}>
-            Eslabón más débil: {describeWeakestLevel(validation.weakest)}
+            Conectaste los pasos de la cadena con fuentes científicas revisables.
           </p>
           <Button className={styles.cta} onClick={onSolved}>
-            Reclamar sello <Icon name="medal" size={18} />
+            {continueLabel ?? (
+              <>
+                Reclamar sello <Icon name="medal" size={18} />
+              </>
+            )}
           </Button>
         </div>
       ) : null}

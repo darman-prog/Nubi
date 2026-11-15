@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom';
-import type { EvidenceLevel, Isla } from '../../../../content/schema';
-import { content } from '@/core/content/content-repository';
-import { weakestLevel } from '@/domain/evidence/levels';
+import type { Isla } from '../../../../content/schema';
 import { cx } from '@/shared/lib/cx';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
-import { Icon, type IconName } from '@/shared/ui/icons/Icon';
 import styles from './CloudCard.module.css';
 
 type CardState = 'new' | 'current' | 'completed' | 'soon' | 'fog';
@@ -19,27 +16,6 @@ interface CloudCardProps {
   compact?: boolean;
 }
 
-interface EvidenceBadgeInfo {
-  label: string;
-  icon: IconName;
-  styleKey: 'E3' | 'E2' | 'E1' | 'nido';
-}
-
-// Resuelve la etiqueta científica o pedagógica del mockup 02
-function getEvidenceBadge(island: Isla): EvidenceBadgeInfo | null {
-  if (island.slug === 'nido') {
-    return { label: 'Tu Nido seguro', icon: 'leaf', styleKey: 'nido' };
-  }
-  const levels = island.fuentes
-    .map((id) => content.evidenceById(id)?.level)
-    .filter((lvl): lvl is EvidenceLevel => Boolean(lvl));
-  const level = weakestLevel(levels);
-  if (!level) return null;
-  if (level === 'E3') return { label: 'Bien establecido', icon: 'check', styleKey: 'E3' };
-  if (level === 'E2') return { label: 'Probable', icon: 'flask', styleKey: 'E2' };
-  return { label: 'Emergente', icon: 'bulb', styleKey: 'E1' };
-}
-
 export function CloudCard({
   island,
   state,
@@ -50,7 +26,6 @@ export function CloudCard({
   compact = false,
 }: CloudCardProps): React.JSX.Element {
   const go = useTransitionNavigate();
-  const evidence = !compact ? getEvidenceBadge(island) : null;
 
   return (
     <Link
@@ -87,12 +62,6 @@ export function CloudCard({
           <span className={styles.subtitle}>
             {compact ? 'En construcción' : island.subtitulo}
           </span>
-          {evidence ? (
-            <span className={cx(styles.evidenceBadge, styles[evidence.styleKey])}>
-              <Icon name={evidence.icon} size={13} />
-              <span>{evidence.label}</span>
-            </span>
-          ) : null}
         </span>
 
         {/* Indicador de sello conseguido o avance interactivo */}

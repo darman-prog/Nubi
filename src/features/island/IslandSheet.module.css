@@ -443,6 +443,15 @@
   transition: all 0.2s ease;
 }
 
+.tabBtnDone {
+  color: var(--ev-3);
+}
+
+.tabCheck {
+  margin-right: 4px;
+  font-weight: 800;
+}
+
 .tabBtnActive {
   background: var(--primary);
   color: var(--primary-text);

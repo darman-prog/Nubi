@@ -9,6 +9,7 @@ import styles from './Mechanics.module.css';
 interface MythOrFactProps {
   islandId: string;
   items: MitoItem[];
+  continueLabel?: string;
   onDone?: () => void;
 }
 
@@ -19,7 +20,12 @@ const LABELS: Array<{ value: MitoItem['veredicto']; label: string; icon: IconNam
 ];
 
 /** MEC-02 · Mito o realidad sin puntaje ni reloj; admite evidencia mixta ("Depende"). */
-export function MythOrFact({ islandId, items, onDone }: MythOrFactProps): React.JSX.Element {
+export function MythOrFact({
+  islandId,
+  items,
+  continueLabel = 'Siguiente actividad →',
+  onDone,
+}: MythOrFactProps): React.JSX.Element {
   const [index, setIndex] = useState(0);
   const [choice, setChoice] = useState<MitoItem['veredicto'] | null>(null);
   const current = items[index] ?? items[0]!;
@@ -100,7 +106,7 @@ export function MythOrFact({ islandId, items, onDone }: MythOrFactProps): React.
 
       {choice && (onDone || !isLast) ? (
         <Button className={islandStyles.cta} onClick={advance}>
-          {isLast ? 'Siguiente actividad →' : 'Siguiente afirmación →'}
+          {isLast ? continueLabel : 'Siguiente afirmación →'}
         </Button>
       ) : null}
     </div>

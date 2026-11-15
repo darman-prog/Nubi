@@ -59,9 +59,9 @@ export default function IslandSheet(): React.JSX.Element {
     goStage(island.reto ? 'retos' : 'sello');
   };
 
-  const finishChallenges = (): void => {
+  const finishChallenges = (chainSolved = true): void => {
     markStage(store, island.id, 'retos');
-    if (island.reto) markChainSolved(store, island.reto.chainId);
+    if (island.reto && chainSolved) markChainSolved(store, island.reto.chainId);
     goStage('sello');
   };
 
@@ -97,7 +97,7 @@ export default function IslandSheet(): React.JSX.Element {
         <StoryStage island={island} onFinish={finishStory} />
       ) : null}
       {stage === 'retos' ? (
-        <ChallengesStage island={island} onFinish={finishChallenges} />
+        <ChallengesStage key={island.id} island={island} onFinish={finishChallenges} />
       ) : null}
       {stage === 'sello' ? (
         <SealStage

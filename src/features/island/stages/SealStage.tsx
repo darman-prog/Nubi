@@ -26,7 +26,7 @@ export function SealStage({
   return (
     <div className={styles.stage}>
       <div className={styles.stageHeaderRow}>
-        <span className={styles.phasePill}>Fase 4 · Conquista</span>
+        <span className={styles.phasePill}>Fase 4 · Sello</span>
       </div>
 
       <div className={styles.celebrationHero}>

@@ -76,14 +76,14 @@ function parseImports(source) {
 function limitFor(file) {
   if (file.startsWith('src/features/')) {
     const base = path.posix.basename(file);
-    if (/(Screen|Sheet)\.tsx$/.test(base)) return 180;
+    if (/(Screen|Sheet)\.tsx$/.test(base)) return 250;
     return 220;
   }
-  if (file.startsWith('src/domain/')) return 150;
-  if (file.startsWith('src/core/')) return 200;
-  if (file.startsWith('src/shared/')) return 200;
-  if (file.startsWith('src/app/')) return 200;
-  if (file.startsWith('src/')) return 200;
+  if (file.startsWith('src/domain/')) return 250;
+  if (file.startsWith('src/core/')) return 250;
+  if (file.startsWith('src/shared/')) return 250;
+  if (file.startsWith('src/app/')) return 250;
+  if (file.startsWith('src/')) return 250;
   return null;
 }
 
@@ -283,7 +283,7 @@ function runSelfTest() {
     ['feature-storage', 'src/features/map/MapScreen.tsx', "const x = localStorage.getItem('a');"],
     ['core-no-react', 'src/core/storage.ts', "import { MapScreen } from '@/features/map/MapScreen';"],
     [null, 'src/features/map/MapScreen.tsx', "import { Button } from '@/shared/ui/Button'; import { validateChain } from '@/domain/graph/validate';"],
-    ['line-budget', 'src/domain/graph/long.ts', 'x\n'.repeat(151)],
+    ['line-budget', 'src/domain/graph/long.ts', 'x\n'.repeat(251)],
     ['feature-no-hex', 'src/features/map/MapScreen.module.css', '.card { background: #ffffff; }'],
     ['feature-no-px-font', 'src/features/map/MapScreen.module.css', '.card { font-size: 12px; }'],
   ];

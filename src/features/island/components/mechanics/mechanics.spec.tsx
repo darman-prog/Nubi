@@ -54,6 +54,7 @@ describe('Mecánicas MVP (MEC-02..MEC-07)', () => {
     const noEffectButtons = screen.getAllByRole('button', { name: 'No se vio efecto' });
     const effectButtons = screen.getAllByRole('button', { name: 'Se vio efecto' });
     fireEvent.click(noEffectButtons[0]!);
+    expect(screen.getByRole('status')).toHaveTextContent(/¡buen ojo!/i);
     fireEvent.click(noEffectButtons[1]!);
     fireEvent.click(effectButtons[2]!);
 
@@ -80,8 +81,8 @@ describe('Mecánicas MVP (MEC-02..MEC-07)', () => {
     wrap(<BreathingExercise islandId={taller.id} config={taller.respiracion!} />);
 
     fireEvent.click(screen.getByRole('button', { name: /iniciar respiración/i }));
-    expect(screen.getByText(/inhala suave/i)).toBeInTheDocument();
+    expect(screen.getByText(/inhala suavemente/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /detener/i }));
-    expect(screen.getByText(/listo cuando tú quieras/i)).toBeInTheDocument();
+    expect(screen.getByText(/cuando quieras/i)).toBeInTheDocument();
   });
 });

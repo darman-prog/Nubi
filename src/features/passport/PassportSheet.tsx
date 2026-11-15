@@ -104,7 +104,7 @@ export default function PassportSheet(): React.JSX.Element {
             <p className={styles.progressTitle}>Camino a Sabio del Sueño</p>
             <p className={styles.progressSub}>
               {earned.length === 0
-                ? 'Aún no ganas sellos · Explora tu primera isla'
+                ? 'Aún no tienes sellos · Explora tu primera isla'
                 : `${earned.length} de ${slots.length} islas completadas`}
             </p>
           </div>

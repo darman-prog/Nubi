@@ -11,9 +11,9 @@ const SIGNS: ReadonlyArray<{
   subtitle: string;
   bgClass: string;
 }> = [
-  { icon: 'sun', title: 'Mucho sueño durante el día', subtitle: 'Cansancio constante en clases o desconexión habitual a la tarde.', bgClass: styles.signSun },
-  { icon: 'wind', title: 'Ronquido fuerte o pausas al respirar', subtitle: 'Despertarte con boca muy seca o sensación de ahogo suave en la noche.', bgClass: styles.signAir },
-  { icon: 'shield', title: 'Pesadillas frecuentes', subtitle: 'Sueños que te intranquilizan a menudo o temor al momento de ir a la cama.', bgClass: styles.signShield },
+  { icon: 'sun', title: 'Mucho sueño durante el día', subtitle: 'Cansancio constante en clases o desconexión habitual en la tarde.', bgClass: styles.signSun },
+  { icon: 'wind', title: 'Ronquido fuerte o pausas al respirar', subtitle: 'Despertarte con boca muy seca o sensación de falta de aire en la noche.', bgClass: styles.signAir },
+  { icon: 'shield', title: 'Pesadillas frecuentes', subtitle: 'Sueños que te inquietan a menudo o temor al momento de ir a la cama.', bgClass: styles.signShield },
   { icon: 'heart', title: 'Sentirte triste, irritable o abrumado', subtitle: 'Tus emociones se sienten demasiado pesadas durante muchos días continuos.', bgClass: styles.signHeart },
 ];
 
@@ -38,7 +38,7 @@ export default function HelpScreen(): React.JSX.Element {
 
       <section className={styles.card} aria-labelledby="senales-title">
         <h2 id="senales-title">Señales para hablar con un adulto</h2>
-        <p className={styles.small}>Si notas estas sensaciones durante varias semanas continuas:</p>
+        <p className={styles.small}>Si notas estas sensaciones durante varias semanas seguidas:</p>
 
         <div className={styles.bentoList}>
           {SIGNS.map((sign) => (
@@ -64,7 +64,7 @@ export default function HelpScreen(): React.JSX.Element {
             <span className={styles.stepNumber}>1</span>
             <div>
               <p className={styles.stepTitle}>Hablar con un adulto de confianza</p>
-              <p className={styles.stepSub}>Puede ser tu mamá, papá, docente u orientación escolar de tu colegio.</p>
+              <p className={styles.stepSub}>Puede ser tu mamá, tu papá, un docente o alguien de orientación escolar de tu colegio.</p>
             </div>
           </div>
 
@@ -72,10 +72,13 @@ export default function HelpScreen(): React.JSX.Element {
             <span className={styles.stepNumber}>2</span>
             <div>
               <p className={styles.stepTitle}>Consultar con un profesional de la salud</p>
-              <p className={styles.stepSub}>Pediatra, médico de cabecera o especialista en medicina del sueño.</p>
+              <p className={styles.stepSub}>Pediatra, médico general o especialista en medicina del sueño.</p>
             </div>
           </div>
         </div>
+        <p className={styles.small}>
+          Si te preguntas por medicamentos o suplementos, habla con un profesional de la salud.
+        </p>
       </section>
 
       <SettingsSection />
@@ -84,7 +87,7 @@ export default function HelpScreen(): React.JSX.Element {
 
       <section className={styles.card} aria-labelledby="fuentes-title">
         <h2 id="fuentes-title">Fuentes y evidencia</h2>
-        <p className={styles.small}>Cada afirmación de salud se apoya en una ficha revisable.</p>
+        <p className={styles.small}>Cada afirmación de salud se apoya en una fuente revisable.</p>
         <div className={styles.sources}>
           {content.evidence
             .filter((item) => !item.restricted)
@@ -92,7 +95,7 @@ export default function HelpScreen(): React.JSX.Element {
               <details key={item.id} className={styles.source}>
                 <summary>{item.id} · {item.claimTeen}</summary>
                 <p>{item.source.citation}</p>
-                <p>{item.population} · {item.design} · Nivel {item.level}</p>
+                <p>{item.population} · {item.design}</p>
                 <p>{item.limitations}</p>
               </details>
             ))}
@@ -102,7 +105,7 @@ export default function HelpScreen(): React.JSX.Element {
       <section className={styles.card} aria-labelledby="acerca-title">
         <h2 id="acerca-title">Acerca de Nubi</h2>
         <p className={styles.small}>
-          Nubi y el Archipiélago del Sueño (v0.1) es una guía educativa interactiva sin cuentas ni analíticas.
+          Nubi y el Archipiélago del Sueño (v0.1) es una guía educativa interactiva sin cuentas ni análisis de uso.
           Todo lo que respondes se queda en este dispositivo.
         </p>
       </section>
