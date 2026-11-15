@@ -12,6 +12,9 @@ describe('ChainBuilder', () => {
     const onSolved = vi.fn();
     render(<ChainBuilder chain={chain} onSolved={onSolved} />);
 
+    // Muestra el hueco pendiente del puente antes de completar la cadena.
+    expect(screen.getByText(/paso 2: elige la pieza que conecta/i)).toBeInTheDocument();
+
     // Distractor inicial muestra mensaje amable sin romper el progreso.
     const distractorLabel = content.nodeById('N-COLEGIO-TEMPRANO')?.label ?? 'N-COLEGIO-TEMPRANO';
     fireEvent.click(screen.getByRole('button', { name: new RegExp(distractorLabel, 'i') }));

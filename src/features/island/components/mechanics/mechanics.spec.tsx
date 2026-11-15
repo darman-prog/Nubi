@@ -9,7 +9,6 @@ import { MiniQuiz } from './MiniQuiz';
 import { MythOrFact } from './MythOrFact';
 import { RoutineBuilder } from './RoutineBuilder';
 import { StudyDetective } from './StudyDetective';
-import { WeekSimulator } from './WeekSimulator';
 
 const wrap = (ui: React.ReactElement, store = new UserStateStore(new StorageService(null, 0))) => ({
   store,
@@ -21,8 +20,11 @@ describe('Mecánicas MVP (MEC-02..MEC-07)', () => {
     const cerebro = content.islandBySlug('cerebro')!;
     wrap(<MythOrFact islandId={cerebro.id} items={cerebro.mitosRealidad!} />);
 
+    expect(screen.queryByRole('button', { name: /ver fuente/i })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Depende' }));
+    expect(screen.getByText(/¡buen ojo!/i)).toBeInTheDocument();
     expect(screen.getByText(/depende:/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /ver fuente/i })).toBeInTheDocument();
   });
 
   it('MEC-03 MiniQuiz avanza por las 3 preguntas sin puntaje', () => {
@@ -38,17 +40,11 @@ describe('Mecánicas MVP (MEC-02..MEC-07)', () => {
     );
 
     expect(screen.getByText('Pregunta 1 de 3')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /ver fuente/i })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /su reloj biológico se corre/i }));
+    expect(screen.getByRole('button', { name: /ver fuente/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /siguiente pregunta/i }));
     expect(screen.getByText('Pregunta 2 de 3')).toBeInTheDocument();
-  });
-
-  it('MEC-04 WeekSimulator calcula horas de colegio y fin de semana frente a 8-10 h', () => {
-    const horarios = content.islandBySlug('horarios')!;
-    wrap(<WeekSimulator islandId={horarios.id} config={horarios.simuladorSemana!} />);
-
-    expect(screen.getByText(/entre semana duermes/i)).toBeInTheDocument();
-    expect(screen.getByText(/se recomienda entre 8 y 10 h/i)).toBeInTheDocument();
   });
 
   it('MEC-05 StudyDetective clasifica los 3 estudios y revela hipótesis plausible', () => {

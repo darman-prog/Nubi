@@ -22,15 +22,26 @@ export function MiniQuiz({
 }: MiniQuizProps): React.JSX.Element {
   const [index, setIndex] = useState(0);
   const [answer, setAnswer] = useState<string | null>(null);
+  const [triedIds, setTriedIds] = useState<string[]>([]);
   const question = questions[index] ?? questions[0]!;
   const isLast = index >= questions.length - 1;
   const selected = question.opciones.find((option) => option.id === answer);
   const correct = selected?.correcta === true;
 
+  // Registra opciones descartadas en la pregunta actual para dar feedback progresivo sin penalizar.
+  const handleSelect = (optionId: string): void => {
+    setAnswer(optionId);
+    const chosen = question.opciones.find((option) => option.id === optionId);
+    if (chosen && !chosen.correcta) {
+      setTriedIds((prev) => (prev.includes(optionId) ? prev : [...prev, optionId]));
+    }
+  };
+
   const handleNext = (): void => {
     if (!isLast) {
       setIndex((prev) => prev + 1);
       setAnswer(null);
+      setTriedIds([]);
       return;
     }
     onDone();
@@ -43,6 +54,14 @@ export function MiniQuiz({
           <span className={styles.counter}>
             Pregunta {index + 1} de {questions.length}
           </span>
+          <div className={styles.stepDots} aria-hidden="true">
+            {questions.map((q, i) => (
+              <span
+                key={q.id}
+                className={`${styles.stepDot} ${i < index ? styles.stepDotDone : ''} ${i === index ? styles.stepDotCurrent : ''}`}
+              />
+            ))}
+          </div>
         </div>
       ) : null}
 
@@ -52,15 +71,21 @@ export function MiniQuiz({
       <div className={islandStyles.options} role="radiogroup" aria-label="Opciones de respuesta">
         {question.opciones.map((option) => {
           const isSelected = answer === option.id;
+          const isTried = triedIds.includes(option.id);
           return (
             <button
               key={option.id}
               type="button"
-              className={`${islandStyles.option} ${isSelected ? islandStyles.optionSelected : ''}`}
+              className={`${islandStyles.option} ${isSelected ? islandStyles.optionSelected : ''} ${isTried && !isSelected ? islandStyles.optionTried : ''}`}
               aria-pressed={isSelected}
-              onClick={() => setAnswer(option.id)}
+              onClick={() => handleSelect(option.id)}
             >
               <span className={islandStyles.optionText}>{option.texto}</span>
+              {isTried && !option.correcta ? (
+                <span className={islandStyles.triedBadge} aria-hidden="true">
+                  Explorada
+                </span>
+              ) : null}
               <span className={islandStyles.optionRadio} aria-hidden="true" />
             </button>
           );
@@ -76,12 +101,16 @@ export function MiniQuiz({
             <Icon name={correct ? 'bulb' : 'sprout'} size={18} />
           </span>
           <p className={islandStyles.feedbackText}>
-            {correct ? question.explicacion : 'Casi. Puedes probar con otra de las opciones.'}
+            {correct
+              ? question.explicacion
+              : triedIds.length > 1
+                ? 'Ya descartaste varias opciones, ¡la respuesta está muy cerca!'
+                : 'Casi. Esa pista nos acerca; puedes probar con otra de las opciones.'}
           </p>
         </div>
       ) : null}
 
-      <SourceBlock islandId={islandId} evidenceId={question.evidenceId} />
+      {answer ? <SourceBlock islandId={islandId} evidenceId={question.evidenceId} /> : null}
 
       {correct ? (
         <Button className={islandStyles.cta} onClick={handleNext}>

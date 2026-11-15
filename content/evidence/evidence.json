@@ -14,7 +14,7 @@
     "limitations": "Recomendación de consenso para población general de esa edad; no sustituye valoración individual.",
     "level": "E3",
     "geography": "EE.UU.",
-    "usedIn": ["ISL-RELOJ", "MEC-04"],
+    "usedIn": ["ISL-RELOJ"],
     "restricted": false,
     "status": "source_verified",
     "verifiedBy": "Verificación documental con fuente primaria",

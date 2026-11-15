@@ -20,6 +20,17 @@ interface ChainBuilderProps {
 
 const label = (id: string): string => content.nodeById(id)?.label ?? id;
 
+// Mezcla determinista por cadena y paso para que la primera pieza no sea siempre la respuesta.
+const candidateRank = (nodeId: string, chainId: string, step: number): number => {
+  const seed = `${chainId}:${step}:${nodeId}`;
+  let hash = 2166136261;
+  for (let i = 0; i < seed.length; i += 1) {
+    hash ^= seed.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+};
+
 /** Armador de cadenas causales con validación por grafo, múltiples caminos y 3 niveles de pistas. */
 export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.Element {
   const [path, setPath] = useState<string[]>([chain.start]);
@@ -38,9 +49,9 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
   const outgoing = content.edges
     .filter((edge) => edge.status === 'published' && edge.from === current)
     .map((edge) => edge.to);
-  const candidates = [...new Set([...outgoing, ...chain.distractors])].filter(
-    (id) => !path.includes(id),
-  );
+  const candidates = [...new Set([...outgoing, ...chain.distractors])]
+    .filter((id) => !path.includes(id))
+    .sort((a, b) => candidateRank(a, chain.id, path.length) - candidateRank(b, chain.id, path.length));
 
   const choose = (next: string): void => {
     const nextPath = [...path, next];
@@ -84,22 +95,25 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
 
   return (
     <div className={styles.chain}>
-      <p className={styles.chainTitle}>{chain.title}</p>
-      <p className={styles.chainGoal}>Meta: {label(chain.end)}</p>
+      <h3 className={styles.chainTitle}>{chain.title}</h3>
       <p className={styles.chainHelp}>
         Conecta las causas y efectos tocando la pieza que sigue. Sin puntaje ni vidas.
       </p>
 
-      {/* Camino visual de la cadena con flechas y nivel de evidencia por enlace */}
+      {/* Camino visual de la cadena con flechas, explicación del puente y vista previa hacia la meta */}
       <ol className={styles.chainPath}>
         {path.map((id, index) => {
           const link = index > 0 ? validation.links[index - 1] : undefined;
+          const edge = link?.edgeId
+            ? content.edges.find((candidate) => candidate.id === link.edgeId)
+            : undefined;
           return (
             <li key={id} className={styles.chainNode}>
               {index > 0 ? (
                 <span className={styles.chainArrow}>
                   <span aria-hidden="true">↓</span>
                   {link?.level ? <EvidenceBadge level={link.level} compact /> : null}
+                  {edge ? <span className={styles.edgeReason}>{edge.explanation}</span> : null}
                 </span>
               ) : null}
               <span className={styles.nodeCard}>
@@ -109,6 +123,27 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
             </li>
           );
         })}
+
+        {!isSolved ? (
+          <>
+            <li className={styles.chainNode}>
+              <span className={styles.chainArrow} aria-hidden="true">↓</span>
+              <span className={`${styles.nodeCard} ${styles.nodeCardPending}`}>
+                <span className={styles.nodeIndex}>?</span>
+                Paso {path.length + 1}: elige la pieza que conecta
+              </span>
+            </li>
+            {current !== chain.end ? (
+              <li className={styles.chainNode}>
+                <span className={styles.chainArrow} aria-hidden="true">┄</span>
+                <span className={`${styles.nodeCard} ${styles.nodeCardGoal}`}>
+                  <Icon name="compass" size={16} />
+                  Meta: {label(chain.end)}
+                </span>
+              </li>
+            ) : null}
+          </>
+        ) : null}
       </ol>
 
       {!isSolved ? (
@@ -116,15 +151,8 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
           <span className={styles.piecesTitle}>Piezas disponibles:</span>
           <div className={styles.chainPieces}>
             {candidates.map((id) => (
-              <button
-                key={id}
-                type="button"
-                className={styles.piece}
-                onClick={() => choose(id)}
-              >
-                <span className={styles.piecePlus} aria-hidden="true">
-                  +
-                </span>
+              <button key={id} type="button" className={styles.piece} onClick={() => choose(id)}>
+                <span className={styles.piecePlus} aria-hidden="true">+</span>
                 {label(id)}
               </button>
             ))}
@@ -132,17 +160,8 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
         </div>
       ) : null}
 
-      {feedback ? (
-        <p className={styles.chainError} role="status">
-          {feedback}
-        </p>
-      ) : null}
-
-      {hintText ? (
-        <p className={styles.chainHint} role="status">
-          {hintText}
-        </p>
-      ) : null}
+      {feedback ? <p className={styles.chainError} role="status">{feedback}</p> : null}
+      {hintText ? <p className={styles.chainHint} role="status">{hintText}</p> : null}
 
       {isSolved ? (
         <div className={styles.chainSolved} role="status">

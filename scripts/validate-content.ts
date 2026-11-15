@@ -270,9 +270,6 @@ export const validateContent = (
       errors.push(...revisarPalabras(mito.afirmacion, `mito ${mito.id}`));
       errors.push(...revisarPalabras(mito.explicacion, `mito ${mito.id}`));
     }
-    if (isla.simuladorSemana) {
-      verificarFicha(isla.simuladorSemana.evidenceId, `simulador ${isla.id}`);
-    }
     if (isla.detectiveEstudios) {
       verificarFicha(isla.detectiveEstudios.evidenceId, `detective ${isla.id}`);
       for (const est of isla.detectiveEstudios.estudios) {

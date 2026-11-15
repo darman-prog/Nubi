@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { MitoItem } from '../../../../../content/schema';
 import { Button } from '@/shared/ui/controls/Button';
-import { Icon } from '@/shared/ui/icons/Icon';
+import { Icon, type IconName } from '@/shared/ui/icons/Icon';
 import { SourceBlock } from '../SourceBlock';
 import islandStyles from '../../IslandSheet.module.css';
 import styles from './Mechanics.module.css';
@@ -12,10 +12,10 @@ interface MythOrFactProps {
   onDone?: () => void;
 }
 
-const LABELS: Array<{ value: MitoItem['veredicto']; label: string }> = [
-  { value: 'mito', label: 'Mito' },
-  { value: 'realidad', label: 'Realidad' },
-  { value: 'depende', label: 'Depende' },
+const LABELS: Array<{ value: MitoItem['veredicto']; label: string; icon: IconName }> = [
+  { value: 'mito', label: 'Mito', icon: 'close' },
+  { value: 'realidad', label: 'Realidad', icon: 'check' },
+  { value: 'depende', label: 'Depende', icon: 'compass' },
 ];
 
 /** MEC-02 · Mito o realidad sin puntaje ni reloj; admite evidencia mixta ("Depende"). */
@@ -25,6 +25,7 @@ export function MythOrFact({ islandId, items, onDone }: MythOrFactProps): React.
   const current = items[index] ?? items[0]!;
   const isLast = index >= items.length - 1;
   const matched = choice === current.veredicto;
+  const verdictLabel = LABELS.find((l) => l.value === current.veredicto)?.label;
 
   const advance = (): void => {
     if (!isLast) {
@@ -41,7 +42,18 @@ export function MythOrFact({ islandId, items, onDone }: MythOrFactProps): React.
         <span className={styles.counter}>
           Afirmación {index + 1} de {items.length}
         </span>
-        <span className={islandStyles.calmBadge}>Sin puntaje ni reloj</span>
+        {items.length > 1 ? (
+          <div className={styles.stepDots} aria-hidden="true">
+            {items.map((item, i) => (
+              <span
+                key={item.id}
+                className={`${styles.stepDot} ${i < index ? styles.stepDotDone : ''} ${i === index ? styles.stepDotCurrent : ''}`}
+              />
+            ))}
+          </div>
+        ) : (
+          <span className={islandStyles.calmBadge}>Sin puntaje ni reloj</span>
+        )}
       </div>
 
       <div className={styles.promptCard}>
@@ -58,7 +70,8 @@ export function MythOrFact({ islandId, items, onDone }: MythOrFactProps): React.
             aria-pressed={choice === item.value}
             onClick={() => setChoice(item.value)}
           >
-            {item.label}
+            <Icon name={item.icon} size={18} />
+            <span>{item.label}</span>
           </button>
         ))}
       </div>
@@ -71,14 +84,19 @@ export function MythOrFact({ islandId, items, onDone }: MythOrFactProps): React.
           <span className={islandStyles.feedbackIcon} aria-hidden="true">
             <Icon name={matched ? 'bulb' : 'sprout'} size={18} />
           </span>
-          <p className={islandStyles.feedbackText}>
-            <strong>{LABELS.find((l) => l.value === current.veredicto)?.label}:</strong>{' '}
-            {current.explicacion}
-          </p>
+          <div className={islandStyles.feedbackText}>
+            <span className={styles.feedbackChip}>
+              {matched ? '¡Buen ojo!' : 'Sorpresa: mirémoslo con calma'}
+            </span>
+            <p className={styles.feedbackParagraph}>
+              <strong>{verdictLabel}:</strong> {current.explicacion}
+            </p>
+          </div>
         </div>
       ) : null}
 
-      <SourceBlock islandId={islandId} evidenceId={current.evidenceId} />
+      {/* La ficha científica se revela tras votar para no adelantar el veredicto */}
+      {choice ? <SourceBlock islandId={islandId} evidenceId={current.evidenceId} /> : null}
 
       {choice && (onDone || !isLast) ? (
         <Button className={islandStyles.cta} onClick={advance}>

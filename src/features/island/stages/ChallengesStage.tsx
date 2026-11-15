@@ -8,7 +8,6 @@ import { MiniQuiz } from '../components/mechanics/MiniQuiz';
 import { MythOrFact } from '../components/mechanics/MythOrFact';
 import { RoutineBuilder } from '../components/mechanics/RoutineBuilder';
 import { StudyDetective } from '../components/mechanics/StudyDetective';
-import { WeekSimulator } from '../components/mechanics/WeekSimulator';
 import styles from '../IslandSheet.module.css';
 
 interface ChallengesStageProps {
@@ -16,7 +15,7 @@ interface ChallengesStageProps {
   onFinish: () => void;
 }
 
-type TabId = 'quiz' | 'myth' | 'week' | 'detective' | 'routine' | 'breath' | 'chain';
+type TabId = 'quiz' | 'myth' | 'detective' | 'routine' | 'breath' | 'chain';
 
 export function ChallengesStage({ island, onFinish }: ChallengesStageProps): React.JSX.Element {
   const questions = island.miniQuiz ?? (island.pregunta ? [island.pregunta] : []);
@@ -27,7 +26,6 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
       ? [{ id: 'quiz' as const, label: questions.length > 1 ? `Quiz (${questions.length})` : 'Pregunta' }]
       : []),
     ...(island.mitosRealidad?.length ? [{ id: 'myth' as const, label: 'Mito o realidad' }] : []),
-    ...(island.simuladorSemana ? [{ id: 'week' as const, label: 'Tu semana' }] : []),
     ...(island.detectiveEstudios ? [{ id: 'detective' as const, label: 'Detective' }] : []),
     ...(island.experimentos ? [{ id: 'routine' as const, label: 'Mi rutina' }] : []),
     ...(island.respiracion ? [{ id: 'breath' as const, label: 'Respirar' }] : []),
@@ -99,14 +97,6 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
         />
       ) : null}
 
-      {activeTab === 'week' && island.simuladorSemana ? (
-        <WeekSimulator
-          islandId={island.id}
-          config={island.simuladorSemana}
-          onDone={() => advanceOrFinish('week')}
-        />
-      ) : null}
-
       {activeTab === 'detective' && island.detectiveEstudios ? (
         <StudyDetective
           islandId={island.id}
@@ -133,7 +123,6 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
 
       {activeTab === 'chain' && chain ? (
         <div className={styles.chainBlock}>
-          <h3 className={styles.questionText}>{island.reto?.titulo}</h3>
           <ChainBuilder chain={chain} onSolved={onFinish} />
         </div>
       ) : null}

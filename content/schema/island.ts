@@ -46,14 +46,6 @@ export const MitoItemSchema = z.object({
 });
 export type MitoItem = z.infer<typeof MitoItemSchema>;
 
-export const SimuladorSemanaSchema = z.object({
-  titulo: z.string().min(1),
-  bandaMinHoras: z.number().min(4).max(12),
-  bandaMaxHoras: z.number().min(4).max(12),
-  evidenceId: z.string(),
-});
-export type SimuladorSemana = z.infer<typeof SimuladorSemanaSchema>;
-
 export const DetectiveEstudiosSchema = z.object({
   titulo: z.string().min(1),
   estudios: z
@@ -122,7 +114,6 @@ export const IslaSchema = z.object({
   pregunta: PreguntaSchema.optional(),
   miniQuiz: z.array(PreguntaSchema).min(2).max(5).optional(),
   mitosRealidad: z.array(MitoItemSchema).min(1).max(5).optional(),
-  simuladorSemana: SimuladorSemanaSchema.optional(),
   detectiveEstudios: DetectiveEstudiosSchema.optional(),
   experimentos: ExperimentosSchema.optional(),
   respiracion: RespiracionSchema.optional(),
