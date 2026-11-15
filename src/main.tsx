@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { registerSW } from 'virtual:pwa-register';
 import App from './app/App';
 import { StorageService } from './core/storage';
 import { SettingsService } from './core/settings';
 import { UserStateStore } from './core/user-state-store';
 import { UserStateProvider } from './shared/state/UserStateContext';
 import './styles/main.css';
+
+// Registra el service worker en navegadores compatibles para habilitar uso sin conexión.
+if ('serviceWorker' in navigator) {
+  registerSW({ immediate: true });
+}
 
 // Aplicamos los ajustes guardados antes de renderizar para evitar parpadeos de tema.
 const storage = new StorageService();
