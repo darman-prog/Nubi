@@ -1,8 +1,18 @@
+@keyframes islandFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 .card {
-  --fill: #ffffff;
-  --stroke: #cfc6f5;
+  --fill: var(--surface);
+  --stroke: var(--primary-border);
   --sw: 1.5;
-  --slab: #e2dcf8;
+  --slab: var(--primary-soft);
   --dash: none;
   --t: 26px;
   --b: 12px;
@@ -14,10 +24,30 @@
   color: var(--text);
   text-decoration: none;
   transition: transform 0.2s ease;
+  animation: islandFloat 4.4s ease-in-out infinite;
+  will-change: transform;
 }
 
-.card:hover {
-  transform: translateY(-2px);
+.card:nth-child(even) {
+  animation-duration: 5.1s;
+  animation-delay: -1.8s;
+}
+
+.card:nth-child(3n) {
+  animation-duration: 4.8s;
+  animation-delay: -3.1s;
+}
+
+.card:hover,
+.card:focus-visible {
+  animation-play-state: paused;
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
 }
 
 .cloudSvg {
@@ -51,8 +81,8 @@
   justify-content: center;
   overflow: hidden;
   border-radius: 16px;
-  border: 2px solid #ffffff;
-  background: linear-gradient(135deg, #ece7fe, #d5cbfc);
+  border: 2px solid var(--surface);
+  background: linear-gradient(135deg, var(--primary-soft), var(--primary-soft-hover));
   box-shadow: 0 4px 12px rgba(80, 67, 201, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: transform 0.2s ease;
 }
@@ -115,15 +145,15 @@
 
 .E3,
 .nido {
-  color: #0f6b4b;
+  color: var(--ev-3);
 }
 
 .E2 {
-  color: #1b5fa8;
+  color: var(--ev-2);
 }
 
 .E1 {
-  color: #9a6200;
+  color: var(--accent-ink);
 }
 
 .pill {
@@ -137,7 +167,7 @@
   padding: 2px 10px;
   border-radius: 999px;
   background: var(--primary);
-  color: #ffffff;
+  color: var(--primary-text);
   font-family: var(--font-heading);
   font-size: 11px;
   font-weight: 700;
@@ -161,35 +191,35 @@
 .current {
   --stroke: var(--primary);
   --sw: 2.2;
-  --slab: #e7e1ff;
-  --fill: #ffffff;
+  --slab: var(--primary-soft);
+  --fill: var(--surface);
 }
 
 .completed {
-  --stroke: #d89a2b;
-  --fill: #fffdf7;
-  --slab: #f3dca6;
+  --stroke: var(--accent-border);
+  --fill: var(--surface-warm);
+  --slab: var(--accent-slab);
 }
 
 .completed .chip {
-  background: #fff5db;
-  color: #9a6200;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
 }
 
 .fog {
-  --stroke: #a59cd9;
-  --fill: #f7f6fd;
-  --slab: #e2dcf8;
+  --stroke: var(--primary-border);
+  --fill: var(--surface-2);
+  --slab: var(--primary-soft);
   --dash: 5px 4px;
   color: var(--text-muted);
 }
 
 .fog .title {
-  color: rgba(30, 27, 58, 0.7);
+  color: var(--text-muted);
 }
 
 .fog .subtitle {
-  color: rgba(75, 71, 119, 0.65);
+  color: var(--text-muted);
 }
 
 /* Niebla compacta en dos columnas (02-mapa-pasaporte.html) */
@@ -210,8 +240,8 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  border: 1.5px solid #ffffff;
-  background: #f0ebff;
+  border: 1.5px solid var(--surface);
+  background: var(--surface-sunken);
   box-shadow: 0 2px 6px rgba(80, 67, 201, 0.08);
 }
 

@@ -9,19 +9,13 @@ const THEME_OPTIONS: Array<{ value: Settings['theme']; label: string }> = [
   { value: 'system', label: 'Sistema' },
 ];
 
-const MOTION_OPTIONS: Array<{ value: Settings['reduceMotion']; label: string }> = [
-  { value: 'system', label: 'Sistema' },
-  { value: 'on', label: 'Reducir' },
-  { value: 'off', label: 'Normal' },
-];
-
 const SCALE_OPTIONS: Array<{ value: Settings['textScale']; label: string }> = [
   { value: 1, label: '100 %' },
   { value: 1.25, label: '125 %' },
   { value: 1.5, label: '150 %' },
 ];
 
-/** Controles de tema, movimiento, tamaño de texto y sonido persistidos en SettingsService. */
+/** Controles de tema, tamaño de texto y sonido persistidos en SettingsService. */
 export function SettingsSection(): React.JSX.Element {
   const { settings } = useUserState();
   const store = useUserStateStore();
@@ -34,7 +28,7 @@ export function SettingsSection(): React.JSX.Element {
   return (
     <section className={styles.card} aria-labelledby="ajustes-title">
       <h2 id="ajustes-title">Ajustes</h2>
-      <p className={styles.small}>Adapta la pantalla y el movimiento a tu comodidad.</p>
+      <p className={styles.small}>Adapta la pantalla y el sonido a tu comodidad.</p>
 
       <div className={styles.settingGroup}>
         <span className={styles.settingLabel}>Tema</span>
@@ -46,23 +40,6 @@ export function SettingsSection(): React.JSX.Element {
               className={`${styles.pillBtn} ${settings.theme === opt.value ? styles.pillBtnActive : ''}`}
               aria-pressed={settings.theme === opt.value}
               onClick={() => update({ theme: opt.value })}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className={styles.settingGroup}>
-        <span className={styles.settingLabel}>Animaciones</span>
-        <div className={styles.pillRow} role="group" aria-label="Reducir animaciones">
-          {MOTION_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              type="button"
-              className={`${styles.pillBtn} ${settings.reduceMotion === opt.value ? styles.pillBtnActive : ''}`}
-              aria-pressed={settings.reduceMotion === opt.value}
-              onClick={() => update({ reduceMotion: opt.value })}
             >
               {opt.label}
             </button>

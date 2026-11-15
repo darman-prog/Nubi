@@ -41,13 +41,13 @@
 
 .star {
   position: absolute;
-  color: #d1c4e9;
+  color: var(--star-muted);
   filter: drop-shadow(0 0 4px rgba(255, 214, 122, 0.5));
   animation: twinkle 3.6s ease-in-out infinite;
 }
 
 .starGold {
-  color: #ffc15a;
+  color: var(--accent);
 }
 
 @keyframes twinkle {

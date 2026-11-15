@@ -1,10 +1,10 @@
 .page {
-  min-height: 100%;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--space-4);
-  padding: var(--space-4);
+  justify-content: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-6);
 }
 
 .topBar {
@@ -31,12 +31,13 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-6) var(--space-4);
+  gap: var(--space-3);
+  padding: var(--space-4);
   border: var(--card-border);
   border-radius: var(--radius-sheet);
   background: var(--surface);
   box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
 
 .mediaWrap {
@@ -59,13 +60,15 @@
 
 .title {
   color: var(--text);
-  font-size: var(--text-xl);
+  font-size: clamp(1.35rem, 5.5vw, var(--text-xl));
+  line-height: 1.2;
   text-align: center;
 }
 
 .body {
   color: var(--text-muted);
-  font-size: var(--text-base);
+  font-size: clamp(0.95rem, 3.8vw, var(--text-base));
+  line-height: 1.45;
   text-align: center;
 }
 
@@ -74,18 +77,19 @@
   flex-direction: column;
   gap: var(--space-2);
   color: var(--text);
-  font-size: var(--text-xs);
+  font-size: clamp(0.85rem, 3.4vw, var(--text-xs));
   font-weight: 700;
 }
 
 .nicknameField input {
+  width: 100%;
   min-height: var(--min-touch-target);
   padding: 0 var(--space-3);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-card);
   background: var(--bg);
   color: var(--text);
-  font-size: var(--text-base);
+  font-size: clamp(0.95rem, 3.8vw, var(--text-base));
 }
 
 .dots {
@@ -109,10 +113,11 @@
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   align-items: center;
 }
 
 .nextBtn {
-  flex: 1;
+  flex: 1 1 160px;
 }
