@@ -1,10 +1,17 @@
+/* Flote orgánico en 4 tiempos (sube, deriva suave e inclina levemente como una nube viva) */
 @keyframes islandFloat {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate3d(0, 1px, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(2.5px, -4px, 0) rotate(0.45deg);
   }
   50% {
-    transform: translateY(-2px);
+    transform: translate3d(0, -7px, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate3d(-2.5px, -3px, 0) rotate(-0.45deg);
   }
 }
 
@@ -20,29 +27,34 @@
   position: relative;
   isolation: isolate;
   display: block;
-  /* 28px superior compensa --t (26px) + animación (-2px) sin invadir encabezados ni tarjetas previas */
+  /* 28px superior compensa --t (26px) + pico del flote (-7px) sin invadir encabezados */
   margin: 28px 0 16px;
   color: var(--text);
   text-decoration: none;
-  transition: transform 0.2s ease;
-  animation: islandFloat 5.8s ease-in-out infinite;
+  transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: islandFloat 4.4s ease-in-out infinite;
   will-change: transform;
 }
 
 .card:nth-child(even) {
-  animation-duration: 6.8s;
-  animation-delay: -1.8s;
+  animation-duration: 5.1s;
+  animation-delay: -1.4s;
 }
 
 .card:nth-child(3n) {
-  animation-duration: 6.3s;
-  animation-delay: -3.1s;
+  animation-duration: 4.8s;
+  animation-delay: -2.6s;
 }
 
 .card:hover,
 .card:focus-visible {
   animation-play-state: paused;
-  transform: translateY(-2px);
+  transform: translate3d(0, -8px, 0) scale(1.015);
+}
+
+.card:active {
+  animation-play-state: paused;
+  transform: translate3d(0, -3px, 0) scale(0.99);
 }
 
 .cloudSvg {
@@ -79,6 +91,12 @@
   border: 2px solid var(--surface);
   background: linear-gradient(135deg, var(--primary-soft), var(--primary-soft-hover));
   box-shadow: 0 4px 12px rgba(80, 67, 201, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .avatar,
+.card:focus-visible .avatar {
+  transform: scale(1.04);
 }
 
 .avatar img {
@@ -176,6 +194,12 @@
   font-size: var(--text-md);
   font-weight: 900;
   margin-right: 2px;
+  transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .arrow,
+.card:focus-visible .arrow {
+  transform: translateX(4px);
 }
 
 .current {
@@ -247,4 +271,24 @@
 
 .compact .subtitle {
   font-size: var(--text-2xs);
+}
+
+/* Respeta la preferencia de movimiento reducido del sistema */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .avatar,
+  .arrow {
+    animation: none;
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-visible,
+  .card:active,
+  .card:hover .avatar,
+  .card:focus-visible .avatar,
+  .card:hover .arrow,
+  .card:focus-visible .arrow {
+    transform: none;
+  }
 }
