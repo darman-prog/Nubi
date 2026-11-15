@@ -69,6 +69,43 @@
     "isHealthClaim": true,
     "evidenceId": "EV-021c"
   },
+  "experimentos": {
+    "maxSeleccion": 3,
+    "opciones": [
+      {
+        "id": "EXP-DESPERTAR",
+        "titulo": "Hora de despertar estable",
+        "detalle": "Probar levantarte a una hora parecida entre semana y fin de semana durante 7 días.",
+        "evidenceId": "EV-021a"
+      },
+      {
+        "id": "EXP-LUZ",
+        "titulo": "Luz natural en la mañana",
+        "detalle": "Abrir cortinas o salir a luz natural al despertar para orientar tu reloj.",
+        "evidenceId": "EV-021b"
+      },
+      {
+        "id": "EXP-PANTALLAS",
+        "titulo": "Pantallas lejos de la cama",
+        "detalle": "Dejar el celular cargando fuera del alcance de la cama al acostarte.",
+        "evidenceId": "EV-021b"
+      },
+      {
+        "id": "EXP-CALMA",
+        "titulo": "Rato tranquilo pre-sueño",
+        "detalle": "Dedicar 10 a 15 minutos sin notificaciones antes de acostarte.",
+        "evidenceId": "EV-021c"
+      }
+    ]
+  },
+  "respiracion": {
+    "titulo": "Respiración lenta con Nubi",
+    "duracionesMin": [1, 2, 3],
+    "inhalaSeg": 4,
+    "sostieneSeg": 2,
+    "exhalaSeg": 6,
+    "evidenceId": "EV-021c"
+  },
   "reto": {
     "chainId": "C-04",
     "titulo": "Del fin de semana a la recompensa",

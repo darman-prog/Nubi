@@ -1,0 +1,218 @@
+/* AtmosphericSky.module.css */
+/* Cielo atmosférico liviano sin filtros blur costosos en móvil */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint;
+  isolation: isolate;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.gradient {
+  background: linear-gradient(
+    180deg,
+    var(--sky-0, #b7a6f4) 0%,
+    var(--sky-1, #e3c3ee) 34%,
+    var(--sky-2, #f9cdd6) 66%,
+    var(--sky-3, #b69c75) 100%
+  );
+}
+
+.mesh {
+  inset: -6%;
+  background:
+    radial-gradient(58% 46% at 18% 10%, var(--sky-mesh-b, #a78bfa59), transparent 64%),
+    radial-gradient(52% 42% at 86% 18%, var(--sky-mesh-a, #ffd9a68c), transparent 62%),
+    radial-gradient(78% 62% at 50% 108%, var(--sky-mesh-c, #ffb6c159), transparent 72%);
+  opacity: 0.92;
+  animation: meshDrift 78s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes meshDrift {
+  to {
+    transform: translate3d(3%, -2%, 0) scale(1.05);
+  }
+}
+
+.horizon {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -10%;
+  height: 46%;
+  background: radial-gradient(62% 82% at 50% 100%, var(--sky-horizon, #ffd9a680), transparent 74%);
+  opacity: var(--sky-horizon-op, 0.6);
+}
+
+.rays {
+  inset: -10%;
+  background:
+    linear-gradient(112deg, transparent 42%, var(--sky-ray, #ffdcaa47) 50%, transparent 58%),
+    linear-gradient(74deg, transparent 56%, var(--sky-ray, #ffdcaa47) 63%, transparent 71%);
+  opacity: var(--sky-ray-op, 0.5);
+  -webkit-mask-image: radial-gradient(
+    circle at var(--sky-sun-x, 72%) var(--sky-sun-y, 78%),
+    #000 0%,
+    transparent 58%
+  );
+  mask-image: radial-gradient(
+    circle at var(--sky-sun-x, 72%) var(--sky-sun-y, 78%),
+    #000 0%,
+    transparent 58%
+  );
+}
+
+.auroraParallax {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.aurora {
+  position: absolute;
+  left: -12%;
+  top: -6%;
+  width: 124%;
+  height: 54%;
+  opacity: var(--sky-aurora-op, 0.12);
+  animation: auroraDrift 82s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes auroraDrift {
+  to {
+    transform: translate3d(3%, 2%, 0) rotate(0.6deg);
+  }
+}
+
+.auroraStopA {
+  stop-color: var(--sky-aurora-a, #6ee7d833);
+}
+
+.auroraStopB {
+  stop-color: var(--sky-aurora-b, #ff9ecf2e);
+}
+
+.stars {
+  position: absolute;
+  inset: -8% 0;
+  opacity: var(--sky-star-vis, 0.08);
+  will-change: transform;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--sky-sun-core, #f9eecc);
+  box-shadow: 0 0 6px var(--sky-sun-glow, #ffc56eb7);
+  animation: starTwinkle var(--d, 3.6s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+.starBig {
+  box-shadow:
+    0 0 10px var(--sky-sun-core, #ccb97a),
+    0 0 22px var(--sky-aurora-b, #ff9ecf2e);
+}
+
+@keyframes starTwinkle {
+  from {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 0.95;
+    transform: scale(1.12);
+  }
+}
+
+.grain {
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  background-size: 180px 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  background: radial-gradient(120% 92% at 50% 42%, transparent 56%, rgba(10, 8, 30, 0.35) 100%);
+  opacity: var(--sky-vignette-op, 0.35);
+}
+
+/* Variante page suaviza rayos, estrellas, aurora y luna para priorizar lectura */
+.pageVariant .moon {
+  opacity: 0.55;
+  transform: translate(-50%, -50%) !important;
+}
+
+.pageVariant .moonHalo {
+  opacity: 0.25;
+}
+
+.pageVariant .rays {
+  opacity: calc(var(--sky-ray-op, 0.5) * 0.35);
+}
+
+.pageVariant .aurora {
+  opacity: calc(var(--sky-aurora-op, 0.12) * 0.55);
+}
+
+.pageVariant .stars {
+  opacity: calc(var(--sky-star-vis, 0.08) * 0.45);
+  transform: none !important;
+}
+
+.pageVariant .auroraParallax {
+  transform: none !important;
+}
+
+.pageVariant .grain {
+  opacity: 0.03;
+}
+
+.pageVariant .vignette {
+  opacity: calc(var(--sky-vignette-op, 0.35) * 0.7);
+}
+
+/* Menos nodos pintados en móvil */
+@media (max-width: 640px) {
+  .star:nth-child(3n) {
+    display: none;
+  }
+  .aurora {
+    height: 46%;
+  }
+  .moon {
+    width: min(40vmin, 220px);
+    height: min(40vmin, 220px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh,
+  .aurora,
+  .star,
+  .moonSvg,
+  .moonStars use {
+    animation: none;
+  }
+  .star {
+    opacity: 0.8;
+  }
+  .moonStars use {
+    opacity: 0.85;
+  }
+  .auroraParallax,
+  .stars {
+    transform: none !important;
+  }
+  .moon {
+    transform: translate(-50%, -50%) !important;
+  }
+}

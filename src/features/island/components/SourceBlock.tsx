@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { content } from '@/core/content/content-repository';
 import { markSourceOpened } from '@/core/progress-service';
 import { useUserStateStore } from '@/shared/state/UserStateContext';
-import { EvidenceBadge } from '@/shared/ui/EvidenceBadge';
+import { EvidenceBadge } from '@/shared/ui/feedback/EvidenceBadge';
 import { Icon } from '@/shared/ui/icons/Icon';
 import styles from '../IslandSheet.module.css';
 

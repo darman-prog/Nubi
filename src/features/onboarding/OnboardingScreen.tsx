@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { artUrl } from '@/core/content/assets';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserStateStore } from '@/shared/state/UserStateContext';
-import { Button } from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/controls/Button';
 import styles from './OnboardingScreen.module.css';
 
 const STEPS = [

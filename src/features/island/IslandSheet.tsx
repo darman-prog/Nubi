@@ -7,7 +7,7 @@ import type { Stage } from '@/core/user-state';
 import { nextIsland } from '@/domain/progress/derive-stamps';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState, useUserStateStore } from '@/shared/state/UserStateContext';
-import { Sheet } from '@/shared/ui/Sheet';
+import { Sheet } from '@/shared/ui/overlays/Sheet';
 import { ArrivalStage } from './stages/ArrivalStage';
 import { ChallengesStage } from './stages/ChallengesStage';
 import { SealStage } from './stages/SealStage';

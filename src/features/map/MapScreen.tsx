@@ -7,7 +7,7 @@ import { useUserState } from '@/shared/state/UserStateContext';
 import { CloudCard } from './components/CloudCard';
 import { CloudSilhouettes } from './components/CloudSilhouettes';
 import { RouteConnector, type RouteStatus } from './components/RouteConnector';
-import { StarrySky } from './components/StarrySky';
+import { AtmosphericSky } from '@/shared/ui/atmosphere/AtmosphericSky';
 import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './MapScreen.module.css';
 
@@ -22,8 +22,9 @@ const ZONES = [
 export default function MapScreen(): React.JSX.Element {
   const state = useUserState();
   const go = useTransitionNavigate();
-  const seals = deriveStamps(state.progress, content.islands);
-  const next = nextIsland(state.progress, content.islands);
+  const availableIslands = content.availableIslands();
+  const seals = deriveStamps(state.progress, availableIslands);
+  const next = nextIsland(state.progress, availableIslands);
   const sealCount = seals.filter((seal) => seal.earned).length;
   const earnedIds = new Set(seals.filter((seal) => seal.earned).map((seal) => seal.island.id));
   const screenRef = useRef<HTMLDivElement>(null);
@@ -35,14 +36,16 @@ export default function MapScreen(): React.JSX.Element {
     }
   }, [next?.id]);
 
-  const isPlanned = (island: (typeof content.islands)[number]): boolean =>
-    island.disponibilidad === 'available' || (island.ordenSugerido ?? 99) <= 5;
+  // Solo las zonas que tienen islas jugables en el MVP para ocultar islas en niebla al presentar.
+  const visibleZones = ZONES.filter(({ zone }) =>
+    availableIslands.some((island) => island.zona === zone),
+  );
 
   return (
     <div ref={screenRef} className={styles.screen}>
       <CloudSilhouettes />
-      {/* Atmósfera de amanecer con cielo estrellado titilante */}
-      <StarrySky />
+      {/* Cielo atmosférico multicapa compartido entre Amanecer y Noche */}
+      <AtmosphericSky variant="map" />
 
       <header className={styles.header}>
         <div className={styles.brand}>
@@ -70,38 +73,27 @@ export default function MapScreen(): React.JSX.Element {
       <div className={styles.intro}>
         <span className={styles.introChip}>
           <Icon name="sparkle" size={14} />
-          <span>{content.islands.length} islas para recorrer</span>
+          <span>{availableIslands.length} islas para recorrer</span>
         </span>
         <p>Explora hacia arriba · Aprende a tu propio compás</p>
       </div>
 
       <div className={styles.zonesWrapper}>
-        {ZONES.map(({ zone, label, note }, zoneIndex) => {
-          const islands = content.islands
-            .filter((island) => island.zona === zone)
-            .sort((a, b) => (a.ordenSugerido ?? 99) - (b.ordenSugerido ?? 99));
-          if (islands.length === 0) return null;
-
-          const full = islands.filter((island) => {
-            const seal = seals.find((item) => item.island.id === island.id)?.earned;
-            return seal || island.id === next?.id || isPlanned(island);
-          });
-          const fog = islands.filter((island) => !full.includes(island));
-          const playable = islands.filter(isPlanned).length;
+        {visibleZones.map(({ zone, label, note }, zoneIndex) => {
+          const islands = availableIslands.filter((island) => island.zona === zone);
           const isHere = islands.some((island) => island.id === next?.id);
-          const lowerZone = ZONES[zoneIndex + 1];
-          const lowerPlayable = lowerZone
-            ? content.islands.filter((i) => i.zona === lowerZone.zone && isPlanned(i))
+          const lowerZone = visibleZones[zoneIndex + 1];
+          const lowerIslands = lowerZone
+            ? availableIslands.filter((island) => island.zona === lowerZone.zone)
             : [];
           // Estado del tramo ascendente desde la zona inferior hacia la actual.
-          const routeStatus: RouteStatus =
-            !lowerZone || playable === 0
-              ? 'upcoming'
-              : lowerPlayable.length > 0 && lowerPlayable.every((i) => earnedIds.has(i.id))
-                ? 'completed'
-                : lowerPlayable.some((i) => i.id === next?.id)
-                  ? 'active'
-                  : 'upcoming';
+          const routeStatus: RouteStatus = !lowerZone
+            ? 'upcoming'
+            : lowerIslands.every((island) => earnedIds.has(island.id))
+              ? 'completed'
+              : lowerIslands.some((island) => island.id === next?.id)
+                ? 'active'
+                : 'upcoming';
 
           return (
             <div key={zone} className={styles.zoneGroup}>
@@ -118,57 +110,39 @@ export default function MapScreen(): React.JSX.Element {
                     <span className={styles.herePill}>¡Estás aquí!</span>
                   ) : (
                     <span className={styles.zoneCount}>
-                      {playable} jugable{playable === 1 ? '' : 's'}
-                      {fog.length > 0 ? ` · ${fog.length} en niebla` : ''}
+                      {islands.length} isla{islands.length === 1 ? '' : 's'}
                     </span>
                   )}
                 </div>
                 <p className={styles.zoneNote}>{note}</p>
 
                 <div className={styles.list}>
-              {full.map((island, index) => {
-                const seal = seals.find((item) => item.island.id === island.id)?.earned ?? false;
-                const current = island.id === next?.id;
-                const cardState = seal ? 'completed' : current ? 'current' : island.disponibilidad === 'available' ? 'new' : 'soon';
-                const cardTo = island.disponibilidad === 'available' ? `/isla/${island.slug}/llegada` : `/isla/${island.slug}`;
-                return (
-                  <CloudCard
-                    key={island.id}
-                    island={island}
-                    state={cardState}
-                    to={cardTo}
-                    image={artUrl(`arte/islas/${island.slug}.webp`)}
-                    sealSrc={seal ? artUrl(`arte/sellos/sello-${island.slug}.webp`) : undefined}
-                    variant={((index + zone) % 3 + 1) as 1 | 2 | 3}
-                  />
-                );
-              })}
+                  {islands.map((island, index) => {
+                    const seal = seals.find((item) => item.island.id === island.id)?.earned ?? false;
+                    const current = island.id === next?.id;
+                    const cardState = seal ? 'completed' : current ? 'current' : 'new';
+                    return (
+                      <CloudCard
+                        key={island.id}
+                        island={island}
+                        state={cardState}
+                        to={`/isla/${island.slug}/llegada`}
+                        image={artUrl(`arte/islas/${island.slug}.webp`)}
+                        sealSrc={seal ? artUrl(`arte/sellos/sello-${island.slug}.webp`) : undefined}
+                        variant={((index + zone) % 3 + 1) as 1 | 2 | 3}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+
+              {lowerZone ? (
+                <RouteConnector status={routeStatus} flip={zoneIndex % 2 === 1} />
+              ) : null}
             </div>
-
-            {fog.length > 0 ? (
-              <div className={styles.fogGrid}>
-                {fog.map((island, index) => (
-                  <CloudCard
-                    key={island.id}
-                    island={island}
-                    state="fog"
-                    to={`/isla/${island.slug}`}
-                    image={artUrl('arte/islas/isla-niebla.webp')}
-                    variant={((index + zone) % 3 + 1) as 1 | 2 | 3}
-                    compact
-                  />
-                ))}
-              </div>
-            ) : null}
-          </section>
-
-          {lowerZone ? (
-            <RouteConnector status={routeStatus} flip={zoneIndex % 2 === 1} />
-          ) : null}
-        </div>
-      );
-    })}
-  </div>
-</div>
+          );
+        })}
+      </div>
+    </div>
   );
 }

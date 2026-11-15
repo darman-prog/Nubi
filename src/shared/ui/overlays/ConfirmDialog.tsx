@@ -1,4 +1,4 @@
-import { Button } from './Button';
+import { Button } from '../controls/Button';
 import { Sheet } from './Sheet';
 import styles from './ConfirmDialog.module.css';
 

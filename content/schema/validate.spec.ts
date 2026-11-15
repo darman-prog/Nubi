@@ -101,11 +101,8 @@ const contenidoBase = (): ContentData => ({
 });
 
 describe('validador de contenido', () => {
-  it('acepta la semilla real del repositorio', () => {
-    const gate =
-      process.env.CONTENT_GATE === 'pilot' || process.env.CONTENT_GATE === 'prod'
-        ? process.env.CONTENT_GATE
-        : 'dev';
+  it('acepta la semilla real del repositorio en compuerta piloto', () => {
+    const gate = process.env.CONTENT_GATE === 'prod' ? 'prod' : 'pilot';
     const resultado = validateContentFromDisk(process.cwd(), { gate });
     expect(resultado.errors).toEqual([]);
   });

@@ -7,8 +7,8 @@ import {
 } from '@/domain/graph/chain-hints';
 import { findPaths } from '@/domain/graph/find-paths';
 import { validateChain } from '@/domain/graph/validate-chain';
-import { Button } from '@/shared/ui/Button';
-import { EvidenceBadge } from '@/shared/ui/EvidenceBadge';
+import { Button } from '@/shared/ui/controls/Button';
+import { EvidenceBadge } from '@/shared/ui/feedback/EvidenceBadge';
 import { Icon } from '@/shared/ui/icons/Icon';
 import type { Chain } from '../../../../content/schema';
 import styles from '../IslandSheet.module.css';

@@ -69,6 +69,29 @@
 
   /* Velo de las hojas modales (ADR-016) */
   --overlay: rgba(30, 27, 58, 0.45);
+
+  /* Cielo atmosférico adaptado de mockups/fondo.html (luminosidad calibrada para contraste AA) */
+  --sky-0: #E3DBFF;
+  --sky-1: #EFE2FA;
+  --sky-2: #FCEBF0;
+  --sky-3: #FFF0DB;
+  --sky-mesh-a: rgba(255, 217, 166, 0.52);
+  --sky-mesh-b: rgba(167, 139, 250, 0.24);
+  --sky-mesh-c: rgba(255, 182, 193, 0.32);
+  --sky-horizon: rgba(255, 217, 166, 0.48);
+  --sky-horizon-op: 0.7;
+  --sky-sun-x: 76%;
+  --sky-sun-y: 20%;
+  --sky-sun-core: #FFF9E6;
+  --sky-sun-glow: rgba(255, 196, 110, 0.42);
+  --sky-sun-op: 0.85;
+  --sky-ray: rgba(255, 224, 178, 0.28);
+  --sky-ray-op: 0.45;
+  --sky-aurora-a: rgba(110, 231, 216, 0.16);
+  --sky-aurora-b: rgba(255, 158, 207, 0.16);
+  --sky-aurora-op: 0.18;
+  --sky-star-vis: 0.35;
+  --sky-vignette-op: 0.08;
 }
 
 /* Tema oscuro ("Noche") con superficies y bordes adaptados para contraste AA */
@@ -134,4 +157,27 @@
   --cloud-back: #9DB6D8;
   --cloud-glow: rgba(0, 0, 0, 0.5);
   --overlay: rgba(0, 0, 0, 0.55);
+
+  /* Cielo nocturno adaptado de mockups/fondo.html con indigo profundo para contraste AA */
+  --sky-0: #101330;
+  --sky-1: #181A44;
+  --sky-2: #232258;
+  --sky-3: #171538;
+  --sky-mesh-a: rgba(106, 95, 192, 0.34);
+  --sky-mesh-b: rgba(43, 47, 119, 0.45);
+  --sky-mesh-c: rgba(183, 121, 201, 0.22);
+  --sky-horizon: rgba(122, 95, 192, 0.32);
+  --sky-horizon-op: 0.55;
+  --sky-sun-x: 78%;
+  --sky-sun-y: 16%;
+  --sky-sun-core: #F4F6FF;
+  --sky-sun-glow: rgba(199, 210, 254, 0.36);
+  --sky-sun-op: 0.72;
+  --sky-ray: rgba(199, 210, 254, 0.14);
+  --sky-ray-op: 0.25;
+  --sky-aurora-a: rgba(110, 231, 216, 0.36);
+  --sky-aurora-b: rgba(255, 158, 207, 0.3);
+  --sky-aurora-op: 0.45;
+  --sky-star-vis: 0.9;
+  --sky-vignette-op: 0.36;
 }

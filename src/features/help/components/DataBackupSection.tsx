@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useUserStateStore } from '@/shared/state/UserStateContext';
-import { ConfirmDialog } from '@/shared/ui/ConfirmDialog';
-import { Toast } from '@/shared/ui/Toast';
+import { ConfirmDialog } from '@/shared/ui/overlays/ConfirmDialog';
+import { Toast } from '@/shared/ui/feedback/Toast';
 import styles from '../HelpScreen.module.css';
 
 /** Opción para borrar el progreso guardado y volver a empezar el viaje desde cero. */

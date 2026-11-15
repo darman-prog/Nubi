@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { CloudTransitionHost } from '@/shared/ui/CloudTransition';
-import { SkipLink } from '@/shared/ui/SkipLink';
+import { CloudTransitionHost } from '@/shared/ui/overlays/CloudTransition';
+import { SkipLink } from '@/shared/ui/controls/SkipLink';
 import { AppRoutes } from './routes';
 import styles from './App.module.css';
 

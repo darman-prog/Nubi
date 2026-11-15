@@ -2,7 +2,7 @@ import { artUrl } from '@/core/content/assets';
 import { content } from '@/core/content/content-repository';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
-import { Button } from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/controls/Button';
 import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './CoronationScreen.module.css';
 

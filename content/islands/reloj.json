@@ -81,6 +81,62 @@
     "isHealthClaim": true,
     "evidenceId": "EV-003"
   },
+  "miniQuiz": [
+    {
+      "id": "PR-1",
+      "enunciado": "¿Por qué muchos adolescentes sienten sueño más tarde?",
+      "opciones": [
+        { "id": "a", "texto": "Porque su reloj biológico se corre en la pubertad", "correcta": true },
+        { "id": "b", "texto": "Porque el colegio empieza antes de lo que tu reloj pide", "correcta": false },
+        { "id": "c", "texto": "Porque necesitan dormir menos que los niños", "correcta": false }
+      ],
+      "explicacion": "En la pubertad cambian la fase del reloj, la melatonina y la sensibilidad a la luz.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-003"
+    },
+    {
+      "id": "PR-12",
+      "enunciado": "Para tu edad (13 a 18 años), ¿cuántas horas de sueño recomienda la Academia Americana de Medicina del Sueño?",
+      "opciones": [
+        { "id": "a", "texto": "Entre 5 y 6 horas cada noche", "correcta": false },
+        { "id": "b", "texto": "Entre 8 y 10 horas cada noche", "correcta": true },
+        { "id": "c", "texto": "Exactamente 7 horas sin excepción", "correcta": false }
+      ],
+      "explicacion": "El consenso oficial para 13 a 18 años recomienda entre 8 y 10 horas cada 24 horas.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-001"
+    },
+    {
+      "id": "PR-13",
+      "enunciado": "Si pedir 'acuéstate temprano' no funciona en la adolescencia, ¿por qué suele ocurrir?",
+      "opciones": [
+        { "id": "a", "texto": "Porque el retraso del reloj interno y las demandas escolares chocan entre sí", "correcta": true },
+        { "id": "b", "texto": "Porque basta con tener fuerza de voluntad", "correcta": false },
+        { "id": "c", "texto": "Porque los adolescentes ya no acumulan presión de sueño", "correcta": false }
+      ],
+      "explicacion": "El retraso biológico en la pubertad se combina con tareas, redes y horario temprano del colegio.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-004"
+    }
+  ],
+  "mitosRealidad": [
+    {
+      "id": "MR-01",
+      "afirmacion": "Si te da sueño tarde es porque eres perezoso.",
+      "veredicto": "mito",
+      "explicacion": "En la pubertad tu reloj biológico se corre hacia más tarde; no es falta de voluntad.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-003"
+    },
+    {
+      "id": "MR-05",
+      "afirmacion": "Dormir de 8 a 10 horas es solo cosa de niños pequeños.",
+      "veredicto": "mito",
+      "explicacion": "La Academia Americana de Medicina del Sueño recomienda entre 8 y 10 horas también entre los 13 y 18 años.",
+      "isHealthClaim": true,
+      "evidenceId": "EV-001"
+    }
+  ],
   "reto": {
     "chainId": "C-01",
     "titulo": "Arma la cadena del reloj al ánimo",

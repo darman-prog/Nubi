@@ -1,5 +1,5 @@
 import { cx } from '@/shared/lib/cx';
-import { Icon, type IconName } from './icons/Icon';
+import { Icon, type IconName } from '../icons/Icon';
 import styles from './EvidenceBadge.module.css';
 
 export type EvidenceBadgeLevel = 'E1' | 'E2' | 'E3';

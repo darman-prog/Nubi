@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { content } from '@/core/content/content-repository';
 import type { Isla } from '../../../../content/schema';
-import { Button } from '@/shared/ui/Button';
-import { Icon } from '@/shared/ui/icons/Icon';
+import { Button } from '@/shared/ui/controls/Button';
 import { ChainBuilder } from '../components/ChainBuilder';
-import { SourceBlock } from '../components/SourceBlock';
+import { BreathingExercise } from '../components/mechanics/BreathingExercise';
+import { MiniQuiz } from '../components/mechanics/MiniQuiz';
+import { MythOrFact } from '../components/mechanics/MythOrFact';
+import { RoutineBuilder } from '../components/mechanics/RoutineBuilder';
+import { StudyDetective } from '../components/mechanics/StudyDetective';
+import { WeekSimulator } from '../components/mechanics/WeekSimulator';
 import styles from '../IslandSheet.module.css';
 
 interface ChallengesStageProps {
@@ -12,13 +16,27 @@ interface ChallengesStageProps {
   onFinish: () => void;
 }
 
-export function ChallengesStage({ island, onFinish }: ChallengesStageProps): React.JSX.Element {
-  const question = island.pregunta;
-  const chain = island.reto ? content.chainById(island.reto.chainId) : undefined;
-  const [answer, setAnswer] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'question' | 'chain'>(question ? 'question' : 'chain');
+type TabId = 'quiz' | 'myth' | 'week' | 'detective' | 'routine' | 'breath' | 'chain';
 
-  if (!question && !chain) {
+export function ChallengesStage({ island, onFinish }: ChallengesStageProps): React.JSX.Element {
+  const questions = island.miniQuiz ?? (island.pregunta ? [island.pregunta] : []);
+  const chain = island.reto ? content.chainById(island.reto.chainId) : undefined;
+
+  const tabs: Array<{ id: TabId; label: string }> = [
+    ...(questions.length > 0
+      ? [{ id: 'quiz' as const, label: questions.length > 1 ? `Quiz (${questions.length})` : 'Pregunta' }]
+      : []),
+    ...(island.mitosRealidad?.length ? [{ id: 'myth' as const, label: 'Mito o realidad' }] : []),
+    ...(island.simuladorSemana ? [{ id: 'week' as const, label: 'Tu semana' }] : []),
+    ...(island.detectiveEstudios ? [{ id: 'detective' as const, label: 'Detective' }] : []),
+    ...(island.experimentos ? [{ id: 'routine' as const, label: 'Mi rutina' }] : []),
+    ...(island.respiracion ? [{ id: 'breath' as const, label: 'Respirar' }] : []),
+    ...(chain ? [{ id: 'chain' as const, label: 'Cadena' }] : []),
+  ];
+
+  const [activeTab, setActiveTab] = useState<TabId>(tabs[0]?.id ?? 'quiz');
+
+  if (tabs.length === 0) {
     return (
       <div className={styles.stage}>
         <p>Esta isla no tiene retos. Su sello se gana en la historia.</p>
@@ -29,8 +47,16 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
     );
   }
 
-  const selected = question?.opciones.find((option) => option.id === answer);
-  const correct = selected?.correcta === true;
+  const nextTabAfter = (id: TabId): TabId | undefined => {
+    const idx = tabs.findIndex((item) => item.id === id);
+    return idx >= 0 ? tabs[idx + 1]?.id : undefined;
+  };
+
+  const advanceOrFinish = (id: TabId): void => {
+    const next = nextTabAfter(id);
+    if (next) setActiveTab(next);
+    else onFinish();
+  };
 
   return (
     <div className={styles.stage}>
@@ -39,82 +65,73 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
         <span className={styles.calmBadge}>Sin prisas ni vidas</span>
       </div>
 
-      {/* Selector superior interactivo si la isla tiene tanto pregunta como cadena (06-isla-retos.html) */}
-      {question && chain ? (
-        <div className={styles.tabSwitcher} role="tablist" aria-label="Secciones del reto">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'question'}
-            className={`${styles.tabBtn} ${activeTab === 'question' ? styles.tabBtnActive : ''}`}
-            onClick={() => setActiveTab('question')}
-          >
-            A · Pregunta
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'chain'}
-            className={`${styles.tabBtn} ${activeTab === 'chain' ? styles.tabBtnActive : ''}`}
-            onClick={() => setActiveTab('chain')}
-          >
-            B · Cadena
-          </button>
-        </div>
-      ) : null}
-
-      {question && activeTab === 'question' ? (
-        <div className={styles.question}>
-          <h3 className={styles.questionText}>{question.enunciado}</h3>
-          <p className={styles.questionHelp}>Descubre la relación de causa y efecto en esta isla.</p>
-
-          <div className={styles.options} role="radiogroup" aria-label="Opciones de respuesta">
-            {question.opciones.map((option) => {
-              const isSelected = answer === option.id;
-              return (
-                <button
-                  key={option.id}
-                  type="button"
-                  className={`${styles.option} ${isSelected ? styles.optionSelected : ''}`}
-                  aria-pressed={isSelected}
-                  onClick={() => setAnswer(option.id)}
-                >
-                  <span className={styles.optionText}>{option.texto}</span>
-                  <span className={styles.optionRadio} aria-hidden="true" />
-                </button>
-              );
-            })}
-          </div>
-
-          {answer ? (
-            <div className={`${styles.feedbackCard} ${correct ? styles.feedbackCorrect : styles.feedbackTryAgain}`} role="status">
-              <span className={styles.feedbackIcon} aria-hidden="true">
-                <Icon name={correct ? 'bulb' : 'sprout'} size={18} />
-              </span>
-              <p className={styles.feedbackText}>
-                {correct ? question.explicacion : 'Casi. Puedes probar con otra de las opciones.'}
-              </p>
-            </div>
-          ) : null}
-
-          <SourceBlock islandId={island.id} evidenceId={question.evidenceId} />
-
-          {correct ? (
-            <Button
-              className={styles.cta}
-              onClick={() => (chain ? setActiveTab('chain') : onFinish())}
+      {tabs.length > 1 ? (
+        <div className={styles.tabSwitcher} role="tablist" aria-label="Actividades de la isla">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              className={`${styles.tabBtn} ${activeTab === tab.id ? styles.tabBtnActive : ''}`}
+              onClick={() => setActiveTab(tab.id)}
             >
-              {chain ? 'Continuar al reto de cadena →' : (
-                <>
-                  Reclamar sello <Icon name="medal" size={18} />
-                </>
-              )}
-            </Button>
-          ) : null}
+              {tab.label}
+            </button>
+          ))}
         </div>
       ) : null}
 
-      {chain && activeTab === 'chain' ? (
+      {activeTab === 'quiz' && questions.length > 0 ? (
+        <MiniQuiz
+          islandId={island.id}
+          questions={questions}
+          continueLabel={nextTabAfter('quiz') ? 'Siguiente actividad →' : 'Reclamar sello →'}
+          onDone={() => advanceOrFinish('quiz')}
+        />
+      ) : null}
+
+      {activeTab === 'myth' && island.mitosRealidad ? (
+        <MythOrFact
+          islandId={island.id}
+          items={island.mitosRealidad}
+          onDone={() => advanceOrFinish('myth')}
+        />
+      ) : null}
+
+      {activeTab === 'week' && island.simuladorSemana ? (
+        <WeekSimulator
+          islandId={island.id}
+          config={island.simuladorSemana}
+          onDone={() => advanceOrFinish('week')}
+        />
+      ) : null}
+
+      {activeTab === 'detective' && island.detectiveEstudios ? (
+        <StudyDetective
+          islandId={island.id}
+          config={island.detectiveEstudios}
+          onDone={() => advanceOrFinish('detective')}
+        />
+      ) : null}
+
+      {activeTab === 'routine' && island.experimentos ? (
+        <RoutineBuilder
+          islandId={island.id}
+          config={island.experimentos}
+          onDone={() => advanceOrFinish('routine')}
+        />
+      ) : null}
+
+      {activeTab === 'breath' && island.respiracion ? (
+        <BreathingExercise
+          islandId={island.id}
+          config={island.respiracion}
+          onDone={() => advanceOrFinish('breath')}
+        />
+      ) : null}
+
+      {activeTab === 'chain' && chain ? (
         <div className={styles.chainBlock}>
           <h3 className={styles.questionText}>{island.reto?.titulo}</h3>
           <ChainBuilder chain={chain} onSolved={onFinish} />

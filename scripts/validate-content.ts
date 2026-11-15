@@ -233,24 +233,59 @@ export const validateContent = (
       }
       errors.push(...revisarPalabras(escena.texto, `escena ${escena.id}`));
     }
-    if (isla.pregunta) {
-      if (isla.pregunta.isHealthClaim && !isla.pregunta.evidenceId) {
-        errors.push(`pregunta ${isla.pregunta.id}: afirmación de salud sin ficha`);
+    const validarPregunta = (pregunta: NonNullable<Isla['pregunta']>): void => {
+      if (pregunta.isHealthClaim && !pregunta.evidenceId) {
+        errors.push(`pregunta ${pregunta.id}: afirmación de salud sin ficha`);
       }
-      if (isla.pregunta.evidenceId) {
-        const ficha = evidenciaPorId.get(isla.pregunta.evidenceId);
+      if (pregunta.evidenceId) {
+        const ficha = evidenciaPorId.get(pregunta.evidenceId);
         if (!ficha) {
-          errors.push(`pregunta ${isla.pregunta.id}: ficha inexistente ${isla.pregunta.evidenceId}`);
+          errors.push(`pregunta ${pregunta.id}: ficha inexistente ${pregunta.evidenceId}`);
         } else if (ficha.restricted) {
-          errors.push(`pregunta ${isla.pregunta.id}: usa una ficha restringida`);
+          errors.push(`pregunta ${pregunta.id}: usa una ficha restringida`);
         }
       }
-      errors.push(...revisarPalabras(isla.pregunta.enunciado, `pregunta ${isla.pregunta.id}`));
-      errors.push(...revisarPalabras(isla.pregunta.explicacion, `pregunta ${isla.pregunta.id}`));
-      const correctas = isla.pregunta.opciones.filter((opcion) => opcion.correcta).length;
+      errors.push(...revisarPalabras(pregunta.enunciado, `pregunta ${pregunta.id}`));
+      errors.push(...revisarPalabras(pregunta.explicacion, `pregunta ${pregunta.id}`));
+      const correctas = pregunta.opciones.filter((opcion) => opcion.correcta).length;
       if (correctas !== 1) {
-        errors.push(`pregunta ${isla.pregunta.id}: debe tener exactamente una opción correcta`);
+        errors.push(`pregunta ${pregunta.id}: debe tener exactamente una opción correcta`);
       }
+    };
+
+    const verificarFicha = (evidenceId: string | undefined, ubicacion: string): void => {
+      if (!evidenceId) return;
+      const ficha = evidenciaPorId.get(evidenceId);
+      if (!ficha) errors.push(`${ubicacion}: ficha inexistente ${evidenceId}`);
+      else if (ficha.restricted) errors.push(`${ubicacion}: usa una ficha restringida`);
+    };
+
+    if (isla.pregunta) validarPregunta(isla.pregunta);
+    for (const q of isla.miniQuiz ?? []) validarPregunta(q);
+    for (const mito of isla.mitosRealidad ?? []) {
+      if (mito.isHealthClaim && !mito.evidenceId) {
+        errors.push(`mito ${mito.id}: afirmación de salud sin ficha`);
+      }
+      verificarFicha(mito.evidenceId, `mito ${mito.id}`);
+      errors.push(...revisarPalabras(mito.afirmacion, `mito ${mito.id}`));
+      errors.push(...revisarPalabras(mito.explicacion, `mito ${mito.id}`));
+    }
+    if (isla.simuladorSemana) {
+      verificarFicha(isla.simuladorSemana.evidenceId, `simulador ${isla.id}`);
+    }
+    if (isla.detectiveEstudios) {
+      verificarFicha(isla.detectiveEstudios.evidenceId, `detective ${isla.id}`);
+      for (const est of isla.detectiveEstudios.estudios) {
+        verificarFicha(est.evidenceId, `detective ${est.id}`);
+      }
+      errors.push(...revisarPalabras(isla.detectiveEstudios.hipotesisPlausible, `detective ${isla.id}`));
+    }
+    for (const exp of isla.experimentos?.opciones ?? []) {
+      verificarFicha(exp.evidenceId, `experimento ${exp.id}`);
+      errors.push(...revisarPalabras(exp.detalle, `experimento ${exp.id}`));
+    }
+    if (isla.respiracion) {
+      verificarFicha(isla.respiracion.evidenceId, `respiracion ${isla.id}`);
     }
     if (isla.reto && !cadenaPorId.has(isla.reto.chainId)) {
       errors.push(`isla ${isla.id}: reto apunta a cadena inexistente ${isla.reto.chainId}`);
