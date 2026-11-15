@@ -12,3 +12,4 @@ Registro de features y seguimiento del ciclo de vida en el proyecto Nubi.
 | 006 | UI completa, responsive de paridad y Diario | cerrada | 2026-11-08 | 2026-11-14 | [`006-ui-completa.md`](./006-ui-completa.md) |
 | 007 | Despliegue en Vercel (staging) | en-curso | 2026-11-08 | — | [`007-despliegue-vercel.md`](./007-despliegue-vercel.md) |
 | 008 | Escenas Narrativas Completas del Archipiélago | cerrada | 2026-11-08 | 2026-11-14 | [`008-escenas-narrativas-completas.md`](./008-escenas-narrativas-completas.md) |
+| 009 | Corrección editorial, copy visible y trazabilidad de evidencia | en-curso | 2026-11-15 | — | [`009-correccion-editorial.md`](./009-correccion-editorial.md) |
