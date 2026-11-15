@@ -1,16 +1,16 @@
 [
   {
     "id": "C-01",
-    "title": "Del reloj al ánimo",
+    "title": "El reloj biológico y las horas de descanso",
     "mode": "guided",
     "start": "N-RELOJ",
-    "end": "N-IRRITABILIDAD",
-    "solution": ["N-RELOJ", "N-DORMIR-TARDE", "N-POCO-SUENO", "N-IRRITABILIDAD"],
-    "distractors": ["N-COLEGIO-TEMPRANO"]
+    "end": "N-POCO-SUENO",
+    "solution": ["N-RELOJ", "N-DORMIR-TARDE", "N-POCO-SUENO"],
+    "distractors": ["N-COLEGIO-TEMPRANO", "N-IRRITABILIDAD"]
   },
   {
     "id": "C-02",
-    "title": "Colegio temprano y ánimo",
+    "title": "Colegio temprano y regulación",
     "mode": "guided",
     "start": "N-COLEGIO-TEMPRANO",
     "end": "N-REGULACION",
@@ -33,7 +33,16 @@
     "mode": "guided",
     "start": "N-HORARIO-CAMBIANTE",
     "end": "N-RECOMPENSA",
-    "solution": ["N-HORARIO-CAMBIANTE", "N-RECOMPENSA"],
-    "distractors": ["N-COLEGIO-TEMPRANO"]
+    "solution": ["N-HORARIO-CAMBIANTE", "N-POCO-SUENO", "N-RECOMPENSA"],
+    "distractors": ["N-COLEGIO-TEMPRANO", "N-IRRITABILIDAD"]
+  },
+  {
+    "id": "C-05",
+    "title": "Del sueño tardío al ánimo",
+    "mode": "guided",
+    "start": "N-DORMIR-TARDE",
+    "end": "N-IRRITABILIDAD",
+    "solution": ["N-DORMIR-TARDE", "N-POCO-SUENO", "N-IRRITABILIDAD"],
+    "distractors": ["N-COLEGIO-TEMPRANO", "N-RECOMPENSA"]
   }
 ]

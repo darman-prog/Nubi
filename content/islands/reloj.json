@@ -115,8 +115,8 @@
   ],
   "reto": {
     "chainId": "C-01",
-    "titulo": "Arma la cadena del reloj al ánimo",
-    "huecos": 1
+    "titulo": "El reloj biológico y las horas de descanso",
+    "huecos": 2
   },
   "puentes": ["B-01", "B-02"],
   "fuentes": ["EV-001", "EV-002", "EV-003", "EV-004"]

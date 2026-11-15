@@ -113,10 +113,10 @@
     }
   ],
   "reto": {
-    "chainId": "C-01",
-    "titulo": "Del reloj al ánimo",
+    "chainId": "C-05",
+    "titulo": "Del sueño tardío al ánimo",
     "huecos": 2
   },
-  "puentes": ["B-06", "B-07"],
-  "fuentes": ["EV-007", "EV-014"]
+  "puentes": ["B-02", "B-06", "B-07"],
+  "fuentes": ["EV-004", "EV-007", "EV-014"]
 }

@@ -27,8 +27,8 @@ Corregir ortografía, gramática, terminología, redundancias y atribución de e
 | **D3** | Documentar que en v0.1 el reto es la cadena y posponer `retoReal` a v0.2 | Aplicado en `docs/ListadoDocumentos/02-contenido-y-evidencia.md` |
 | **D4** | Retirar `WeekSimulator` (`MEC-04`) de código y docs hasta v0.2 | Aplicado en `src/` y `docs/ListadoDocumentos/{02,03}` |
 | **D5** | Añadir `isSimplified?: boolean` opcional en `EscenaSchema` y mostrarlo en UI | Aplicado en `island.ts`, `StoryStage.tsx`, `animo.json`, `cerebro.json` y `05` |
-| **D6** | Documentar `C-01` como refuerzo progresivo entre `Reloj` (1 hueco) y `Ánimo` (2 huecos) | Aplicado en `docs/ListadoDocumentos/02-contenido-y-evidencia.md` |
-| **D7** | Documentar `C-04` en `Taller` como síntesis de regularidad fin de semana | Aplicado en `docs/ListadoDocumentos/02-contenido-y-evidencia.md` |
+| **D6** | Cada isla tiene su propia cadena causal sin duplicidad (`C-01` Reloj, `C-05` Ánimo) | Aplicado en `chains.json`, `reloj.json`, `animo.json` y `02` |
+| **D7** | `C-04` en `Taller` ampliada a 3 nodos vía `B-14` (`EV-021a`) + `B-08` (`EV-014`) sin atajo directo | Aplicado en `edges.json`, `chains.json`, `taller.json` y `02` |
 | **QA-1..3** | Variar `PR-2`/`MR-04` en `Horarios`, quitar etiquetas visibles de nivel (`PR-33`) y permitir cualquier 3 de 4 mecánicas | Aplicado y verificado |
 
 ## Criterios de aceptación (Given-When-Then)

@@ -173,7 +173,7 @@ Todas con estado `draft`. La columna "Verificar" indica qué debe confirmarse co
 | **B-02** | `N-DORMIR-TARDE` → `N-POCO-SUENO` | **E3** | EV-004 | "Bien establecido" |
 | **B-03** | `N-COLEGIO-TEMPRANO` → `N-POCO-SUENO` | **E3** | EV-004, EV-005 | "Bien establecido" |
 | **B-04** | `N-HORARIO-CAMBIANTE` → `N-DORMIR-TARDE` | **pendiente** | — | **No publicar** (falta ficha que respalde esta relación) |
-| **B-05** | `N-HORARIO-CAMBIANTE` → `N-RECOMPENSA` | **E1** | EV-006 | "Aún se investiga" |
+| **B-05** | `N-HORARIO-CAMBIANTE` → `N-RECOMPENSA` | **pendiente** | EV-006 | **Pospuesto** (en MVP `C-04` pasa por `N-POCO-SUENO` vía `B-14` + `B-08`) |
 | **B-06** | `N-POCO-SUENO` → `N-IRRITABILIDAD` | **E2** | EV-007 | "Probable" |
 | **B-07** | `N-POCO-SUENO` → `N-REGULACION` | **E2** | EV-007, EV-009 | "Probable" (el eslabón con adolescentes es EV-007; EV-009 es E1) |
 | **B-08** | `N-POCO-SUENO` → `N-RECOMPENSA` | **E1** | EV-014 (EV-015 solo como contraste interno) | "Aún se investiga" (la dirección cambia según edad y tipo de pérdida de sueño) |
@@ -182,17 +182,19 @@ Todas con estado `draft`. La columna "Verificar" indica qué debe confirmarse co
 | **B-11** | `N-IRRITABILIDAD` → `N-CONCENTRACION` | **E1** | EV-022 | "Aún se investiga (hipótesis integrada)" |
 | **B-12** | `N-CONCENTRACION` → `N-ESTUDIO-INCONSTANTE` | **E1** | EV-022 | Ídem |
 | **B-13** | `N-ESTUDIO-INCONSTANTE` → `N-RETENCION` | **E1** | EV-022 | Ídem |
+| **B-14** | `N-HORARIO-CAMBIANTE` → `N-POCO-SUENO` | **E1** | EV-021a | "Aún se investiga" |
 
 > **B-04 es una lección:** el ejemplo "horario cambiante → duermes tarde" parece obvio, pero las bases no lo respaldan con una ficha. Se queda en pendiente hasta tener fuente.
 
 ### 5.3 Cadenas jugables del MVP
 
-| ID | Nombre | Eslabones | Islas donde se juega |
+| ID | Nombre | Eslabones | Isla asignada |
 |---|---|---|---|
-| **C-01** | Del reloj al ánimo | `N-RELOJ` → `N-DORMIR-TARDE` → `N-POCO-SUENO` → `N-IRRITABILIDAD` | `ISL-RELOJ` (1 hueco) e `ISL-ANIMO` (2 huecos, refuerzo progresivo) |
-| **C-02** | Colegio temprano y ánimo | `N-COLEGIO-TEMPRANO` → `N-POCO-SUENO` → `N-REGULACION` | `ISL-HORARIOS` (1 hueco) |
-| **C-03** | La cadena del estudio *(hipótesis integrada)* | `N-POCO-SUENO` → `N-IRRITABILIDAD` → `N-CONCENTRACION` → `N-ESTUDIO-INCONSTANTE` → `N-RETENCION` | `ISL-CEREBRO` (2 huecos) |
-| **C-04** | Del fin de semana a la recompensa | `N-HORARIO-CAMBIANTE` → `N-RECOMPENSA` | `ISL-TALLER` (1 hueco, síntesis de regularidad fin de semana) |
+| **C-01** | El reloj biológico y las horas de descanso | `N-RELOJ` → `N-DORMIR-TARDE` → `N-POCO-SUENO` | `ISL-RELOJ` (3 nodos) |
+| **C-02** | Colegio temprano y regulación | `N-COLEGIO-TEMPRANO` → `N-POCO-SUENO` → `N-REGULACION` | `ISL-HORARIOS` (3 nodos) |
+| **C-03** | La cadena del estudio *(hipótesis integrada)* | `N-POCO-SUENO` → `N-IRRITABILIDAD` → `N-CONCENTRACION` → `N-RETENCION` | `ISL-CEREBRO` (4 nodos) |
+| **C-04** | Del fin de semana a la recompensa | `N-HORARIO-CAMBIANTE` → `N-POCO-SUENO` → `N-RECOMPENSA` | `ISL-TALLER` (3 nodos) |
+| **C-05** | Del sueño tardío al ánimo | `N-DORMIR-TARDE` → `N-POCO-SUENO` → `N-IRRITABILIDAD` | `ISL-ÁNIMO` (3 nodos) |
 
 > **Nota de alcance v0.1 (`reto` vs. `retoReal`):** En el esquema v0.1 (`RetoSchema`), el bloque `reto` de cada isla corresponde al armador de cadenas (`chainId`). Los retos de observación fuera de pantalla descritos abajo como *Reto real (v0.2)* quedan pospuestos para v0.2 salvo los experimentos semanales ya integrados en `ISL-TALLER`.
 

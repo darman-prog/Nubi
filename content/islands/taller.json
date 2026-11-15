@@ -109,8 +109,8 @@
   "reto": {
     "chainId": "C-04",
     "titulo": "Del fin de semana a la recompensa",
-    "huecos": 1
+    "huecos": 2
   },
-  "puentes": ["B-05"],
-  "fuentes": ["EV-021a", "EV-021b", "EV-021c", "EV-001", "EV-023"]
+  "puentes": ["B-14", "B-08"],
+  "fuentes": ["EV-021a", "EV-021b", "EV-021c", "EV-001", "EV-014", "EV-023"]
 }

@@ -79,9 +79,9 @@
   ],
   "reto": {
     "chainId": "C-02",
-    "titulo": "Colegio temprano y ánimo",
-    "huecos": 1
+    "titulo": "Colegio temprano y regulación",
+    "huecos": 2
   },
-  "puentes": ["B-02", "B-05"],
-  "fuentes": ["EV-004", "EV-005", "EV-006"]
+  "puentes": ["B-02", "B-03", "B-07"],
+  "fuentes": ["EV-004", "EV-005", "EV-006", "EV-007"]
 }

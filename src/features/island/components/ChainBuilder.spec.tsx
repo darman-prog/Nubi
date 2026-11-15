@@ -53,4 +53,22 @@ describe('ChainBuilder', () => {
     fireEvent.click(screen.getByRole('button', { name: /deshacer paso/i }));
     expect(screen.queryByRole('button', { name: /deshacer paso/i })).not.toBeInTheDocument();
   });
+
+  it('exige 3 nodos (2 pasos) en C-04 de Taller sin atajo directo en 1 clic', () => {
+    const chain = content.chainById('C-04');
+    expect(chain).toBeDefined();
+    expect(chain?.solution).toEqual(['N-HORARIO-CAMBIANTE', 'N-POCO-SUENO', 'N-RECOMPENSA']);
+    if (!chain) return;
+
+    render(<ChainBuilder chain={chain} onSolved={() => {}} />);
+
+    const endLabel = content.nodeById('N-RECOMPENSA')?.label ?? 'N-RECOMPENSA';
+    expect(screen.queryByRole('button', { name: new RegExp(endLabel, 'i') })).not.toBeInTheDocument();
+
+    const middleLabel = content.nodeById('N-POCO-SUENO')?.label ?? 'N-POCO-SUENO';
+    fireEvent.click(screen.getByRole('button', { name: new RegExp(middleLabel, 'i') }));
+    fireEvent.click(screen.getByRole('button', { name: new RegExp(endLabel, 'i') }));
+
+    expect(screen.getByText(/¡cadena completa!/i)).toBeInTheDocument();
+  });
 });

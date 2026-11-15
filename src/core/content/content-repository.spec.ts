@@ -37,8 +37,24 @@ describe('ContentRepository', () => {
     const repo = createContentRepository(data);
 
     expect(repo.islands).toHaveLength(data.islands.length);
-    expect(repo.chainById('C-01')?.title).toBe('Del reloj al ánimo');
+    expect(repo.chainById('C-01')?.title).toBe('El reloj biológico y las horas de descanso');
     expect(repo.edgeById('B-01')?.status).toBe('published');
+  });
+
+  it('asigna una cadena única de al menos 3 nodos a cada isla con reto', () => {
+    const retos = content
+      .availableIslands()
+      .map((island) => island.reto)
+      .filter((reto): reto is NonNullable<typeof reto> => Boolean(reto));
+
+    const chainIds = retos.map((reto) => reto.chainId);
+    // Cada isla jugable con reto debe enseñar un recorrido causal propio sin repetir cadenas.
+    expect(new Set(chainIds).size).toBe(chainIds.length);
+    for (const id of chainIds) {
+      const chain = content.chainById(id);
+      expect(chain).toBeDefined();
+      expect(chain!.solution.length).toBeGreaterThanOrEqual(3);
+    }
   });
 });
 
