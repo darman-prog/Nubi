@@ -2,14 +2,9 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { content } from '@/core/content/content-repository';
 import { markSourceOpened } from '@/core/progress-service';
 import { useUserStateStore } from '@/shared/state/UserStateContext';
+import { EvidenceBadge } from '@/shared/ui/EvidenceBadge';
 import { Icon } from '@/shared/ui/icons/Icon';
 import styles from '../IslandSheet.module.css';
-
-const LEVEL_LABEL = {
-  E3: 'Bien establecido',
-  E2: 'Probable',
-  E1: 'Aún se investiga',
-} as const;
 
 interface SourceBlockProps {
   islandId: string;
@@ -56,9 +51,7 @@ export function SourceBlock({ islandId, evidenceId }: SourceBlockProps): React.J
         aria-controls={`source-${evidence.id}`}
         onClick={handleOpen}
       >
-        <span className={`${styles.sourceLevel} ${styles[`level_${evidence.level}`]}`}>
-          <Icon name="dot" size={8} /> {LEVEL_LABEL[evidence.level]}
-        </span>
+        <EvidenceBadge level={evidence.level} />
         Ver fuente
       </button>
 
@@ -138,10 +131,7 @@ export function SourceBlock({ islandId, evidenceId }: SourceBlockProps): React.J
             </button>
 
             <div className={styles.sourceFooter}>
-              <div className={`${styles.evidenceBadge} ${styles[`level_${evidence.level}`]}`}>
-                <span className={styles.badgeDot} />
-                <span>{LEVEL_LABEL[evidence.level]}</span>
-              </div>
+              <EvidenceBadge level={evidence.level} />
               <p className={styles.sourceDisclaimer}>
                 Esta app informa y no reemplaza a un profesional de la salud.
               </p>

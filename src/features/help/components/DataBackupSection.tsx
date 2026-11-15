@@ -1,22 +1,18 @@
 import { useState } from 'react';
 import { useUserStateStore } from '@/shared/state/UserStateContext';
+import { ConfirmDialog } from '@/shared/ui/ConfirmDialog';
+import { Toast } from '@/shared/ui/Toast';
 import styles from '../HelpScreen.module.css';
 
 /** Opción para borrar el progreso guardado y volver a empezar el viaje desde cero. */
 export function DataBackupSection(): React.JSX.Element {
   const store = useUserStateStore();
-  const [confirmClear, setConfirmClear] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [message, setMessage] = useState('');
 
-  const clearData = (): void => {
-    // Exigimos doble toque para evitar reinicios accidentales del viaje local.
-    if (!confirmClear) {
-      setConfirmClear(true);
-      setMessage('');
-      return;
-    }
+  const confirmReset = (): void => {
     store.reset();
-    setConfirmClear(false);
+    setConfirmOpen(false);
     setMessage('Tu viaje ha sido reiniciado en este dispositivo.');
   };
 
@@ -31,23 +27,27 @@ export function DataBackupSection(): React.JSX.Element {
       <div className={styles.actions}>
         <button
           type="button"
-          className={confirmClear ? styles.dangerConfirm : styles.action}
-          onClick={clearData}
+          className={styles.action}
+          onClick={() => {
+            setMessage('');
+            setConfirmOpen(true);
+          }}
         >
-          {confirmClear ? '¿Seguro? Toca para borrar todo' : 'Borrar mi viaje'}
+          Borrar mi viaje
         </button>
-        {confirmClear ? (
-          <button type="button" className={styles.cancelBtn} onClick={() => setConfirmClear(false)}>
-            Cancelar
-          </button>
-        ) : null}
       </div>
 
-      {message ? (
-        <p className={styles.message} role="status">
-          {message}
-        </p>
-      ) : null}
+      <Toast message={message || null} onDismiss={() => setMessage('')} />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="¿Borrar tu viaje?"
+        message="Esto elimina todo lo guardado en este dispositivo. No se puede deshacer."
+        confirmLabel="Sí, borrar todo"
+        tone="danger"
+        onConfirm={confirmReset}
+        onCancel={() => setConfirmOpen(false)}
+      />
     </section>
   );
 }

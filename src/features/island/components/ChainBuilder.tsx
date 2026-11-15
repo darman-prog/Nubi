@@ -8,6 +8,7 @@ import {
 import { findPaths } from '@/domain/graph/find-paths';
 import { validateChain } from '@/domain/graph/validate-chain';
 import { Button } from '@/shared/ui/Button';
+import { EvidenceBadge } from '@/shared/ui/EvidenceBadge';
 import { Icon } from '@/shared/ui/icons/Icon';
 import type { Chain } from '../../../../content/schema';
 import styles from '../IslandSheet.module.css';
@@ -96,8 +97,9 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
           return (
             <li key={id} className={styles.chainNode}>
               {index > 0 ? (
-                <span className={styles.chainArrow} aria-hidden="true">
-                  ↓ {link?.level ? <span className={styles.edgeLevelBadge}>{link.level}</span> : null}
+                <span className={styles.chainArrow}>
+                  <span aria-hidden="true">↓</span>
+                  {link?.level ? <EvidenceBadge level={link.level} compact /> : null}
                 </span>
               ) : null}
               <span className={styles.nodeCard}>

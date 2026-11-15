@@ -5,6 +5,7 @@ import type { UserStateV1 } from '@/core/user-state';
 import { useUserState, useUserStateStore } from '@/shared/state/UserStateContext';
 import { upsertDiaryEntry } from '@/domain/diary/diary-entry';
 import { formatMinutes, isPlausible, sleepMinutes } from '@/domain/diary/sleep-math';
+import { Toast } from '@/shared/ui/Toast';
 import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './DiaryScreen.module.css';
 
@@ -136,7 +137,7 @@ export default function DiaryScreen(): React.JSX.Element {
           </p>
         ) : null}
         {error ? <p className={styles.error} role="alert">{error}</p> : null}
-        {message ? <p className={styles.message} role="status">{message}</p> : null}
+        <Toast message={message || null} onDismiss={() => setMessage('')} />
 
         <button type="submit" className={styles.save}>
           Guardar

@@ -33,6 +33,7 @@ describe('ChainBuilder', () => {
 
     expect(screen.getByText(/¡cadena completa!/i)).toBeInTheDocument();
     expect(screen.getByText(/eslabón más débil/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/estudios|evidencia/i).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole('button', { name: /reclamar sello/i }));
     expect(onSolved).toHaveBeenCalledOnce();
   });

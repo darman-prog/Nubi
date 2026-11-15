@@ -26,16 +26,28 @@ describe('HelpScreen', () => {
     expect(document.documentElement.dataset.textScale).toBe('1.25');
   });
 
-  it('exige doble confirmación para borrar el viaje y volver a empezar', () => {
+  it('pide confirmación en diálogo modal para borrar el viaje y permite cancelar con Esc', async () => {
     const store = new UserStateStore(new StorageService(null, 0));
     renderHelp(store);
 
     expect(screen.queryByRole('button', { name: /exportar mi viaje/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /importar viaje/i })).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Borrar mi viaje' }));
-    expect(screen.getByRole('button', { name: /¿seguro\? toca para borrar todo/i })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /¿seguro\? toca para borrar todo/i }));
+    const clearTrigger = screen.getByRole('button', { name: 'Borrar mi viaje' });
+    clearTrigger.focus();
+    fireEvent.click(clearTrigger);
+
+    expect(screen.getByRole('dialog', { name: '¿Borrar tu viaje?' })).toBeInTheDocument();
+    expect(
+      screen.getByText(/esto elimina todo lo guardado en este dispositivo\. no se puede deshacer\./i),
+    ).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    await waitFor(() => expect(clearTrigger).toHaveFocus());
+
+    fireEvent.click(clearTrigger);
+    fireEvent.click(screen.getByRole('button', { name: 'Sí, borrar todo' }));
     expect(screen.getByText(/tu viaje ha sido reiniciado/i)).toBeInTheDocument();
   });
 
