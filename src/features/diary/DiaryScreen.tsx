@@ -170,7 +170,7 @@ export default function DiaryScreen(): React.JSX.Element {
             })}
           </ul>
         )}
-        <p className={styles.privacy}>Se queda en este dispositivo. Puedes exportarlo o borrarlo en Ayuda.</p>
+        <p className={styles.privacy}>Se queda en este dispositivo. Puedes borrarlo en Ayuda cuando quieras.</p>
       </section>
     </div>
   );

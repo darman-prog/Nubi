@@ -39,4 +39,19 @@ describe('DiaryScreen', () => {
 
     expect(store.getState().diary[0]?.experimentTried).toBe('some');
   });
+
+  it('muestra error claro cuando la hora de acostarse y levantarse son iguales', () => {
+    const store = new UserStateStore(new StorageService(null, 0));
+    render(
+      <UserStateProvider store={store}>
+        <DiaryScreen />
+      </UserStateProvider>,
+    );
+
+    fireEvent.change(screen.getByLabelText('Me levanté'), { target: { value: '23:00' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar' }));
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/no pueden ser iguales/i);
+    expect(store.getState().diary).toHaveLength(0);
+  });
 });

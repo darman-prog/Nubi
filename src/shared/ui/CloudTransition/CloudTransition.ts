@@ -27,16 +27,6 @@ const HOLD = 120;
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
-/** Combina prefers-reduced-motion con el ajuste manual de la app. */
-const shouldReduceMotion = (): boolean => {
-  if (typeof document === 'undefined') return true;
-  const setting = document.documentElement.dataset.reduceMotion;
-  if (setting === 'on') return true;
-  if (setting === 'off') return false;
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-};
-
 /**
  * Telón de nubes que cubre el cambio de vista. Se monta una vez y se invoca
  * desde la navegación; no usa contexto para no añadir otro provider.
@@ -67,7 +57,7 @@ class CloudTransition {
   };
 
   unmount = (): void => {
-    this.layers.forEach((layer) => layer.el.getAnimations().forEach((animation) => animation.cancel()));
+    this.layers.forEach((layer) => layer.el.getAnimations?.().forEach((animation) => animation.cancel()));
     this.root?.remove();
     this.root = null;
     this.layers = [];
@@ -78,11 +68,6 @@ class CloudTransition {
     this.busy = true;
 
     try {
-      if (shouldReduceMotion()) {
-        await changeView();
-        return;
-      }
-
       this.mount();
       if (!this.root) {
         await changeView();
@@ -98,7 +83,7 @@ class CloudTransition {
       // Si changeView falla, el telón igual se retira para no dejar la app bloqueada.
       if (this.root) {
         this.layers.forEach((layer) =>
-          layer.el.getAnimations().forEach((animation) => animation.cancel()),
+          layer.el.getAnimations?.().forEach((animation) => animation.cancel()),
         );
         this.root.style.display = 'none';
       }
@@ -106,8 +91,10 @@ class CloudTransition {
     }
   };
 
-  private slide = (layer: Layer, enter: boolean): Promise<void> =>
-    layer.el
+  private slide = (layer: Layer, enter: boolean): Promise<void> => {
+    // Fallback defensivo si un navegador antiguo no soporta Web Animations API.
+    if (typeof layer.el.animate !== 'function') return Promise.resolve();
+    return layer.el
       .animate(
         [{ transform: `translateX(${layer.side * 100}%)` }, { transform: 'translateX(0)' }],
         {
@@ -119,6 +106,7 @@ class CloudTransition {
         },
       )
       .finished.then(() => undefined);
+  };
 }
 
 export const cloudTransition = new CloudTransition();

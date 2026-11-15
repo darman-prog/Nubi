@@ -63,25 +63,3 @@ button {
   border: none;
   background: none;
 }
-
-/* Soporte riguroso para reducción de movimiento: desvanecimientos cortos (doc 04 §7) */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: var(--dur-fast) !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Ajuste manual de movimiento (doc 04 §7); complementa prefers-reduced-motion. */
-[data-reduce-motion='on'] *,
-[data-reduce-motion='on'] *::before,
-[data-reduce-motion='on'] *::after {
-  animation-duration: 1ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: var(--dur-fast) !important;
-  scroll-behavior: auto !important;
-}

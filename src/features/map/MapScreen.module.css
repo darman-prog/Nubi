@@ -203,12 +203,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .herePill {
-    animation: none;
-  }
-}
-
 .zonesWrapper {
   position: relative;
   z-index: 1;

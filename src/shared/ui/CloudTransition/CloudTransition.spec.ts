@@ -2,35 +2,45 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cloudTransition } from './CloudTransition';
 
 describe('cloudTransition', () => {
+  const originalAnimate = Element.prototype.animate;
+  const originalGetAnimations = Element.prototype.getAnimations;
+
   beforeEach(() => {
-    document.documentElement.removeAttribute('data-reduce-motion');
+    // jsdom no implementa Web Animations API; simulamos una animación completada.
+    Element.prototype.animate = vi.fn(
+      () =>
+        ({
+          finished: Promise.resolve(),
+          cancel: vi.fn(),
+        }) as unknown as Animation,
+    );
+    Element.prototype.getAnimations = vi.fn(() => []);
   });
 
   afterEach(() => {
-    document.documentElement.removeAttribute('data-reduce-motion');
     cloudTransition.unmount();
+    Element.prototype.animate = originalAnimate;
+    Element.prototype.getAnimations = originalGetAnimations;
   });
 
-  it('con reduceMotion=on navega sin montar el telón', async () => {
-    document.documentElement.dataset.reduceMotion = 'on';
+  it('monta el telón de nubes, cambia la vista y oculta la cortina al terminar', async () => {
     const changeView = vi.fn();
-    const childrenBefore = document.body.childElementCount;
 
     await cloudTransition.go(changeView);
 
     expect(changeView).toHaveBeenCalledTimes(1);
-    expect(document.body.childElementCount).toBe(childrenBefore);
+    const curtain = document.querySelector<HTMLElement>('[data-cloud-transition]');
+    expect(curtain).not.toBeNull();
+    expect(curtain?.style.display).toBe('none');
   });
 
   it('ignora una navegación mientras la anterior sigue en curso', async () => {
-    document.documentElement.dataset.reduceMotion = 'on';
     let resolveFirst: (() => void) | undefined;
-    const first = cloudTransition.go(
-      () =>
-        new Promise<void>((resolve) => {
-          resolveFirst = resolve;
-        }),
-    );
+    // Crea la promesa antes de llamar go() para evitar carreras con los microtasks de slide().
+    const pendingView = new Promise<void>((resolve) => {
+      resolveFirst = resolve;
+    });
+    const first = cloudTransition.go(() => pendingView);
     const second = vi.fn();
 
     await cloudTransition.go(second);

@@ -858,12 +858,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .fogImage {
-    animation: none;
-  }
-}
-
 .fogDetails {
   display: flex;
   flex-direction: column;

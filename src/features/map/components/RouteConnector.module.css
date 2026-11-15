@@ -99,9 +99,3 @@
     stroke-dashoffset: -20;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .active .path {
-    animation: none;
-  }
-}
