@@ -168,6 +168,7 @@ interface Escena {
   texto: string;                    // ≤ 45 palabras
   alt: string;
   isHealthClaim: boolean;           // si true => evidenceId obligatorio
+  isSimplified?: boolean;           // si true => muestra etiqueta «Explicación simplificada»
   evidenceId?: string;
   ilustracion?: string;             // 'arte/escenas/reloj-1.webp'
 }

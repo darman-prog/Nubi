@@ -155,7 +155,7 @@ Solo `chainId` y `solvedAt` (ver `05` §5). No se guardan intentos, ayudas ni er
 | **MEC-01** | Armador de cadenas | Todas (desde Conecta) | MVP |
 | **MEC-02** | Mito o realidad | Reloj, Horarios, Ánimo, Cerebro | MVP |
 | **MEC-03** | Mini quiz | Reloj, Ánimo | MVP |
-| **MEC-04** | Arma tu semana (simulador de horas) | Horarios | MVP |
+| **MEC-04** | Arma tu semana (simulador de horas) | Horarios | v0.2 |
 | **MEC-05** | Detective de estudios | Cerebro | MVP |
 | **MEC-06** | Constructor de rutina (experimento de 7 días) | Taller | MVP |
 | **MEC-07** | Respiración con Nubi | Taller | MVP |

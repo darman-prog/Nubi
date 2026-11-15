@@ -18,7 +18,7 @@
 
 Base: documento de bases de investigación del proyecto (revisión documental narrativa).
 
-- La Academia Americana de Medicina del Sueño (AASM) recomienda **8 a 10 horas** para adolescentes de 13 a 18 años (EV-001). En datos de EE. UU. citados en esa misma posición, **68,4 %** de los estudiantes de bachillerato duerme 7 horas o menos en noches de colegio (EV-002). *Dato de EE. UU.: en Colombia hay pocas cifras de colegios y los estudios disponibles son sobre todo de universitarios.*
+- La Academia Americana de Medicina del Sueño (AASM) recomienda **8 a 10 horas** para adolescentes de 13 a 18 años (EV-001). En datos de EE.UU. citados en esa misma posición, **el 68,4 %** de los estudiantes de secundaria duerme 7 horas o menos en noches de colegio (EV-002). *Dato de EE.UU.: en Colombia hay pocas cifras de colegios y los estudios disponibles son sobre todo de universitarios.*
 - Las causas se combinan: biológicas (el reloj biológico se retrasa en la pubertad), escolares (entradas tempranas) y de estilo de vida (tareas, pantallas, vida social).
 - Dormir poco se asocia con irritabilidad, peor regulación emocional, cambios en el sistema de recompensa y, según el diseño del estudio, peor retención a largo plazo.
 - **Brecha:** hay poca información clara en español para adolescentes, y casi nada que muestre las *relaciones* entre causas y efectos con honestidad sobre lo que se sabe y lo que no.

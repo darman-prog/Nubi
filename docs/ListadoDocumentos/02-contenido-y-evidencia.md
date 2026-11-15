@@ -20,12 +20,19 @@
    - Resultados mixtos → "depende", "los estudios no coinciden".
 3. **Cita siempre la población.** "En un estudio con 50 adolescentes de 14 a 17 años…". No generalices a "todos los adolescentes".
 4. **Separa adolescentes de adultos.** Un hallazgo en adultos o jóvenes de 23 años no se presenta como hallazgo en adolescentes (EV-010, EV-015).
-5. **Rotula el origen geográfico de las cifras.** El 68,4 % es de EE. UU. Los datos de Colombia son de universitarios (EV-020).
-6. **Explicaciones simplificadas** (metáforas como "el freno de las emociones") llevan la etiqueta *explicación simplificada*.
+5. **Rotula el origen geográfico de las cifras.** El 68,4 % es de EE.UU. Los datos de Colombia son de universitarios (EV-020).
+6. **Explicaciones simplificadas** (metáforas como "el freno de las emociones" o "tres momentos de la memoria") llevan el campo `isSimplified: true` y muestran en la interfaz la etiqueta *Explicación simplificada*.
 7. **No uses el mecanismo de "luz azul", "melatonina por pantallas" ni cifras de cafeína** hasta tener fichas específicas (§8).
 8. **No recomiendes** medicamentos, melatonina ni suplementos.
 9. **No diagnostiques ni interpretes síntomas del usuario.**
-10. **Cierres honestos:** donde los datos son mixtos, la tarjeta final lo dice ("esto no significa que trasnochar sea gratis").
+10. **Cierres honestos:** donde los datos son mixtos, la tarjeta final lo dice ("trasnochar seguido pasa factura al aprendizaje").
+
+### Glosario y estilo canónico
+- **Geografía:** `EE.UU.` (sin espacio interno, igual que el enum de esquema).
+- **Nivel escolar:** `secundaria` (evitar mezclar con `bachillerato` en copy visible).
+- **Evidencia al usuario:** `fuente` / `estudio` (evitar la jerga interna `ficha` o `estudio científico`).
+- **Duración de restricción:** distinguir `horas en cama` (protocolo experimental, p. ej. EV-007, EV-011, EV-012) de `horas de sueño`; escribir `horas` completo y coma decimal (`6,5 horas`).
+- **Comillas en prosa:** usar comillas españolas `«…»` o cursiva en lugar de comillas simples `'…'`.
 
 ### Palabras a evitar
 "Causa" (en estudios de asociación), "demostrado", "siempre", "nunca", "peligroso", "adicción", "enfermedad", "trastorno" (salvo en Ayuda y con revisión).
@@ -34,14 +41,14 @@
 
 ## 2. Niveles de evidencia
 
-| Nivel | Etiqueta en la interfaz | Cuándo se usa | Ícono |
-|---|---|---|---|
-| **E3** | **Bien establecido** | Posición oficial de una sociedad científica o hallazgo consistente en revisiones | ● (lleno) |
-| **E2** | **Probable** | Estudios con adolescentes con resultados consistentes, pero pocos, pequeños o de un solo grupo | ◐ (medio) |
-| **E1** | **Aún se investiga** | Resultados mixtos, hallazgos en otra población, fuente débil o interpretación que integra estudios distintos | ○ (vacío) |
-| **E0** | — (no se muestra) | Sin ficha o con ficha restringida | — |
+| Nivel | Clasificación interna | Cuándo se usa |
+|---|---|---|
+| **E3** | Consenso / revisión | Posición oficial de una sociedad científica o hallazgo consistente en revisiones |
+| **E2** | Estudio en adolescentes | Estudios con adolescentes con resultados consistentes, pero pocos, pequeños o de un solo grupo |
+| **E1** | Exploratorio / mixto | Resultados mixtos, hallazgos en otra población, fuente débil o interpretación que integra estudios distintos |
+| **E0** | — (no se muestra) | Sin ficha o con ficha restringida |
 
-La etiqueta siempre combina **ícono + texto** (nunca solo color). Un puente muestra el nivel de su **ficha más débil**.
+> **Nota UX (v0.1):** Los códigos `E1`/`E2`/`E3` y las etiquetas «Bien establecido», «Probable» y «Aún se investiga» se mantienen como metadato interno de trazabilidad y validación, pero no se muestran en la interfaz para evitar ruido visual; el usuario consulta directamente el detalle del estudio en «Ver fuente».
 
 ---
 
@@ -60,7 +67,7 @@ design: "Qué se hizo (noches, horas, laboratorio o casa)"
 finding: "Qué se encontró"
 limitations: "Qué no permite concluir"
 level: E1 | E2 | E3
-geography: "EE. UU. | Colombia | n/d"
+geography: "EE.UU. | Colombia | n/d"
 used_in: [ISL-RELOJ, B-01]
 restricted: false
 status: draft | source_verified | professional_reviewed
@@ -83,8 +90,8 @@ Todas con estado `draft`. La columna "Verificar" indica qué debe confirmarse co
 
 | ID | Afirmación (borrador para adolescentes) | Fuente | Población / diseño | Nivel | Usada en | Verificar |
 |---|---|---|---|---|---|---|
-| **EV-001** | Para tu edad (13 a 18 años), se recomienda dormir entre 8 y 10 horas. | Watson et al. (2017), posición de la AASM | Posición oficial de sociedad científica | **E3** | ISL-RELOJ, MEC-04 | Cita exacta del rango |
-| **EV-002** | En EE. UU., 68,4 % de los estudiantes de bachillerato duerme 7 horas o menos en las noches de colegio. | CDC, citado en Watson et al. (2017) | Dato de vigilancia, EE. UU. | **E3** (geografía: EE. UU.) | ISL-RELOJ | Año y metodología del dato CDC; **rotular "EE. UU."** |
+| **EV-001** | Para tu edad (13 a 18 años), se recomienda dormir entre 8 y 10 horas. | Watson et al. (2017), posición de la AASM | Posición oficial de sociedad científica | **E3** | ISL-RELOJ | Cita exacta del rango |
+| **EV-002** | En EE.UU., el 68,4 % de los estudiantes de secundaria duerme 7 horas o menos en las noches de colegio. | CDC, citado en Watson et al. (2017) | Dato de vigilancia, EE.UU. | **E3** (geografía: EE.UU.) | ISL-RELOJ | Año y metodología del dato CDC; **rotular "EE.UU."** |
 | **EV-003** | En la pubertad el reloj biológico se corre: cambian la fase, la melatonina y la sensibilidad a la luz. Por eso te da sueño más tarde. | Carskadon et al. (2004) | Revisión sobre regulación del sueño adolescente | **E3** | ISL-RELOJ, B-01 | Que el texto de la fuente respalde cada parámetro citado |
 | **EV-004** | Muchos adolescentes duermen poco y lo hacen en un momento del reloj que no es el ideal; además influyen tareas, redes y horarios del colegio. Por eso pedir "acuéstate temprano" no alcanza. | Carskadon et al. (2004) | Revisión | **E3** | ISL-RELOJ, ISL-HORARIOS, B-02 | La frase final es una conclusión de las bases: confirmar o reformular |
 | **EV-005** | La AASM recomienda que los colegios empiecen a las 8:30 a. m. o más tarde. | Watson et al. (2017) | Posición oficial | **E3** | ISL-HORARIOS, B-03 | Cita exacta |
@@ -180,12 +187,14 @@ Todas con estado `draft`. La columna "Verificar" indica qué debe confirmarse co
 
 ### 5.3 Cadenas jugables del MVP
 
-| ID | Nombre | Eslabones | Nivel del eslabón más débil |
+| ID | Nombre | Eslabones | Islas donde se juega |
 |---|---|---|---|
-| **C-01** | Del reloj al ánimo | `N-RELOJ` → `N-DORMIR-TARDE` → `N-POCO-SUENO` → `N-IRRITABILIDAD` | **E2 · Probable** |
-| **C-02** | Colegio temprano y ánimo | `N-COLEGIO-TEMPRANO` → `N-POCO-SUENO` → `N-REGULACION` | **E2 · Probable** |
-| **C-03** | La cadena del estudio *(hipótesis integrada)* | `N-POCO-SUENO` → `N-IRRITABILIDAD` → `N-CONCENTRACION` → `N-ESTUDIO-INCONSTANTE` → `N-RETENCION` | **E1 · Aún se investiga** |
-| **C-04** | Del fin de semana a la recompensa | `N-HORARIO-CAMBIANTE` → `N-RECOMPENSA` | **E1 · Aún se investiga** |
+| **C-01** | Del reloj al ánimo | `N-RELOJ` → `N-DORMIR-TARDE` → `N-POCO-SUENO` → `N-IRRITABILIDAD` | `ISL-RELOJ` (1 hueco) e `ISL-ANIMO` (2 huecos, refuerzo progresivo) |
+| **C-02** | Colegio temprano y ánimo | `N-COLEGIO-TEMPRANO` → `N-POCO-SUENO` → `N-REGULACION` | `ISL-HORARIOS` (1 hueco) |
+| **C-03** | La cadena del estudio *(hipótesis integrada)* | `N-POCO-SUENO` → `N-IRRITABILIDAD` → `N-CONCENTRACION` → `N-ESTUDIO-INCONSTANTE` → `N-RETENCION` | `ISL-CEREBRO` (2 huecos) |
+| **C-04** | Del fin de semana a la recompensa | `N-HORARIO-CAMBIANTE` → `N-RECOMPENSA` | `ISL-TALLER` (1 hueco, síntesis de regularidad fin de semana) |
+
+> **Nota de alcance v0.1 (`reto` vs. `retoReal`):** En el esquema v0.1 (`RetoSchema`), el bloque `reto` de cada isla corresponde al armador de cadenas (`chainId`). Los retos de observación fuera de pantalla descritos abajo como *Reto real (v0.2)* quedan pospuestos para v0.2 salvo los experimentos semanales ya integrados en `ISL-TALLER`.
 
 ### 5.4 Puentes pendientes (fase 2; no usar)
 
@@ -223,15 +232,15 @@ Formato por isla: objetivo → tarjetas → mito o realidad → quiz → reto �
 2. **"Dos relojes dentro de ti."** Uno acumula sueño mientras estás despierto: cuanto más tiempo, más ganas de dormir. El otro es el reloj biológico: marca cuándo es fácil dormir y cuándo estar alerta. *(EV-003; explicación simplificada)*
 3. **"En la pubertad, el reloj se corre."** Cambian la fase del reloj, la melatonina y la sensibilidad a la luz. Por eso muchos adolescentes sienten sueño más tarde. *(EV-003)*
 4. **"No es pereza."** Dormir tarde a tu edad tiene una parte biológica. Por eso decir "acuéstate temprano" no alcanza. *(EV-004)*
-5. **"¿Cuántos duermen poco?"** En EE. UU., 68,4 % de los estudiantes de bachillerato duerme 7 horas o menos en las noches de colegio. En Colombia todavía hay pocos datos de colegios. *(EV-002; rotular EE. UU.)*
+5. **"¿Cuántos duermen poco?"** En EE.UU., el 68,4 % de los estudiantes de secundaria duerme 7 horas o menos en las noches de colegio. En Colombia todavía hay pocos datos de colegios. *(EV-002; rotular EE.UU.)*
 
 **Mito o realidad:**
 - **MR-01** "Si te da sueño tarde es porque eres perezoso." → **Mito.** El reloj biológico se corre en la pubertad. *(EV-003, EV-004)*
 - **MR-05** "Dormir de 8 a 10 horas es cosa de niños." → **Realidad: es lo que se recomienda de 13 a 18 años.** *(EV-001)*
 
-**Mini quiz (3 preguntas):** horas recomendadas; qué cambia con la pubertad; qué es la presión de sueño. Reintentos ilimitados con explicación.
+**Mini quiz (3 preguntas):** horas recomendadas; qué cambia con la pubertad; por qué pedir «acuéstate temprano» no alcanza. Reintentos ilimitados con explicación.
 
-**Reto real:** "Esta noche, anota a qué hora te da sueño de verdad." *(sin afirmación de salud; alimenta el diario)*
+**Reto real (pospuesto a v0.2):** "Esta noche, anota a qué hora te da sueño de verdad." *(en v0.1 el reto de la isla es la cadena `C-01`)*
 
 **Conecta:** efecto de la isla → `ISL-HORARIOS` (B-02), `ISL-ÁNIMO` (vía C-01).
 
@@ -242,15 +251,15 @@ Formato por isla: objetivo → tarjetas → mito o realidad → quiz → reto �
 **Tarjetas:**
 1. **"Reloj corrido + colegio temprano."** Muchos adolescentes duermen poco y a una hora del reloj que no es la ideal. Las tareas, las redes y el horario del colegio se suman. *(EV-004)*
 2. **"Los médicos del sueño lo saben."** La Academia Americana de Medicina del Sueño recomienda que los colegios empiecen a las 8:30 a. m. o más tarde. *(EV-005)*
-3. **"Cuando el horario cambia mucho."** Si te acuestas y levantas a horas muy distintas entre semana y fin de semana, en un estudio con adolescentes se vio relación con cambios en cómo el cerebro responde a las recompensas. Todavía se investiga. *(EV-006)*
-4. **"Lo que no depende de ti… y cómo hablarlo."** No controlas el horario del colegio, pero sí puedes conversar con tu familia o con orientación sobre tareas y evaluaciones concentradas en la noche. *(Recomendaciones de las bases para familias y colegios; no es afirmación de salud)*
+3. **"Cuando el horario cambia mucho."** Si te acuestas y levantas a horas muy distintas entre semana y fin de semana, en un estudio con adolescentes se vio relación con cambios en cómo el cerebro responde a las recompensas. *(EV-006)*
+4. **"Lo que no depende de ti… y cómo hablarlo."** No controlas el horario del colegio, pero sí puedes conversar con tu familia o con orientación sobre evaluaciones concentradas en la noche. *(Recomendaciones de las bases para familias y colegios; no es afirmación de salud)*
 
 **Mito o realidad:**
-- **MR-04** "Los colegios empiezan temprano porque así debe ser." → **Realidad: una sociedad médica recomienda empezar más tarde.** *(EV-005)*
+- **MR-04** "Si te cuesta levantarte para la primera clase es solo por falta de disciplina." → **Mito.** El sueño insuficiente en la adolescencia combina el retraso del reloj biológico con horarios escolares tempranos y tareas nocturnas. *(EV-004)*
 
-**Juego:** `MEC-04 Arma tu semana` (simulador de horas; sin afirmaciones de salud más allá de la banda de EV-001).
+**Juego (pospuesto a v0.2):** `MEC-04 Arma tu semana` (en v0.1 la isla se juega con pregunta `PR-2`, mito `MR-04` y cadena `C-02`).
 
-**Reto real:** "Elige una hora de despertar y trata de mantenerla también el fin de semana." *(EV-021a; presentarla como idea para probar)*
+**Reto real (pospuesto a v0.2):** "Elige una hora de despertar y trata de mantenerla también el fin de semana." *(en v0.1 se ofrece como experimento en `ISL-TALLER` con `EV-021a`)*
 
 **Conecta:** causas ← `ISL-RELOJ`; efectos → `ISL-ÁNIMO`, `ISL-CEREBRO`.
 
