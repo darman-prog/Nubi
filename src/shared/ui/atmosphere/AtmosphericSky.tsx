@@ -4,59 +4,78 @@ import { cx } from '@/shared/lib/cx';
 import styles from './AtmosphericSky.module.css';
 
 interface AtmosphericSkyProps {
-  /** map muestra la atmósfera completa; page atenúa rayos y estrellas para priorizar lectura. */
+  /** map muestra la atmósfera completa; page atenúa rayos, estrellas y nubes para priorizar lectura. */
   variant?: 'map' | 'page';
   /** Parallax de profundidad al hacer scroll (solo variante map). */
   parallax?: boolean;
+  /** Nubes procedurales. Desactívalas si necesitas el fondo más barato aún. */
+  clouds?: boolean;
 }
 
 interface StarSeed {
+  id: number;
   x: number;
   y: number;
   size: number;
   dur: number;
   delay: number;
-  big?: boolean;
+  /** Brillo base: las estrellas bajas se apagan por la extinción atmosférica. */
+  o: number;
+  tint: string;
+  big: boolean;
 }
 
-// Coordenadas fijas para evitar saltos visuales en re-render y limitar nodos DOM en móvil
-const STARS: StarSeed[] = [
-  { x: 8, y: 9, size: 2.2, dur: 3.1, delay: -0.6, big: true },
-  { x: 19, y: 18, size: 1.5, dur: 4.2, delay: -2.1 },
-  { x: 31, y: 7, size: 1.8, dur: 3.8, delay: -1.3 },
-  { x: 44, y: 14, size: 2.4, dur: 4.6, delay: -3.2, big: true },
-  { x: 58, y: 8, size: 1.4, dur: 3.4, delay: -0.9 },
-  { x: 71, y: 21, size: 1.7, dur: 4.9, delay: -2.7 },
-  { x: 86, y: 11, size: 2.3, dur: 3.9, delay: -1.8, big: true },
-  { x: 93, y: 26, size: 1.5, dur: 4.4, delay: -0.4 },
-  { x: 12, y: 34, size: 1.6, dur: 4.1, delay: -2.9 },
-  { x: 26, y: 42, size: 2.1, dur: 3.6, delay: -1.1 },
-  { x: 41, y: 31, size: 1.4, dur: 5.1, delay: -3.8 },
-  { x: 64, y: 37, size: 2.2, dur: 3.7, delay: -2.2, big: true },
-  { x: 79, y: 44, size: 1.5, dur: 4.5, delay: -0.7 },
-  { x: 90, y: 39, size: 1.8, dur: 3.3, delay: -1.5 },
-  { x: 15, y: 56, size: 2.3, dur: 4.7, delay: -3.1, big: true },
-  { x: 34, y: 61, size: 1.4, dur: 3.5, delay: -2.4 },
-  { x: 53, y: 52, size: 1.7, dur: 4.3, delay: -0.8 },
-  { x: 73, y: 58, size: 2.1, dur: 3.9, delay: -1.9 },
-  { x: 87, y: 64, size: 1.6, dur: 4.8, delay: -3.4 },
-  { x: 22, y: 74, size: 1.8, dur: 3.6, delay: -1.2 },
-  { x: 48, y: 71, size: 2.2, dur: 4.2, delay: -2.6, big: true },
-  { x: 69, y: 76, size: 1.4, dur: 3.8, delay: -0.5 },
-];
+/** PRNG determinista: el campo de estrellas es idéntico en cada render y en SSR. */
+function mulberry32(seed: number): () => number {
+  let a = seed;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Temperaturas de color estelar: mayoría blancas, algunas cálidas y frías
+const STAR_TINTS = ['#ffffff', '#ffffff', '#fff1d6', '#ffe2b8', '#d4e4ff', '#bcd2ff'];
+
+function buildStars(count: number): StarSeed[] {
+  const rand = mulberry32(2050);
+  return Array.from({ length: count }, (_, id) => {
+    // Más densidad hacia el cenit (arriba) y menos hacia el horizonte
+    const y = Math.pow(rand(), 1.7) * 80;
+    const big = rand() > 0.88;
+    return {
+      id,
+      x: +(rand() * 100).toFixed(2),
+      y: +y.toFixed(2),
+      size: +(big ? 2.1 + rand() * 0.6 : 1 + rand() * 0.9).toFixed(2),
+      dur: +(3 + rand() * 2.6).toFixed(2),
+      delay: +(-rand() * 4).toFixed(2),
+      o: +(0.35 + 0.65 * (1 - y / 80)).toFixed(2),
+      tint: STAR_TINTS[Math.floor(rand() * STAR_TINTS.length)],
+      big,
+    };
+  });
+}
+
+// Se calcula una sola vez al cargar el módulo: cero trabajo en re-render
+const STARS: StarSeed[] = buildStars(56);
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
-/** Fondo atmosférico multicapa reactivo a Amanecer y Noche, sin filtros blur costosos en móvil. */
+/** Fondo atmosférico multicapa reactivo a Amanecer y Noche, sin blur ni filtros costosos en móvil. */
 export function AtmosphericSky({
   variant = 'map',
   parallax = true,
+  clouds = true,
 }: AtmosphericSkyProps): JSX.Element {
   // useId puede incluir ':'; se sanea para que url(#id) sea válido en todos los navegadores
   const auroraGradId = useId().replace(/:/g, '');
   const auroraRef = useRef<HTMLDivElement>(null);
   const starsRef = useRef<HTMLDivElement>(null);
   const sunRef = useRef<HTMLDivElement>(null);
+  const cloudsRef = useRef<HTMLDivElement>(null);
 
   // Parallax barato: un solo listener passive + rAF, sin blur ni repintado de capas
   useEffect(() => {
@@ -72,8 +91,10 @@ export function AtmosphericSky({
     const auroraEl = auroraRef.current;
     const starsEl = starsRef.current;
     const sunEl = sunRef.current;
+    const cloudsEl = cloudsRef.current;
     let raf = 0;
 
+    // Cada capa se mueve a distinta velocidad: lo lejano (estrellas) más que lo cercano (nubes)
     const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
@@ -84,6 +105,9 @@ export function AtmosphericSky({
         }
         if (starsEl) {
           starsEl.style.transform = `translate3d(0, ${clamp(-y * 0.05, -90, 90).toFixed(1)}px, 0)`;
+        }
+        if (cloudsEl) {
+          cloudsEl.style.transform = `translate3d(0, ${clamp(-y * 0.02, -50, 50).toFixed(1)}px, 0)`;
         }
         if (sunEl) {
           sunEl.style.transform = `translate(-50%, -50%) translate3d(0, ${clamp(-y * 0.015, -40, 40).toFixed(1)}px, 0)`;
@@ -98,6 +122,7 @@ export function AtmosphericSky({
       cancelAnimationFrame(raf);
       if (auroraEl) auroraEl.style.transform = '';
       if (starsEl) starsEl.style.transform = '';
+      if (cloudsEl) cloudsEl.style.transform = '';
       if (sunEl) sunEl.style.transform = '';
     };
   }, [parallax, variant]);
@@ -108,11 +133,34 @@ export function AtmosphericSky({
       data-sky-variant={variant}
       aria-hidden="true"
     >
+      {/* 1. Bóveda y atmósfera */}
       <div className={cx(styles.layer, styles.gradient)} />
       <div className={cx(styles.layer, styles.mesh)} />
-      <div className={styles.horizon} />
-      <div ref={sunRef} className={styles.sun} />
-      <div className={cx(styles.layer, styles.rays)} />
+
+      {/* 2. Cielo profundo (visible sobre todo de noche) */}
+      <div className={styles.milky} />
+      <div ref={starsRef} className={styles.stars}>
+        {STARS.map((star) => {
+          const starStyle = {
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            '--d': `${star.dur}s`,
+            '--delay': `${star.delay}s`,
+            '--o': star.o,
+            '--tint': star.tint,
+          } as CSSProperties;
+
+          return (
+            <span
+              key={star.id}
+              className={cx(styles.star, star.big && styles.starBig)}
+              style={starStyle}
+            />
+          );
+        })}
+      </div>
 
       <div ref={auroraRef} className={styles.auroraParallax}>
         <svg
@@ -146,27 +194,28 @@ export function AtmosphericSky({
         </svg>
       </div>
 
-      <div ref={starsRef} className={styles.stars}>
-        {STARS.map((star) => {
-          const starStyle = {
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            '--d': `${star.dur}s`,
-            '--delay': `${star.delay}s`,
-          } as CSSProperties;
-
-          return (
-            <span
-              key={`${star.x}-${star.y}`}
-              className={cx(styles.star, star.big && styles.starBig)}
-              style={starStyle}
-            />
-          );
-        })}
+      {/* 3. Horizonte y astro: sol de día, luna de noche (según tokens) */}
+      <div className={styles.horizon} />
+      <div ref={sunRef} className={styles.sun}>
+        <span className={styles.sunHalo} />
+        <span className={styles.sunCore} />
       </div>
+      <div className={cx(styles.layer, styles.rays)} />
 
+      {/* 4. Nubes delante del astro: la luz se filtra a través de ellas */}
+      {clouds && (
+        <div ref={cloudsRef} className={styles.cloudsParallax}>
+          <div className={cx(styles.clouds, styles.cloudsFar)}>
+            <div className={styles.cloudTrack} />
+          </div>
+          <div className={cx(styles.clouds, styles.cloudsNear)}>
+            <div className={styles.cloudTrack} />
+          </div>
+        </div>
+      )}
+
+      {/* 5. Legibilidad y acabado: el velo va sobre todo lo decorativo */}
+      <div className={cx(styles.layer, styles.veil)} />
       <div className={cx(styles.layer, styles.grain)} />
       <div className={cx(styles.layer, styles.vignette)} />
     </div>

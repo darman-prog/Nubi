@@ -133,11 +133,15 @@
 }
 
 .intro p {
-  margin-top: 6px;
-  color: var(--text-muted);
-  font-size: var(--text-2xs);
-  font-weight: 500;
-}
+
+
+          margin-top: 50px;
+          color: var(--text-muted);
+          font-size: var(--text-2xs);
+          font-weight: 500;
+      
+      }
+
 
 .zone {
   margin-top: var(--space-4);

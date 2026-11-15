@@ -1,5 +1,9 @@
-/* AtmosphericSky.module.css */
-/* Cielo atmosférico liviano sin filtros blur costosos en móvil */
+/* AtmosphericSky.module.css
+   Cielo atmosférico realista y liviano: sin blur ni filter en tiempo de ejecución.
+   Las texturas procedurales (nubes, polvo estelar, grano) son SVG que el navegador
+   rasteriza una sola vez; después solo se mueven con transform (GPU).
+   Todos los tokens --sky-* son opcionales. Ver sky-tokens.example.css. */
+
 .sky {
   position: fixed;
   inset: 0;
@@ -8,12 +12,20 @@
   pointer-events: none;
   contain: layout paint;
   isolation: isolate;
+
+  /* Nubes: ruido fractal convertido en máscara alfa (se tiñe con tokens) */
+  --sky-tex-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='320' viewBox='0 0 800 320' preserveAspectRatio='none'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0065 0.017' numOctaves='5' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 8 -4.1'/%3E%3C/filter%3E%3Crect width='800' height='320' filter='url(%23c)'/%3E%3C/svg%3E");
+
+  /* Polvo estelar para la vía láctea */
+  --sky-tex-dust: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='360' viewBox='0 0 600 360' preserveAspectRatio='none'%3E%3Cfilter id='d' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 9 -4.4'/%3E%3C/filter%3E%3Crect width='600' height='360' filter='url(%23d)'/%3E%3C/svg%3E");
 }
 
 .layer {
   position: absolute;
   inset: 0;
 }
+
+/* ---------- Bóveda celeste ---------- */
 
 .gradient {
   background: linear-gradient(
@@ -23,6 +35,19 @@
     var(--sky-2, #f9cdd6) 66%,
     var(--sky-3, #b69c75) 100%
   );
+}
+
+/* Interpolar en oklab evita el "barro" gris entre tonos y da transiciones más naturales */
+@supports (background: linear-gradient(in oklab, red, blue)) {
+  .gradient {
+    background: linear-gradient(
+      in oklab 180deg,
+      var(--sky-0, #b7a6f4) 0%,
+      var(--sky-1, #e3c3ee) 34%,
+      var(--sky-2, #f9cdd6) 66%,
+      var(--sky-3, #b69c75) 100%
+    );
+  }
 }
 
 .mesh {
@@ -42,14 +67,52 @@
   }
 }
 
+/* Bruma de horizonte: el aire denso aclara y desatura el cielo cerca del suelo */
 .horizon {
   position: absolute;
   left: -10%;
   right: -10%;
   bottom: -10%;
-  height: 46%;
-  background: radial-gradient(62% 82% at 50% 100%, var(--sky-horizon, #ffd9a680), transparent 74%);
+  height: 52%;
+  background:
+    radial-gradient(62% 82% at 50% 100%, var(--sky-horizon, #ffd9a680), transparent 74%),
+    linear-gradient(to top, var(--sky-haze, #ffeede47), transparent 78%);
   opacity: var(--sky-horizon-op, 0.6);
+}
+
+/* ---------- Astro (sol de día, luna de noche, según tokens) ---------- */
+
+.sun {
+  position: absolute;
+  left: var(--sky-sun-x, 72%);
+  top: var(--sky-sun-y, 78%);
+  width: var(--sky-sun-size, min(58vmin, 460px));
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+.sunHalo {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Dos gradientes apilados: núcleo intenso + cola larga, como la dispersión real */
+  background:
+    radial-gradient(circle, var(--sky-sun-glow, #ffc56eb7) 0%, transparent 24%),
+    radial-gradient(circle, var(--sky-sun-glow, #ffc56eb7) 0%, transparent 64%);
+  opacity: var(--sky-sun-halo-op, 0.85);
+}
+
+.sunCore {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--sky-sun-core-size, 9%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sky-sun-core, #f9eecc) 0 66%, transparent 100%);
+  opacity: var(--sky-sun-core-op, 1);
 }
 
 .rays {
@@ -68,6 +131,85 @@
     #000 0%,
     transparent 58%
   );
+}
+
+/* ---------- Nubes ---------- */
+
+.cloudsParallax {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.clouds {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.cloudsFar {
+  top: 4%;
+  height: 40%;
+  opacity: calc(var(--sky-cloud-op, 0.5) * 0.7);
+}
+
+.cloudsNear {
+  top: 18%;
+  height: 54%;
+  opacity: var(--sky-cloud-op, 0.5);
+}
+
+.cloudTrack {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: max(200%, 1800px);
+  /* Luz arriba, sombra abajo y desvanecido en los bordes: volumen sin blur */
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--sky-cloud-hi, #ffffffd9) 26%,
+    var(--sky-cloud-lo, #d9c4e8cc) 76%,
+    transparent 100%
+  );
+  -webkit-mask-image: var(--sky-tex-cloud);
+  mask-image: var(--sky-tex-cloud);
+  -webkit-mask-size: 50% 100%;
+  mask-size: 50% 100%;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  animation: cloudDrift 260s linear infinite;
+  will-change: transform;
+}
+
+.cloudsNear .cloudTrack {
+  width: max(300%, 2800px);
+  -webkit-mask-position: 35% 0;
+  mask-position: 35% 0;
+  animation-duration: 150s;
+}
+
+/* -50% del track = exactamente una repetición de la máscara: bucle sin salto */
+@keyframes cloudDrift {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ---------- Cielo nocturno ---------- */
+
+.milky {
+  position: absolute;
+  inset: -25% -10%;
+  opacity: var(--sky-milky-op, 0);
+  background: radial-gradient(22% 70% at 50% 50%, var(--sky-milky, #c9d6ff59), transparent 100%);
+  -webkit-mask-image: var(--sky-tex-dust);
+  mask-image: var(--sky-tex-dust);
+  -webkit-mask-size: 900px 520px;
+  mask-size: 900px 520px;
+  transform: rotate(-32deg);
 }
 
 .auroraParallax {
@@ -108,68 +250,93 @@
   will-change: transform;
 }
 
+/* Solo se anima opacity: más barato que animar también transform */
 .star {
   position: absolute;
   border-radius: 50%;
-  background: var(--sky-sun-core, #f9eecc);
-  box-shadow: 0 0 6px var(--sky-sun-glow, #ffc56eb7);
+  background: var(--tint, var(--sky-sun-core, #f9eecc));
+  opacity: var(--o, 0.9);
   animation: starTwinkle var(--d, 3.6s) ease-in-out var(--delay, 0s) infinite alternate;
 }
 
 .starBig {
-  box-shadow:
-    0 0 10px var(--sky-sun-core, #ccb97a),
-    0 0 22px var(--sky-aurora-b, #ff9ecf2e);
+  box-shadow: 0 0 8px 1px var(--tint, #f9eecc);
 }
 
 @keyframes starTwinkle {
   from {
-    opacity: 0.25;
-    transform: scale(0.8);
+    opacity: calc(var(--o, 0.9) * 0.3);
   }
   to {
-    opacity: 0.95;
-    transform: scale(1.12);
+    opacity: var(--o, 0.9);
   }
 }
 
+/* ---------- Legibilidad y acabado ---------- */
+
+/* Velo de lectura: comprime el rango de luminancia del cielo hacia el color de
+   fondo del tema para que el texto siempre tenga contraste. Es la capa que más
+   protege los textos, así que se ajusta con --sky-veil-op-*. */
+.veil {
+  background: var(--sky-veil, #fff4ee);
+  opacity: var(--sky-veil-op-map, 0.06);
+}
+
 .grain {
-  opacity: 0.08;
-  mix-blend-mode: multiply;
+  opacity: 0.05;
   background-size: 180px 180px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .vignette {
-  background: radial-gradient(120% 92% at 50% 42%, transparent 56%, rgba(10, 8, 30, 0.35) 100%);
+  background: radial-gradient(
+    120% 92% at 50% 42%,
+    transparent 56%,
+    var(--sky-vignette-color, #3b2a6b66) 100%
+  );
   opacity: var(--sky-vignette-op, 0.35);
 }
 
-/* Variante page suaviza rayos, estrellas, aurora y luna para priorizar lectura */
-.pageVariant .moon {
-  opacity: 0.55;
-  transform: translate(-50%, -50%) !important;
+/* ---------- Variante page: prioriza la lectura ---------- */
+
+.pageVariant .sun {
+  opacity: 0.6;
 }
 
-.pageVariant .moonHalo {
-  opacity: 0.25;
+/* El disco es lo más brillante del cielo: en page se atenúa más que su halo */
+.pageVariant .sunCore {
+  opacity: calc(var(--sky-sun-core-op, 1) * 0.35);
 }
 
 .pageVariant .rays {
-  opacity: calc(var(--sky-ray-op, 0.5) * 0.35);
+  opacity: calc(var(--sky-ray-op, 0.5) * 0.3);
 }
 
 .pageVariant .aurora {
-  opacity: calc(var(--sky-aurora-op, 0.12) * 0.55);
+  opacity: calc(var(--sky-aurora-op, 0.12) * 0.5);
+}
+
+.pageVariant .milky {
+  opacity: calc(var(--sky-milky-op, 0) * 0.5);
 }
 
 .pageVariant .stars {
   opacity: calc(var(--sky-star-vis, 0.08) * 0.45);
-  transform: none !important;
+  will-change: auto;
 }
 
-.pageVariant .auroraParallax {
-  transform: none !important;
+/* Nada que parpadee o se mueva rápido detrás de un párrafo */
+.pageVariant .star {
+  animation: none;
+}
+
+.pageVariant .cloudsFar,
+.pageVariant .cloudsNear {
+  opacity: calc(var(--sky-cloud-op, 0.5) * 0.4);
+}
+
+.pageVariant .veil {
+  opacity: var(--sky-veil-op-page, 0.34);
 }
 
 .pageVariant .grain {
@@ -177,10 +344,11 @@
 }
 
 .pageVariant .vignette {
-  opacity: calc(var(--sky-vignette-op, 0.35) * 0.7);
+  opacity: calc(var(--sky-vignette-op, 0.35) * 0.6);
 }
 
-/* Menos nodos pintados en móvil */
+/* ---------- Móvil, movimiento reducido y alto contraste ---------- */
+
 @media (max-width: 640px) {
   .star:nth-child(3n) {
     display: none;
@@ -188,9 +356,16 @@
   .aurora {
     height: 46%;
   }
-  .moon {
-    width: min(40vmin, 220px);
-    height: min(40vmin, 220px);
+  .sun {
+    width: var(--sky-sun-size, min(46vmin, 260px));
+  }
+  .cloudsNear {
+    display: none;
+  }
+  .cloudsFar {
+    top: 8%;
+    height: 46%;
+    opacity: var(--sky-cloud-op, 0.5);
   }
 }
 
@@ -198,21 +373,31 @@
   .mesh,
   .aurora,
   .star,
-  .moonSvg,
-  .moonStars use {
+  .cloudTrack {
     animation: none;
   }
   .star {
-    opacity: 0.8;
-  }
-  .moonStars use {
-    opacity: 0.85;
+    opacity: calc(var(--o, 0.9) * 0.8);
   }
   .auroraParallax,
-  .stars {
-    transform: none !important;
+  .stars,
+  .cloudsParallax {
+    transform: none;
   }
-  .moon {
-    transform: translate(-50%, -50%) !important;
+}
+
+/* Quien pide más contraste recibe un cielo casi plano y un velo fuerte */
+@media (prefers-contrast: more) {
+  .rays,
+  .aurora,
+  .milky,
+  .stars,
+  .cloudsParallax,
+  .grain {
+    display: none;
+  }
+  .veil,
+  .pageVariant .veil {
+    opacity: 0.7;
   }
 }
