@@ -128,7 +128,7 @@
   border: 1px solid var(--primary-border);
   border-radius: 50%;
   background: var(--surface);
-  font-size: 11px;
+  font-size: var(--text-2xs);
   box-shadow: 0 2px 4px rgba(80, 67, 201, 0.1);
 }
 
@@ -159,7 +159,7 @@
 
 .currentIcon,
 .lockIcon {
-  font-size: 20px;
+  font-size: var(--text-lg);
 }
 
 .name {
@@ -212,7 +212,7 @@
 }
 
 .progressIcon {
-  font-size: 20px;
+  font-size: var(--text-lg);
 }
 
 .progressTitle {
@@ -224,7 +224,7 @@
 
 .progressSub {
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: var(--text-2xs);
 }
 
 .barTrack {
@@ -245,7 +245,7 @@
 .note {
   margin-top: var(--space-2);
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: var(--text-2xs);
   line-height: 1.4;
   text-align: center;
 }

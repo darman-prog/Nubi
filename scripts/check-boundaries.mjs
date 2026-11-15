@@ -9,6 +9,7 @@ const CONTEXT_LIMIT = 1;
 const DOM_GLOBALS = /\b(window|document|localStorage|sessionStorage|navigator)\b/g;
 const FEATURE_STORAGE = /\b(localStorage|sessionStorage)\b/g;
 const CSS_HEX_RE = /#[0-9a-fA-F]{3,8}\b/g;
+const CSS_PX_FONT_RE = /font-size:\s*\d+(?:\.\d+)?px\b/g;
 
 const toPosix = (value) => value.split(path.sep).join('/');
 const lineOf = (source, index) => source.slice(0, index).split('\n').length;
@@ -94,11 +95,14 @@ function checkSource(file, source) {
   const add = (index, rule, message) =>
     errors.push({ file, line: lineOf(source, index), rule, message });
 
-  // Los estilos de features deben consumir tokens de src/styles/theme.css en vez de hex fijos.
+  // Los estilos de features deben consumir tokens de src/styles/ en vez de hex o font-size en px fijos.
   if (file.endsWith('.css')) {
     if (layer === 'feature') {
       for (const match of code.matchAll(CSS_HEX_RE)) {
         add(match.index, 'feature-no-hex', `usa un token CSS en vez de ${match[0]}`);
+      }
+      for (const match of code.matchAll(CSS_PX_FONT_RE)) {
+        add(match.index, 'feature-no-px-font', `usa un token --text-* o clamp() en vez de ${match[0]}`);
       }
     }
     return errors;
@@ -281,6 +285,7 @@ function runSelfTest() {
     [null, 'src/features/map/MapScreen.tsx', "import { Button } from '@/shared/ui/Button'; import { validateChain } from '@/domain/graph/validate';"],
     ['line-budget', 'src/domain/graph/long.ts', 'x\n'.repeat(151)],
     ['feature-no-hex', 'src/features/map/MapScreen.module.css', '.card { background: #ffffff; }'],
+    ['feature-no-px-font', 'src/features/map/MapScreen.module.css', '.card { font-size: 12px; }'],
   ];
 
   let ok = true;

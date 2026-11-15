@@ -145,7 +145,7 @@
   border-radius: 50%;
   background: var(--portada-soft);
   color: var(--primary);
-  font-size: 15px;
+  font-size: var(--text-sm);
 }
 
 .continueText {

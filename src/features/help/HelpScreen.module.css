@@ -55,7 +55,7 @@
   height: 56px;
   border-radius: 50%;
   background: var(--surface-sunken);
-  font-size: 28px;
+  font-size: var(--text-2xl);
   margin-bottom: var(--space-2);
   box-shadow: 0 4px 12px rgba(80, 67, 201, 0.12);
 }
@@ -84,7 +84,7 @@
   border-radius: 999px;
   background: var(--surface-sunken);
   color: var(--primary);
-  font-size: 11px;
+  font-size: var(--text-2xs);
   font-weight: 700;
 }
 
@@ -144,7 +144,7 @@
   height: 36px;
   flex-shrink: 0;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: var(--text-md);
 }
 
 .signSun {
@@ -177,7 +177,7 @@
 .bentoSub {
   margin-top: 2px;
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: var(--text-2xs);
   line-height: 1.35;
 }
 
@@ -209,7 +209,7 @@
   background: var(--primary);
   color: var(--primary-text);
   font-family: var(--font-heading);
-  font-size: 12px;
+  font-size: var(--text-2xs);
   font-weight: 800;
 }
 
@@ -221,7 +221,7 @@
 
 .stepSub {
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: var(--text-2xs);
 }
 
 /* Acciones de privacidad */
@@ -320,7 +320,7 @@
   background: var(--surface);
   border: var(--card-border);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: var(--text-2xs);
   text-align: center;
 }
 

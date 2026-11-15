@@ -95,12 +95,12 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  font-size: 16px;
+  font-size: var(--text-base);
 }
 
 .miniName {
   font-family: var(--font-heading);
-  font-size: 10px;
+  font-size: var(--text-2xs);
   font-weight: 700;
   color: var(--text);
   overflow: hidden;
