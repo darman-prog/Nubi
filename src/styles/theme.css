@@ -3,18 +3,58 @@
 [data-theme='light'] {
   --bg: #F7F5FF;
   --surface: #FFFFFF;
+  --surface-2: #F7F5FF;
+  --surface-warm: #FFFDF7;
+  --surface-sunken: #F0EBFF;
+  --surface-glass: rgba(255, 255, 255, 0.88);
+  --page-gradient: linear-gradient(to bottom, #F7F5FF, #FFF9F2 55%, #F5F2FF);
+  --map-gradient: linear-gradient(to bottom, #F2EDFE 0%, #FBF4ED 50%, #F5F2FF 100%);
+  --bridge-gradient: linear-gradient(135deg, #F7F4FF 0%, #FFF9F0 100%);
+
   --text: #1E1B3A;
   --text-muted: #4B4777;
   --primary: #5043C9;
+  --primary-hover: #4335B5;
   --primary-text: #FFFFFF;
+  --primary-soft: #ECE7FE;
+  --primary-soft-hover: #E4DFFF;
+  --primary-border: #CFC6F5;
+  --primary-border-subtle: #ECE8FB;
+
   --accent: #FFC15A;
   --accent-text: #1E1B3A;
+  --accent-soft: #FFF4DB;
+  --accent-border: #D89A2B;
+  --accent-slab: #F3DCA6;
+  --accent-ink: #9A6200;
 
   /* Niveles de evidencia con contraste >= 4.5:1 */
   --ev-3: #0F6B4B;
+  --ev-3-bg: #E6F4EA;
   --ev-2: #1B5FA8;
+  --ev-2-bg: #E8F0FE;
   --ev-1: #7A3FA0;
+  --ev-1-bg: #FEF7E0;
+  --ev-1-purple-bg: #F3ECFB;
   --error: #B3261E;
+
+  /* Estados semánticos de validación y alertas */
+  --success-bg: #EEFBEE;
+  --success-border: #B7E4C7;
+  --success-text: #1B4332;
+  --warn-bg: #FFF9DB;
+  --warn-border: #FFD8A8;
+  --warn-text: #744210;
+  --error-bg: #FFE3E3;
+  --error-text: #C92A2A;
+  --danger-solid: #D90429;
+  --sign-heart-bg: #F4D9FF;
+  --star-muted: #D1C4E9;
+
+  /* Tokens decorativos de portada */
+  --portada-line: #E2D9FF;
+  --portada-soft: #F0EDFF;
+  --portada-dot: #E5E0FA;
 
   /* Sombras suaves y decorativas para modo claro */
   --shadow-sm: 0 2px 8px rgba(30, 27, 58, 0.06);
@@ -31,21 +71,59 @@
   --overlay: rgba(30, 27, 58, 0.45);
 }
 
-/* Tema oscuro ("Noche") solo manual; v0.1 arranca en claro como el flujo-arte. */
+/* Tema oscuro ("Noche") con superficies y bordes adaptados para contraste AA */
 [data-theme='dark'] {
   --bg: #121029;
   --surface: #1C1A40;
+  --surface-2: #24214F;
+  --surface-warm: #262145;
+  --surface-sunken: #2A255A;
+  --surface-glass: rgba(28, 26, 64, 0.88);
+  --page-gradient: linear-gradient(to bottom, #121029, #181538 55%, #121029);
+  --map-gradient: linear-gradient(to bottom, #121029 0%, #19163A 50%, #121029 100%);
+  --bridge-gradient: linear-gradient(135deg, #24214F 0%, #2B2448 100%);
+
   --text: #EEEBFF;
   --text-muted: #BDB8EA;
   --primary: #A99BFF;
+  --primary-hover: #BEB3FF;
   --primary-text: #121029;
+  --primary-soft: #2D2863;
+  --primary-soft-hover: #383278;
+  --primary-border: #4A43A0;
+  --primary-border-subtle: #332E6A;
+
   --accent: #FFD47A;
   --accent-text: #121029;
+  --accent-soft: #3B2E1E;
+  --accent-border: #E5B04B;
+  --accent-slab: #4A3A22;
+  --accent-ink: #FFD47A;
 
   --ev-3: #6FDDB0;
+  --ev-3-bg: #123A2C;
   --ev-2: #8CC4FF;
+  --ev-2-bg: #15304F;
   --ev-1: #D2A8FF;
+  --ev-1-bg: #352449;
+  --ev-1-purple-bg: #322248;
   --error: #FF8A8A;
+
+  --success-bg: #123A2C;
+  --success-border: #296E53;
+  --success-text: #8CE8BE;
+  --warn-bg: #3B2E18;
+  --warn-border: #7A5B2B;
+  --warn-text: #FFD47A;
+  --error-bg: #3D1A22;
+  --error-text: #FF8A8A;
+  --danger-solid: #E0314B;
+  --sign-heart-bg: #3C2452;
+  --star-muted: #9E93C9;
+
+  --portada-line: #383278;
+  --portada-soft: #262254;
+  --portada-dot: #332E6A;
 
   --shadow-sm: none;
   --shadow-md: none;

@@ -3,7 +3,7 @@
   min-height: calc(100dvh - var(--bottom-nav-height));
   margin: 0 auto;
   padding: var(--space-4) var(--space-4) calc(var(--bottom-nav-height) + var(--space-6));
-  background: linear-gradient(to bottom, #f7f5ff, #fff9f2 55%, #f5f2ff);
+  background: var(--page-gradient);
 }
 
 .header {
@@ -42,7 +42,7 @@
   margin-bottom: var(--space-4);
   border: 1.5px solid rgba(80, 67, 201, 0.1);
   border-radius: 24px;
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 10px 25px -5px rgba(255, 193, 91, 0.2);
   overflow: hidden;
 }
@@ -54,7 +54,7 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #f0ebff;
+  background: var(--surface-sunken);
   font-size: 28px;
   margin-bottom: var(--space-2);
   box-shadow: 0 4px 12px rgba(80, 67, 201, 0.12);
@@ -82,7 +82,7 @@
   margin-top: var(--space-3);
   padding: 3px 12px;
   border-radius: 999px;
-  background: #f6f1ff;
+  background: var(--surface-sunken);
   color: var(--primary);
   font-size: 11px;
   font-weight: 700;
@@ -96,7 +96,7 @@
   padding: var(--space-4);
   border: 1.5px solid rgba(80, 67, 201, 0.08);
   border-radius: 20px;
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 8px 24px -4px rgba(80, 67, 201, 0.06);
 }
 
@@ -128,12 +128,12 @@
   padding: var(--space-3);
   border: 1px solid rgba(80, 67, 201, 0.08);
   border-radius: 16px;
-  background: #fbf9ff;
+  background: var(--surface-2);
   transition: background 0.15s ease;
 }
 
 .bentoItem:hover {
-  background: #f5f0ff;
+  background: var(--surface-sunken);
 }
 
 .bentoIcon {
@@ -148,19 +148,19 @@
 }
 
 .signSun {
-  background: #fff4db;
+  background: var(--accent-soft);
 }
 
 .signAir {
-  background: #e3dfff;
+  background: var(--primary-soft-hover);
 }
 
 .signShield {
-  background: #e4dfff;
+  background: var(--primary-soft-hover);
 }
 
 .signHeart {
-  background: #f4d9ff;
+  background: var(--sign-heart-bg);
 }
 
 .bentoText {
@@ -195,7 +195,7 @@
   gap: var(--space-3);
   padding: var(--space-3);
   border-radius: 14px;
-  background: #f6f1ff;
+  background: var(--surface-sunken);
 }
 
 .stepNumber {
@@ -207,7 +207,7 @@
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--primary);
-  color: #ffffff;
+  color: var(--primary-text);
   font-family: var(--font-heading);
   font-size: 12px;
   font-weight: 800;
@@ -237,7 +237,7 @@
   padding: 0 var(--space-4);
   border: 1px solid rgba(80, 67, 201, 0.2);
   border-radius: 999px;
-  background: #f0ebff;
+  background: var(--surface-sunken);
   color: var(--primary);
   font-family: var(--font-heading);
   font-size: var(--text-xs);
@@ -247,7 +247,7 @@
 }
 
 .action:hover {
-  background: #e4dfff;
+  background: var(--primary-soft-hover);
 }
 
 .dangerConfirm {
@@ -255,8 +255,8 @@
   padding: 0 var(--space-4);
   border: none;
   border-radius: 999px;
-  background: #d90429;
-  color: #ffffff;
+  background: var(--danger-solid);
+  color: var(--primary-text);
   font-family: var(--font-heading);
   font-size: var(--text-xs);
   font-weight: 700;
@@ -278,8 +278,8 @@
   margin-top: var(--space-2);
   padding: var(--space-2) var(--space-3);
   border-radius: 10px;
-  background: #e6f4ea;
-  color: #0f6b4b;
+  background: var(--ev-3-bg);
+  color: var(--ev-3);
   font-size: var(--text-xs);
   font-weight: 600;
 }

@@ -8,6 +8,7 @@ const RUNTIME_DEPS = new Set(['react', 'react-dom', 'react-router-dom', 'zod']);
 const CONTEXT_LIMIT = 1;
 const DOM_GLOBALS = /\b(window|document|localStorage|sessionStorage|navigator)\b/g;
 const FEATURE_STORAGE = /\b(localStorage|sessionStorage)\b/g;
+const CSS_HEX_RE = /#[0-9a-fA-F]{3,8}\b/g;
 
 const toPosix = (value) => value.split(path.sep).join('/');
 const lineOf = (source, index) => source.slice(0, index).split('\n').length;
@@ -21,13 +22,13 @@ const maskComments = (source) =>
 const IMPORT_RE = /(?:from\s+|import\s*\(\s*|require\s*\(\s*)['"]([^'"]+)['"]/g;
 const SIDE_EFFECT_RE = /(?:^|\n)\s*import\s+['"]([^'"]+)['"]/g;
 
-/** Recorre src/ y devuelve solo TypeScript/TSX de producción. */
+/** Recorre src/ y devuelve TypeScript/TSX de producción y CSS Modules. */
 function walk(dir) {
   if (!existsSync(dir)) return [];
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) return walk(full);
-    if (!/\.(ts|tsx)$/.test(entry.name)) return [];
+    if (!/\.(ts|tsx|css)$/.test(entry.name)) return [];
     if (/\.spec\./.test(entry.name) || entry.name.endsWith('.d.ts')) return [];
     return [full];
   });
@@ -92,6 +93,16 @@ function checkSource(file, source) {
   const { layer, name } = layerOf(file);
   const add = (index, rule, message) =>
     errors.push({ file, line: lineOf(source, index), rule, message });
+
+  // Los estilos de features deben consumir tokens de src/styles/theme.css en vez de hex fijos.
+  if (file.endsWith('.css')) {
+    if (layer === 'feature') {
+      for (const match of code.matchAll(CSS_HEX_RE)) {
+        add(match.index, 'feature-no-hex', `usa un token CSS en vez de ${match[0]}`);
+      }
+    }
+    return errors;
+  }
 
   for (const { spec, index } of parseImports(code)) {
     const target = internalPath(spec, file);
@@ -269,6 +280,7 @@ function runSelfTest() {
     ['core-no-react', 'src/core/storage.ts', "import { MapScreen } from '@/features/map/MapScreen';"],
     [null, 'src/features/map/MapScreen.tsx', "import { Button } from '@/shared/ui/Button'; import { validateChain } from '@/domain/graph/validate';"],
     ['line-budget', 'src/domain/graph/long.ts', 'x\n'.repeat(151)],
+    ['feature-no-hex', 'src/features/map/MapScreen.module.css', '.card { background: #ffffff; }'],
   ];
 
   let ok = true;
