@@ -115,6 +115,26 @@
   opacity: var(--sky-sun-core-op, 1);
 }
 
+/* En modo oscuro el disco solar se recorta como media luna orientada a la izquierda sin usar filtros en runtime */
+:global([data-theme='dark']) .sunCore {
+  border-radius: 0;
+  transform: translate(-50%, -50%) rotate(22deg);
+  background: radial-gradient(
+    circle at 70% 42%,
+    #fffdf5 0%,
+    var(--sky-sun-core, #f5f0dc) 58%,
+    #d6ddf7 100%
+  );
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23000' d='M25.88 12.01A45 45 0 1 1 25.88 87.99A38 38 0 0 0 25.88 12.01Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23000' d='M25.88 12.01A45 45 0 1 1 25.88 87.99A38 38 0 0 0 25.88 12.01Z'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
 .rays {
   inset: -10%;
   background:

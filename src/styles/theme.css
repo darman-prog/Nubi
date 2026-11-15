@@ -185,12 +185,12 @@
   --sky-horizon-op: 0.5;
   --sky-sun-x: 78%;
   --sky-sun-y: 18%;
-  --sky-sun-size: min(34vmin, 260px);
-  --sky-sun-core: #f3f1e6;
-  --sky-sun-core-size: 14%;
-  --sky-sun-glow: #b8c4ff55;
-  --sky-sun-halo-op: 0.55;
-  --sky-sun-op: 0.72;
+  --sky-sun-size: clamp(220px, 38vmin, 320px);
+  --sky-sun-core: #f5f0dc;
+  --sky-sun-core-size: 24%;
+  --sky-sun-glow: #b8c4ff66;
+  --sky-sun-halo-op: 0.62;
+  --sky-sun-op: 0.82;
   --sky-ray: rgba(199, 210, 254, 0.14);
   --sky-ray-op: 0;
   --sky-cloud-hi: #8d93c8aa;
