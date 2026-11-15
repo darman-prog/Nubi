@@ -4,7 +4,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-2px);
   }
 }
 
@@ -24,30 +24,24 @@
   color: var(--text);
   text-decoration: none;
   transition: transform 0.2s ease;
-  animation: islandFloat 4.4s ease-in-out infinite;
+  animation: islandFloat 5.8s ease-in-out infinite;
   will-change: transform;
 }
 
 .card:nth-child(even) {
-  animation-duration: 5.1s;
+  animation-duration: 6.8s;
   animation-delay: -1.8s;
 }
 
 .card:nth-child(3n) {
-  animation-duration: 4.8s;
+  animation-duration: 6.3s;
   animation-delay: -3.1s;
 }
 
 .card:hover,
 .card:focus-visible {
   animation-play-state: paused;
-  transform: translateY(-4px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card {
-    animation: none;
-  }
+  transform: translateY(-2px);
 }
 
 .cloudSvg {
@@ -84,7 +78,6 @@
   border: 2px solid var(--surface);
   background: linear-gradient(135deg, var(--primary-soft), var(--primary-soft-hover));
   box-shadow: 0 4px 12px rgba(80, 67, 201, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease;
 }
 
 .avatar img {
@@ -92,10 +85,6 @@
   height: 100%;
   object-fit: cover;
   border-radius: 14px;
-}
-
-.card:hover .avatar {
-  transform: scale(1.05);
 }
 
 .text {

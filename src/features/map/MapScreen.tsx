@@ -47,9 +47,7 @@ export default function MapScreen(): React.JSX.Element {
       <header className={styles.header}>
         <div className={styles.brand}>
           <span className={styles.moon} aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a8.5 8.5 0 1 0 10.6 10.6Z" />
-            </svg>
+            <Icon name="moon" size={20} />
           </span>
           <div>
             <h1 className={styles.title}>Archipiélago</h1>

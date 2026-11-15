@@ -1,6 +1,7 @@
 import { useCallback, useId, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { useFocusTrap } from '@/shared/hooks/useFocusTrap';
+import { Icon } from './icons/Icon';
 import styles from './Sheet.module.css';
 
 interface SheetProps {
@@ -39,7 +40,7 @@ export function Sheet({ title, onClose, children }: SheetProps): React.JSX.Eleme
             {title}
           </h1>
           <button type="button" className={styles.close} onClick={close} aria-label="Cerrar">
-            <span aria-hidden="true">×</span>
+            <Icon name="close" size={18} />
           </button>
         </header>
         <div className={styles.body}>{children}</div>

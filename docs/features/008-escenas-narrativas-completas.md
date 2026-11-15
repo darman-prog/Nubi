@@ -1,8 +1,8 @@
 ---
 id: 008
-status: en-curso
+status: cerrada
 created: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-14
 ---
 # Feature 008 — Escenas Narrativas Completas del Archipiélago
 

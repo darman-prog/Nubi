@@ -1,8 +1,8 @@
 ---
 id: 006
-status: en-curso
+status: cerrada
 created: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-14
 ---
 # Feature 006 — UI completa, responsive de paridad y Diario
 
@@ -31,10 +31,10 @@ Sustituir los placeholders por el flujo real con arte y contenido, sin crear un 
 ## Runner
 | Campo | Valor |
 |---|---|
-| estado | en-curso |
+| estado | cerrada |
 | dueño | build |
-| paso | 0/7 |
-| siguiente | ADR-016 + docs 01/03/04/05 |
+| paso | 7/7 |
+| siguiente | Bloque 7 (MEC-02..MEC-07) |
 | bloqueado_por | - |
 | ultimo_handoff | - |
 
@@ -50,7 +50,7 @@ Sustituir los placeholders por el flujo real con arte y contenido, sin crear un 
 ## Bitácora
 | Criterio | Fecha | Comando | Exit | Commit |
 |---|---|---|---|---|
-| - | - | - | - | - |
+| 1–7 | 2026-11-14 | `npm run check`, `npm run build`, `npx playwright test --reporter=dot` (89 unit + 101 E2E) | 0 | `feat/ui-pulido` |
 
 ## Rollback
 `git revert` de los commits de la feature; el estado local no se migra porque `schemaVersion` sigue en 1.

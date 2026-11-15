@@ -61,7 +61,11 @@ export default function PassportSheet(): React.JSX.Element {
             <div key={island.id} className={`${styles.stamp} ${statusClass}`}>
               {isCurrent ? (
                 <span className={styles.nubiIndicator} aria-hidden="true" title="Nubi está aquí">
-                  <Icon name="cloud" size={14} />
+                  <img
+                    className={styles.nubiAvatar}
+                    src={artUrl('arte/nubi/nubi-feliz.webp')}
+                    alt=""
+                  />
                 </span>
               ) : null}
 
@@ -99,12 +103,21 @@ export default function PassportSheet(): React.JSX.Element {
           <div>
             <p className={styles.progressTitle}>Camino a Sabio del Sueño</p>
             <p className={styles.progressSub}>
-              {earned.length} de {slots.length} islas completadas
+              {earned.length === 0
+                ? 'Aún no ganas sellos · Explora tu primera isla'
+                : `${earned.length} de ${slots.length} islas completadas`}
             </p>
           </div>
         </div>
 
-        <div className={styles.barTrack} role="progressbar" aria-valuenow={progressPercent} aria-valuemin={0} aria-valuemax={100}>
+        <div
+          className={styles.barTrack}
+          role="progressbar"
+          aria-label="Progreso hacia Sabio del Sueño"
+          aria-valuenow={progressPercent}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
           <div className={styles.barFill} style={{ width: `${progressPercent}%` }} />
         </div>
       </div>

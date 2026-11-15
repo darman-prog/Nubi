@@ -6,12 +6,13 @@ export type { IconName };
 interface IconProps {
   name: IconName;
   size?: number;
+  strokeWidth?: number;
   label?: string;
   className?: string;
 }
 
 /** Icono vectorial unificado para evitar emojis dependientes de plataforma. */
-export function Icon({ name, size = 20, label, className }: IconProps) {
+export function Icon({ name, size = 20, strokeWidth = 2, label, className }: IconProps) {
   const classes = className ? `${styles.icon} ${className}` : styles.icon;
   // Sin etiqueta explícita es decorativo; con ella expone rol accesible.
   const a11yProps = label
@@ -25,7 +26,7 @@ export function Icon({ name, size = 20, label, className }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       focusable="false"

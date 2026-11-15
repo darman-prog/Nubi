@@ -46,9 +46,10 @@ export function StarrySky(): React.JSX.Element {
             height={s.size}
             viewBox="0 0 24 24"
             fill="currentColor"
+            focusable="false"
           >
-            {/* Estrella de cuatro puntas suave onírica */}
-            <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" />
+            {/* Destello onírico de cuatro puntas con curvas suaves */}
+            <path d="M12 2Q13.3 10.7 22 12Q13.3 13.3 12 22Q10.7 13.3 2 12Q10.7 10.7 12 2Z" />
           </svg>
         );
       })}

@@ -52,13 +52,6 @@
   animation: sheet-up var(--dur-slow) var(--ease-out) both;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scrim,
-  .sheet {
-    animation: none;
-  }
-}
-
 .sheet:focus {
   outline: none;
 }

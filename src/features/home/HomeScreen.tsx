@@ -29,6 +29,7 @@ export default function HomeScreen(): React.JSX.Element {
               viewBox="0 0 300 104"
               preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
+              focusable="false"
             >
               <defs>
                 <linearGradient id="cloud-fill" x1="0" y1="0" x2="0" y2="1">
