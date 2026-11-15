@@ -2,13 +2,19 @@ import { content } from '@/core/content/content-repository';
 import { DataBackupSection } from './components/DataBackupSection';
 import { InstallAppSection } from './components/InstallAppSection';
 import { SettingsSection } from './components/SettingsSection';
+import { Icon, type IconName } from '@/shared/ui/icons/Icon';
 import styles from './HelpScreen.module.css';
 
-const SIGNS = [
-  { icon: '☀️', title: 'Mucho sueño durante el día', subtitle: 'Cansancio constante en clases o desconexión habitual a la tarde.', bgClass: styles.signSun },
-  { icon: '🌬️', title: 'Ronquido fuerte o pausas al respirar', subtitle: 'Despertarte con boca muy seca o sensación de ahogo suave en la noche.', bgClass: styles.signAir },
-  { icon: '🛡️', title: 'Pesadillas frecuentes', subtitle: 'Sueños que te intranquilizan a menudo o temor al momento de ir a la cama.', bgClass: styles.signShield },
-  { icon: '💜', title: 'Sentirte triste, irritable o abrumado', subtitle: 'Tus emociones se sienten demasiado pesadas durante muchos días continuos.', bgClass: styles.signHeart },
+const SIGNS: ReadonlyArray<{
+  icon: IconName;
+  title: string;
+  subtitle: string;
+  bgClass: string;
+}> = [
+  { icon: 'sun', title: 'Mucho sueño durante el día', subtitle: 'Cansancio constante en clases o desconexión habitual a la tarde.', bgClass: styles.signSun },
+  { icon: 'wind', title: 'Ronquido fuerte o pausas al respirar', subtitle: 'Despertarte con boca muy seca o sensación de ahogo suave en la noche.', bgClass: styles.signAir },
+  { icon: 'shield', title: 'Pesadillas frecuentes', subtitle: 'Sueños que te intranquilizan a menudo o temor al momento de ir a la cama.', bgClass: styles.signShield },
+  { icon: 'heart', title: 'Sentirte triste, irritable o abrumado', subtitle: 'Tus emociones se sienten demasiado pesadas durante muchos días continuos.', bgClass: styles.signHeart },
 ];
 
 export default function HelpScreen(): React.JSX.Element {
@@ -21,7 +27,9 @@ export default function HelpScreen(): React.JSX.Element {
       </header>
 
       <section className={styles.heroCard} aria-labelledby="hero-title">
-        <div className={styles.heroAura} aria-hidden="true">☁️</div>
+        <div className={styles.heroAura} aria-hidden="true">
+          <Icon name="cloud" size={26} />
+        </div>
         <h2 id="hero-title" className={styles.heroTitle}>No tienes que resolver esto solo.</h2>
         <p className={styles.heroText}>
           Cuidar tu descanso y tus emociones es un camino acompañado. Estamos aquí para orientarte con tranquilidad y paciencia.
@@ -36,7 +44,9 @@ export default function HelpScreen(): React.JSX.Element {
         <div className={styles.bentoList}>
           {SIGNS.map((sign) => (
             <div key={sign.title} className={styles.bentoItem}>
-              <div className={`${styles.bentoIcon} ${sign.bgClass}`} aria-hidden="true">{sign.icon}</div>
+              <div className={`${styles.bentoIcon} ${sign.bgClass}`} aria-hidden="true">
+                <Icon name={sign.icon} size={18} />
+              </div>
               <div className={styles.bentoText}>
                 <h3 className={styles.bentoTitle}>{sign.title}</h3>
                 <p className={styles.bentoSub}>{sign.subtitle}</p>

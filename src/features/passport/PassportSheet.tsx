@@ -7,6 +7,7 @@ import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
 import { Button } from '@/shared/ui/Button';
 import { Sheet } from '@/shared/ui/Sheet';
+import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './PassportSheet.module.css';
 
 export default function PassportSheet(): React.JSX.Element {
@@ -60,7 +61,7 @@ export default function PassportSheet(): React.JSX.Element {
             <div key={island.id} className={`${styles.stamp} ${statusClass}`}>
               {isCurrent ? (
                 <span className={styles.nubiIndicator} aria-hidden="true" title="Nubi está aquí">
-                  ☁️
+                  <Icon name="cloud" size={14} />
                 </span>
               ) : null}
 
@@ -73,11 +74,11 @@ export default function PassportSheet(): React.JSX.Element {
                   />
                 ) : isCurrent ? (
                   <span className={styles.currentIcon} aria-hidden="true">
-                    🧭
+                    <Icon name="compass" size={20} />
                   </span>
                 ) : (
                   <span className={styles.lockIcon} aria-hidden="true">
-                    🔒
+                    <Icon name="lock" size={20} />
                   </span>
                 )}
               </div>
@@ -93,7 +94,7 @@ export default function PassportSheet(): React.JSX.Element {
       <div className={styles.progressCard}>
         <div className={styles.progressInfo}>
           <span className={styles.progressIcon} aria-hidden="true">
-            🎓
+            <Icon name="graduation" size={22} />
           </span>
           <div>
             <p className={styles.progressTitle}>Camino a Sabio del Sueño</p>
@@ -115,7 +116,7 @@ export default function PassportSheet(): React.JSX.Element {
       <div className={styles.actions}>
         {complete ? (
           <Button className={styles.cta} onClick={() => go('/coronacion')}>
-            Ver coronación 👑
+            Ver coronación <Icon name="crown" size={18} />
           </Button>
         ) : null}
         <Button variant="ghost" onClick={close}>

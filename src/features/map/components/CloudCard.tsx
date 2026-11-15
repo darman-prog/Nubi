@@ -4,6 +4,7 @@ import { content } from '@/core/content/content-repository';
 import { weakestLevel } from '@/domain/evidence/levels';
 import { cx } from '@/shared/lib/cx';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
+import { Icon, type IconName } from '@/shared/ui/icons/Icon';
 import styles from './CloudCard.module.css';
 
 type CardState = 'new' | 'current' | 'completed' | 'soon' | 'fog';
@@ -20,23 +21,23 @@ interface CloudCardProps {
 
 interface EvidenceBadgeInfo {
   label: string;
-  icon: string;
+  icon: IconName;
   styleKey: 'E3' | 'E2' | 'E1' | 'nido';
 }
 
 // Resuelve la etiqueta científica o pedagógica del mockup 02
 function getEvidenceBadge(island: Isla): EvidenceBadgeInfo | null {
   if (island.slug === 'nido') {
-    return { label: 'Tu Nido seguro', icon: '🌿', styleKey: 'nido' };
+    return { label: 'Tu Nido seguro', icon: 'leaf', styleKey: 'nido' };
   }
   const levels = island.fuentes
     .map((id) => content.evidenceById(id)?.level)
     .filter((lvl): lvl is EvidenceLevel => Boolean(lvl));
   const level = weakestLevel(levels);
   if (!level) return null;
-  if (level === 'E3') return { label: 'Bien establecido', icon: '✓', styleKey: 'E3' };
-  if (level === 'E2') return { label: 'Probable', icon: '🔬', styleKey: 'E2' };
-  return { label: 'Emergente', icon: '💡', styleKey: 'E1' };
+  if (level === 'E3') return { label: 'Bien establecido', icon: 'check', styleKey: 'E3' };
+  if (level === 'E2') return { label: 'Probable', icon: 'flask', styleKey: 'E2' };
+  return { label: 'Emergente', icon: 'bulb', styleKey: 'E1' };
 }
 
 export function CloudCard({
@@ -88,7 +89,7 @@ export function CloudCard({
           </span>
           {evidence ? (
             <span className={cx(styles.evidenceBadge, styles[evidence.styleKey])}>
-              <span aria-hidden="true">{evidence.icon}</span>
+              <Icon name={evidence.icon} size={13} />
               <span>{evidence.label}</span>
             </span>
           ) : null}

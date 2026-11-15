@@ -3,6 +3,7 @@ import { content } from '@/core/content/content-repository';
 import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
 import { Button } from '@/shared/ui/Button';
+import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './CoronationScreen.module.css';
 
 export default function CoronationScreen(): React.JSX.Element {
@@ -43,7 +44,7 @@ export default function CoronationScreen(): React.JSX.Element {
                 />
               ) : (
                 <span className={styles.miniLock} aria-hidden="true">
-                  🔒
+                  <Icon name="lock" size={16} />
                 </span>
               )}
               <span className={styles.miniName}>{island.nombre}</span>

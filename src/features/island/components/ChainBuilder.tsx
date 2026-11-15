@@ -8,6 +8,7 @@ import {
 import { findPaths } from '@/domain/graph/find-paths';
 import { validateChain } from '@/domain/graph/validate-chain';
 import { Button } from '@/shared/ui/Button';
+import { Icon } from '@/shared/ui/icons/Icon';
 import type { Chain } from '../../../../content/schema';
 import styles from '../IslandSheet.module.css';
 
@@ -148,7 +149,7 @@ export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.
             Eslabón más débil: {describeWeakestLevel(validation.weakest)}
           </p>
           <Button className={styles.cta} onClick={onSolved}>
-            Reclamar sello 🏅
+            Reclamar sello <Icon name="medal" size={18} />
           </Button>
         </div>
       ) : null}

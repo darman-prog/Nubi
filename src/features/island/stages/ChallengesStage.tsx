@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { content } from '@/core/content/content-repository';
 import type { Isla } from '../../../../content/schema';
 import { Button } from '@/shared/ui/Button';
+import { Icon } from '@/shared/ui/icons/Icon';
 import { ChainBuilder } from '../components/ChainBuilder';
 import { SourceBlock } from '../components/SourceBlock';
 import styles from '../IslandSheet.module.css';
@@ -88,7 +89,7 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
           {answer ? (
             <div className={`${styles.feedbackCard} ${correct ? styles.feedbackCorrect : styles.feedbackTryAgain}`} role="status">
               <span className={styles.feedbackIcon} aria-hidden="true">
-                {correct ? '💡' : '🌱'}
+                <Icon name={correct ? 'bulb' : 'sprout'} size={18} />
               </span>
               <p className={styles.feedbackText}>
                 {correct ? question.explicacion : 'Casi. Puedes probar con otra de las opciones.'}
@@ -103,7 +104,11 @@ export function ChallengesStage({ island, onFinish }: ChallengesStageProps): Rea
               className={styles.cta}
               onClick={() => (chain ? setActiveTab('chain') : onFinish())}
             >
-              {chain ? 'Continuar al reto de cadena →' : 'Reclamar sello 🏅'}
+              {chain ? 'Continuar al reto de cadena →' : (
+                <>
+                  Reclamar sello <Icon name="medal" size={18} />
+                </>
+              )}
             </Button>
           ) : null}
         </div>

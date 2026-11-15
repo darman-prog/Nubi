@@ -1,6 +1,7 @@
 import { artUrl } from '@/core/content/assets';
 import type { Isla } from '../../../../content/schema';
 import { Button } from '@/shared/ui/Button';
+import { Icon } from '@/shared/ui/icons/Icon';
 import styles from '../IslandSheet.module.css';
 
 interface SealStageProps {
@@ -43,7 +44,7 @@ export function SealStage({
 
       {!claimed ? (
         <Button className={styles.cta} onClick={onClaim}>
-          Reclamar sello 🏅
+          Reclamar sello <Icon name="medal" size={18} />
         </Button>
       ) : (
         <>

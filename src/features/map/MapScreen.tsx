@@ -6,7 +6,9 @@ import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
 import { CloudCard } from './components/CloudCard';
 import { CloudSilhouettes } from './components/CloudSilhouettes';
+import { RouteConnector, type RouteStatus } from './components/RouteConnector';
 import { StarrySky } from './components/StarrySky';
+import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './MapScreen.module.css';
 
 const ZONES = [
@@ -23,6 +25,7 @@ export default function MapScreen(): React.JSX.Element {
   const seals = deriveStamps(state.progress, content.islands);
   const next = nextIsland(state.progress, content.islands);
   const sealCount = seals.filter((seal) => seal.earned).length;
+  const earnedIds = new Set(seals.filter((seal) => seal.earned).map((seal) => seal.island.id));
   const screenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function MapScreen(): React.JSX.Element {
           onClick={() => go('/pasaporte', { cloud: false })}
         >
           <span className={styles.passportIcon} aria-hidden="true">
-            📖
+            <Icon name="book" size={16} />
           </span>
           <span>Pasaporte</span>
           <span className={styles.count}>{sealCount}</span>
@@ -68,7 +71,7 @@ export default function MapScreen(): React.JSX.Element {
 
       <div className={styles.intro}>
         <span className={styles.introChip}>
-          <span aria-hidden="true">✦</span>
+          <Icon name="sparkle" size={14} />
           <span>{content.islands.length} islas para recorrer</span>
         </span>
         <p>Explora hacia arriba · Aprende a tu propio compás</p>
@@ -88,6 +91,19 @@ export default function MapScreen(): React.JSX.Element {
           const fog = islands.filter((island) => !full.includes(island));
           const playable = islands.filter(isPlanned).length;
           const isHere = islands.some((island) => island.id === next?.id);
+          const lowerZone = ZONES[zoneIndex + 1];
+          const lowerPlayable = lowerZone
+            ? content.islands.filter((i) => i.zona === lowerZone.zone && isPlanned(i))
+            : [];
+          // Estado del tramo ascendente desde la zona inferior hacia la actual.
+          const routeStatus: RouteStatus =
+            !lowerZone || playable === 0
+              ? 'upcoming'
+              : lowerPlayable.length > 0 && lowerPlayable.every((i) => earnedIds.has(i.id))
+                ? 'completed'
+                : lowerPlayable.some((i) => i.id === next?.id)
+                  ? 'active'
+                  : 'upcoming';
 
           return (
             <div key={zone} className={styles.zoneGroup}>
@@ -148,12 +164,8 @@ export default function MapScreen(): React.JSX.Element {
             ) : null}
           </section>
 
-          {/* Conector de ruta punteado entre zonas con nodo celestial */}
-          {zoneIndex < ZONES.length - 1 ? (
-            <div className={styles.routeConnector} aria-hidden="true">
-              <span className={styles.routeLine} />
-              <span className={styles.routeNode} />
-            </div>
+          {lowerZone ? (
+            <RouteConnector status={routeStatus} flip={zoneIndex % 2 === 1} />
           ) : null}
         </div>
       );

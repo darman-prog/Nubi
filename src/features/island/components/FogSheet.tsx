@@ -5,6 +5,7 @@ import { useTransitionNavigate } from '@/shared/hooks/useTransitionNavigate';
 import { useUserState } from '@/shared/state/UserStateContext';
 import { Button } from '@/shared/ui/Button';
 import { Sheet } from '@/shared/ui/Sheet';
+import { Icon } from '@/shared/ui/icons/Icon';
 import { content } from '@/core/content/content-repository';
 import styles from '../IslandSheet.module.css';
 
@@ -34,7 +35,7 @@ export function FogSheet({ island, onClose }: FogSheetProps): React.JSX.Element 
         {/* Datos y estado amable de la isla */}
         <div className={styles.fogDetails}>
           <span className={styles.fogBadge}>
-            <span aria-hidden="true">✦</span>
+            <Icon name="sparkle" size={13} />
             <span>En construcción · Con calma</span>
           </span>
           <h3 className={styles.fogTitle}>{island.nombre}</h3>
@@ -44,7 +45,7 @@ export function FogSheet({ island, onClose }: FogSheetProps): React.JSX.Element 
         {/* Tarjeta pedagógica de transparencia científica */}
         <div className={styles.fogInfoCard}>
           <span className={styles.fogInfoIcon} aria-hidden="true">
-            🔭
+            <Icon name="telescope" size={20} />
           </span>
           <p className={styles.fogDescription}>
             Esta isla está cubierta por la niebla mientras revisamos y respaldamos cada dato con

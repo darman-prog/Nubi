@@ -5,16 +5,17 @@ import type { UserStateV1 } from '@/core/user-state';
 import { useUserState, useUserStateStore } from '@/shared/state/UserStateContext';
 import { upsertDiaryEntry } from '@/domain/diary/diary-entry';
 import { formatMinutes, isPlausible, sleepMinutes } from '@/domain/diary/sleep-math';
+import { Icon } from '@/shared/ui/icons/Icon';
 import styles from './DiaryScreen.module.css';
 
 type DiaryEntry = UserStateV1['diary'][number];
 
 const MOODS = [
-  { value: 1, label: 'Muy bajo', face: '😞' },
-  { value: 2, label: 'Bajo', face: '🙁' },
-  { value: 3, label: 'Normal', face: '😐' },
-  { value: 4, label: 'Bien', face: '🙂' },
-  { value: 5, label: 'Muy bien', face: '😊' },
+  { value: 1, label: 'Muy bajo', icon: 'mood-1' },
+  { value: 2, label: 'Bajo', icon: 'mood-2' },
+  { value: 3, label: 'Normal', icon: 'mood-3' },
+  { value: 4, label: 'Bien', icon: 'mood-4' },
+  { value: 5, label: 'Muy bien', icon: 'mood-5' },
 ] as const;
 
 const TRIED_OPTIONS: Array<{ value: NonNullable<DiaryEntry['experimentTried']>; label: string }> = [
@@ -98,7 +99,7 @@ export default function DiaryScreen(): React.JSX.Element {
                 aria-pressed={mood === item.value}
                 onClick={() => setMood(item.value)}
               >
-                <span aria-hidden="true">{item.face}</span>
+                <Icon name={item.icon} size={22} />
                 <span>{item.label}</span>
               </button>
             ))}

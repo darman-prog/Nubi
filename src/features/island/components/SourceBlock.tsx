@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { content } from '@/core/content/content-repository';
 import { markSourceOpened } from '@/core/progress-service';
 import { useUserStateStore } from '@/shared/state/UserStateContext';
+import { Icon } from '@/shared/ui/icons/Icon';
 import styles from '../IslandSheet.module.css';
 
 const LEVEL_LABEL = {
@@ -56,7 +57,7 @@ export function SourceBlock({ islandId, evidenceId }: SourceBlockProps): React.J
         onClick={handleOpen}
       >
         <span className={`${styles.sourceLevel} ${styles[`level_${evidence.level}`]}`}>
-          ● {LEVEL_LABEL[evidence.level]}
+          <Icon name="dot" size={8} /> {LEVEL_LABEL[evidence.level]}
         </span>
         Ver fuente
       </button>
@@ -85,7 +86,7 @@ export function SourceBlock({ islandId, evidenceId }: SourceBlockProps): React.J
             <div className={styles.sourceSheetHeader}>
               <div className={styles.sourceHeaderTitle}>
                 <span className={styles.sourceHeaderIcon} aria-hidden="true">
-                  📖
+                  <Icon name="book" size={20} />
                 </span>
                 <div>
                   <h2 id={`source-title-${evidence.id}`} className={styles.sourceSheetTitle}>
@@ -101,7 +102,7 @@ export function SourceBlock({ islandId, evidenceId }: SourceBlockProps): React.J
                 onClick={handleClose}
                 aria-label="Cerrar hoja de fuente"
               >
-                ✕
+                <Icon name="close" size={16} />
               </button>
             </div>
 
