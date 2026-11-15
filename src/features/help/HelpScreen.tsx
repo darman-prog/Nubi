@@ -1,5 +1,6 @@
 import { content } from '@/core/content/content-repository';
 import { DataBackupSection } from './components/DataBackupSection';
+import { InstallAppSection } from './components/InstallAppSection';
 import { SettingsSection } from './components/SettingsSection';
 import styles from './HelpScreen.module.css';
 
@@ -70,6 +71,7 @@ export default function HelpScreen(): React.JSX.Element {
 
       <SettingsSection />
       <DataBackupSection />
+      <InstallAppSection />
 
       <section className={styles.card} aria-labelledby="fuentes-title">
         <h2 id="fuentes-title">Fuentes y evidencia</h2>

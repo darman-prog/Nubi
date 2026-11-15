@@ -76,4 +76,30 @@ describe('HelpScreen', () => {
     fireEvent.click(screen.getByRole('button', { name: /¿seguro\? toca para borrar todo/i }));
     expect(screen.getByText(/tu viaje ha sido reiniciado/i)).toBeInTheDocument();
   });
+
+  it('muestra botón de instalación cuando llega beforeinstallprompt y refleja estado offline', async () => {
+    const store = new UserStateStore(new StorageService(null, 0));
+    renderHelp(store);
+
+    const promptSpy = vi.fn(async () => {});
+    const installEvent = new Event('beforeinstallprompt') as Event & {
+      prompt: () => Promise<void>;
+      userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+    };
+    installEvent.prompt = promptSpy;
+    installEvent.userChoice = Promise.resolve({ outcome: 'accepted' });
+
+    fireEvent(window, installEvent);
+
+    const installBtn = await screen.findByRole('button', {
+      name: /instalar nubi en este dispositivo/i,
+    });
+    fireEvent.click(installBtn);
+    await waitFor(() => {
+      expect(promptSpy).toHaveBeenCalledOnce();
+    });
+
+    fireEvent(window, new Event('offline'));
+    expect(screen.getByText(/sin conexión/i)).toBeInTheDocument();
+  });
 });
