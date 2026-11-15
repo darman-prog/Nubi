@@ -8,6 +8,8 @@ export const EscenaSchema = z.object({
   texto: TextoEscenaSchema,
   alt: z.string().min(1),
   isHealthClaim: z.boolean(),
+  // Marca las analogías y síntesis didácticas para etiquetarlas en la interfaz.
+  isSimplified: z.boolean().optional(),
   evidenceId: z.string().optional(),
   ilustracion: z.string().optional(),
 });

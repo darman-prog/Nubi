@@ -201,13 +201,31 @@ export const validateContent = (
 
   for (const isla of data.islands) {
     const disponible = isla.disponibilidad === 'available';
+    const tienePreguntas = Boolean(isla.pregunta) || (isla.miniQuiz?.length ?? 0) > 0;
+    const fuentesSet = new Set(isla.fuentes);
+
     if (disponible && isla.zona > 0) {
       if (!isla.historia || isla.historia.length < 3) {
         errors.push(`isla ${isla.id}: disponible sin historia (mínimo 3 escenas)`);
       }
-      if (!isla.pregunta) errors.push(`isla ${isla.id}: disponible sin pregunta`);
+      if (!tienePreguntas) errors.push(`isla ${isla.id}: disponible sin pregunta`);
       if (!isla.reto) errors.push(`isla ${isla.id}: disponible sin reto`);
     }
+
+    // Evita que pregunta y miniQuiz repitan el mismo id en una isla.
+    const idsPreguntasIsla = [
+      ...(isla.pregunta ? [isla.pregunta.id] : []),
+      ...(isla.miniQuiz ?? []).map((q) => q.id),
+    ];
+    errors.push(...duplicados(idsPreguntasIsla, `preguntas de ${isla.id}`));
+
+    // Garantiza que toda ficha citada dentro de la isla figure también en su índice de fuentes.
+    const verificarEnFuentes = (evidenceId: string | undefined, ubicacion: string): void => {
+      if (evidenceId && !fuentesSet.has(evidenceId)) {
+        errors.push(`${ubicacion}: ficha ${evidenceId} no está listada en fuentes de ${isla.id}`);
+      }
+    };
+
     if (isla.llegada) {
       for (const frase of isla.llegada) {
         if (contarCaracteres(frase) > MAX_CARACTERES_NUBI) {
@@ -231,6 +249,7 @@ export const validateContent = (
           }
         }
       }
+      verificarEnFuentes(escena.evidenceId, `escena ${escena.id}`);
       errors.push(...revisarPalabras(escena.texto, `escena ${escena.id}`));
     }
     const validarPregunta = (pregunta: NonNullable<Isla['pregunta']>): void => {
@@ -245,8 +264,14 @@ export const validateContent = (
           errors.push(`pregunta ${pregunta.id}: usa una ficha restringida`);
         }
       }
+      verificarEnFuentes(pregunta.evidenceId, `pregunta ${pregunta.id}`);
       errors.push(...revisarPalabras(pregunta.enunciado, `pregunta ${pregunta.id}`));
       errors.push(...revisarPalabras(pregunta.explicacion, `pregunta ${pregunta.id}`));
+      for (const opcion of pregunta.opciones) {
+        errors.push(
+          ...revisarPalabras(opcion.texto, `pregunta ${pregunta.id} opción ${opcion.id}`),
+        );
+      }
       const correctas = pregunta.opciones.filter((opcion) => opcion.correcta).length;
       if (correctas !== 1) {
         errors.push(`pregunta ${pregunta.id}: debe tener exactamente una opción correcta`);
@@ -258,6 +283,7 @@ export const validateContent = (
       const ficha = evidenciaPorId.get(evidenceId);
       if (!ficha) errors.push(`${ubicacion}: ficha inexistente ${evidenceId}`);
       else if (ficha.restricted) errors.push(`${ubicacion}: usa una ficha restringida`);
+      verificarEnFuentes(evidenceId, ubicacion);
     };
 
     if (isla.pregunta) validarPregunta(isla.pregunta);

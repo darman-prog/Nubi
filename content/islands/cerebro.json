@@ -18,6 +18,7 @@
       "texto": "Tu memoria tiene tres momentos: aprender algo nuevo, guardarlo mientras duermes y recordarlo después. Dormir poco puede interferir en ese proceso.",
       "alt": "Biblioteca de nubes con libros flotando y guardándose de noche",
       "isHealthClaim": false,
+      "isSimplified": true,
       "ilustracion": "arte/escenas/cerebro-1.webp"
     },
     {
@@ -32,7 +33,7 @@
     {
       "id": "ESC-CEREBRO-3",
       "acto": "efecto",
-      "texto": "En cambio, tras varias noches seguidas de poco sueño, los adolescentes retuvieron peor el material de clase al evaluarlos días después.",
+      "texto": "En cambio, tras varias noches seguidas de poco sueño, los adolescentes retuvieron peor el material de clase cuando se les evaluó días después.",
       "alt": "Estantería de nubes desordenándose con libros que se deslizan",
       "isHealthClaim": true,
       "evidenceId": "EV-013",
@@ -50,7 +51,7 @@
     {
       "id": "ESC-CEREBRO-5",
       "acto": "cierre",
-      "texto": "¿Por qué no coinciden? Parece depender de cuántas noches duermes poco y qué estudias. Igual, trasnochar no es gratis: recuerda cómo afecta tu ánimo.",
+      "texto": "¿Por qué no coinciden? Parece depender de cuántas noches duermes poco y qué estudias. Aun así, trasnochar seguido pasa factura al aprendizaje.",
       "alt": "Dos bibliotecarios nube comparando libros abiertos distintos",
       "isHealthClaim": true,
       "evidenceId": "EV-024",
@@ -59,9 +60,9 @@
   ],
   "pregunta": {
     "id": "PR-4",
-    "enunciado": "Si un amigo te dice que una noche corta borra todo lo que estudiaste, ¿qué responde la evidencia?",
+    "enunciado": "Si un amigo te dice que una noche corta borra todo lo que estudiaste, ¿qué dice la evidencia?",
     "opciones": [
-      { "id": "OP-4A", "texto": "Siempre borra toda la memoria de inmediato", "correcta": false },
+      { "id": "OP-4A", "texto": "Borra toda la memoria de inmediato en cualquier caso", "correcta": false },
       { "id": "OP-4B", "texto": "Depende: una noche corta no mostró cambio en palabras, pero varias noches seguidas sí afectaron material de clase", "correcta": true },
       { "id": "OP-4C", "texto": "Dormir poco mejora los resultados escolares", "correcta": false }
     ],
@@ -74,7 +75,7 @@
       "id": "MR-02",
       "afirmacion": "Una noche corta borra todo lo que estudiaste.",
       "veredicto": "depende",
-      "explicacion": "En un estudio con 22 adolescentes, una noche de 4 h no alteró el recuerdo de palabras; tras varias noches cortas, otro estudio vio peor retención de material de clase.",
+      "explicacion": "En un estudio con 22 adolescentes, una noche de 4 horas no cambió de forma clara el recuerdo de palabras; tras varias noches cortas, otro estudio vio peor retención de material de clase.",
       "isHealthClaim": true,
       "evidenceId": "EV-024"
     }
@@ -104,7 +105,7 @@
         "id": "EST-C",
         "nombre": "Estudio C (Cousins et al., 2019)",
         "participantes": "59 adolescentes (15-18 años)",
-        "duracion": "5 noches con 5 h frente a 9 h",
+        "duracion": "5 noches con 5 horas frente a 9 horas",
         "queMidieron": "Contenido factual tipo clase evaluado días después",
         "huboEfecto": true,
         "evidenceId": "EV-013"
@@ -127,7 +128,7 @@
         "esClave": false
       }
     ],
-    "hipotesisPlausible": "Es una hipótesis plausible (no probada en un solo estudio): la memoria parece más sensible tras varias noches cortas y con material escolar complejo. Eso no significa que trasnochar salga gratis: el ánimo se resiente antes.",
+    "hipotesisPlausible": "Es una hipótesis plausible (no probada en un solo estudio): la memoria parece más sensible tras varias noches cortas y con material escolar complejo, por lo que trasnochar seguido no sale gratis.",
     "evidenceId": "EV-024"
   },
   "reto": {

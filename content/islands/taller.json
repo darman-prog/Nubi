@@ -8,14 +8,14 @@
   "posicion": { "x": 75, "y": 94 },
   "ordenSugerido": 5,
   "llegada": [
-    "Estas son ideas pequeñas para probar durante una semana, no una receta obligatoria.",
+    "Estas son ideas sencillas para probar durante una semana, no una receta obligatoria.",
     "Si algo no te funciona, es normal: puedes observar qué te sirve en tu propio ritmo."
   ],
   "historia": [
     {
       "id": "ESC-TALLER-1",
       "acto": "sintoma",
-      "texto": "En este taller eliges experimentos sencillos para probar cómo responde tu cuerpo. No hay puntaje ni obligación de cumplirlos todos.",
+      "texto": "En este taller eliges experimentos sencillos para probar cómo responde tu cuerpo. No hay puntaje ni obligación de cumplir con todos.",
       "alt": "Banco de trabajo de nubes con tres experimentos sencillos",
       "isHealthClaim": false,
       "ilustracion": "arte/escenas/taller-1.webp"
@@ -41,7 +41,7 @@
     {
       "id": "ESC-TALLER-4",
       "acto": "efecto",
-      "texto": "Dejar el celular al otro lado de la habitación reduce distracciones y facilita un cierre tranquilo antes de acostarte.",
+      "texto": "Dejar el celular al otro lado de la habitación puede ayudar a evitar distracciones y facilitar un cierre tranquilo antes de acostarte.",
       "alt": "Cama de nubes con el celular descansando al otro extremo de la habitación",
       "isHealthClaim": true,
       "evidenceId": "EV-021b",
@@ -50,7 +50,7 @@
     {
       "id": "ESC-TALLER-5",
       "acto": "cierre",
-      "texto": "Un rato de baja estimulación con respiración pausada puede ayudarte a bajar el ritmo. Si el cansancio sigue intenso, habla con un adulto o profesional.",
+      "texto": "Un rato de baja estimulación con respiración pausada puede ayudarte a bajar el ritmo antes de acostarte.",
       "alt": "Nubi respirando despacio con ondas suaves alrededor",
       "isHealthClaim": true,
       "evidenceId": "EV-021c",
@@ -61,11 +61,11 @@
     "id": "PR-5",
     "enunciado": "Al probar un cambio en tu rutina de sueño, ¿cuál es la mejor forma de evaluarlo?",
     "opciones": [
-      { "id": "OP-5A", "texto": "Probar una idea pequeña varios días y observar cómo te sientes sin regañarte", "correcta": true },
-      { "id": "OP-5B", "texto": "Cambiar todo de golpe y exigirte dormir exacto desde la primera noche", "correcta": false },
-      { "id": "OP-5C", "texto": "Tomar suplementos por tu cuenta sin consultar", "correcta": false }
+      { "id": "OP-5A", "texto": "Probar una idea sencilla varios días y observar cómo te sientes sin regañarte", "correcta": true },
+      { "id": "OP-5B", "texto": "Cambiar todo de golpe y exigirte dormir exactamente igual desde la primera noche", "correcta": false },
+      { "id": "OP-5C", "texto": "Imponer una regla rígida sin observar cómo responde tu cuerpo", "correcta": false }
     ],
-    "explicacion": "Los cambios sostenibles nacen de experimentar poco a poco; cualquier medicamento o suplemento conviene hablarlo con un médico.",
+    "explicacion": "Los cambios sostenibles nacen de experimentar poco a poco y observar qué te sirve sin presionarte.",
     "isHealthClaim": true,
     "evidenceId": "EV-021c"
   },
@@ -81,7 +81,7 @@
       {
         "id": "EXP-LUZ",
         "titulo": "Luz natural en la mañana",
-        "detalle": "Abrir cortinas o salir a luz natural al despertar para orientar tu reloj.",
+        "detalle": "Abrir cortinas o salir a la luz natural al despertar para orientar tu reloj.",
         "evidenceId": "EV-021b"
       },
       {

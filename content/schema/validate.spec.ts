@@ -159,4 +159,25 @@ describe('validador de contenido', () => {
     const resultado = validateContent(data, { gate: 'prod' });
     expect(resultado.errors.join('\n')).toContain('no cumple la compuerta prod');
   });
+
+  it('rechaza palabras prohibidas dentro de las opciones de una pregunta', () => {
+    const data = contenidoBase();
+    data.islands[0]!.pregunta!.opciones[0]!.texto = 'Siempre ocurre así';
+    const resultado = validateContent(data);
+    expect(resultado.errors.join('\n')).toContain('palabra prohibida');
+  });
+
+  it('rechaza cuando una escena o pregunta cita una ficha ausente en fuentes de la isla', () => {
+    const data = contenidoBase();
+    data.islands[0]!.fuentes = [];
+    const resultado = validateContent(data);
+    expect(resultado.errors.join('\n')).toContain('no está listada en fuentes de ISL-RELOJ');
+  });
+
+  it('rechaza preguntas duplicadas entre pregunta y miniQuiz de la misma isla', () => {
+    const data = contenidoBase();
+    data.islands[0]!.miniQuiz = [{ ...data.islands[0]!.pregunta! }];
+    const resultado = validateContent(data);
+    expect(resultado.errors.join('\n')).toContain('preguntas de ISL-RELOJ: ID duplicado PR-1');
+  });
 });

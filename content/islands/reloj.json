@@ -41,7 +41,7 @@
     {
       "id": "ESC-RELOJ-4",
       "acto": "efecto",
-      "texto": "En EE. UU., 68,4 % de los estudiantes de bachillerato duerme 7 horas o menos en las noches de colegio.",
+      "texto": "En EE.UU., el 68,4 % de los estudiantes de secundaria duerme 7 horas o menos en las noches de colegio.",
       "alt": "Casitas-nube en la noche con luces tenues de descanso",
       "isHealthClaim": true,
       "evidenceId": "EV-002",
@@ -57,30 +57,6 @@
       "ilustracion": "arte/escenas/reloj-5.webp"
     }
   ],
-  "pregunta": {
-    "id": "PR-1",
-    "enunciado": "¿Por qué muchos adolescentes sienten sueño más tarde?",
-    "opciones": [
-      {
-        "id": "a",
-        "texto": "Porque su reloj biológico se corre en la pubertad",
-        "correcta": true
-      },
-      {
-        "id": "b",
-        "texto": "Porque el colegio empieza antes de lo que tu reloj pide",
-        "correcta": false
-      },
-      {
-        "id": "c",
-        "texto": "Porque necesitan dormir menos que los niños",
-        "correcta": false
-      }
-    ],
-    "explicacion": "En la pubertad cambian la fase del reloj, la melatonina y la sensibilidad a la luz.",
-    "isHealthClaim": true,
-    "evidenceId": "EV-003"
-  },
   "miniQuiz": [
     {
       "id": "PR-1",
@@ -108,13 +84,13 @@
     },
     {
       "id": "PR-13",
-      "enunciado": "Si pedir 'acuéstate temprano' no funciona en la adolescencia, ¿por qué suele ocurrir?",
+      "enunciado": "Si pedir «acuéstate temprano» no alcanza en la adolescencia, ¿a qué se debe?",
       "opciones": [
         { "id": "a", "texto": "Porque el retraso del reloj interno y las demandas escolares chocan entre sí", "correcta": true },
         { "id": "b", "texto": "Porque basta con tener fuerza de voluntad", "correcta": false },
         { "id": "c", "texto": "Porque los adolescentes ya no acumulan presión de sueño", "correcta": false }
       ],
-      "explicacion": "El retraso biológico en la pubertad se combina con tareas, redes y horario temprano del colegio.",
+      "explicacion": "El retraso biológico en la pubertad se combina con las tareas, las redes y el horario temprano del colegio.",
       "isHealthClaim": true,
       "evidenceId": "EV-004"
     }

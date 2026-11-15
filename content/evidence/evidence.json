@@ -22,17 +22,17 @@
   },
   {
     "id": "EV-002",
-    "claimTechnical": "En encuestas nacionales YRBS de los CDC en EE. UU., alrededor del 68,4 % a 68,9 % de estudiantes de secundaria reportó dormir 7 horas o menos en noches escolares.",
-    "claimTeen": "En EE. UU., alrededor de 68,4 % de estudiantes de secundaria duerme 7 horas o menos en noches de colegio. El dato es de los CDC y no describe a Colombia.",
+    "claimTechnical": "En encuestas nacionales YRBS de los CDC en EE.UU., alrededor del 68,4 % a 68,9 % de estudiantes de secundaria reportó dormir 7 horas o menos en noches escolares.",
+    "claimTeen": "En EE.UU., alrededor de 68,4 % de estudiantes de secundaria duerme 7 horas o menos en noches de colegio. El dato es de los CDC y no describe a Colombia.",
     "source": {
       "citation": "Eaton DK, McKnight-Eily LR, Lowry R, Perry GS, Presley-Cantrell L, Croft JB. Prevalence of insufficient, borderline, and optimal hours of sleep among high school students - United States, 2007. J Adolesc Health. 2010;46(4):399-401; citado con ciclos YRBS en Watson NF, et al. J Clin Sleep Med. 2017;13(4):623-625.",
       "url": "https://doi.org/10.5664/jcsm.6558",
       "sourceType": "dato-vigilancia"
     },
-    "population": "Estudiantes de bachillerato de EE. UU. (encuesta nacional YRBS 2007-2013)",
+    "population": "Estudiantes de bachillerato de EE.UU. (encuesta nacional YRBS 2007-2013)",
     "design": "Encuesta nacional de vigilancia escolar por autorreporte (CDC YRBSS)",
-    "finding": "Más de dos tercios de estudiantes en EE. UU. reportaron 7 horas o menos de sueño en noches escolares (~68,4 %-68,9 %).",
-    "limitations": "Dato autoinformado de vigilancia en EE. UU.; no se generaliza directamente a colegios de Colombia.",
+    "finding": "Más de dos tercios de estudiantes en EE.UU. reportaron 7 horas o menos de sueño en noches escolares (~68,4 %-68,9 %).",
+    "limitations": "Dato autoinformado de vigilancia en EE.UU.; no se generaliza directamente a colegios de Colombia.",
     "level": "E3",
     "geography": "EE.UU.",
     "usedIn": ["ISL-RELOJ"],

@@ -15,7 +15,7 @@
     {
       "id": "ESC-ANIMO-1",
       "acto": "sintoma",
-      "texto": "En un estudio con 50 adolescentes, cinco noches seguidas con 6,5 horas de sueño aumentaron la tensión, el enojo y el cansancio.",
+      "texto": "En un estudio con 50 adolescentes, cinco noches seguidas con 6,5 horas en cama aumentaron la tensión, el enojo y el cansancio.",
       "alt": "Fila de nubes adolescentes con gestos de cansancio y tensión",
       "isHealthClaim": true,
       "evidenceId": "EV-007",
@@ -44,6 +44,7 @@
       "texto": "Durante la adolescencia, los circuitos cerebrales que ayudan a frenar las reacciones inmediatas todavía se están afinando; con poco sueño, ese freno responde más despacio.",
       "alt": "Arco de niebla suave acolchada moderando un rayito de luz dorada",
       "isHealthClaim": false,
+      "isSimplified": true,
       "ilustracion": "arte/escenas/animo-4.webp"
     },
     {
@@ -55,18 +56,6 @@
       "ilustracion": "arte/escenas/animo-5.webp"
     }
   ],
-  "pregunta": {
-    "id": "PR-3",
-    "enunciado": "En el estudio científico con adolescentes restringidos a 6,5 horas de sueño, ¿qué cambios se observaron?",
-    "opciones": [
-      { "id": "OP-3A", "texto": "Aumento significativo en tensión, irritabilidad y fatiga", "correcta": true },
-      { "id": "OP-3B", "texto": "Ningún cambio en su estado de ánimo", "correcta": false },
-      { "id": "OP-3C", "texto": "Mayor energía para estudiar", "correcta": false }
-    ],
-    "explicacion": "El estudio con 50 adolescentes encontró que tras 5 noches durmiendo 6,5 horas aumentaron el enojo, la tensión y la fatiga.",
-    "isHealthClaim": true,
-    "evidenceId": "EV-007"
-  },
   "miniQuiz": [
     {
       "id": "PR-3",
@@ -76,27 +65,27 @@
         { "id": "OP-3B", "texto": "Ningún cambio en su estado de ánimo", "correcta": false },
         { "id": "OP-3C", "texto": "Mayor energía para estudiar", "correcta": false }
       ],
-      "explicacion": "Tanto los jóvenes como sus padres notaron mayor irritabilidad y fatiga tras 5 noches a 6,5 horas.",
+      "explicacion": "Tanto los jóvenes como sus padres notaron mayor irritabilidad y fatiga tras 5 noches a 6,5 horas en cama.",
       "isHealthClaim": true,
       "evidenceId": "EV-007"
     },
     {
       "id": "PR-32",
-      "enunciado": "En ese mismo estudio de 5 noches, ¿qué NO cambió entre dormir 6,5 horas y dormir 10 horas?",
+      "enunciado": "En ese mismo estudio de 5 noches, ¿qué no cambió entre pasar 6,5 horas y 10 horas en cama?",
       "opciones": [
         { "id": "OP-32A", "texto": "Las puntuaciones de depresión clínica", "correcta": true },
         { "id": "OP-32B", "texto": "El cansancio durante el día", "correcta": false },
         { "id": "OP-32C", "texto": "La facilidad para enojarse", "correcta": false }
       ],
-      "explicacion": "En adolescentes, la falta de sueño suele reflejarse primero en irritabilidad e impulsividad más que en tristeza.",
+      "explicacion": "En adolescentes, la falta de sueño suele reflejarse primero en irritabilidad más que en tristeza.",
       "isHealthClaim": true,
       "evidenceId": "EV-007"
     },
     {
       "id": "PR-33",
-      "enunciado": "Cuando una ficha sobre sueño y recompensa lleva la etiqueta 'Aún se investiga', ¿qué significa?",
+      "enunciado": "Sobre la relación entre dormir poco y cómo respondes a recompensas o emociones intensas, ¿qué muestra la evidencia?",
       "opciones": [
-        { "id": "OP-33A", "texto": "Que los resultados son mixtos o de pocos estudios observacionales", "correcta": true },
+        { "id": "OP-33A", "texto": "Que los resultados son mixtos y cambian según la edad y el diseño del estudio", "correcta": true },
         { "id": "OP-33B", "texto": "Que no vale la pena descansar", "correcta": false },
         { "id": "OP-33C", "texto": "Que ocurre idéntico en todas las edades", "correcta": false }
       ],
@@ -108,9 +97,9 @@
   "mitosRealidad": [
     {
       "id": "MR-03",
-      "afirmacion": "Con 6 horas y media de sueño cada noche tu ánimo queda igual que con 10 horas.",
+      "afirmacion": "Con 6,5 horas en cama cada noche tu ánimo queda igual que con 10 horas.",
       "veredicto": "mito",
-      "explicacion": "En 50 adolescentes de 14 a 17 años, 5 noches a 6,5 horas aumentaron tensión, enojo e irritabilidad frente a 10 horas.",
+      "explicacion": "En 50 adolescentes de 14 a 17 años, 5 noches a 6,5 horas en cama aumentaron tensión, enojo e irritabilidad frente a 10 horas.",
       "isHealthClaim": true,
       "evidenceId": "EV-007"
     },
@@ -118,7 +107,7 @@
       "id": "MR-06",
       "afirmacion": "Si estás irritable con frecuencia, es solo tu carácter.",
       "veredicto": "mito",
-      "explicacion": "Dormir poco se asocia con mayor irritabilidad; revisar tus horas de descanso ayuda antes de juzgar tu carácter.",
+      "explicacion": "Dormir poco se asocia con mayor irritabilidad; revisar tus horas de descanso puede ayudarte a entender cómo te sientes.",
       "isHealthClaim": true,
       "evidenceId": "EV-007"
     }
@@ -129,5 +118,5 @@
     "huecos": 2
   },
   "puentes": ["B-06", "B-07"],
-  "fuentes": ["EV-007"]
+  "fuentes": ["EV-007", "EV-014"]
 }
