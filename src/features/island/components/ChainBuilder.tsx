@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { content } from '@/core/content/content-repository';
-import type { Chain } from '../../../../content/schema';
+import {
+  describeWeakestLevel,
+  findMatchingPath,
+  getChainHint,
+} from '@/domain/graph/chain-hints';
+import { findPaths } from '@/domain/graph/find-paths';
+import { validateChain } from '@/domain/graph/validate-chain';
 import { Button } from '@/shared/ui/Button';
+import type { Chain } from '../../../../content/schema';
 import styles from '../IslandSheet.module.css';
 
 interface ChainBuilderProps {
@@ -11,86 +18,156 @@ interface ChainBuilderProps {
 
 const label = (id: string): string => content.nodeById(id)?.label ?? id;
 
+/** Armador de cadenas causales con validación por grafo, múltiples caminos y 3 niveles de pistas. */
 export function ChainBuilder({ chain, onSolved }: ChainBuilderProps): React.JSX.Element {
   const [path, setPath] = useState<string[]>([chain.start]);
-  const [error, setError] = useState(false);
+  const [feedback, setFeedback] = useState<string | null>(null);
+  const [hintLevel, setHintLevel] = useState<0 | 1 | 2 | 3>(0);
+
+  const validPaths = useMemo(() => {
+    const discovered = findPaths(chain.start, chain.end, [...content.edges]);
+    return discovered.length > 0 ? discovered : [chain.solution];
+  }, [chain.start, chain.end, chain.solution]);
+
   const current = path[path.length - 1];
+  const validation = useMemo(() => validateChain(path, [...content.edges]), [path]);
+  const isSolved = current === chain.end && validation.status === 'correct';
 
   const outgoing = content.edges
     .filter((edge) => edge.status === 'published' && edge.from === current)
     .map((edge) => edge.to);
   const candidates = [...new Set([...outgoing, ...chain.distractors])].filter(
-    (id) => !path.includes(id) || id === current,
+    (id) => !path.includes(id),
   );
 
   const choose = (next: string): void => {
-    if (chain.solution[path.length] !== next) {
-      setError(true);
+    const nextPath = [...path, next];
+    const check = validateChain(nextPath, [...content.edges]);
+    if (check.status !== 'correct') {
+      setFeedback('Ese puente no conecta aquí. Puedes intentarlo otra vez con calma.');
       return;
     }
-    const nextPath = [...path, next];
+
+    // Si el puente existe pero no tiene ruta hacia la meta, avisamos antes de atascar al usuario.
+    const canReachGoal = Boolean(findMatchingPath(nextPath, validPaths));
+    if (next !== chain.end && !canReachGoal) {
+      setFeedback(`Ese puente es real, pero desde ahí no llegas a «${label(chain.end)}».`);
+      return;
+    }
+
     setPath(nextPath);
-    setError(false);
-    if (nextPath.length === chain.solution.length) onSolved();
+    setFeedback(null);
+    setHintLevel(0);
+  };
+
+  const undo = (): void => {
+    if (path.length <= 1) return;
+    setPath((prev) => prev.slice(0, -1));
+    setFeedback(null);
+    setHintLevel(0);
   };
 
   const reset = (): void => {
     setPath([chain.start]);
-    setError(false);
+    setFeedback(null);
+    setHintLevel(0);
   };
+
+  const nextHint = (): void => {
+    setHintLevel((prev) => (prev < 3 ? ((prev + 1) as 1 | 2 | 3) : 3));
+  };
+
+  const hintText =
+    hintLevel === 0 ? null : getChainHint(hintLevel, path, validPaths, content.edges, label);
 
   return (
     <div className={styles.chain}>
       <p className={styles.chainTitle}>{chain.title}</p>
+      <p className={styles.chainGoal}>Meta: {label(chain.end)}</p>
       <p className={styles.chainHelp}>
         Conecta las causas y efectos tocando la pieza que sigue. Sin puntaje ni vidas.
       </p>
 
-      {/* Camino visual de la cadena con flechas de conexión */}
+      {/* Camino visual de la cadena con flechas y nivel de evidencia por enlace */}
       <ol className={styles.chainPath}>
-        {path.map((id, index) => (
-          <li key={id} className={styles.chainNode}>
-            {index > 0 ? (
-              <span className={styles.chainArrow} aria-hidden="true">
-                →
+        {path.map((id, index) => {
+          const link = index > 0 ? validation.links[index - 1] : undefined;
+          return (
+            <li key={id} className={styles.chainNode}>
+              {index > 0 ? (
+                <span className={styles.chainArrow} aria-hidden="true">
+                  ↓ {link?.level ? <span className={styles.edgeLevelBadge}>{link.level}</span> : null}
+                </span>
+              ) : null}
+              <span className={styles.nodeCard}>
+                <span className={styles.nodeIndex}>{index + 1}</span>
+                {label(id)}
               </span>
-            ) : null}
-            <span className={styles.nodeCard}>
-              <span className={styles.nodeIndex}>{index + 1}</span>
-              {label(id)}
-            </span>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ol>
 
-      <div className={styles.piecesContainer}>
-        <span className={styles.piecesTitle}>Piezas disponibles:</span>
-        <div className={styles.chainPieces}>
-          {candidates.map((id) => (
-            <button
-              key={id}
-              type="button"
-              className={styles.piece}
-              onClick={() => choose(id)}
-            >
-              <span className={styles.piecePlus} aria-hidden="true">
-                +
-              </span>
-              {label(id)}
-            </button>
-          ))}
+      {!isSolved ? (
+        <div className={styles.piecesContainer}>
+          <span className={styles.piecesTitle}>Piezas disponibles:</span>
+          <div className={styles.chainPieces}>
+            {candidates.map((id) => (
+              <button
+                key={id}
+                type="button"
+                className={styles.piece}
+                onClick={() => choose(id)}
+              >
+                <span className={styles.piecePlus} aria-hidden="true">
+                  +
+                </span>
+                {label(id)}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
 
-      {error ? (
+      {feedback ? (
         <p className={styles.chainError} role="status">
-          Ese puente no va ahí. Puedes intentarlo otra vez con calma.
+          {feedback}
         </p>
       ) : null}
 
-      <Button variant="ghost" onClick={reset}>
-        Reiniciar cadena ↺
-      </Button>
+      {hintText ? (
+        <p className={styles.chainHint} role="status">
+          {hintText}
+        </p>
+      ) : null}
+
+      {isSolved ? (
+        <div className={styles.chainSolved} role="status">
+          <p className={styles.chainSolvedTitle}>¡Cadena completa!</p>
+          <p className={styles.chainHelp}>
+            Eslabón más débil: {describeWeakestLevel(validation.weakest)}
+          </p>
+          <Button className={styles.cta} onClick={onSolved}>
+            Reclamar sello 🏅
+          </Button>
+        </div>
+      ) : null}
+
+      <div className={styles.chainControls}>
+        {!isSolved ? (
+          <Button variant="ghost" onClick={nextHint} disabled={hintLevel === 3}>
+            {hintLevel === 0 ? 'Pedir pista' : `Otra pista (${hintLevel}/3)`}
+          </Button>
+        ) : null}
+        {path.length > 1 && !isSolved ? (
+          <Button variant="ghost" onClick={undo}>
+            Deshacer paso
+          </Button>
+        ) : null}
+        <Button variant="ghost" onClick={reset}>
+          Reiniciar cadena ↺
+        </Button>
+      </div>
     </div>
   );
 }
