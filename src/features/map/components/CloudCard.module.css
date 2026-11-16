@@ -1,15 +1,38 @@
 /*
- * Flote vertical tipo seno: solo 2 extremos con `alternate`, así la curva
- * ease-in-out frena únicamente arriba y abajo (no en cada keyframe intermedio).
- * Anima la propiedad individual `translate` para no pisar el `transform` del hover.
- * Sin rotación: inclinar texto lo re-rasteriza y se ve tembloroso.
+ * Firma de movimiento "nube que respira": tres capas suaves con ritmos distintos.
+ * 1) La card sube y baja (islandFloat).
+ * 2) La silueta de nube se infla apenas, como si respirara (cloudBreath).
+ * 3) La miniatura de la isla se mece dentro de la nube con retraso (islandBob).
+ * Los periodos no son múltiplos entre sí, así la mezcla casi nunca se repite igual
+ * y se siente viva sin exagerar. Cada capa anima una propiedad individual
+ * (`translate` / `scale`) para no pisar el `transform` del hover.
  */
 @keyframes islandFloat {
   from {
     translate: 0 0;
   }
   to {
-    translate: 0 -5px;
+    translate: 0 -4px;
+  }
+}
+
+/* Se infla más a lo alto que a lo ancho y desde la base, como una nube que inhala */
+@keyframes cloudBreath {
+  from {
+    scale: 1 1;
+  }
+  to {
+    scale: 1.012 1.03;
+  }
+}
+
+/* Mecido mínimo de la isla: 2px bastan para dar profundidad sin distraer */
+@keyframes islandBob {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -2px;
   }
 }
 
@@ -25,7 +48,7 @@
   position: relative;
   isolation: isolate;
   display: block;
-  /* 28px superior compensa --t (26px) + pico del flote (-5px) + hover (-4px) sin invadir encabezados */
+  /* 28px superior compensa --t (26px) + pico del flote (-4px) + hover (-4px) sin invadir encabezados */
   margin: 28px 0 16px;
   color: var(--text);
   text-decoration: none;
@@ -36,15 +59,36 @@
 }
 
 /* Cada zona tiene su propia lista, así que nth-child no desfasaba nada:
-   se usa la variante de silueta (1-3) para que las nubes no suban al unísono. */
+   la variante de silueta (1-3) desfasa las tres capas para que ninguna nube
+   respire al unísono con otra. */
 .float2 {
   animation-duration: 3.7s;
   animation-delay: -1.3s;
 }
 
+.float2 .cloudSvg {
+  animation-duration: 3.1s;
+  animation-delay: -0.9s;
+}
+
+.float2 .avatar {
+  animation-duration: 2.6s;
+  animation-delay: -1.7s;
+}
+
 .float3 {
   animation-duration: 3.45s;
   animation-delay: -2.4s;
+}
+
+.float3 .cloudSvg {
+  animation-duration: 2.9s;
+  animation-delay: -2s;
+}
+
+.float3 .avatar {
+  animation-duration: 2.45s;
+  animation-delay: -0.6s;
 }
 
 /* El flote sigue corriendo; el hover suma una elevación encima vía `transform`,
@@ -68,6 +112,10 @@
   z-index: -1;
   pointer-events: none;
   filter: drop-shadow(0 8px 18px rgba(80, 67, 201, 0.1));
+  /* Respira desde la base para que el texto de encima nunca quede fuera del contorno */
+  transform-origin: 50% 100%;
+  animation: cloudBreath 2.7s ease-in-out infinite alternate;
+  will-change: scale;
 }
 
 .content {
@@ -94,6 +142,8 @@
   background: linear-gradient(135deg, var(--primary-soft), var(--primary-soft-hover));
   box-shadow: 0 4px 12px rgba(80, 67, 201, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  /* Retraso de 0.8s respecto a la card: la isla "llega tarde" y da sensación de peso */
+  animation: islandBob 2.3s ease-in-out -0.8s infinite alternate;
 }
 
 .card:hover .avatar,
@@ -278,6 +328,7 @@
 /* Respeta la preferencia de movimiento reducido del sistema */
 @media (prefers-reduced-motion: reduce) {
   .card,
+  .cloudSvg,
   .avatar,
   .arrow {
     animation: none;
