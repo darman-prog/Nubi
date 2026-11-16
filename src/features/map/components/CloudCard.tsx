@@ -30,7 +30,13 @@ export function CloudCard({
   return (
     <Link
       to={to}
-      className={cx(styles.card, styles[state], compact && styles.compact)}
+      className={cx(
+        styles.card,
+        styles[state],
+        compact && styles.compact,
+        // La variante de silueta también desfasa el ritmo del flote entre zonas.
+        variant !== 1 && styles[`float${variant}`],
+      )}
       data-current={state === 'current' ? 'true' : undefined}
       onClick={(event) => {
         event.preventDefault();
